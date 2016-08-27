@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="status_bar_padding">24dp</dimen>
+    <dimen name="layout_paddding">16dp</dimen>
+    <dimen name="toolbar_title_padding">72dp</dimen>
+</resources>

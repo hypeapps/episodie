@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        applicationId "pl.hypeapp.episoder"
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        debug {
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def androidSupportAppcompatVersion = '24.2.0'
+def androidSupportDesignVersion = '24.2.0'
+def androidSupportVersion = '24.2.0'
+def bumptechGlideVersion = '3.7.0'
+def squareupRetrofitVersion = '2.1.0'
+def squareupOkHttp = '3.4.1'
+def fasterxmlJacksonCoreVersion = '2.7.0'
+def butterKnifeVersion = '8.3.0'
+def hanksxyzHtextViewVersion = '0.1.5'
+def smarttablayoutLibraryVersion = '1.6.1@aar'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:$androidSupportAppcompatVersion"
+    compile "com.android.support:design:$androidSupportDesignVersion"
+    compile "com.android.support:support-v4:$androidSupportVersion"
+    compile "com.github.bumptech.glide:glide:$bumptechGlideVersion"
+    compile "com.squareup.retrofit2:retrofit:$squareupRetrofitVersion"
+    compile "com.squareup.okhttp3:okhttp:$squareupOkHttp"
+    compile "com.fasterxml.jackson.core:jackson-databind:$fasterxmlJacksonCoreVersion"
+    compile "com.fasterxml.jackson.core:jackson-core:$fasterxmlJacksonCoreVersion"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$fasterxmlJacksonCoreVersion"
+    compile "hanks.xyz:htextview-library:$hanksxyzHtextViewVersion"
+    compile "com.ogaclejapan.smarttablayout:library:$smarttablayoutLibraryVersion"
+    compile "com.jakewharton:butterknife:$butterKnifeVersion"
+    apt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+}

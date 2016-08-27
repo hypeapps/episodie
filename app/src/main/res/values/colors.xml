@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--ui pallete-->
+    <color name="colorPrimary"      >#0079eb</color>
+    <color name="colorPrimaryDark"  >#005bb1</color>
+    <color name="colorAccent"       >#0079ea</color>
+    <color name="materialBackground">#303030</color>
+    <color name="textColorPrimary"  >#FFFFFF</color>
+    <color name="textColorSecondary">#0079ea</color>
+    <!--standards colors-->
+</resources>
