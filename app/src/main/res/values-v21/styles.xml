@@ -6,5 +6,11 @@
         <item name="android:colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/materialBackground</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <!--SharedElement Transitions-->
+        <item name="android:windowContentTransitions">true</item>
+        <!--<item name="android:windowEnterTransition">@transition/slide_from_bottom</item>-->
+        <item name="android:windowExitTransition">@transition/explode</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/changebounds_with_arcmotion</item>
+        <item name="android:windowSharedElementExitTransition">@transition/changebounds_with_arcmotion</item>
     </style>
 </resources>
