@@ -3,4 +3,8 @@
     <dimen name="status_bar_padding">24dp</dimen>
     <dimen name="layout_paddding">16dp</dimen>
     <dimen name="toolbar_title_padding">72dp</dimen>
+
+    <integer name="anim_duration_very_long">1500</integer>
+    <integer name="anim_duration_long">500</integer>
+    <integer name="anim_duration_medium">300</integer>
 </resources>
