@@ -1,10 +1,9 @@
 package pl.hypeapp.episoder.ui.activity;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,6 +12,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
+import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,11 +21,15 @@ import pl.hypeapp.episoder.animation.BlurTransformation;
 import pl.hypeapp.episoder.animation.GrayscaleTransformation;
 import pl.hypeapp.episoder.animation.HTextViewAnimator;
 import pl.hypeapp.episoder.animation.YoYoAnimator;
+import pl.hypeapp.episoder.ui.presenter.SplashScreenPresenter;
 import pl.hypeapp.episoder.util.FontManager;
+import pl.hypeapp.episoder.util.StartActivityUtil;
 import pl.hypeapp.episoder.util.StringUtil;
+import pl.hypeapp.episoder.view.SplashScreenView;
 
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashScreenPresenter>
+    implements SplashScreenView {
     @BindView(R.id.iv_background_splash_screen)
     ImageView backgroundImage;
     @BindView(R.id.iv_text_logo)
@@ -57,31 +61,31 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onAnimationEnd() {
                 YoYo.with(Techniques.Bounce).playOn(textLogo);
                 yoyoAnimator.playDelayed(hTextView, Techniques.ZoomOut, 1500);
-                hTextView.postDelayed(runActivity(), 2100);
+                presenter.runActivityWithDelay(2100);
             }
         });
         hTextViewAnimator.PlaySequenceAnimation();
     }
 
-    Runnable runActivity(){
-        return new Runnable() {
-            @Override
-            public void run() {
-                View sharedLogo = textLogo;
-                View sharedBackground = backgroundImage;
-                Pair<View, String> sharedElement = Pair.
-                        create(sharedLogo, getResources().getString(R.string.shared_name_logo));
-                Pair<View, String> sharedElement1 = Pair.
-                        create(sharedBackground, getResources().getString(R.string.shared_name_background));
-                ActivityOptionsCompat transitionActivityOptions = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    transitionActivityOptions = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(SplashScreenActivity.this, sharedElement, sharedElement1);
-                }
-                startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class),
-                        transitionActivityOptions.toBundle());
-            }
-        };
+    @NonNull
+    @Override
+    public SplashScreenPresenter createPresenter() {
+        return new SplashScreenPresenter();
     }
 
+    public Activity getActivity(){
+        return this;
+    }
+
+    @Override
+    public void runActivity(Class startActivityClass) {
+        View sharedLogo = textLogo;
+        View sharedBackground = backgroundImage;
+        Pair<View, String> sharedLogoPair = Pair.
+                create(sharedLogo, getResources().getString(R.string.shared_name_logo));
+        Pair<View, String> sharedBackgroundPair = Pair.
+                create(sharedBackground, getResources().getString(R.string.shared_name_background));
+        StartActivityUtil startActivityUtil = StartActivityUtil.getInstance(getActivity());
+        startActivityUtil.runActivityWithTransition(startActivityClass, sharedLogoPair, sharedBackgroundPair);
+    }
 }
