@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Episodie</string>
+    <string name="shared_name_logo">logo</string>
+    <string name="shared_name_background">background</string>
 </resources>
