@@ -42,7 +42,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
 
-        Glide.with(this).load("http://www.goliath.com/wp-content/uploads/2015/12/1035x776-breakingbad-1800-1404309469.jpg")
+        Glide.with(this)
+                .load("http://www.goliath.com/wp-content/uploads/2015/12/1035x776-breakingbad-1800-1404309469.jpg")
                 .bitmapTransform(new BlurTransformation(this, 12), new GrayscaleTransformation(this))
                 .into(backgroundImage);
 
@@ -55,8 +56,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd() {
                 YoYo.with(Techniques.Bounce).playOn(textLogo);
-                yoyoAnimator.playDelayed(hTextView, Techniques.ZoomOut, 1600);
-                hTextView.postDelayed(runActivity(), 2000);
+                yoyoAnimator.playDelayed(hTextView, Techniques.ZoomOut, 1500);
+                hTextView.postDelayed(runActivity(), 2100);
             }
         });
         hTextViewAnimator.PlaySequenceAnimation();
@@ -77,7 +78,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                     transitionActivityOptions = ActivityOptionsCompat.
                             makeSceneTransitionAnimation(SplashScreenActivity.this, sharedElement, sharedElement1);
                 }
-                startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class), transitionActivityOptions.toBundle());
+                startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class),
+                        transitionActivityOptions.toBundle());
             }
         };
     }

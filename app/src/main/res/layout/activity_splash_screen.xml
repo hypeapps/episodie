@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:transitionName="background"/>
+        android:transitionName="background" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,24 +21,24 @@
             android:id="@+id/iv_text_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/episodie_logo"
             android:layout_alignParentEnd="false"
             android:layout_alignParentStart="false"
-            android:visibility="visible"
             android:layout_centerInParent="true"
-            android:transitionName="logo"/>
+            android:src="@drawable/episodie_logo"
+            android:transitionName="logo"
+            android:visibility="visible" />
 
         <com.hanks.htextview.HTextView
             android:id="@+id/tv_logo"
             style="@style/episodieTextStyle"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:textSize="32sp"
             android:layout_alignParentTop="false"
+            android:layout_below="@+id/iv_text_logo"
+            android:layout_centerInParent="true"
             android:gravity="center_horizontal"
             android:text="@string/app_name"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/iv_text_logo" />
+            android:textSize="32sp" />
     </RelativeLayout>
 
 </RelativeLayout>
