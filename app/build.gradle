@@ -37,6 +37,7 @@ def alormaTimeLineViewVersion = '2.3.0'
 def nineoldandroidsVersion = '2.4.0'
 def daimajiaEasingVersion = '1.0.1@aar'
 def daimajiaaAndroidAnimationsVersion = '1.1.3@aar'
+def mosbyVersion = '2.0.1'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -53,9 +54,11 @@ dependencies {
     compile "hanks.xyz:htextview-library:$hanksxyzHtextViewVersion"
     compile "com.ogaclejapan.smarttablayout:library:$smarttablayoutLibraryVersion"
     compile "com.github.alorma:timelineview:$alormaTimeLineViewVersion"
-    compile "com.jakewharton:butterknife:$butterKnifeVersion"
     compile "com.nineoldandroids:library:$nineoldandroidsVersion"
     compile "com.daimajia.easing:library:$daimajiaEasingVersion"
     compile "com.daimajia.androidanimations:library:$daimajiaaAndroidAnimationsVersion"
+    compile "com.hannesdorfmann.mosby:mvp:$mosbyVersion"
+    compile "com.hannesdorfmann.mosby:viewstate:$mosbyVersion"
+    compile "com.jakewharton:butterknife:$butterKnifeVersion"
     apt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 }
