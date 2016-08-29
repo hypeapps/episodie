@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="splash_screen_texts">
+        <item>tv shows</item>
+        <item>seasons</item>
+        <item>episodes</item>
+        <item>your tv series manager</item>
+    </string-array>
+</resources>
