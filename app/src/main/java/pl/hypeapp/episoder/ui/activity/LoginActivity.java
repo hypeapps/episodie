@@ -50,10 +50,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void enterActivityLogoTransition(View logoIcon, View logoText, ViewGroup rootGroup, long delayInMilis) {
-        logoIcon.postDelayed(logoTransition(logoIcon, logoText, rootGroup),delayInMilis);
+        logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, rootGroup),delayInMilis);
     }
 
-    Runnable logoTransition(final View logoIcon, final View logoText, final ViewGroup logoLayout){
+    Runnable logoTransitionRun(final View logoIcon, final View logoText, final ViewGroup logoLayout){
         return new Runnable() {
             @Override
             public void run() {
