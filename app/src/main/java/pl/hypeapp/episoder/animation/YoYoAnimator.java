@@ -18,9 +18,7 @@ public class YoYoAnimator {
         YoYo.with(techniques).delay(delayInMilis).playOn(view);
     }
 
-    public void play(Techniques techniques, View view){
+    public void play(Techniques techniques, View view) {
         YoYo.with(techniques).playOn(view);
     }
-
-
 }

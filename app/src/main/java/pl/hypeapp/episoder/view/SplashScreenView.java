@@ -1,7 +1,5 @@
 package pl.hypeapp.episoder.view;
 
-import android.net.Uri;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableTypeRequest;
