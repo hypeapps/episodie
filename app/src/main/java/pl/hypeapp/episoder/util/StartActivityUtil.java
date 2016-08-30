@@ -19,13 +19,15 @@ public class StartActivityUtil {
     private StartActivityUtil() {
     }
 
-    public void runActivityWithTransition(Class startActivityClass, Pair<View, String>... sharedElements){
+    public void runActivityWithTransition(Class startActivityClass, Pair<View, String>... sharedElements) {
         ActivityOptionsCompat transitionActivityOptions = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (BuildUtils.isMinApi21()) {
             transitionActivityOptions = ActivityOptionsCompat.
                     makeSceneTransitionAnimation(context, sharedElements);
         }
-        context.startActivity(new Intent(context, startActivityClass),
-                transitionActivityOptions.toBundle());
+        if (transitionActivityOptions != null) {
+            context.startActivity(new Intent(context, startActivityClass),
+                    transitionActivityOptions.toBundle());
+        }
     }
 }

@@ -1,9 +1,7 @@
 package pl.hypeapp.episoder.ui.activity;
 
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -11,7 +9,6 @@ import pl.hypeapp.episoder.R;
 
 
 public class MainWallActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
