@@ -1,17 +1,14 @@
 package pl.hypeapp.episoder.ui.activity;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
@@ -28,7 +25,6 @@ import pl.hypeapp.episoder.util.FontManager;
 import pl.hypeapp.episoder.util.StartActivityUtil;
 import pl.hypeapp.episoder.util.StringUtil;
 import pl.hypeapp.episoder.view.SplashScreenView;
-
 
 public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashScreenPresenter>
     implements SplashScreenView {
@@ -64,9 +60,8 @@ public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashSc
                 presenter.runActivityWithDelay(2100);
             }
         });
-        hTextViewAnimator.PlaySequenceAnimation();
+        hTextViewAnimator.playSequenceAnimation();
     }
-
 
     @NonNull
     @Override
@@ -91,13 +86,10 @@ public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashSc
     }
 
     @Override
-    public DrawableTypeRequest loadImageFromUrl(String url){
-        return Glide.with(this).load(url);
-    }
-
-    @Override
-    public void loadImageIntoView(ImageView view, DrawableTypeRequest drawableTypeRequest) {
-        drawableTypeRequest.bitmapTransform(new BlurTransformation(this, 12), new GrayscaleTransformation(this))
+    public void loadImageFromUrlIntoView(ImageView view, String url) {
+        Glide.with(this).load(url)
+                .bitmapTransform(new BlurTransformation(this, 12), new GrayscaleTransformation(this))
                 .into(view);
     }
+
 }
