@@ -1,7 +1,6 @@
 package pl.hypeapp.episoder.animation;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
@@ -33,7 +32,7 @@ public class HTextViewAnimator {
         this.listener = listener;
     }
 
-    public void PlaySequenceAnimation() {
+    public void playSequenceAnimation() {
         animateHTextViewSequence(0);
     }
 
