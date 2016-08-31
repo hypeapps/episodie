@@ -7,7 +7,7 @@ android {
     buildToolsVersion "24.0.1"
 
     defaultConfig {
-        applicationId "pl.hypeapp.episoder"
+        applicationId "pl.hypeapp.episodie"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1

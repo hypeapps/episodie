@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder;
+package pl.hypeapp.episodie;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

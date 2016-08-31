@@ -1,12 +1,12 @@
-package pl.hypeapp.episoder.ui.presenter;
+package pl.hypeapp.episodie.ui.presenter;
 
 import android.os.Handler;
 import android.widget.ImageView;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
-import pl.hypeapp.episoder.ui.activity.LoginActivity;
-import pl.hypeapp.episoder.view.SplashScreenView;
+import pl.hypeapp.episodie.ui.activity.LoginActivity;
+import pl.hypeapp.episodie.view.SplashScreenView;
 
 public class SplashScreenPresenter extends MvpBasePresenter<SplashScreenView> {
 

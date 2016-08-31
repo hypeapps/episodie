@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder.ui.activity;
+package pl.hypeapp.episodie.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,16 +15,16 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pl.hypeapp.episoder.R;
-import pl.hypeapp.episoder.animation.BlurTransformation;
-import pl.hypeapp.episoder.animation.GrayscaleTransformation;
-import pl.hypeapp.episoder.animation.HTextViewAnimator;
-import pl.hypeapp.episoder.animation.YoYoAnimator;
-import pl.hypeapp.episoder.ui.presenter.SplashScreenPresenter;
-import pl.hypeapp.episoder.util.FontManager;
-import pl.hypeapp.episoder.util.StartActivityUtil;
-import pl.hypeapp.episoder.util.StringUtil;
-import pl.hypeapp.episoder.view.SplashScreenView;
+import pl.hypeapp.episodie.R;
+import pl.hypeapp.episodie.animation.BlurTransformation;
+import pl.hypeapp.episodie.animation.GrayscaleTransformation;
+import pl.hypeapp.episodie.animation.HTextViewAnimator;
+import pl.hypeapp.episodie.animation.YoYoAnimator;
+import pl.hypeapp.episodie.ui.presenter.SplashScreenPresenter;
+import pl.hypeapp.episodie.util.FontManager;
+import pl.hypeapp.episodie.util.StartActivityUtil;
+import pl.hypeapp.episodie.util.StringUtil;
+import pl.hypeapp.episodie.view.SplashScreenView;
 
 public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashScreenPresenter>
     implements SplashScreenView {

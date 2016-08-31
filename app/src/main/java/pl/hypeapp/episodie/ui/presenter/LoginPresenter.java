@@ -1,10 +1,10 @@
-package pl.hypeapp.episoder.ui.presenter;
+package pl.hypeapp.episodie.ui.presenter;
 
 import android.widget.ImageView;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
-import pl.hypeapp.episoder.view.LoginView;
+import pl.hypeapp.episodie.view.LoginView;
 
 public class LoginPresenter extends MvpBasePresenter<LoginView>{
 

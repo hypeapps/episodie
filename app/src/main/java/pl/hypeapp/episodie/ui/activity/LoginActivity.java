@@ -1,6 +1,5 @@
-package pl.hypeapp.episoder.ui.activity;
+package pl.hypeapp.episodie.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.transition.TransitionManager;
@@ -18,12 +17,12 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pl.hypeapp.episoder.R;
-import pl.hypeapp.episoder.animation.BlurTransformation;
-import pl.hypeapp.episoder.animation.GrayscaleTransformation;
-import pl.hypeapp.episoder.ui.presenter.LoginPresenter;
-import pl.hypeapp.episoder.util.FontManager;
-import pl.hypeapp.episoder.view.LoginView;
+import pl.hypeapp.episodie.R;
+import pl.hypeapp.episodie.animation.BlurTransformation;
+import pl.hypeapp.episodie.animation.GrayscaleTransformation;
+import pl.hypeapp.episodie.ui.presenter.LoginPresenter;
+import pl.hypeapp.episodie.util.FontManager;
+import pl.hypeapp.episodie.view.LoginView;
 
 public class LoginActivity extends MvpActivity<LoginView, LoginPresenter>
         implements LoginView {

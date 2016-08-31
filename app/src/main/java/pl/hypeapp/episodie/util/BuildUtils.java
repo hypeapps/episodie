@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder.util;
+package pl.hypeapp.episodie.util;
 
 import android.os.Build;
 

@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder;
+package pl.hypeapp.episodie;
 
 import org.junit.Test;
 

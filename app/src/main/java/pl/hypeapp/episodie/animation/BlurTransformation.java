@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder.animation;
+package pl.hypeapp.episodie.animation;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,8 +12,8 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 
-import pl.hypeapp.episoder.animation.internal.FastBlur;
-import pl.hypeapp.episoder.animation.internal.RSBlur;
+import pl.hypeapp.episodie.animation.internal.FastBlur;
+import pl.hypeapp.episodie.animation.internal.RSBlur;
 
 
 public class BlurTransformation implements Transformation<Bitmap> {

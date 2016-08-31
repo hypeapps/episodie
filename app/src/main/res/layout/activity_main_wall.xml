@@ -4,7 +4,7 @@
     android:id="@+id/activity_main_wall_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pl.hypeapp.episoder.ui.activity.MainWallActivity">
+    tools:context="pl.hypeapp.episodie.ui.activity.MainWallActivity">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar" />

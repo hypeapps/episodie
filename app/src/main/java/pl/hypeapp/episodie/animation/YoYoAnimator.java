@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder.animation;
+package pl.hypeapp.episodie.animation;
 
 import android.view.View;
 

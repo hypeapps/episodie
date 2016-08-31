@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder.view;
+package pl.hypeapp.episodie.view;
 
 import android.widget.ImageView;
 

@@ -1,4 +1,4 @@
-package pl.hypeapp.episoder.animation.internal;
+package pl.hypeapp.episodie.animation.internal;
 
 import android.graphics.Bitmap;
 
