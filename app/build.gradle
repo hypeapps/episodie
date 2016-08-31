@@ -40,6 +40,7 @@ def daimajiaaAndroidAnimationsVersion = '1.1.3@aar'
 def mosbyVersion = '2.0.1'
 def eventBusVersion = '3.0.0'
 def glideOkhttpSupport = '1.4.0@aar'
+def firebaseVersion = '2.3.1'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -65,10 +66,12 @@ dependencies {
     compile "com.ogaclejapan.smarttablayout:library:$smarttablayoutLibraryVersion"
     compile "com.github.alorma:timelineview:$alormaTimeLineViewVersion"
     compile "org.greenrobot:eventbus:$eventBusVersion"
+    compile "com.firebase:firebase-client-android:$firebaseVersion"
     //    MVP
     compile "com.hannesdorfmann.mosby:mvp:$mosbyVersion"
     compile "com.hannesdorfmann.mosby:viewstate:$mosbyVersion"
     //    Dependency injection
     compile "com.jakewharton:butterknife:$butterKnifeVersion"
     apt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+
 }
