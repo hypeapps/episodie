@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
 
     defaultConfig {
-        applicationId "pl.hypeapp.episodie"
+        applicationId "pl.hypeapps.episodie"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
@@ -40,7 +41,11 @@ def daimajiaaAndroidAnimationsVersion = '1.1.3@aar'
 def mosbyVersion = '2.0.1'
 def eventBusVersion = '3.0.0'
 def glideOkhttpSupport = '1.4.0@aar'
-def firebaseVersion = '2.3.1'
+def firebaseVersion = '2.5.2+'
+def firebaseAuthVersion = "9.4.0"
+def rxAndroidVersion = "1.2.1"
+def daggerVersion = '1.2.2'
+def icepickVersion = '3.2.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -66,12 +71,19 @@ dependencies {
     compile "com.ogaclejapan.smarttablayout:library:$smarttablayoutLibraryVersion"
     compile "com.github.alorma:timelineview:$alormaTimeLineViewVersion"
     compile "org.greenrobot:eventbus:$eventBusVersion"
-    compile "com.firebase:firebase-client-android:$firebaseVersion"
+    compile "frankiesardo:icepick:$icepickVersion"
+    provided "frankiesardo:icepick-processor:$icepickVersion"
     //    MVP
     compile "com.hannesdorfmann.mosby:mvp:$mosbyVersion"
     compile "com.hannesdorfmann.mosby:viewstate:$mosbyVersion"
     //    Dependency injection
     compile "com.jakewharton:butterknife:$butterKnifeVersion"
+    compile "io.reactivex:rxandroid:$rxAndroidVersion"
     apt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+    compile "com.squareup.dagger:dagger:$daggerVersion"
+    provided "com.squareup.dagger:dagger-compiler:$daggerVersion"
+    //    Firebase
+    compile "com.firebase:firebase-client-android:$firebaseVersion"
+    compile "com.google.firebase:firebase-auth:$firebaseAuthVersion"
 
 }
