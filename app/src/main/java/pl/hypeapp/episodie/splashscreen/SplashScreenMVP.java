@@ -5,7 +5,6 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableTypeRequest;
-import com.tinmegali.mvp.mvp.ActivityView;
 import com.tinmegali.mvp.mvp.ModelOps;
 import com.tinmegali.mvp.mvp.PresenterOps;
 
@@ -27,8 +26,6 @@ public interface SplashScreenMVP {
      *      VIEW to PRESENTER
      */
     interface ProvidedPresenterOps extends PresenterOps<RequiredViewOps> {
-//        void loadBackgroundImage(ImageView splashScreenBackgroundImageView);
-//        void startEnterAnimation();
         void loadImageFromUrlIntoView(ImageView view, String url);
         void runActivityWithDelay(long delayInMilis);
     }
