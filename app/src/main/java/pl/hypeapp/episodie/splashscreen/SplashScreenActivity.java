@@ -1,11 +1,9 @@
 package pl.hypeapp.episodie.splashscreen;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.hanks.htextview.HTextView;
@@ -15,9 +13,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.base.BaseMVPActivity;
-import pl.hypeapp.episodie.login.LoginMVP;
-import pl.hypeapp.episodie.login.LoginPresenter;
-import pl.hypeapp.episodie.util.FontManager;
 import pl.hypeapp.episodie.util.StartActivityUtil;
 import pl.hypeapp.episodie.util.StringUtil;
 import pl.hypeapp.episodie.util.animation.HTextViewAnimator;
@@ -62,10 +57,6 @@ public class SplashScreenActivity extends
             }
         });
         hTextViewAnimator.playSequenceAnimation();
-    }
-
-    private void setTextLogoFont(TextView logoText) {
-        logoText.setTypeface(FontManager.getInstance(getAssets()).getFont("fonts/LeagueGothic-Regular.ttf"));
     }
 
     public void runActivity(Class startActivityClass) {

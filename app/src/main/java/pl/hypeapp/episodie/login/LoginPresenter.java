@@ -41,14 +41,4 @@ public class LoginPresenter extends GenericPresenter<LoginMVP.RequiredPresenterO
 
     @Override
     public void onBackPressed() {}
-
-    public void registerUserWithPassword(String email, String password) {
-//        getView().getFirebaseAuth().createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(getView().getActivity(), new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        Log.e("super", "w chuj");
-//                    }
-//                });
-    }
 }

@@ -1,6 +1,5 @@
 package pl.hypeapp.episodie.login;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.transition.TransitionManager;
 import android.view.View;
@@ -18,15 +17,14 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import pl.hypeapp.episodie.App;
 import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.base.BaseMVPActivity;
-import pl.hypeapp.episodie.util.FontManager;
 
 
 public class LoginActivity extends
         BaseMVPActivity<LoginMVP.RequiredViewOps, LoginMVP.ProvidedPresenterOps, LoginPresenter>
-        implements LoginMVP.RequiredViewOps{
+        implements LoginMVP.RequiredViewOps {
 
     @BindView(R.id.iv_login_background)
     ImageView loginBackgroundImageView;
@@ -41,6 +39,8 @@ public class LoginActivity extends
     @Inject
     FirebaseAuth firebaseAuth;
 
+    App app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +53,9 @@ public class LoginActivity extends
         getPresenter().loadImageFromUrlIntoView(loginBackgroundImageView, backgroundImageUrl);
         setTextLogoFont(logoText);
         enterActivityLogoTransition();
+
+        app = (App) getApplication();
+        app.getAuthComponent().inject(this);
     }
 
     @Override
@@ -61,9 +64,7 @@ public class LoginActivity extends
         finish();
     }
 
-    private void setTextLogoFont(TextView logoText) {
-        logoText.setTypeface(FontManager.getInstance(getAssets()).getFont("fonts/LeagueGothic-Regular.ttf"));
-    }
+
 
     public void enterActivityLogoTransition() {
         logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, logoLayout), 1400);
@@ -85,28 +86,10 @@ public class LoginActivity extends
         };
     }
 
-
-
     public FirebaseAuth getFirebaseAuth() {
         return firebaseAuth;
     }
 
-//    public Activity getActivity() {
-//        return this;
-//    }
-
-    @OnClick(R.id.login_button)
-    public void registerUser(View view) {
-
-
-//        Log.e("butt", "butt");
-//        firebaseAuth.createUserWithEmailAndPassword("pszem.szym@gmail.com", "przemko")
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        Log.e("CHUJ", "CHUJEC");
-//                    }
-//                });
-//        presenter.registerUserWithPassword("pszem.szym@gmail.com", "222");
+    public void onCompleteLogin() {
     }
 }

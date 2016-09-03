@@ -1,23 +1,27 @@
-package pl.hypeapp.episodie.splashscreen;
+package pl.hypeapp.episodie.signup;
 
 import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableTypeRequest;
+import com.google.firebase.auth.FirebaseAuth;
 import com.tinmegali.mvp.mvp.ModelOps;
 import com.tinmegali.mvp.mvp.PresenterOps;
 
 import pl.hypeapp.episodie.base.BaseActivityView;
 
-public interface SplashScreenMVP {
+public interface SignUpMVP {
     /**
      * Required VIEW methods available to PRESENTER
      *      PRESENTER to VIEW
      */
     interface RequiredViewOps extends BaseActivityView {
         Activity getActivity();
-        void runActivity(Class startActivityClass);
+        FirebaseAuth getFirebaseAuth();
+        void onCompleteSignUp();
+        void onFailureSignUp();
+        void onSuccessSignUp();
     }
 
 
@@ -27,7 +31,7 @@ public interface SplashScreenMVP {
      */
     interface ProvidedPresenterOps extends PresenterOps<RequiredViewOps> {
         void loadImageFromUrlIntoView(ImageView view, String url);
-        void runActivityWithDelay(long delayInMilis);
+        void registerUser(String email, String password);
     }
 
     /**
