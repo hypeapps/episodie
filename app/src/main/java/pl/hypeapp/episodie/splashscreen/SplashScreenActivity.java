@@ -1,35 +1,34 @@
-package pl.hypeapp.episodie.ui.activity;
+package pl.hypeapp.episodie.splashscreen;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
-import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.hypeapp.episodie.R;
-import pl.hypeapp.episodie.animation.BlurTransformation;
-import pl.hypeapp.episodie.animation.GrayscaleTransformation;
-import pl.hypeapp.episodie.animation.HTextViewAnimator;
-import pl.hypeapp.episodie.animation.YoYoAnimator;
-import pl.hypeapp.episodie.ui.presenter.SplashScreenPresenter;
+import pl.hypeapp.episodie.base.BaseMVPActivity;
+import pl.hypeapp.episodie.login.LoginMVP;
+import pl.hypeapp.episodie.login.LoginPresenter;
 import pl.hypeapp.episodie.util.FontManager;
 import pl.hypeapp.episodie.util.StartActivityUtil;
 import pl.hypeapp.episodie.util.StringUtil;
-import pl.hypeapp.episodie.view.SplashScreenView;
+import pl.hypeapp.episodie.util.animation.HTextViewAnimator;
+import pl.hypeapp.episodie.util.animation.YoYoAnimator;
 
-public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashScreenPresenter>
-    implements SplashScreenView {
+public class SplashScreenActivity extends
+        BaseMVPActivity<SplashScreenMVP.RequiredViewOps, SplashScreenMVP.ProvidedPresenterOps, SplashScreenPresenter>
+        implements SplashScreenMVP.RequiredViewOps {
+
     @BindView(R.id.iv_background_splash_screen)
-    ImageView backgroundImageView;
+    ImageView splashScreenBackgroundImageView;
     @BindView(R.id.iv_text_logo)
     ImageView textLogo;
     @BindView(R.id.tv_logo)
@@ -44,11 +43,13 @@ public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashSc
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
 
-        presenter.loadBackgroundImage(backgroundImageView);
+        super.onCreate(SplashScreenPresenter.class, this);
 
+        String backgroundImageUrl = getString(R.string.image_background_url);
+        getPresenter().loadImageFromUrlIntoView(splashScreenBackgroundImageView, backgroundImageUrl);
         String[] textsToAnimate = StringUtil.upperCaseArray(getResources().getStringArray(R.array.splash_screen_texts));
 
-        hTextView.setTypeface(FontManager.getInstance(getAssets()).getFont("fonts/LeagueGothic-Regular.ttf"));
+        setTextLogoFont(hTextView);
         hTextView.animateText(getString(R.string.app_name));
 
         hTextViewAnimator = new HTextViewAnimator(hTextView, textsToAnimate, HTextViewType.FALL);
@@ -57,26 +58,19 @@ public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashSc
             public void onAnimationEnd() {
                 yoyoAnimator.play(Techniques.Bounce, textLogo);
                 yoyoAnimator.playDelayed(hTextView, Techniques.ZoomOut, 1500);
-                presenter.runActivityWithDelay(2100);
+                getPresenter().runActivityWithDelay(2100);
             }
         });
         hTextViewAnimator.playSequenceAnimation();
     }
 
-    @NonNull
-    @Override
-    public SplashScreenPresenter createPresenter() {
-        return new SplashScreenPresenter();
+    private void setTextLogoFont(TextView logoText) {
+        logoText.setTypeface(FontManager.getInstance(getAssets()).getFont("fonts/LeagueGothic-Regular.ttf"));
     }
 
-    public Activity getActivity(){
-        return this;
-    }
-
-    @Override
     public void runActivity(Class startActivityClass) {
         View sharedLogo = textLogo;
-        View sharedBackground = backgroundImageView;
+        View sharedBackground = splashScreenBackgroundImageView;
         Pair<View, String> sharedLogoPair = Pair.
                 create(sharedLogo, getResources().getString(R.string.shared_name_logo));
         Pair<View, String> sharedBackgroundPair = Pair.
@@ -86,10 +80,8 @@ public class SplashScreenActivity extends MvpActivity<SplashScreenView, SplashSc
     }
 
     @Override
-    public void loadImageFromUrlIntoView(ImageView view, String url) {
-        Glide.with(this).load(url)
-                .bitmapTransform(new BlurTransformation(this, 12), new GrayscaleTransformation(this))
-                .into(view);
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
-
 }
