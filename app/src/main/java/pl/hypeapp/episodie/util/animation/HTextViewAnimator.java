@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.animation;
+package pl.hypeapp.episodie.util.animation;
 
 import android.os.Handler;
 

@@ -1,11 +1,12 @@
-package pl.hypeapp.episodie.animation;
+package pl.hypeapp.episodie.util.image;
+
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.Transformation;
@@ -13,16 +14,19 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 
-public class GrayscaleTransformation implements Transformation<Bitmap> {
+public class ColorFilterTransformation implements Transformation<Bitmap> {
 
     private BitmapPool mBitmapPool;
 
-    public GrayscaleTransformation(Context context) {
-        this(Glide.get(context).getBitmapPool());
+    private int mColor;
+
+    public ColorFilterTransformation(Context context, int color) {
+        this(Glide.get(context).getBitmapPool(), color);
     }
 
-    public GrayscaleTransformation(BitmapPool pool) {
+    public ColorFilterTransformation(BitmapPool pool, int color) {
         mBitmapPool = pool;
+        mColor = color;
     }
 
     @Override
@@ -40,10 +44,9 @@ public class GrayscaleTransformation implements Transformation<Bitmap> {
         }
 
         Canvas canvas = new Canvas(bitmap);
-        ColorMatrix saturation = new ColorMatrix();
-        saturation.setSaturation(0f);
         Paint paint = new Paint();
-        paint.setColorFilter(new ColorMatrixColorFilter(saturation));
+        paint.setAntiAlias(true);
+        paint.setColorFilter(new PorterDuffColorFilter(mColor, PorterDuff.Mode.SRC_ATOP));
         canvas.drawBitmap(source, 0, 0, paint);
 
         return BitmapResource.obtain(bitmap, mBitmapPool);
@@ -51,6 +54,6 @@ public class GrayscaleTransformation implements Transformation<Bitmap> {
 
     @Override
     public String getId() {
-        return "GrayscaleTransformation()";
+        return "ColorFilterTransformation(color=" + mColor + ")";
     }
 }

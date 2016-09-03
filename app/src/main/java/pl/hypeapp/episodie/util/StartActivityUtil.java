@@ -21,7 +21,7 @@ public class StartActivityUtil {
 
     public void runActivityWithTransition(Class startActivityClass, Pair<View, String>... sharedElements) {
         ActivityOptionsCompat transitionActivityOptions = null;
-        if (BuildUtils.isMinApi21()) {
+        if (BuildUtil.isMinApi21()) {
             transitionActivityOptions = ActivityOptionsCompat.
                     makeSceneTransitionAnimation(context, sharedElements);
         }
