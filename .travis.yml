@@ -1,4 +1,6 @@
 language: android
+before_install:
+ - chmod +x gradlew
 android:
   components:
     # Uncomment the lines below if you want to
