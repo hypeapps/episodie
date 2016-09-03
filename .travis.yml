@@ -17,9 +17,6 @@ android:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
-script:
-- ./build.sh
 
-
-
+# - chmod +x gradlew
 
