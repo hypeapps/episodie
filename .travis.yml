@@ -1,4 +1,6 @@
 language: android
+before_install:
+- chmod +x gradlew
 jdk:
     - oraclejdk8
 android:
@@ -18,5 +20,4 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-# - chmod +x gradlew
 
