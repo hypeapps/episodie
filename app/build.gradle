@@ -8,6 +8,9 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
 
+    lintOptions {
+        abortOnError false
+    }
     defaultConfig {
         applicationId "pl.hypeapps.episodie"
         minSdkVersion 19
