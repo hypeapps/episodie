@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:htext="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_splash_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -38,7 +39,7 @@
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
             android:text="@string/app_name"
-            android:textSize="32sp" />
+            android:textSize="26sp" />
     </RelativeLayout>
 
 </RelativeLayout>
