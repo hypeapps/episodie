@@ -67,7 +67,7 @@ public class LoginActivity extends
 
 
     public void enterActivityLogoTransition() {
-        logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, logoLayout), 1400);
+        logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, logoLayout),680);
     }
 
     private Runnable logoTransitionRun(final View logoIcon, final View logoText, final ViewGroup logoLayout) {

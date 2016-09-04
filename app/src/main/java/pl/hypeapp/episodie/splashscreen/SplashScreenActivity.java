@@ -42,7 +42,7 @@ public class SplashScreenActivity extends
 
         String backgroundImageUrl = getString(R.string.image_background_url);
         getPresenter().loadImageFromUrlIntoView(splashScreenBackgroundImageView, backgroundImageUrl);
-        String[] textsToAnimate = StringUtil.upperCaseArray(getResources().getStringArray(R.array.splash_screen_texts));
+        String[] textsToAnimate = getResources().getStringArray(R.array.splash_screen_texts);
 
         setTextLogoFont(hTextView);
         hTextView.animateText(getString(R.string.app_name));
