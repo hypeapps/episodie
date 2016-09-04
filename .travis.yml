@@ -8,8 +8,6 @@ env:
    - ANDROID_BUILD_TOOLS_VERSION=23.0.0
    - ANDROID_ABI=google_apis/armeabi-v7a
    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
-jdk:
-    - oraclejdk8
 android:
   components:
     - tools
