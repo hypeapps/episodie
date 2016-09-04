@@ -53,7 +53,7 @@ public class SplashScreenActivity extends
             public void onAnimationEnd() {
                 yoyoAnimator.play(Techniques.Bounce, textLogo);
                 yoyoAnimator.playDelayed(hTextView, Techniques.ZoomOut, 1500);
-                getPresenter().runActivityWithDelay(2100);
+                getPresenter().runActivityWithDelay(2200);
             }
         });
         hTextViewAnimator.playSequenceAnimation();
