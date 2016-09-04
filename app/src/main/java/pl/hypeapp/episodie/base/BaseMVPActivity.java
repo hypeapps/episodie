@@ -20,7 +20,7 @@ public abstract class BaseMVPActivity<RequiredViewOps, ProvidedPresenterOps, Pre
     @Override
     public void setTextLogoFont(TextView textView) {
         if(textView!= null) {
-            textView.setTypeface(FontManager.getInstance(getAssets()).getFont("fonts/LeagueGothic-Regular.ttf"));
+            textView.setTypeface(FontManager.getInstance(getAssets()).getFont("fonts/coolvetica.ttf"));
         }
     }
 }

@@ -12,4 +12,12 @@ public final class StringUtil {
         }
         return list.toArray(new String[list.size()]);
     }
+
+    public static String[] lowerCaseArray(String[] textArray){
+        List<String> list = new ArrayList();
+        for (String text : textArray) {
+            list.add(text.toLowerCase());
+        }
+        return list.toArray(new String[list.size()]);
+    }
 }
