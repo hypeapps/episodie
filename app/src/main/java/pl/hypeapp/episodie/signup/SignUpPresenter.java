@@ -1,9 +1,12 @@
 package pl.hypeapp.episodie.signup;
 
+import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -11,7 +14,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.tinmegali.mvp.mvp.GenericPresenter;
 
+import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.util.image.BlurTransformation;
+import pl.hypeapp.episodie.util.image.ColorFilterTransformation;
 import pl.hypeapp.episodie.util.image.GrayscaleTransformation;
 
 public class SignUpPresenter extends GenericPresenter<SignUpMVP.RequiredPresenterOps, SignUpMVP.ProvidedModelOps,
@@ -21,17 +26,26 @@ public class SignUpPresenter extends GenericPresenter<SignUpMVP.RequiredPresente
         SignUpMVP.ProvidedPresenterOps {
 
     SignUpActivity activity;
+    private int colorFilter;
 
     @Override
     public void onCreate(SignUpMVP.RequiredViewOps view) {
         super.onCreate(SignUpModel.class, this);
         setView(view);
         activity = (SignUpActivity) getView().getActivity();
+        colorFilter = Color.argb(35, 56, 147, 35);
     }
 
-    public void loadImageFromUrlIntoView(ImageView view, String url) {
-        getModel().getBitmapFromUrl(url, activity)
-                .bitmapTransform(new BlurTransformation(activity, 12), new GrayscaleTransformation(activity))
+    @Override
+    public void loadSharedBackgroundIntoView(ImageView view) {
+        Glide.with(activity).load("file:///android_asset/background_breaking_bad.jpg")
+                .bitmapTransform(new GrayscaleTransformation(activity), new BlurTransformation(activity, 12))
+                .into(view);
+    }
+
+    public void loadBackgroundIntoView(ImageView view) {
+        Glide.with(activity).load(Uri.parse("file:///android_asset/background_sign_up.jpg"))
+                .bitmapTransform(new ColorFilterTransformation(activity, colorFilter), new BlurTransformation(activity, 12))
                 .into(view);
     }
 

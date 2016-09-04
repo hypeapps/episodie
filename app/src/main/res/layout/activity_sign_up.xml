@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/iv_signup_background"
+        android:scaleType="centerCrop"
+        android:transitionName="background"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -9,5 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Sign up!"
         android:id="@+id/bt_sign_up"
-        android:layout_gravity="center_vertical" />
-</LinearLayout>
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

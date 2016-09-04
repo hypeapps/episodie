@@ -1,14 +1,24 @@
 package pl.hypeapp.episodie.login;
 
+import android.animation.Animator;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.transition.TransitionManager;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,14 +27,20 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pl.hypeapp.episodie.App;
 import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.base.BaseMVPActivity;
+import pl.hypeapp.episodie.signup.SignUpActivity;
+import pl.hypeapp.episodie.util.BuildUtil;
+import pl.hypeapp.episodie.util.StartActivityUtil;
+import pl.hypeapp.episodie.util.image.BlurTransformation;
+import pl.hypeapp.episodie.util.image.ColorFilterTransformation;
 
 
 public class LoginActivity extends
         BaseMVPActivity<LoginMVP.RequiredViewOps, LoginMVP.ProvidedPresenterOps, LoginPresenter>
-        implements LoginMVP.RequiredViewOps {
+        implements LoginMVP.RequiredViewOps{
 
     @BindView(R.id.iv_login_background)
     ImageView loginBackgroundImageView;
@@ -36,9 +52,11 @@ public class LoginActivity extends
     TextView logoText;
     @BindView(R.id.center)
     Space space;
+    @BindView (R.id.iv_shared_background)
+    ImageView sharedBackground;
     @Inject
     FirebaseAuth firebaseAuth;
-
+    ImageView rootLayout;
     App app;
 
     @Override
@@ -48,7 +66,7 @@ public class LoginActivity extends
         ButterKnife.bind(this);
 
         super.onCreate(LoginPresenter.class, this);
-
+        rootLayout = loginBackgroundImageView;
         String backgroundImageUrl = getString(R.string.image_background_url);
         getPresenter().loadImageFromUrlIntoView(loginBackgroundImageView, backgroundImageUrl);
         setTextLogoFont(logoText);
@@ -90,6 +108,98 @@ public class LoginActivity extends
         return firebaseAuth;
     }
 
-    public void onCompleteLogin() {
+    public void onCompleteLogin() {}
+
+//    @Override
+//    public boolean onTouch(View view, MotionEvent motionEvent) {
+//        super.onTouchEvent(motionEvent);
+//        Log.e("logonTouch", "log1");
+//        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+//            Log.e("logonTouch", "log1");
+//            if (view.getId() == R.id.login_button) {
+//                Log.e("logonTouch", "log");
+//                revealFromCoordinates((int)motionEvent.getRawX(), (int)motionEvent.getRawY());
+//            }
+//        }
+//        return false;
+//    }
+//    private void animateRevealShow(View viewRoot) {
+//        int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
+//        int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
+//        int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
+//
+//        Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
+//        viewRoot.setVisibility(View.VISIBLE);
+//        anim.setDuration(1000);
+//        anim.setInterpolator(new AccelerateInterpolator());
+//        anim.start();
+//    }
+//
+//    @OnClick(R.id.login_button)
+//    void touch(){
+////        revealFromCoordinates(loginBackgroundImageView);
+//    }
+
+    private Animator revealFromCoordinates(View viewRoot) {
+        Animator anim = null;
+        long duration = getResources().getInteger(R.integer.anim_duration_long);
+        if (BuildUtil.isMinApi21()) {
+            int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
+            int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
+            int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
+            int colorFilter = Color.argb(35, 56, 147, 35);
+
+            anim = ViewAnimationUtils.createCircularReveal(sharedBackground, cx, cy, 0, finalRadius);
+            loadSharedBackground(colorFilter);
+            sharedBackground.setVisibility(View.VISIBLE);
+            anim.setDuration(duration);
+            anim.setInterpolator(new AccelerateInterpolator());
+            anim.addListener( createRevealListener());
+            anim.start();
+        }
+        return anim;
+    }
+
+    private Animator.AnimatorListener createRevealListener(){
+        return new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                sharedBackground.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        };
+    }
+
+    private void intentToSignUpActivity(){
+        View sharedView = loginBackgroundImageView;
+        Pair<View, String> sharedBackground = Pair.create(sharedView, "background");
+        StartActivityUtil startActivityUtil = StartActivityUtil.getInstance(getActivity());
+        startActivityUtil.runActivityWithTransition(SignUpActivity.class, sharedBackground);
+    }
+
+    private void loadSharedBackground(int colorFilter) {
+        Glide.with(this).load(Uri.parse("file:///android_asset/background_sign_up.jpg"))
+                .bitmapTransform(new ColorFilterTransformation(this, colorFilter), new BlurTransformation(this, 12))
+                .into(sharedBackground);
+    }
+
+    @OnClick(R.id.login_button)
+    void onSignUpStart(){
+        intentToSignUpActivity();
     }
 }

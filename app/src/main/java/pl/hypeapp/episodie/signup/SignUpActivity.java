@@ -1,14 +1,14 @@
 package pl.hypeapp.episodie.signup;
 
+import android.animation.Animator;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import pl.hypeapp.episodie.App;
 import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.base.BaseMVPActivity;
+import pl.hypeapp.episodie.util.BuildUtil;
 
 
 public class SignUpActivity extends
@@ -27,6 +28,10 @@ public class SignUpActivity extends
 
     @BindView(R.id.bt_sign_up)
     Button signUpButton;
+    @BindView(R.id.iv_signup_background)
+    ImageView backgroundImageView;
+    @BindView(R.id.iv_shared_background)
+    ImageView sharedBackground;
     @Inject
     FirebaseAuth firebaseAuth;
 
@@ -39,8 +44,10 @@ public class SignUpActivity extends
         ButterKnife.bind(this);
 
         super.onCreate(SignUpPresenter.class, this);
+        getPresenter().loadSharedBackgroundIntoView(sharedBackground);
+        //reeveala faja :D
 
-        String backgroundImageUrl = getString(R.string.image_background_url);
+//        getPresenter().loadBackgroundIntoView(backgroundImageView);
 //        getPresenter().loadImageFromUrlIntoView(loginBackgroundImageView, backgroundImageUrl);
 //        setTextLogoFont(logoText);
 //        enterActivityLogoTransition();
@@ -78,6 +85,23 @@ public class SignUpActivity extends
     @Override
     public FirebaseAuth getFirebaseAuth() {
         return firebaseAuth;
+    }
+
+    private Animator revealFromCoordinates(View viewRoot) {
+        Animator anim = null;
+        long duration = getResources().getInteger(R.integer.anim_duration_long);
+        if (BuildUtil.isMinApi21()) {
+            int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
+            int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
+            int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
+
+            anim = ViewAnimationUtils.createCircularReveal(backgroundImageView, cx, cy, 0, finalRadius);
+            viewRoot.setVisibility(View.VISIBLE);
+            anim.setDuration(duration);
+            anim.setInterpolator(new AccelerateInterpolator());
+            anim.start();
+        }
+        return anim;
     }
 
     @Override

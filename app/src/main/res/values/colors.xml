@@ -7,5 +7,7 @@
     <color name="materialBackground">#303030</color>
     <color name="textColorPrimary"  >#FFFFFF</color>
     <color name="textColorSecondary">#0079ea</color>
+
+    <color name="colorFilterGreen"  >#3eab25</color>
     <!--standards colors-->
 </resources>
