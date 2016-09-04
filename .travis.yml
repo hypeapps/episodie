@@ -6,15 +6,17 @@ jdk:
 android:
   components:
     - tools
-    - tool
-    - build-tools-23.0.0
-    - android-23
+    - tools
     - platform-tools
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - extra-android-support
+    - build-tools-24.0.1
+    - android-24
+    - extra
+    - add-on
+#    - extra-google-m2repository
+#    - extra-android-m2repository
+#    - extra-android-support
 
-    - sys-img-armeabi-v7a-android-22
+#    - sys-img-armeabi-v7a-android-22
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
