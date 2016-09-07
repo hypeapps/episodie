@@ -1,8 +1,11 @@
 package pl.hypeapp.episodie.splashscreen;
 
+import android.net.Uri;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableTypeRequest;
+import com.bumptech.glide.Glide;
 import com.tinmegali.mvp.mvp.GenericPresenter;
 
 import pl.hypeapp.episodie.login.LoginActivity;
@@ -24,8 +27,9 @@ public class SplashScreenPresenter extends GenericPresenter<SplashScreenMVP.Requ
         activity = (SplashScreenActivity) getView().getActivity();
     }
 
-    public void loadImageFromUrlIntoView(ImageView view, String url) {
-        getModel().getBitmapFromUrl(url, activity)
+    @Override
+    public void loadImageFromPathIntoView(ImageView view, String path) {
+        Glide.with(activity).load(Uri.parse(path))
                 .bitmapTransform(new BlurTransformation(activity, 12), new GrayscaleTransformation(activity))
                 .into(view);
     }

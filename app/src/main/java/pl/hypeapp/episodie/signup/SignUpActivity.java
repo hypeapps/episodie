@@ -8,6 +8,7 @@ import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -32,6 +33,8 @@ public class SignUpActivity extends
     ImageView backgroundImageView;
     @BindView(R.id.iv_shared_background)
     ImageView sharedBackground;
+    @BindView(R.id.sign_up_layout)
+    RelativeLayout rootLayout;
     @Inject
     FirebaseAuth firebaseAuth;
 
@@ -44,13 +47,11 @@ public class SignUpActivity extends
         ButterKnife.bind(this);
 
         super.onCreate(SignUpPresenter.class, this);
-        getPresenter().loadSharedBackgroundIntoView(sharedBackground);
-        //reeveala faja :D
+        String sharedBackgroundPath = getResources().getString(R.string.breaking_bad_background);
+        getPresenter().loadImageFromResourcesIntoView(sharedBackground, sharedBackgroundPath);
+        revealFromCoordinates(backgroundImageView, sharedBackground);
 
-//        getPresenter().loadBackgroundIntoView(backgroundImageView);
-//        getPresenter().loadImageFromUrlIntoView(loginBackgroundImageView, backgroundImageUrl);
 //        setTextLogoFont(logoText);
-//        enterActivityLogoTransition();
 
         app = (App) getApplication();
         app.getAuthComponent().inject(this);
@@ -87,7 +88,7 @@ public class SignUpActivity extends
         return firebaseAuth;
     }
 
-    private Animator revealFromCoordinates(View viewRoot) {
+    private Animator revealFromCoordinates(View viewRoot, ImageView revealedImage) {
         Animator anim = null;
         long duration = getResources().getInteger(R.integer.anim_duration_long);
         if (BuildUtil.isMinApi21()) {
@@ -95,8 +96,10 @@ public class SignUpActivity extends
             int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
             int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
 
-            anim = ViewAnimationUtils.createCircularReveal(backgroundImageView, cx, cy, 0, finalRadius);
-            viewRoot.setVisibility(View.VISIBLE);
+            anim = ViewAnimationUtils.createCircularReveal(revealedImage, cx, cy, 0, finalRadius);
+
+            getPresenter().loadImageFromResourcesIntoView(revealedImage, getResources().getString(R.string.thewalkingdead_background));
+            revealedImage.setVisibility(View.VISIBLE);
             anim.setDuration(duration);
             anim.setInterpolator(new AccelerateInterpolator());
             anim.start();
@@ -123,6 +126,5 @@ public class SignUpActivity extends
     public void registerUser(View view) {
         Log.e("SIGN_UP_ACTIVITY", "button");
         getPresenter().registerUser("register@test.pl", "test6liter");
-//        presenter.registerUserWithPassword("pszem.szym@gmail.com", "222");
     }
 }

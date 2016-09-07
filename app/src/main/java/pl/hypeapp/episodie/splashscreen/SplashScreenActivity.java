@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.base.BaseMVPActivity;
 import pl.hypeapp.episodie.util.StartActivityUtil;
-import pl.hypeapp.episodie.util.StringUtil;
 import pl.hypeapp.episodie.util.animation.HTextViewAnimator;
 import pl.hypeapp.episodie.util.animation.YoYoAnimator;
 
@@ -28,7 +27,7 @@ public class SplashScreenActivity extends
     ImageView textLogo;
     @BindView(R.id.tv_logo)
     HTextView hTextView;
-
+    String pathToBreakingBadBackground;
     HTextViewAnimator hTextViewAnimator;
     final YoYoAnimator yoyoAnimator = YoYoAnimator.getInstance();
 
@@ -40,8 +39,8 @@ public class SplashScreenActivity extends
 
         super.onCreate(SplashScreenPresenter.class, this);
 
-        String backgroundImageUrl = getString(R.string.image_background_url);
-        getPresenter().loadImageFromUrlIntoView(splashScreenBackgroundImageView, backgroundImageUrl);
+        pathToBreakingBadBackground = getString(R.string.breaking_bad_background);
+        getPresenter().loadImageFromPathIntoView(splashScreenBackgroundImageView, pathToBreakingBadBackground);
         String[] textsToAnimate = getResources().getStringArray(R.array.splash_screen_texts);
 
         setTextLogoFont(hTextView);

@@ -26,7 +26,7 @@ public interface SplashScreenMVP {
      *      VIEW to PRESENTER
      */
     interface ProvidedPresenterOps extends PresenterOps<RequiredViewOps> {
-        void loadImageFromUrlIntoView(ImageView view, String url);
+        void loadImageFromPathIntoView(ImageView view, String path);
         void runActivityWithDelay(long delayInMilis);
     }
 

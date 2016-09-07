@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,17 +37,16 @@ public class SignUpPresenter extends GenericPresenter<SignUpMVP.RequiredPresente
         colorFilter = Color.argb(35, 56, 147, 35);
     }
 
-    @Override
-    public void loadSharedBackgroundIntoView(ImageView view) {
-        Glide.with(activity).load("file:///android_asset/background_breaking_bad.jpg")
-                .bitmapTransform(new GrayscaleTransformation(activity), new BlurTransformation(activity, 12))
-                .into(view);
-    }
-
-    public void loadBackgroundIntoView(ImageView view) {
-        Glide.with(activity).load(Uri.parse("file:///android_asset/background_sign_up.jpg"))
-                .bitmapTransform(new ColorFilterTransformation(activity, colorFilter), new BlurTransformation(activity, 12))
-                .into(view);
+    public void loadImageFromResourcesIntoView(ImageView view, String path) {
+        DrawableTypeRequest drawableTypeRequest = Glide.with(activity).load(Uri.parse(path));
+        if (view.getId() == R.id.iv_shared_background) {
+            drawableTypeRequest
+                    .bitmapTransform(new GrayscaleTransformation(activity), new BlurTransformation(activity, 12));
+        } else if (view.getId() == R.id.iv_signup_background) {
+            drawableTypeRequest
+                    .bitmapTransform(new ColorFilterTransformation(activity, colorFilter), new BlurTransformation(activity, 12));
+        }
+        drawableTypeRequest.into(view);
     }
 
     @Override
@@ -55,31 +55,31 @@ public class SignUpPresenter extends GenericPresenter<SignUpMVP.RequiredPresente
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(getView()!= null) {
+                        if (getView() != null) {
                             getView().onCompleteSignUp();
                         }
                     }
                 })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if(getView()!= null) {
-                    getView().onFailureSignUp();
-                }
-                Log.e("LOGIN_FAILURE", e.getMessage());
-            }
-        })
-        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                if(getView()!= null) {
-                    getView().onSuccessSignUp();
-                }
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (getView() != null) {
+                            getView().onFailureSignUp();
+                        }
+                        Log.e("LOGIN_FAILURE", e.getMessage());
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        if (getView() != null) {
+                            getView().onSuccessSignUp();
+                        }
 
-                Log.e("LOGIN_SUCCESS", " " + authResult.getUser().getEmail());
+                        Log.e("LOGIN_SUCCESS", " " + authResult.getUser().getEmail());
 
-            }
-        });
+                    }
+                });
     }
 
     @Override
@@ -89,8 +89,10 @@ public class SignUpPresenter extends GenericPresenter<SignUpMVP.RequiredPresente
     }
 
     @Override
-    public void onDestroy(boolean isChangingConfiguration) {}
+    public void onDestroy(boolean isChangingConfiguration) {
+    }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
 }
