@@ -16,18 +16,19 @@ import pl.hypeapp.episodie.base.BaseMVPActivity;
 import pl.hypeapp.episodie.util.StartActivityUtil;
 import pl.hypeapp.episodie.util.animation.HTextViewAnimator;
 import pl.hypeapp.episodie.util.animation.YoYoAnimator;
+import pl.hypeapp.episodie.util.image.BlurTransformation;
+import pl.hypeapp.episodie.util.image.GrayscaleTransformation;
 
 public class SplashScreenActivity extends
         BaseMVPActivity<SplashScreenMVP.RequiredViewOps, SplashScreenMVP.ProvidedPresenterOps, SplashScreenPresenter>
         implements SplashScreenMVP.RequiredViewOps {
 
     @BindView(R.id.iv_background_splash_screen)
-    ImageView splashScreenBackgroundImageView;
+    ImageView backgroundImageView;
     @BindView(R.id.iv_text_logo)
     ImageView textLogo;
     @BindView(R.id.tv_logo)
     HTextView hTextView;
-    String pathToBreakingBadBackground;
     HTextViewAnimator hTextViewAnimator;
     final YoYoAnimator yoyoAnimator = YoYoAnimator.getInstance();
 
@@ -36,11 +37,11 @@ public class SplashScreenActivity extends
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
-
         super.onCreate(SplashScreenPresenter.class, this);
 
-        pathToBreakingBadBackground = getString(R.string.breaking_bad_background);
-        getPresenter().loadImageFromPathIntoView(splashScreenBackgroundImageView, pathToBreakingBadBackground);
+        loadImageFromResourcesIntoView(backgroundImageView, R.drawable.breaking_bad_background,
+                new GrayscaleTransformation(this), new BlurTransformation(this, 12));
+
         String[] textsToAnimate = getResources().getStringArray(R.array.splash_screen_texts);
 
         setTextLogoFont(hTextView);
@@ -60,7 +61,7 @@ public class SplashScreenActivity extends
 
     public void runActivity(Class startActivityClass) {
         View sharedLogo = textLogo;
-        View sharedBackground = splashScreenBackgroundImageView;
+        View sharedBackground = backgroundImageView;
         Pair<View, String> sharedLogoPair = Pair.
                 create(sharedLogo, getResources().getString(R.string.shared_name_logo));
         Pair<View, String> sharedBackgroundPair = Pair.
