@@ -30,7 +30,6 @@ public interface SignUpMVP {
      *      VIEW to PRESENTER
      */
     interface ProvidedPresenterOps extends PresenterOps<RequiredViewOps> {
-        void loadImageFromResourcesIntoView(ImageView view, String path);
         void registerUser(String email, String password);
     }
 

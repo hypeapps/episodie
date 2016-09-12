@@ -25,7 +25,7 @@ public interface LoginMVP {
      *      VIEW to PRESENTER
      */
     interface ProvidedPresenterOps extends PresenterOps<RequiredViewOps> {
-        void loadImageFromUrlIntoView(ImageView view, String url);
+
     }
 
     /**

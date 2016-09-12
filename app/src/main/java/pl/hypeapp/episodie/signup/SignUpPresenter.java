@@ -1,12 +1,10 @@
 package pl.hypeapp.episodie.signup;
 
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,8 +15,6 @@ import com.tinmegali.mvp.mvp.GenericPresenter;
 
 import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.util.image.BlurTransformation;
-import pl.hypeapp.episodie.util.image.ColorFilterTransformation;
-import pl.hypeapp.episodie.util.image.GrayscaleTransformation;
 
 public class SignUpPresenter extends GenericPresenter<SignUpMVP.RequiredPresenterOps, SignUpMVP.ProvidedModelOps,
         SignUpMVP.RequiredViewOps, SignUpModel>
@@ -27,26 +23,12 @@ public class SignUpPresenter extends GenericPresenter<SignUpMVP.RequiredPresente
         SignUpMVP.ProvidedPresenterOps {
 
     SignUpActivity activity;
-    private int colorFilter;
 
     @Override
     public void onCreate(SignUpMVP.RequiredViewOps view) {
         super.onCreate(SignUpModel.class, this);
         setView(view);
         activity = (SignUpActivity) getView().getActivity();
-        colorFilter = Color.argb(35, 56, 147, 35);
-    }
-
-    public void loadImageFromResourcesIntoView(ImageView view, String path) {
-        DrawableTypeRequest drawableTypeRequest = Glide.with(activity).load(Uri.parse(path));
-        if (view.getId() == R.id.iv_shared_background) {
-            drawableTypeRequest
-                    .bitmapTransform(new GrayscaleTransformation(activity), new BlurTransformation(activity, 12));
-        } else if (view.getId() == R.id.iv_signup_background) {
-            drawableTypeRequest
-                    .bitmapTransform(new ColorFilterTransformation(activity, colorFilter), new BlurTransformation(activity, 12));
-        }
-        drawableTypeRequest.into(view);
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
@@ -22,12 +23,11 @@ import pl.hypeapp.episodie.R;
 import pl.hypeapp.episodie.base.BaseMVPActivity;
 import pl.hypeapp.episodie.util.BuildUtil;
 
-
 public class SignUpActivity extends
         BaseMVPActivity<SignUpMVP.RequiredViewOps, SignUpMVP.ProvidedPresenterOps, SignUpPresenter>
         implements SignUpMVP.RequiredViewOps {
 
-    @BindView(R.id.bt_sign_up)
+//    @BindView(R.id.bt_sign_up)
     Button signUpButton;
     @BindView(R.id.iv_signup_background)
     ImageView backgroundImageView;
@@ -37,7 +37,6 @@ public class SignUpActivity extends
     RelativeLayout rootLayout;
     @Inject
     FirebaseAuth firebaseAuth;
-
     App app;
 
     @Override
@@ -45,16 +44,21 @@ public class SignUpActivity extends
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-
         super.onCreate(SignUpPresenter.class, this);
-        String sharedBackgroundPath = getResources().getString(R.string.breaking_bad_background);
-        getPresenter().loadImageFromResourcesIntoView(sharedBackground, sharedBackgroundPath);
-        revealFromCoordinates(backgroundImageView, sharedBackground);
-
-//        setTextLogoFont(logoText);
+        loadImageFromResourcesIntoView(backgroundImageView, R.drawable.mrrobot_background);
+        rootLayout.post(revealAnimationRun());
 
         app = (App) getApplication();
         app.getAuthComponent().inject(this);
+    }
+
+    private Runnable revealAnimationRun() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                revealBackgroundFromCoordinates(backgroundImageView);
+            }
+        };
     }
 
     @Override
@@ -63,43 +67,20 @@ public class SignUpActivity extends
         finish();
     }
 
-//    public void enterActivityTitleTransition() {
-////        logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, logoLayout), 1400);
-//    }
-//
-//    private Runnable logoTransitionRun(final View logoIcon, final View logoText, final ViewGroup logoLayout) {
-//        return new Runnable() {
-//            @Override
-//            public void run() {
-//                TransitionManager.beginDelayedTransition(logoLayout);
-//
-//                RelativeLayout.LayoutParams rl = (RelativeLayout.LayoutParams) logoIcon.getLayoutParams();
-//                rl.addRule(RelativeLayout.LEFT_OF, space.getId());
-//                logoIcon.setLayoutParams(rl);
-//
-//                logoText.setVisibility(View.VISIBLE);
-//                YoYo.with(Techniques.SlideInRight).playOn(logoText);
-//            }
-//        };
-//    }
-
     @Override
     public FirebaseAuth getFirebaseAuth() {
         return firebaseAuth;
     }
 
-    private Animator revealFromCoordinates(View viewRoot, ImageView revealedImage) {
+    private Animator revealBackgroundFromCoordinates(final ImageView viewRoot) {
         Animator anim = null;
         long duration = getResources().getInteger(R.integer.anim_duration_long);
         if (BuildUtil.isMinApi21()) {
+
             int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
             int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
             int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
-
-            anim = ViewAnimationUtils.createCircularReveal(revealedImage, cx, cy, 0, finalRadius);
-
-            getPresenter().loadImageFromResourcesIntoView(revealedImage, getResources().getString(R.string.thewalkingdead_background));
-            revealedImage.setVisibility(View.VISIBLE);
+            anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
             anim.setDuration(duration);
             anim.setInterpolator(new AccelerateInterpolator());
             anim.start();
@@ -122,9 +103,10 @@ public class SignUpActivity extends
         Log.e("SIGN_UP_ACTIVITY", "SIGN_UP_SUCCESS");
     }
 
-    @OnClick(R.id.bt_sign_up)
+//    @OnClick(R.id.bt_sign_up)
     public void registerUser(View view) {
-        Log.e("SIGN_UP_ACTIVITY", "button");
-        getPresenter().registerUser("register@test.pl", "test6liter");
+//        Log.e("SIGN_UP_ACTIVITY", "button");
+//        getPresenter().registerUser("register@test.pl", "test6liter");
+
     }
 }

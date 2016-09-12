@@ -2,6 +2,8 @@ package pl.hypeapp.episodie.login;
 
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
 import com.tinmegali.mvp.mvp.GenericPresenter;
 
 import pl.hypeapp.episodie.util.image.BlurTransformation;
@@ -22,12 +24,6 @@ public class LoginPresenter extends GenericPresenter<LoginMVP.RequiredPresenterO
         activity = (LoginActivity) getView().getActivity();
     }
 
-    public void loadImageFromUrlIntoView(ImageView view, String url) {
-        getModel().getBitmapFromUrl(url, activity)
-                .bitmapTransform(new BlurTransformation(activity, 12), new GrayscaleTransformation(activity))
-                .into(view);
-    }
-
     @Override
     public void onConfigurationChanged(LoginMVP.RequiredViewOps view) {
         setView(view);
@@ -40,5 +36,6 @@ public class LoginPresenter extends GenericPresenter<LoginMVP.RequiredPresenterO
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
 }

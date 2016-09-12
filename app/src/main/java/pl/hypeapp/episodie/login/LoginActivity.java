@@ -6,12 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.transition.TransitionManager;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,6 +16,7 @@ import android.widget.Space;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,11 +34,12 @@ import pl.hypeapp.episodie.util.BuildUtil;
 import pl.hypeapp.episodie.util.StartActivityUtil;
 import pl.hypeapp.episodie.util.image.BlurTransformation;
 import pl.hypeapp.episodie.util.image.ColorFilterTransformation;
+import pl.hypeapp.episodie.util.image.GrayscaleTransformation;
 
 
 public class LoginActivity extends
         BaseMVPActivity<LoginMVP.RequiredViewOps, LoginMVP.ProvidedPresenterOps, LoginPresenter>
-        implements LoginMVP.RequiredViewOps{
+        implements LoginMVP.RequiredViewOps {
 
     @BindView(R.id.iv_login_background)
     ImageView loginBackgroundImageView;
@@ -52,7 +51,7 @@ public class LoginActivity extends
     TextView logoText;
     @BindView(R.id.center)
     Space space;
-    @BindView (R.id.iv_shared_background)
+    @BindView(R.id.iv_shared_background)
     ImageView sharedBackground;
     @Inject
     FirebaseAuth firebaseAuth;
@@ -64,11 +63,11 @@ public class LoginActivity extends
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         super.onCreate(LoginPresenter.class, this);
+
         rootLayout = loginBackgroundImageView;
-        String backgroundImageUrl = getString(R.string.image_background_url);
-        getPresenter().loadImageFromUrlIntoView(loginBackgroundImageView, backgroundImageUrl);
+        loadImageFromResourcesIntoView(loginBackgroundImageView, R.drawable.breaking_bad_background,
+                new GrayscaleTransformation(this), new BlurTransformation(this, 12));
         setTextLogoFont(logoText);
         enterActivityLogoTransition();
 
@@ -82,10 +81,8 @@ public class LoginActivity extends
         finish();
     }
 
-
-
     public void enterActivityLogoTransition() {
-        logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, logoLayout),680);
+        logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, logoLayout), 680);
     }
 
     private Runnable logoTransitionRun(final View logoIcon, final View logoText, final ViewGroup logoLayout) {
@@ -108,7 +105,8 @@ public class LoginActivity extends
         return firebaseAuth;
     }
 
-    public void onCompleteLogin() {}
+    public void onCompleteLogin() {
+    }
 
 //    @Override
 //    public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -154,13 +152,13 @@ public class LoginActivity extends
             sharedBackground.setVisibility(View.VISIBLE);
             anim.setDuration(duration);
             anim.setInterpolator(new AccelerateInterpolator());
-            anim.addListener( createRevealListener());
+            anim.addListener(createRevealListener());
             anim.start();
         }
         return anim;
     }
 
-    private Animator.AnimatorListener createRevealListener(){
+    private Animator.AnimatorListener createRevealListener() {
         return new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -185,7 +183,7 @@ public class LoginActivity extends
         };
     }
 
-    private void intentToSignUpActivity(){
+    private void intentToSignUpActivity() {
         View sharedView = loginBackgroundImageView;
         Pair<View, String> sharedBackground = Pair.create(sharedView, "background");
         StartActivityUtil startActivityUtil = StartActivityUtil.getInstance(getActivity());
@@ -193,13 +191,14 @@ public class LoginActivity extends
     }
 
     private void loadSharedBackground(int colorFilter) {
-        Glide.with(this).load(Uri.parse("file:///android_asset/background_sign_up.jpg"))
+        Glide.with(this).load(Uri.parse("file:///android_asset/thewalkingdead_background.jpg"))
                 .bitmapTransform(new ColorFilterTransformation(this, colorFilter), new BlurTransformation(this, 12))
                 .into(sharedBackground);
     }
 
     @OnClick(R.id.login_button)
-    void onSignUpStart(){
+    void onSignUpStart() {
         intentToSignUpActivity();
     }
+
 }
