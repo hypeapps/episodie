@@ -9,23 +9,92 @@
         android:id="@+id/iv_shared_background"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:transitionName="background" />
 
     <ImageView
         android:id="@+id/iv_signup_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:transitionName="background"
-        android:visibility="gone" />
+        android:src="@drawable/mrrobot_background" />
 
-    <Button
-        android:id="@+id/bt_sign_up"
-        style="?android:attr/buttonStyleSmall"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/iv_mrrobot_logo"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp"
+        android:src="@drawable/mr_robot_logo" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="218dp"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText4"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText5"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:text="Sign up!" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="E-mail"
+        android:id="@+id/textView3"
+        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignStart="@+id/editText3"
+        android:layout_marginBottom="40dp"
+        style="@style/episodieTextStyle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Password"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/editText3"
+        android:layout_alignStart="@+id/editText4"
+        style="@style/episodieTextStyle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Repeat Password"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/editText4"
+        android:layout_alignStart="@+id/editText5"
+        style="@style/episodieTextStyle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="&lt; Sign Up"
+        android:id="@+id/textView6"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="43dp"
+        style="@style/episodieTextStyle"
+        android:layout_marginLeft="30dp" />
+
 </RelativeLayout>
