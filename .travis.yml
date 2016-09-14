@@ -1,6 +1,7 @@
 language: android
 jdk:
   - oraclejdk8
+sudo: true
 before_install:
 - chmod +x gradlew
 env:
