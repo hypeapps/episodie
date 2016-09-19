@@ -19,7 +19,8 @@ public class StartActivityUtil {
     private StartActivityUtil() {
     }
 
-    public void runActivityWithTransition(Class startActivityClass, Pair<View, String>... sharedElements) {
+    @SafeVarargs
+    public static void runActivityWithTransition(Class startActivityClass, Pair<View, String>... sharedElements) {
         ActivityOptionsCompat transitionActivityOptions = null;
         if (BuildUtil.isMinApi21()) {
             transitionActivityOptions = ActivityOptionsCompat.
