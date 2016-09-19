@@ -4,27 +4,28 @@ package pl.hypeapp.episodie.util;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class FontManager {
-    private static final String TAG = FontManager.class.getName();
+public class FontUtil {
+    private static final String TAG = FontUtil.class.getName();
 
-    private static FontManager instance;
+    private static FontUtil instance;
 
     private AssetManager assetManager;
 
     private Map<String, Typeface> fonts;
 
-    private FontManager(AssetManager assetManager) {
+    private FontUtil(AssetManager assetManager) {
         this.assetManager = assetManager;
         this.fonts = new HashMap<>();
     }
 
-    public static FontManager getInstance(AssetManager assetManager) {
+    public static FontUtil getInstance(AssetManager assetManager) {
         if (instance == null) {
-            instance = new FontManager(assetManager);
+            instance = new FontUtil(assetManager);
         }
         return instance;
     }
@@ -43,5 +44,9 @@ public class FontManager {
         }
 
         return font;
+    }
+
+    public void setTextViewTypeface(TextView textView, String asset){
+        textView.setTypeface(getFont(asset));
     }
 }
