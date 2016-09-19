@@ -5,7 +5,7 @@ import android.os.Handler;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
 
-public class HTextViewAnimator {
+public class HtextViewAnimator {
     private HTextView hTextView;
     private String[] textsToAnimate;
     private int textToAnimateLength;
@@ -13,7 +13,7 @@ public class HTextViewAnimator {
     private int delayBetweenSequences;
     private Listener listener;
 
-    public HTextViewAnimator(HTextView hTextView, String[] textsToAnimate, HTextViewType hTextViewType) {
+    public HtextViewAnimator(HTextView hTextView, String[] textsToAnimate, HTextViewType hTextViewType) {
         this.hTextView = hTextView;
         this.textsToAnimate = textsToAnimate;
         textToAnimateLength = textsToAnimate.length;
@@ -37,7 +37,13 @@ public class HTextViewAnimator {
     }
 
     private void animateHTextViewSequence(final int startTextIndex) {
-        animationSequenceHandler.postDelayed(new Runnable() {
+        if(animationSequenceHandler != null) {
+            animationSequenceHandler.postDelayed(sequenceRun(startTextIndex), delayBetweenSequences);
+        }
+    }
+
+    private Runnable sequenceRun(final int startTextIndex){
+        return new Runnable() {
             @Override
             public void run() {
                 hTextView.animateText(textsToAnimate[startTextIndex]);
@@ -49,11 +55,18 @@ public class HTextViewAnimator {
                     }
                 }
             }
-
             private boolean isTextToAnimate() {
                 return startTextIndex < textToAnimateLength - 1;
             }
-        }, delayBetweenSequences);
+        };
+}
+
+    public void stopSequenceAnimation(){
+        if(animationSequenceHandler != null) {
+            animationSequenceHandler.removeCallbacks(sequenceRun(0));
+            animationSequenceHandler = null;
+            hTextView.reset(hTextView.getText());
+        }
     }
 
     public interface Listener{
