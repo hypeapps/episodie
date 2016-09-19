@@ -47,6 +47,7 @@ def firebaseVersion = "9.4.0"
 def rxAndroidVersion = "1.2.1"
 def daggerVersion = '2.6'
 def icepickVersion = '3.2.0'
+def thirtyinchVersion = '0.7.1'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -75,7 +76,10 @@ dependencies {
     compile "frankiesardo:icepick:$icepickVersion"
     provided "frankiesardo:icepick-processor:$icepickVersion"
     //    MVP
-    compile 'com.tinmegali.mvp:mvp:0.0.7'
+    compile "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinchVersion"
+    compile "net.grandcentrix.thirtyinch:thirtyinch-rx:$thirtyinchVersion"
+    compile "net.grandcentrix.thirtyinch:thirtyinch-plugin:$thirtyinchVersion"
+    testCompile "net.grandcentrix.thirtyinch:thirtyinch-test:$thirtyinchVersion"
     //    Dependency injection
     compile "com.jakewharton:butterknife:$butterKnifeVersion"
     compile "io.reactivex:rxandroid:$rxAndroidVersion"
