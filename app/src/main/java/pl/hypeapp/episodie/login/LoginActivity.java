@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.transition.TransitionManager;
 import android.view.View;
@@ -16,31 +18,29 @@ import android.widget.Space;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Transformation;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pascalwelsch.compositeandroid.activity.CompositeActivity;
+
+import net.grandcentrix.thirtyinch.internal.TiPresenterProvider;
+import net.grandcentrix.thirtyinch.plugin.TiActivityPlugin;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import pl.hypeapp.episodie.App;
 import pl.hypeapp.episodie.R;
-import pl.hypeapp.episodie.base.BaseMVPActivity;
-import pl.hypeapp.episodie.signup.SignUpActivity;
 import pl.hypeapp.episodie.util.BuildUtil;
-import pl.hypeapp.episodie.util.StartActivityUtil;
+import pl.hypeapp.episodie.util.FontUtil;
 import pl.hypeapp.episodie.util.image.BlurTransformation;
 import pl.hypeapp.episodie.util.image.ColorFilterTransformation;
-import pl.hypeapp.episodie.util.image.GrayscaleTransformation;
 
 
-public class LoginActivity extends
-        BaseMVPActivity<LoginMVP.RequiredViewOps, LoginMVP.ProvidedPresenterOps, LoginPresenter>
-        implements LoginMVP.RequiredViewOps {
+public class LoginActivity extends CompositeActivity implements LoginView {
 
+    private static FontUtil sFontUtil;
     @BindView(R.id.iv_login_background)
     ImageView loginBackgroundImageView;
     @BindView(R.id.rl_logo)
@@ -53,36 +53,50 @@ public class LoginActivity extends
     Space space;
     @BindView(R.id.iv_shared_background)
     ImageView sharedBackground;
-    @Inject
-    FirebaseAuth firebaseAuth;
+    @Inject FirebaseAuth firebaseAuth;
     ImageView rootLayout;
-    App app;
+//    App app;
+
+    private final TiActivityPlugin<LoginPresenter, LoginView> mPresenterPlugin =
+            new TiActivityPlugin<>(new TiPresenterProvider<LoginPresenter>() {
+                @NonNull
+                @Override
+                public LoginPresenter providePresenter() {
+                    return new LoginPresenter();
+                }
+            });
+
+    public LoginActivity() {
+        addPlugin(mPresenterPlugin);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        super.onCreate(LoginPresenter.class, this);
+
+        sFontUtil = FontUtil.getInstance(getAssets());
+        sFontUtil.setTextViewTypeface(logoText, "fonts/coolvetica.ttf");
 
         rootLayout = loginBackgroundImageView;
-        loadImageFromResourcesIntoView(loginBackgroundImageView, R.drawable.breaking_bad_background,
-                new GrayscaleTransformation(this), new BlurTransformation(this, 12));
-        setTextLogoFont(logoText);
-        enterActivityLogoTransition();
+//        loadImageFromResourcesIntoView(loginBackgroundImageView, R.drawable.breaking_bad_background,
+//                new GrayscaleTransformation(this), new BlurTransformation(this, 12));
+//        setTextLogoFont(logoText);
 
-        app = (App) getApplication();
-        app.getAuthComponent().inject(this);
+//
+//        app = (App) getApplication();
+//        app.getAuthComponent().inject(this);
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
     public void enterActivityLogoTransition() {
         logoIcon.postDelayed(logoTransitionRun(logoIcon, logoText, logoLayout), 680);
+    }
+
+    @OnClick(R.id.login_button)
+    void onSignUpStart() {
+        intentToSignUpActivity();
     }
 
     private Runnable logoTransitionRun(final View logoIcon, final View logoText, final ViewGroup logoLayout) {
@@ -186,8 +200,8 @@ public class LoginActivity extends
     private void intentToSignUpActivity() {
         View sharedView = loginBackgroundImageView;
         Pair<View, String> sharedBackground = Pair.create(sharedView, "background");
-        StartActivityUtil startActivityUtil = StartActivityUtil.getInstance(getActivity());
-        startActivityUtil.runActivityWithTransition(SignUpActivity.class, sharedBackground);
+//        StartActivityUtil startActivityUtil = StartActivityUtil.getInstance(getActivity());
+//        startActivityUtil.runActivityWithTransition(SignUpActivity.class, sharedBackground);
     }
 
     private void loadSharedBackground(int colorFilter) {
@@ -195,10 +209,4 @@ public class LoginActivity extends
                 .bitmapTransform(new ColorFilterTransformation(this, colorFilter), new BlurTransformation(this, 12))
                 .into(sharedBackground);
     }
-
-    @OnClick(R.id.login_button)
-    void onSignUpStart() {
-        intentToSignUpActivity();
-    }
-
 }
