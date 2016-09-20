@@ -19,6 +19,7 @@ import net.grandcentrix.thirtyinch.plugin.TiActivityPlugin;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.hypeapp.episodie.R;
+import pl.hypeapp.episodie.login.LoginActivity;
 import pl.hypeapp.episodie.plugin.ImageLoaderPlugin;
 import pl.hypeapp.episodie.util.FontUtil;
 import pl.hypeapp.episodie.util.StartActivityUtil;
@@ -103,7 +104,7 @@ public class SplashScreenActivity extends CompositeActivity implements SplashScr
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                runActivity(SplashScreenActivity.class);
+                runActivity(LoginActivity.class);
             }
         }, delayInMilis);
     }
