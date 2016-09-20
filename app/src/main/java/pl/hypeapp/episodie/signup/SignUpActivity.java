@@ -2,6 +2,8 @@ package pl.hypeapp.episodie.signup;
 
 import android.animation.Animator;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -10,24 +12,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pascalwelsch.compositeandroid.activity.CompositeActivity;
+
+import net.grandcentrix.thirtyinch.internal.TiPresenterProvider;
+import net.grandcentrix.thirtyinch.plugin.TiActivityPlugin;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import pl.hypeapp.episodie.App;
 import pl.hypeapp.episodie.R;
-import pl.hypeapp.episodie.base.BaseMVPActivity;
 import pl.hypeapp.episodie.util.BuildUtil;
 
-public class SignUpActivity extends
-        BaseMVPActivity<SignUpMVP.RequiredViewOps, SignUpMVP.ProvidedPresenterOps, SignUpPresenter>
-        implements SignUpMVP.RequiredViewOps {
+public class SignUpActivity extends CompositeActivity implements SignUpView {
 
-//    @BindView(R.id.bt_sign_up)
+    //    @BindView(R.id.bt_sign_up)
     Button signUpButton;
     @BindView(R.id.iv_signup_background)
     ImageView backgroundImageView;
@@ -37,19 +37,31 @@ public class SignUpActivity extends
     RelativeLayout rootLayout;
     @Inject
     FirebaseAuth firebaseAuth;
-    App app;
+//    App app;
+
+    private final TiActivityPlugin<SignUpPresenter, SignUpView> mPresenterPlugin =
+            new TiActivityPlugin<>(new TiPresenterProvider<SignUpPresenter>() {
+                @NonNull
+                @Override
+                public SignUpPresenter providePresenter() {
+                    return new SignUpPresenter();
+                }
+            });
+
+    public SignUpActivity() {
+        addPlugin(mPresenterPlugin);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-        super.onCreate(SignUpPresenter.class, this);
-        loadImageFromResourcesIntoView(backgroundImageView, R.drawable.mrrobot_background);
+//        loadImageFromResourcesIntoView(backgroundImageView, R.drawable.mrrobot_background);
         rootLayout.post(revealAnimationRun());
-
-        app = (App) getApplication();
-        app.getAuthComponent().inject(this);
+//
+//        app = (App) getApplication();
+//        app.getAuthComponent().inject(this);
     }
 
     private Runnable revealAnimationRun() {
@@ -103,7 +115,7 @@ public class SignUpActivity extends
         Log.e("SIGN_UP_ACTIVITY", "SIGN_UP_SUCCESS");
     }
 
-//    @OnClick(R.id.bt_sign_up)
+    //    @OnClick(R.id.bt_sign_up)
     public void registerUser(View view) {
 //        Log.e("SIGN_UP_ACTIVITY", "button");
 //        getPresenter().registerUser("register@test.pl", "test6liter");
