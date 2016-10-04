@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.login;
+package pl.hypeapp.episodie.ui.activity;
 
 import android.animation.Animator;
 import android.graphics.Color;
@@ -32,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.hypeapp.episodie.R;
+import pl.hypeapp.episodie.presenter.LoginPresenter;
+import pl.hypeapp.episodie.view.LoginView;
 import pl.hypeapp.episodie.util.BuildUtil;
 import pl.hypeapp.episodie.util.FontUtil;
 import pl.hypeapp.episodie.util.image.BlurTransformation;
@@ -40,7 +42,6 @@ import pl.hypeapp.episodie.util.image.ColorFilterTransformation;
 
 public class LoginActivity extends CompositeActivity implements LoginView {
 
-    private static FontUtil sFontUtil;
     @BindView(R.id.iv_login_background)
     ImageView loginBackgroundImageView;
     @BindView(R.id.rl_logo)
@@ -76,7 +77,7 @@ public class LoginActivity extends CompositeActivity implements LoginView {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        sFontUtil = FontUtil.getInstance(getAssets());
+        FontUtil sFontUtil = FontUtil.getInstance(getAssets());
         sFontUtil.setTextViewTypeface(logoText, "fonts/coolvetica.ttf");
 
         rootLayout = loginBackgroundImageView;

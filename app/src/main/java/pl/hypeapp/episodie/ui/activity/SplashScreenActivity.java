@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.splashscreen;
+package pl.hypeapp.episodie.ui.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,20 +19,18 @@ import net.grandcentrix.thirtyinch.plugin.TiActivityPlugin;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.hypeapp.episodie.R;
-import pl.hypeapp.episodie.login.LoginActivity;
 import pl.hypeapp.episodie.plugin.ImageLoaderPlugin;
+import pl.hypeapp.episodie.presenter.SplashScreenPresenter;
 import pl.hypeapp.episodie.util.FontUtil;
 import pl.hypeapp.episodie.util.StartActivityUtil;
 import pl.hypeapp.episodie.util.animation.HtextViewAnimator;
 import pl.hypeapp.episodie.util.animation.YoYoAnimator;
-import pl.hypeapp.episodie.util.image.BlurTransformation;
-import pl.hypeapp.episodie.util.image.GrayscaleTransformation;
+import pl.hypeapp.episodie.view.SplashScreenView;
 
 public class SplashScreenActivity extends CompositeActivity implements SplashScreenView {
     private final ImageLoaderPlugin mImageLoaderPlugin = new ImageLoaderPlugin();
     private static YoYoAnimator sYoyoAnimator = YoYoAnimator.getInstance();
     private static HtextViewAnimator sHtextViewAnimator;
-    private static FontUtil sFontUtil;
 
     private final TiActivityPlugin<SplashScreenPresenter, SplashScreenView> mPresenterPlugin =
             new TiActivityPlugin<>(new TiPresenterProvider<SplashScreenPresenter>() {
@@ -63,7 +61,7 @@ public class SplashScreenActivity extends CompositeActivity implements SplashScr
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
         loadBackground();
-        sFontUtil = FontUtil.getInstance(getAssets());
+        FontUtil sFontUtil = FontUtil.getInstance(getAssets());
         sFontUtil.setTextViewTypeface(hTextView, "fonts/coolvetica.ttf");
         mPresenter = mPresenterPlugin.getPresenter();
     }
@@ -110,8 +108,7 @@ public class SplashScreenActivity extends CompositeActivity implements SplashScr
     }
 
     public void loadBackground() {
-        mImageLoaderPlugin.loadImageFromResourcesIntoView(backgroundImageView, R.drawable.breaking_bad_background,
-                new GrayscaleTransformation(this), new BlurTransformation(this, 12));
+        mImageLoaderPlugin.loadImageFromResourcesIntoView(backgroundImageView, R.drawable.breaking_bad_backgorund);
     }
 
     private void runActivity(Class startActivityClass) {

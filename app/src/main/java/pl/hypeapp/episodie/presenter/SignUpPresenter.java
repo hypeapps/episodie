@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.signup;
+package pl.hypeapp.episodie.presenter;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -10,6 +10,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
 import net.grandcentrix.thirtyinch.TiPresenter;
+
+import pl.hypeapp.episodie.ui.activity.SignUpActivity;
+import pl.hypeapp.episodie.view.SignUpView;
 
 public class SignUpPresenter extends TiPresenter<SignUpView> {
 

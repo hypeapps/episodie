@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.signup;
+package pl.hypeapp.episodie.ui.activity;
 
 import android.animation.Animator;
 import android.os.Bundle;
@@ -23,7 +23,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.hypeapp.episodie.R;
+import pl.hypeapp.episodie.presenter.SignUpPresenter;
 import pl.hypeapp.episodie.util.BuildUtil;
+import pl.hypeapp.episodie.view.SignUpView;
 
 public class SignUpActivity extends CompositeActivity implements SignUpView {
 

@@ -1,6 +1,8 @@
-package pl.hypeapp.episodie.splashscreen;
+package pl.hypeapp.episodie.presenter;
 
 import net.grandcentrix.thirtyinch.TiPresenter;
+
+import pl.hypeapp.episodie.view.SplashScreenView;
 
 public class SplashScreenPresenter extends TiPresenter<SplashScreenView> {
 
