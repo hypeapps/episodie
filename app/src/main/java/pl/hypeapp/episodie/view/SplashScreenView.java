@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.splashscreen;
+package pl.hypeapp.episodie.view;
 
 import net.grandcentrix.thirtyinch.TiView;
 import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread;
