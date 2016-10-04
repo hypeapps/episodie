@@ -1,12 +1,10 @@
-package pl.hypeapp.episodie.signup;
-
-import android.app.Activity;
+package pl.hypeapp.episodie.view;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import net.grandcentrix.thirtyinch.TiView;
 
-interface SignUpView extends TiView {
+public interface SignUpView extends TiView {
 
     FirebaseAuth getFirebaseAuth();
 
