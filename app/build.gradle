@@ -11,6 +11,9 @@ android {
     lintOptions {
         abortOnError false
     }
+    packagingOptions{
+        exclude 'META-INF/LICENSE'
+    }
     defaultConfig {
         applicationId "pl.hypeapps.episodie"
         minSdkVersion 19
@@ -48,6 +51,7 @@ def rxAndroidVersion = "1.2.1"
 def daggerVersion = '2.6'
 def icepickVersion = '3.2.0'
 def thirtyinchVersion = '0.7.1'
+def extendsiblePageIndicator = '1.0.1'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -73,6 +77,7 @@ dependencies {
     compile "com.ogaclejapan.smarttablayout:library:$smarttablayoutLibraryVersion"
     compile "com.github.alorma:timelineview:$alormaTimeLineViewVersion"
     compile "org.greenrobot:eventbus:$eventBusVersion"
+    compile "com.merhold.extensiblepageindicator:extensiblepageindicator:$extendsiblePageIndicator"
     compile "frankiesardo:icepick:$icepickVersion"
     provided "frankiesardo:icepick-processor:$icepickVersion"
     //    MVP
