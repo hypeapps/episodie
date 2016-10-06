@@ -13,6 +13,10 @@ public class ImageLoaderPlugin extends ActivityPlugin {
         Glide.with(getActivity()).load(drawable).bitmapTransform(transformations).into(view);
     }
 
+    public void loadImageFromResourcesIntoView(ImageView view, int drawable) {
+        Glide.with(getActivity()).load(drawable).into(view);
+    }
+
 //    public void loadImageFromResourcesIntoView(ImageView view, int drawable){
 //        Glide.with(getActivity()).load(drawable).into(view);
 //    }

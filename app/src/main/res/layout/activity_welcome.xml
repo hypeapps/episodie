@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager_welcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.merhold.extensiblepageindicator.ExtensiblePageIndicator
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:indicatorPadding="16dp"
+        app:indicatorRadius="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/layout_paddding"
+        android:id="@+id/page_indicator" />
 
 </RelativeLayout>
