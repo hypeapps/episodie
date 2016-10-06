@@ -22,11 +22,11 @@ public class WelcomePagerAdapter extends FragmentPagerAdapter {
     }
 
     private boolean isRegistrationMethodFragmentPosition(int position) {
-        return position == 1;
+        return position == 2;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
 }
