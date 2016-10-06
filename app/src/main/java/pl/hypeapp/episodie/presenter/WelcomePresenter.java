@@ -6,4 +6,7 @@ import pl.hypeapp.episodie.view.WelcomeView;
 
 public class WelcomePresenter extends TiPresenter<WelcomeView> {
 
+    public void onNextPage(){
+        getView().animatePagerTransition(true);
+    }
 }
