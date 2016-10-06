@@ -7,15 +7,40 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager_welcome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/layout_paddding"
+        android:layout_marginRight="@dimen/iv_next_padding_right"
+        app:rv_rippleDuration="200"
+        app:rv_centered="true" >
+
+    <ImageView
+        android:id="@+id/iv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle_shape"
+        android:src="@drawable/ic_navigate_next_white_24dp"
+        android:onClick="nextPage" />
+
+    </com.andexert.library.RippleView>
 
     <com.merhold.extensiblepageindicator.ExtensiblePageIndicator
+        android:id="@+id/page_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:indicatorPadding="16dp"
-        app:indicatorRadius="6dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/layout_paddding"
-        android:id="@+id/page_indicator" />
+        app:indicatorInactiveColor="@color/indicatorPageAlpha"
+        app:indicatorPadding="16dp"
+        app:indicatorRadius="6dp" />
 
 </RelativeLayout>

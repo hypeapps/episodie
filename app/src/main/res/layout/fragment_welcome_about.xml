@@ -11,4 +11,5 @@
         app:srcCompat="@drawable/breaking_bad_backgorund"
         android:id="@+id/parallax_background"
         android:scaleType="centerCrop" />
+
 </LinearLayout>
