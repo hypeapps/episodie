@@ -52,6 +52,7 @@ def daggerVersion = '2.6'
 def icepickVersion = '3.2.0'
 def thirtyinchVersion = '0.7.1'
 def extendsiblePageIndicator = '1.0.1'
+def rippleEffect = '1.3'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -79,6 +80,7 @@ dependencies {
     compile "org.greenrobot:eventbus:$eventBusVersion"
     compile "com.merhold.extensiblepageindicator:extensiblepageindicator:$extendsiblePageIndicator"
     compile "frankiesardo:icepick:$icepickVersion"
+    compile "com.github.traex.rippleeffect:library:$rippleEffect"
     provided "frankiesardo:icepick-processor:$icepickVersion"
     //    MVP
     compile "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinchVersion"
