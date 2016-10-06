@@ -7,4 +7,5 @@
     <!--PATHS / URLS-->
     <string name="thewalkingdead_background">file:///android_asset/thewalkingdead_background.jpg</string>
     <string name="breaking_bad_background">file:///android_asset/breaking_bad_background.jpg</string>
+    <string name="mr_robot_background">file://android_asset/mrrobot_background.png</string>
 </resources>
