@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+rootProject.applicationModulePlugins.each {
+    apply plugin: it
+}
+
+android {
+    def ext = rootProject.extensions.ext
+    compileSdkVersion ext.android.compileSdkVersion
+    buildToolsVersion ext.android.buildToolsVersion
+    defaultConfig {
+        minSdkVersion ext.android.minSdkVersion
+        targetSdkVersion ext.android.targetSdkVersion
+        versionCode ext.android.versionCode
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    rootProject.applicationModuleDependencies.each {
+        add(it.configuration, it.dependency, it.options)
+    }
+}
