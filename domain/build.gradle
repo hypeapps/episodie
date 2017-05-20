@@ -1,0 +1,9 @@
+rootProject.domainModulePlugins.each {
+    apply plugin: it
+}
+
+dependencies {
+    rootProject.domainModuleDependencies.each {
+        add(it.configuration, it.dependency, it.options)
+    }
+}
