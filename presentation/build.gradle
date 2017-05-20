@@ -1,0 +1,9 @@
+rootProject.presentationModulePlugins.each {
+    apply plugin: it
+}
+
+dependencies {
+    rootProject.presentationModuleDependencies.each {
+        add(it.configuration, it.dependency, it.options)
+    }
+}
