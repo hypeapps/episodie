@@ -21,6 +21,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError true
+        textReport true
+        textOutput 'stdout'
+        htmlReport true
+        htmlOutput file("${buildDir}/reports/lint/lint.html")
+    }
     sourceSets {
         main {
             java.srcDirs += 'src/main/kotlin'
@@ -32,10 +39,6 @@ android {
             java.srcDirs = ['src/androidTest/kotlin']
         }
     }
-}
-
-sourceSets.forEach() {
-    it.java.srcDirs = ["src/main/kotlin"]
 }
 
 dependencies {

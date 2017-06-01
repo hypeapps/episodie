@@ -25,7 +25,8 @@ android {
         abortOnError true
         textReport true
         textOutput 'stdout'
-        warning 'InvalidPackage'
+        htmlReport true
+        htmlOutput file("${buildDir}/reports/lint/lint.html")
     }
     sourceSets {
         main {
