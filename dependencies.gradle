@@ -1,21 +1,21 @@
 ext {
-    android  = [
-            compileSdkVersion:  25,
+    android = [
+            compileSdkVersion: 25,
             buildToolsVersion: "25.0.3",
-            minSdkVersion: 16,
-            targetSdkVersion: 25,
-            versionCode: 1,
-            versionName: "1.0"
+            minSdkVersion    : 16,
+            targetSdkVersion : 25,
+            versionCode      : 1,
+            versionName      : "1.0"
     ]
 
     build = [
-            gradle : "3.0.0-alpha2",
-            kotlin : "1.1.2-4"
+            gradle: "3.0.0-alpha2",
+            kotlin: "1.1.2-4"
     ]
 
     buildPlugins = [
-            gradle : "com.android.tools.build:gradle:$build.gradle",
-            kotlin : "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin"
+            gradle: "com.android.tools.build:gradle:$build.gradle",
+            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin"
     ]
 
     // dependency versions
@@ -23,22 +23,27 @@ ext {
     def versionJUnit = '4.12'
     def versionEspresso = '2.2.2'
     def versionRxJava = '1.2.0'
+    def okHttpVersion = '3.8.0'
+    def debugBottle = '1.1.1'
 
     def libs = [
-            appCompat  : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
-            kotlin_stdlib : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
-            rxJava:          [group: 'io.reactivex', name: 'rxjava',    version: versionRxJava]
+            appCompat         : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
+            kotlin_stdlib     : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
+            rxJava            : [group: 'io.reactivex', name: 'rxjava', version: versionRxJava],
+            okHttp            : [group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion],
+            debugBottleRuntime: [group: 'com.exyui.android', name: 'debug-bottle-runtime', version: debugBottle],
+            debugBottleNoop   : [group: 'com.exyui.android', name: 'debug-bottle-noop-kotlin', version: debugBottle]
     ]
 
     def testLibs = [
-            junit : [group: 'junit', name: 'junit', version: versionJUnit],
-            espressoCore : [group: 'com.android.support.test.espresso', name: 'espresso-core', version: versionEspresso]
+            junit       : [group: 'junit', name: 'junit', version: versionJUnit],
+            espressoCore: [group: 'com.android.support.test.espresso', name: 'espresso-core', version: versionEspresso]
     ]
 
     def modules = [
             dataproviders: ':dataproviders',
-            domain: ':domain',
-            presentation: ':presentation'
+            domain       : ':domain',
+            presentation : ':presentation'
     ]
 
     def supportAnnotationsExclude = {
@@ -49,8 +54,11 @@ ext {
             [configuration: "implementation", dependency: libs.appCompat],
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
             [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "implementation", dependency: libs.okHttp],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
-             options: supportAnnotationsExclude],
+             options      : supportAnnotationsExclude],
+            [configuration: "debugCompile", dependency: libs.debugBottleRuntime],
+            [configuration: "testCompile", dependency: libs.debugBottleNoop],
 
             [configuration: "implementation", dependency: project(modules.domain)],
             [configuration: "implementation", dependency: project(modules.presentation)]
@@ -72,20 +80,20 @@ ext {
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
-             options: supportAnnotationsExclude],
+             options      : supportAnnotationsExclude],
 
             [configuration: "implementation", dependency: project(modules.domain)]
     ]
 
     def plugins = [
             kotlin_android: 'kotlin-android',
-            kotlin: 'kotlin',
-            apt: 'com.neenbedankt.android-apt',
-            java: 'java'
+            kotlin        : 'kotlin',
+            apt           : 'com.neenbedankt.android-apt',
+            java          : 'java'
     ]
 
-    applicationModulePlugins = [ plugins.kotlin_android ]
-    presentationModulePlugins = [ plugins.kotlin ]
-    domainModulePlugins = [ plugins.kotlin ]
-    dataprovidersModulePlugins = [ plugins.kotlin_android ]
+    applicationModulePlugins = [plugins.kotlin_android]
+    presentationModulePlugins = [plugins.kotlin]
+    domainModulePlugins = [plugins.kotlin]
+    dataprovidersModulePlugins = [plugins.kotlin_android]
 }
