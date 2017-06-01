@@ -46,35 +46,35 @@ ext {
     }
 
     applicationModuleDependencies = [
-            [configuration: "compile", dependency: libs.appCompat],
-            [configuration: "compile", dependency: libs.kotlin_stdlib],
-            [configuration: "testCompile", dependency: testLibs.junit],
-            [configuration: "androidTestCompile", dependency: testLibs.espressoCore,
+            [configuration: "implementation", dependency: libs.appCompat],
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options: supportAnnotationsExclude],
 
-            [configuration: "compile", dependency: project(modules.domain)],
-            [configuration: "compile", dependency: project(modules.presentation)]
+            [configuration: "implementation", dependency: project(modules.domain)],
+            [configuration: "implementation", dependency: project(modules.presentation)]
     ]
 
     presentationModuleDependencies = [
-            [configuration: "compile", dependency: libs.kotlin_stdlib],
-            [configuration: "testCompile", dependency: testLibs.junit],
-            [configuration: "compile", dependency: project(modules.domain)],
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "implementation", dependency: project(modules.domain)],
     ]
 
     domainModuleDependencies = [
-            [configuration: "testCompile", dependency: testLibs.junit],
-            [configuration: "compile", dependency: libs.kotlin_stdlib]
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "implementation", dependency: libs.kotlin_stdlib]
     ]
 
     dataprovidersModuleDependencies = [
-            [configuration: "compile", dependency: libs.rxJava],
-            [configuration: "compile", dependency: libs.kotlin_stdlib],
-            [configuration: "testCompile", dependency: testLibs.junit],
-            [configuration: "androidTestCompile", dependency: testLibs.espressoCore,
+            [configuration: "implementation", dependency: libs.rxJava],
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options: supportAnnotationsExclude],
 
-            [configuration: "compile", dependency: project(modules.domain)]
+            [configuration: "implementation", dependency: project(modules.domain)]
     ]
 
     def plugins = [
