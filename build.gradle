@@ -18,6 +18,31 @@ allprojects {
     }
 }
 
+subprojects {
+    def detekVersion = "1.0.0.M10.2"
+    repositories {
+        mavenCentral()
+        maven { url "http://dl.bintray.com/arturbosch/code-analysis" }
+    }
+    configurations {
+        detekt
+    }
+    dependencies {
+        detekt "io.gitlab.arturbosch.detekt:detekt-cli:$detekVersion"
+        detekt "io.gitlab.arturbosch.detekt:detekt-formatting:$detekVersion"
+    }
+    task detekt(type: JavaExec) {
+        main = "io.gitlab.arturbosch.detekt.cli.Main"
+        classpath = configurations.detekt
+        def input = "$project.projectDir.absolutePath"
+        def config = "$rootDir/detekt.yml"
+        def filters = ".*test.*"
+        def rulesets = " "
+        def params = ['-p', input, '-c', config, '-f', filters, '-r', rulesets]
+        args(params)
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

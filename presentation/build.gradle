@@ -2,6 +2,10 @@ rootProject.presentationModulePlugins.each {
     apply plugin: it
 }
 
+sourceSets.forEach(){
+    it.java.srcDirs = ["src/main/kotlin"]
+}
+
 dependencies {
     rootProject.presentationModuleDependencies.each {
         add(it.configuration, it.dependency, it.options)
