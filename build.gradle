@@ -1,26 +1,50 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
-
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.3.0'
-        classpath 'com.google.gms:google-services:3.0.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        apply from: 'dependencies.gradle'
+        classpath buildPlugins.gradle
+        classpath buildPlugins.kotlin
+        classpath buildPlugins.groovy
     }
+}
+
+plugins {
+    id "net.ltgt.apt" version "0.10"
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://maven.google.com' }
         mavenCentral()
-        maven {url "https://clojars.org/repo/"}
+    }
+}
+
+subprojects {
+    def detekVersion = "1.0.0.M10.2"
+    repositories {
+        mavenCentral()
+        maven { url "http://dl.bintray.com/arturbosch/code-analysis" }
+    }
+    configurations {
+        detekt
+    }
+    dependencies {
+        detekt "io.gitlab.arturbosch.detekt:detekt-cli:$detekVersion"
+        detekt "io.gitlab.arturbosch.detekt:detekt-formatting:$detekVersion"
+    }
+    task detekt(type: JavaExec) {
+        main = "io.gitlab.arturbosch.detekt.cli.Main"
+        classpath = configurations.detekt
+        def input = "$project.projectDir.absolutePath"
+        def config = "$rootDir/detekt.yml"
+        def filters = ".*test.*"
+        def rulesets = " "
+        def params = ['-p', input, '-c', config, '-f', filters, '-r', rulesets]
+        args(params)
     }
 }
 

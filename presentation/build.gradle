@@ -1,0 +1,18 @@
+rootProject.presentationModulePlugins.each {
+    apply plugin: it
+}
+
+sourceSets {
+    main {
+        java.srcDirs += 'src/main/kotlin'
+    }
+    test {
+        groovy.srcDirs = ['src/test/groovy']
+    }
+}
+
+dependencies {
+    rootProject.presentationModuleDependencies.each {
+        add(it.configuration, it.dependency, it.options)
+    }
+}

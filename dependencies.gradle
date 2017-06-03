@@ -1,0 +1,187 @@
+ext {
+    android = [
+            compileSdkVersion: 25,
+            buildToolsVersion: "25.0.3",
+            minSdkVersion    : 16,
+            targetSdkVersion : 25,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    build = [
+            gradle: "3.0.0-alpha2",
+            kotlin: "1.1.2-4",
+            groovy: "1.1.0"
+    ]
+
+    buildPlugins = [
+            gradle: "com.android.tools.build:gradle:$build.gradle",
+            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin",
+            groovy: "org.codehaus.groovy:groovy-android-gradle-plugin:$build.groovy"
+    ]
+
+    // dependency version
+    def androidSupportLibs = '25.3.1'
+    def jUnitVersion = '4.12'
+    def espressoVersion = '2.2.2'
+    def rxJavaVersion = '2.1.0'
+    def rxAndroidVersion = '2.0.1'
+    def okHttpVersion = '3.8.0'
+    def debugBottleVersion = '1.1.1'
+    def gsonVersion = '2.8.1'
+    def retrofitVersion = '2.3.0'
+    def daggerVersion = '2.11'
+    def spockVersion = '1.1-groovy-2.4-rc-3'
+    def objenesisVersion = '2.5'
+    def nodepVersion = '3.2.5'
+    def groovyVersion = '2.4.10'
+    def stethoVersion = '1.5.0'
+    def extensiblePageIndicatorVersion = '1.0.1'
+    def butterKnifeVersion = '8.6.0'
+    def glideVersion = '4.0.0-RC0'
+    def rippleVersion = '1.3'
+
+    def libs = [
+            supportAppCompat       : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
+            supportCardView        : [group: 'com.android.support', name: 'cardview-v7', version: androidSupportLibs],
+            supportDesign          : [group: 'com.android.support', name: 'design', version: androidSupportLibs],
+            supportPalette         : [group: 'com.android.support', name: 'palette-v7', version: androidSupportLibs],
+            supportRecyclerView    : [group: 'com.android.support', name: 'recyclerview-v7', version: androidSupportLibs],
+            supportV4              : [group: 'com.android.support', name: 'support-v4', version: androidSupportLibs],
+            kotlin_stdlib          : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
+            rxJava                 : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
+            rxAndroid              : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
+            okHttp                 : [group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion],
+            debugBottleRuntime     : [group: 'com.exyui.android', name: 'debug-bottle-runtime', version: debugBottleVersion],
+            debugBottleNoop        : [group: 'com.exyui.android', name: 'debug-bottle-noop-kotlin', version: debugBottleVersion],
+            gson                   : [group: 'com.google.code.gson', name: 'gson', version: gsonVersion],
+            retrofit               : [group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion],
+            retrofitRxJavaAdapater : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: retrofitVersion],
+            retrofitGsonConverter  : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion],
+            dagger                 : [group: 'com.google.dagger', name: 'dagger', version: daggerVersion],
+            daggerCompiler         : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion],
+            stetho                 : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion],
+            extensiblePageIndicator: [group: 'com.merhold.extensiblepageindicator', name: 'extensiblepageindicator', version: extensiblePageIndicatorVersion],
+            butterKnife            : [group: 'com.jakewharton', name: 'butterknife', version: butterKnifeVersion],
+            butterKnifeCompiler    : [group: 'com.jakewharton', name: 'butterknife-compiler', version: butterKnifeVersion],
+            glide                  : [group: 'com.github.bumptech.glide', name: 'glide', version: glideVersion],
+            glideCompiler          : [group: 'com.github.bumptech.glide', name: 'compiler', version: glideVersion],
+            ripple                 : [group: 'com.github.traex.rippleeffect', name: 'library', version: rippleVersion]
+    ]
+
+    def testLibs = [
+            junit       : [group: 'junit', name: 'junit', version: jUnitVersion],
+            espressoCore: [group: 'com.android.support.test.espresso', name: 'espresso-core', version: espressoVersion],
+            spock       : [group: 'org.spockframework', name: 'spock-core', version: spockVersion],
+            objenesis   : [group: 'org.objenesis', name: 'objenesis', version: objenesisVersion],
+            nodep       : [group: 'cglib', name: 'cglib-nodep', version: nodepVersion],
+            groovy      : [group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion]
+    ]
+
+    def modules = [
+            dataproviders: ':dataproviders',
+            domain       : ':domain',
+            presentation : ':presentation'
+    ]
+
+    def supportAnnotationsExclude = {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+    applicationModuleDependencies = [
+            // support libs
+            [configuration: "implementation", dependency: libs.supportAppCompat],
+            [configuration: "implementation", dependency: libs.supportCardView],
+            [configuration: "implementation", dependency: libs.supportDesign],
+            [configuration: "implementation", dependency: libs.supportPalette],
+            [configuration: "implementation", dependency: libs.supportRecyclerView],
+            [configuration: "implementation", dependency: libs.supportV4],
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            // frontend
+            [configuration: "implementation", dependency: libs.ripple],
+            [configuration: "implementation", dependency: libs.glide],
+            [configuration: "implementation", dependency: libs.ripple],
+            [configuration: "annotationProcessor", dependency: libs.glideCompiler],
+            // networking
+            [configuration: "implementation", dependency: libs.okHttp],
+            // dependency injection
+            [configuration: "implementation", dependency: libs.butterKnife],
+            [configuration: "annotationProcessor", dependency: libs.butterKnifeCompiler],
+            [configuration: "implementation", dependency: libs.dagger],
+            [configuration: "annotationProcessor", dependency: libs.daggerCompiler],
+            // debug tools
+            [configuration: "debugImplementation", dependency: libs.debugBottleRuntime],
+            [configuration: "testImplementation", dependency: libs.debugBottleNoop],
+            [configuration: "implementation", dependency: libs.stetho],
+            // rx
+            [configuration: "implementation", dependency: libs.rxJava],
+            [configuration: "implementation", dependency: libs.rxAndroid],
+            // test
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy],
+            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
+             options      : supportAnnotationsExclude],
+            // modules
+            [configuration: "implementation", dependency: project(modules.domain)],
+            [configuration: "implementation", dependency: project(modules.presentation)]
+    ]
+
+    presentationModuleDependencies = [
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            [configuration: "implementation", dependency: libs.dagger],
+            // dependency injection
+            [configuration: "kapt", dependency: libs.daggerCompiler],
+            // test
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy],
+            // modules
+            [configuration: "implementation", dependency: project(modules.domain)]
+    ]
+
+    domainModuleDependencies = [
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            // test
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy]
+    ]
+
+    dataprovidersModuleDependencies = [
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            // networking
+            [configuration: "implementation", dependency: libs.okHttp],
+            [configuration: "implementation", dependency: libs.retrofit],
+            [configuration: "implementation", dependency: libs.retrofitGsonConverter],
+            [configuration: "implementation", dependency: libs.retrofitRxJavaAdapater],
+            // dependency injection
+            [configuration: "implementation", dependency: libs.dagger],
+            [configuration: "annotationProcessor", dependency: libs.daggerCompiler],
+            // rx
+            [configuration: "implementation", dependency: libs.rxJava],
+            [configuration: "implementation", dependency: libs.rxAndroid],
+            // test
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy],
+            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
+             options      : supportAnnotationsExclude],
+            // modules
+            [configuration: "implementation", dependency: project(modules.domain)]
+    ]
+
+    def plugins = [
+            kotlin_android: 'kotlin-android',
+            kotlin        : 'kotlin',
+            apt           : 'com.neenbedankt.android-apt',
+            java          : 'java',
+            groovy_android: 'groovyx.android',
+            groovy        : 'groovy'
+    ]
+
+    applicationModulePlugins = [plugins.kotlin_android, plugins.groovy_android]
+    presentationModulePlugins = [plugins.kotlin, plugins.groovy]
+    domainModulePlugins = [plugins.kotlin, plugins.groovy]
+    dataprovidersModulePlugins = [plugins.kotlin_android, plugins.groovy_android]
+}
