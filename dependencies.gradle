@@ -18,26 +18,45 @@ ext {
             kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin"
     ]
 
-    // dependency versions
+    // dependency version
     def androidSupportLibs = '25.3.1'
-    def versionJUnit = '4.12'
-    def versionEspresso = '2.2.2'
-    def versionRxJava = '1.2.0'
+    def jUnitVersion = '4.12'
+    def espressoVersion = '2.2.2'
+    def rxJavaVersion = '2.1.0'
+    def rxAndroidVersion = '2.0.1'
     def okHttpVersion = '3.8.0'
-    def debugBottle = '1.1.1'
+    def debugBottleVersion = '1.1.1'
+    def gsonVersion = '2.8.1'
+    def retrofitVersion = '2.3.0'
+    def daggerVersion = '2.11'
+    def spockVersion = '1.1-groovy-2.4-rc-3'
+    def objenesisVersion = '2.5'
+    def nodepVersion = '3.2.5'
+    def groovyVersion = '2.4.10'
 
     def libs = [
-            appCompat         : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
-            kotlin_stdlib     : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
-            rxJava            : [group: 'io.reactivex', name: 'rxjava', version: versionRxJava],
-            okHttp            : [group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion],
-            debugBottleRuntime: [group: 'com.exyui.android', name: 'debug-bottle-runtime', version: debugBottle],
-            debugBottleNoop   : [group: 'com.exyui.android', name: 'debug-bottle-noop-kotlin', version: debugBottle]
+            appCompat             : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
+            kotlin_stdlib         : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
+            rxJava                : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
+            rxAndroid             : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
+            okHttp                : [group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion],
+            debugBottleRuntime    : [group: 'com.exyui.android', name: 'debug-bottle-runtime', version: debugBottleVersion],
+            debugBottleNoop       : [group: 'com.exyui.android', name: 'debug-bottle-noop-kotlin', version: debugBottleVersion],
+            gson                  : [group: 'com.google.code.gson', name: 'gson', version: gsonVersion],
+            retrofit              : [group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion],
+            retrofitRxJavaAdapater: [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: retrofitVersion],
+            retrofitGsonConverter : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion],
+            dagger                : [group: 'com.google.dagger', name: 'dagger', version: daggerVersion],
+            daggerCompiler        : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion]
     ]
 
     def testLibs = [
-            junit       : [group: 'junit', name: 'junit', version: versionJUnit],
-            espressoCore: [group: 'com.android.support.test.espresso', name: 'espresso-core', version: versionEspresso]
+            junit       : [group: 'junit', name: 'junit', version: jUnitVersion],
+            espressoCore: [group: 'com.android.support.test.espresso', name: 'espresso-core', version: espressoVersion],
+            spock       : [group: 'org.spockframework', name: 'spock-core', version: spockVersion],
+            objenesis   : [group: 'org.objenesis', name: 'objenesis', version: objenesisVersion],
+            nodep       : [group: 'cglib', name: 'cglib-nodep', version: nodepVersion],
+            groovy      : [group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion]
     ]
 
     def modules = [
@@ -53,35 +72,61 @@ ext {
     applicationModuleDependencies = [
             [configuration: "implementation", dependency: libs.appCompat],
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
-            [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "implementation", dependency: libs.okHttp],
+            [configuration: "debugImplementation", dependency: libs.debugBottleRuntime],
+            [configuration: "testImplementation", dependency: libs.debugBottleNoop],
+            [configuration: "implementation", dependency: libs.rxJava],
+            [configuration: "implementation", dependency: libs.rxAndroid],
+            [configuration: "implementation", dependency: libs.dagger],
+            [configuration: "annotationProcessor", dependency: libs.daggerCompiler],
+            //test
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
-            [configuration: "debugCompile", dependency: libs.debugBottleRuntime],
-            [configuration: "testCompile", dependency: libs.debugBottleNoop],
-
+            //modules
             [configuration: "implementation", dependency: project(modules.domain)],
             [configuration: "implementation", dependency: project(modules.presentation)]
     ]
 
     presentationModuleDependencies = [
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            [configuration: "implementation", dependency: libs.dagger],
+            [configuration: "kapt", dependency: libs.daggerCompiler],
+            //test
             [configuration: "testImplementation", dependency: testLibs.junit],
-            [configuration: "implementation", dependency: project(modules.domain)],
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy],
+            //modules
+            [configuration: "implementation", dependency: project(modules.domain)]
     ]
 
     domainModuleDependencies = [
+            [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            //test
             [configuration: "testImplementation", dependency: testLibs.junit],
-            [configuration: "implementation", dependency: libs.kotlin_stdlib]
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy]
     ]
 
     dataprovidersModuleDependencies = [
             [configuration: "implementation", dependency: libs.rxJava],
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
-            [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
-
+            [configuration: "implementation", dependency: libs.okHttp],
+            [configuration: "implementation", dependency: libs.rxAndroid],
+            [configuration: "implementation", dependency: libs.retrofit],
+            [configuration: "implementation", dependency: libs.retrofitGsonConverter],
+            [configuration: "implementation", dependency: libs.retrofitRxJavaAdapater],
+            [configuration: "implementation", dependency: libs.dagger],
+            [configuration: "annotationProcessor", dependency: libs.daggerCompiler],
+            //test
+            [configuration: "testImplementation", dependency: testLibs.junit],
+            [configuration: "testImplementation", dependency: testLibs.spock],
+            [configuration: "testImplementation", dependency: testLibs.groovy],
+            //modules
             [configuration: "implementation", dependency: project(modules.domain)]
     ]
 
@@ -89,11 +134,13 @@ ext {
             kotlin_android: 'kotlin-android',
             kotlin        : 'kotlin',
             apt           : 'com.neenbedankt.android-apt',
-            java          : 'java'
+            java          : 'java',
+            groovy_android: 'groovyx.android',
+            groovy        : 'groovy'
     ]
 
-    applicationModulePlugins = [plugins.kotlin_android]
-    presentationModulePlugins = [plugins.kotlin]
-    domainModulePlugins = [plugins.kotlin]
-    dataprovidersModulePlugins = [plugins.kotlin_android]
+    applicationModulePlugins = [plugins.kotlin_android, plugins.groovy_android]
+    presentationModulePlugins = [plugins.kotlin, plugins.groovy]
+    domainModulePlugins = [plugins.kotlin, plugins.groovy]
+    dataprovidersModulePlugins = [plugins.kotlin_android, plugins.groovy_android]
 }

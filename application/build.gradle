@@ -33,7 +33,7 @@ android {
             java.srcDirs += 'src/main/kotlin'
         }
         test {
-            java.srcDirs = ['src/test/kotlin']
+            java.srcDirs = ['src/test/groovy']
         }
         androidTest {
             java.srcDirs = ['src/androidTest/kotlin']

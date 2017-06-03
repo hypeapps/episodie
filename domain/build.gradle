@@ -2,8 +2,13 @@ rootProject.domainModulePlugins.each {
     apply plugin: it
 }
 
-sourceSets.forEach(){
-    it.java.srcDirs = ["src/main/kotlin"]
+sourceSets {
+    main {
+        java.srcDirs += 'src/main/kotlin'
+    }
+    test {
+        groovy.srcDirs = ['src/test/groovy']
+    }
 }
 
 dependencies {
