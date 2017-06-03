@@ -33,6 +33,7 @@ ext {
     def objenesisVersion = '2.5'
     def nodepVersion = '3.2.5'
     def groovyVersion = '2.4.10'
+    def stethoVersion = '1.5.0'
 
     def libs = [
             appCompat             : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
@@ -47,7 +48,8 @@ ext {
             retrofitRxJavaAdapater: [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: retrofitVersion],
             retrofitGsonConverter : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion],
             dagger                : [group: 'com.google.dagger', name: 'dagger', version: daggerVersion],
-            daggerCompiler        : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion]
+            daggerCompiler        : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion],
+            stetho                : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion]
     ]
 
     def testLibs = [
@@ -79,6 +81,7 @@ ext {
             [configuration: "implementation", dependency: libs.rxAndroid],
             [configuration: "implementation", dependency: libs.dagger],
             [configuration: "annotationProcessor", dependency: libs.daggerCompiler],
+            [configuration: "implementation", dependency: libs.stetho],
             //test
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.spock],
