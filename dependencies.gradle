@@ -10,12 +10,14 @@ ext {
 
     build = [
             gradle: "3.0.0-alpha2",
-            kotlin: "1.1.2-4"
+            kotlin: "1.1.2-4",
+            groovy: "1.1.0"
     ]
 
     buildPlugins = [
             gradle: "com.android.tools.build:gradle:$build.gradle",
-            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin"
+            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin",
+            groovy: "org.codehaus.groovy:groovy-android-gradle-plugin:$build.groovy"
     ]
 
     // dependency version
