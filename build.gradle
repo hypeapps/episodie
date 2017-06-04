@@ -27,6 +27,7 @@ subprojects {
     def detekVersion = "1.0.0.M10.2"
     repositories {
         mavenCentral()
+        maven { url "https://jitpack.io" }
         maven { url "http://dl.bintray.com/arturbosch/code-analysis" }
     }
     configurations {
