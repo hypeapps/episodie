@@ -32,6 +32,7 @@ ext {
     def gsonVersion = '2.8.1'
     def retrofitVersion = '2.3.0'
     def daggerVersion = '2.11'
+    def javaxInjectVersion = '1'
     def spockVersion = '1.1-groovy-2.4-rc-3'
     def objenesisVersion = '2.5'
     def nodepVersion = '3.2.5'
@@ -66,6 +67,7 @@ ext {
             retrofitGsonConverter  : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion],
             dagger                 : [group: 'com.google.dagger', name: 'dagger', version: daggerVersion],
             daggerCompiler         : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion],
+            javaxInject            : [group: 'javax.inject', name: 'javax.inject', version: javaxInjectVersion],
             stetho                 : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion],
             extensiblePageIndicator: [group: 'com.merhold.extensiblepageindicator', name: 'extensiblepageindicator', version: extensiblePageIndicatorVersion],
             butterKnife            : [group: 'com.jakewharton', name: 'butterknife', version: butterKnifeVersion],
@@ -121,12 +123,10 @@ ext {
             [configuration: "implementation", dependency: libs.okHttp],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
-            [configuration: "annotationProcessor", dependency: libs.butterKnifeCompiler],
+            [configuration: "kapt", dependency: libs.butterKnifeCompiler],
             [configuration: "implementation", dependency: libs.dagger],
-            [configuration: "annotationProcessor", dependency: libs.daggerCompiler],
+            [configuration: "kapt", dependency: libs.daggerCompiler],
             // debug tools
-            [configuration: "debugImplementation", dependency: libs.debugBottleRuntime],
-            [configuration: "testImplementation", dependency: libs.debugBottleNoop],
             [configuration: "implementation", dependency: libs.stetho],
             // rx
             [configuration: "implementation", dependency: libs.rxJava],
@@ -139,14 +139,17 @@ ext {
              options      : supportAnnotationsExclude],
             // modules
             [configuration: "implementation", dependency: project(modules.domain)],
-            [configuration: "implementation", dependency: project(modules.presentation)]
+            [configuration: "implementation", dependency: project(modules.presentation)],
+            [configuration: "implementation", dependency: project(modules.dataproviders)],
+
     ]
 
     presentationModuleDependencies = [
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
-            [configuration: "implementation", dependency: libs.dagger],
             // dependency injection
-            [configuration: "kapt", dependency: libs.daggerCompiler],
+            [configuration: "implementation", dependency: libs.javaxInject],
+            // rx
+            [configuration: "implementation", dependency: libs.rxJava],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.spock],
@@ -157,6 +160,10 @@ ext {
 
     domainModuleDependencies = [
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            //dependency injection
+            [configuration: "implementation", dependency: libs.javaxInject],
+            //rx
+            [configuration: "implementation", dependency: libs.rxJava],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.spock],
@@ -171,11 +178,9 @@ ext {
             [configuration: "implementation", dependency: libs.retrofitGsonConverter],
             [configuration: "implementation", dependency: libs.retrofitRxJavaAdapater],
             // dependency injection
-            [configuration: "implementation", dependency: libs.dagger],
-            [configuration: "annotationProcessor", dependency: libs.daggerCompiler],
+            [configuration: "implementation", dependency: libs.javaxInject],
             // rx
             [configuration: "implementation", dependency: libs.rxJava],
-            [configuration: "implementation", dependency: libs.rxAndroid],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.spock],
@@ -187,16 +192,17 @@ ext {
     ]
 
     def plugins = [
-            kotlin_android: 'kotlin-android',
-            kotlin        : 'kotlin',
-            apt           : 'com.neenbedankt.android-apt',
-            java          : 'java',
-            groovy_android: 'groovyx.android',
-            groovy        : 'groovy'
+            android_library    : 'com.android.library',
+            android_application: 'com.android.application',
+            kotlin_android     : 'kotlin-android',
+            kotlin             : 'kotlin',
+            java               : 'java',
+            groovy_android     : 'groovyx.android',
+            groovy             : 'groovy'
     ]
 
-    applicationModulePlugins = [plugins.kotlin_android, plugins.groovy_android]
+    applicationModulePlugins = [plugins.android_application, plugins.kotlin_android, plugins.groovy_android]
     presentationModulePlugins = [plugins.kotlin, plugins.groovy]
     domainModulePlugins = [plugins.kotlin, plugins.groovy]
-    dataprovidersModulePlugins = [plugins.kotlin_android, plugins.groovy_android]
+    dataprovidersModulePlugins = [plugins.android_library, plugins.kotlin_android, plugins.groovy_android]
 }
