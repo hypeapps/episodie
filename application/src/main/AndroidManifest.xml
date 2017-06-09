@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="pl.hypeapp.episodie">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         tools:replace="android:label"
         android:name=".App"
@@ -12,11 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BaseEpisodieTheme">
-
-        <activity
-            android:name="com.exyui.android.debugbottle.components.DTDrawerActivity"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:label="Episodie Debug Tool"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
