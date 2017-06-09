@@ -8,6 +8,7 @@ ext {
             versionName      : "1.0"
     ]
 
+    /* build plugins versions */
     build = [
             gradle: "3.0.0-alpha3",
             kotlin: "1.1.2-4",
@@ -20,7 +21,7 @@ ext {
             groovy: "org.codehaus.groovy:groovy-android-gradle-plugin:$build.groovy"
     ]
 
-    // dependency version
+    /* dependency version */
     def androidSupportLibs = '25.3.1'
     def constraintLayoutVersion = '1.0.2'
     def jUnitVersion = '4.12'
@@ -38,6 +39,7 @@ ext {
     def nodepVersion = '3.2.5'
     def groovyVersion = '2.4.10'
     def stethoVersion = '1.5.0'
+    def stethoOkHttpVersion = "1.5.0"
     def extensiblePageIndicatorVersion = '1.0.1'
     def butterKnifeVersion = '8.6.0'
     def glideVersion = '4.0.0-RC0'
@@ -46,8 +48,11 @@ ext {
     def multiSectionVersion = 'v0.1'
     def navigationTabBarVersion = '1.2.5'
     def slidingRootNavVersion = '1.0.2'
+    def rxCacheVersion = '1.8.0-2.x'
+    def jolyglotGsonVersion = '0.0.3'
 
     def libs = [
+            /* support */
             supportAppCompat       : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
             supportCardView        : [group: 'com.android.support', name: 'cardview-v7', version: androidSupportLibs],
             supportDesign          : [group: 'com.android.support', name: 'design', version: androidSupportLibs],
@@ -56,29 +61,38 @@ ext {
             supportV4              : [group: 'com.android.support', name: 'support-v4', version: androidSupportLibs],
             constrainLayout        : [group: 'com.android.support.constraint', name: 'constraint-layout', version: constraintLayoutVersion],
             kotlin_stdlib          : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
+            /* rx */
             rxJava                 : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
             rxAndroid              : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
+            /* networking */
             okHttp                 : [group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion],
-            debugBottleRuntime     : [group: 'com.exyui.android', name: 'debug-bottle-runtime', version: debugBottleVersion],
-            debugBottleNoop        : [group: 'com.exyui.android', name: 'debug-bottle-noop-kotlin', version: debugBottleVersion],
             gson                   : [group: 'com.google.code.gson', name: 'gson', version: gsonVersion],
             retrofit               : [group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion],
             retrofitRxJavaAdapater : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: retrofitVersion],
             retrofitGsonConverter  : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion],
+            /* dependency injection */
             dagger                 : [group: 'com.google.dagger', name: 'dagger', version: daggerVersion],
             daggerCompiler         : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion],
             javaxInject            : [group: 'javax.inject', name: 'javax.inject', version: javaxInjectVersion],
-            stetho                 : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion],
-            extensiblePageIndicator: [group: 'com.merhold.extensiblepageindicator', name: 'extensiblepageindicator', version: extensiblePageIndicatorVersion],
             butterKnife            : [group: 'com.jakewharton', name: 'butterknife', version: butterKnifeVersion],
             butterKnifeCompiler    : [group: 'com.jakewharton', name: 'butterknife-compiler', version: butterKnifeVersion],
+            /* debug tools */
+            stetho                 : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion],
+            stethoOkHttp           : [group: 'com.facebook.stetho', name: 'stetho-okhttp3', version: stethoOkHttpVersion],
+            debugBottleRuntime     : [group: 'com.exyui.android', name: 'debug-bottle-runtime', version: debugBottleVersion],
+            debugBottleNoop        : [group: 'com.exyui.android', name: 'debug-bottle-noop-kotlin', version: debugBottleVersion],
+            extensiblePageIndicator: [group: 'com.merhold.extensiblepageindicator', name: 'extensiblepageindicator', version: extensiblePageIndicatorVersion],
+            /* persistence */
+            rxCache                : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: rxCacheVersion],
+            jolyglotGson           : [group: 'com.github.VictorAlbertos.Jolyglot', name: 'gson', version: jolyglotGsonVersion],
+            /* frontend */
             glide                  : [group: 'com.github.bumptech.glide', name: 'glide', version: glideVersion],
             glideCompiler          : [group: 'com.github.bumptech.glide', name: 'compiler', version: glideVersion],
             ripple                 : [group: 'com.github.traex.rippleeffect', name: 'library', version: rippleVersion],
             calligraphy            : [group: 'uk.co.chrisjenx', name: 'calligraphy', version: calligraphyVersion],
             multiSection           : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
             navigationTabBar       : [group: 'devlight.io', name: 'navigationtabbar', version: navigationTabBarVersion],
-            slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion]
+            slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
     ]
 
     def testLibs = [
@@ -119,8 +133,6 @@ ext {
             [configuration: "implementation", dependency: libs.navigationTabBar],
             [configuration: "implementation", dependency: libs.slidingRootNav],
             [configuration: "annotationProcessor", dependency: libs.glideCompiler],
-            // networking
-            [configuration: "implementation", dependency: libs.okHttp],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
             [configuration: "kapt", dependency: libs.butterKnifeCompiler],
@@ -138,10 +150,8 @@ ext {
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
             // modules
-            [configuration: "implementation", dependency: project(modules.domain)],
             [configuration: "implementation", dependency: project(modules.presentation)],
             [configuration: "implementation", dependency: project(modules.dataproviders)],
-
     ]
 
     presentationModuleDependencies = [
@@ -173,14 +183,18 @@ ext {
     dataprovidersModuleDependencies = [
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
             // networking
-            [configuration: "implementation", dependency: libs.okHttp],
-            [configuration: "implementation", dependency: libs.retrofit],
-            [configuration: "implementation", dependency: libs.retrofitGsonConverter],
-            [configuration: "implementation", dependency: libs.retrofitRxJavaAdapater],
+            [configuration: "api", dependency: libs.okHttp],
+            [configuration: "api", dependency: libs.retrofit],
+            [configuration: "api", dependency: libs.retrofitGsonConverter],
+            [configuration: "api", dependency: libs.retrofitRxJavaAdapater],
+            [configuration: "api", dependency: libs.stethoOkHttp],
             // dependency injection
             [configuration: "implementation", dependency: libs.javaxInject],
             // rx
             [configuration: "implementation", dependency: libs.rxJava],
+            // cache
+            [configuration: "api", dependency: libs.rxCache],
+            [configuration: "api", dependency: libs.jolyglotGson],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.spock],
@@ -188,7 +202,7 @@ ext {
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
             // modules
-            [configuration: "implementation", dependency: project(modules.domain)]
+            [configuration: "api", dependency: project(modules.domain)]
     ]
 
     def plugins = [
