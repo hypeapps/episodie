@@ -9,4 +9,5 @@ import pl.hypeapp.episodie.di.scope.PerActivity
 interface ActivityComponent {
 
     fun inject(mainActivity: MainActivity)
+
 }
