@@ -4,6 +4,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import pl.hypeapp.dataproviders.service.api.BasicAuthInterceptor
 import pl.hypeapp.dataproviders.service.api.EpisodieApi
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -11,12 +12,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkModule(private val apiEndpoint: String) {
+class ApiModule(private val endpoint: String,
+                private val username: String,
+                private val password: String) {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().addNetworkInterceptor(StethoInterceptor()).build()
+    fun provideBasicAuthInterceptor(): BasicAuthInterceptor {
+        return BasicAuthInterceptor(username, password)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(basicAuthInterceptor: BasicAuthInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+                .addInterceptor(basicAuthInterceptor)
+                .addNetworkInterceptor(StethoInterceptor()).build()
     }
 
     @Provides
@@ -37,7 +48,7 @@ class NetworkModule(private val apiEndpoint: String) {
                            callAdapterFactory: RxJava2CallAdapterFactory,
                            gsonConverterFactory: GsonConverterFactory): EpisodieApi {
         return Retrofit.Builder()
-                .baseUrl(apiEndpoint)
+                .baseUrl(endpoint)
                 .client(okHttpClient)
                 .addCallAdapterFactory(callAdapterFactory)
                 .addConverterFactory(gsonConverterFactory)
