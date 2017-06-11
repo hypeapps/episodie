@@ -1,5 +1,5 @@
 package pl.hypeapp.presentation.view.base
 
-interface BaseView {
+interface View {
     fun showError()
 }
