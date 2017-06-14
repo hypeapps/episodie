@@ -11,7 +11,7 @@ ext {
     /* build plugins versions */
     build = [
             gradle: "3.0.0-alpha3",
-            kotlin: "1.1.2-4",
+            kotlin: "1.1.2-5",
             groovy: "1.1.0"
     ]
 
