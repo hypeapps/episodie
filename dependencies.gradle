@@ -94,7 +94,8 @@ ext {
             multiSection           : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
             navigationTabBar       : [group: 'com.roughike', name: 'bottom-bar', version: navigationTabBarVersion],
             slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
-            androidAnimations      : [group: 'com.daimajia.androidanimations', name: 'library', version: androidAnimationsVersion]
+            // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
+            androidAnimations      : "com.daimajia.androidanimations:library:$androidAnimationsVersion"
     ]
 
     def testLibs = [
@@ -134,6 +135,7 @@ ext {
             [configuration: "implementation", dependency: libs.multiSection],
             [configuration: "implementation", dependency: libs.navigationTabBar],
             [configuration: "implementation", dependency: libs.slidingRootNav],
+            [configuration: "implementation", dependency: libs.androidAnimations],
             [configuration: "annotationProcessor", dependency: libs.glideCompiler],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
