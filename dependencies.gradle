@@ -10,7 +10,7 @@ ext {
 
     /* build plugins versions */
     build = [
-            gradle: "3.0.0-alpha3",
+            gradle: "3.0.0-alpha4",
             kotlin: "1.1.2-5",
             groovy: "1.1.0"
     ]
@@ -50,6 +50,7 @@ ext {
     def slidingRootNavVersion = '1.0.2'
     def rxCacheVersion = '1.8.0-2.x'
     def jolyglotGsonVersion = '0.0.3'
+    def androidAnimationsVersion = '2.2@aar'
 
     def libs = [
             /* support */
@@ -93,6 +94,7 @@ ext {
             multiSection           : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
             navigationTabBar       : [group: 'com.roughike', name: 'bottom-bar', version: navigationTabBarVersion],
             slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
+            androidAnimations      : [group: 'com.daimajia.androidanimations', name: 'library', version: androidAnimationsVersion]
     ]
 
     def testLibs = [
