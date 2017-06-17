@@ -46,7 +46,6 @@ ext {
     def rippleVersion = '1.3'
     def calligraphyVersion = '2.3.0'
     def multiSectionVersion = 'v0.1'
-    def navigationTabBarVersion = '2.3.1'
     def slidingRootNavVersion = '1.0.2'
     def rxCacheVersion = '1.8.0-2.x'
     def jolyglotGsonVersion = '0.0.3'
@@ -92,7 +91,6 @@ ext {
             ripple                 : [group: 'com.github.traex.rippleeffect', name: 'library', version: rippleVersion],
             calligraphy            : [group: 'uk.co.chrisjenx', name: 'calligraphy', version: calligraphyVersion],
             multiSection           : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
-            navigationTabBar       : [group: 'com.roughike', name: 'bottom-bar', version: navigationTabBarVersion],
             slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
             // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
             androidAnimations      : "com.daimajia.androidanimations:library:$androidAnimationsVersion"
@@ -133,7 +131,6 @@ ext {
             [configuration: "implementation", dependency: libs.ripple],
             [configuration: "implementation", dependency: libs.calligraphy],
             [configuration: "implementation", dependency: libs.multiSection],
-            [configuration: "implementation", dependency: libs.navigationTabBar],
             [configuration: "implementation", dependency: libs.slidingRootNav],
             [configuration: "implementation", dependency: libs.androidAnimations],
             [configuration: "annotationProcessor", dependency: libs.glideCompiler],
