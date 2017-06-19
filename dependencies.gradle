@@ -50,6 +50,8 @@ ext {
     def rxCacheVersion = '1.8.0-2.x'
     def jolyglotGsonVersion = '0.0.3'
     def androidAnimationsVersion = '2.2@aar'
+    def architectureComponentsVersion = '1.0.0-alpha3'
+    def particlesDrawableVersion = '1.0.7'
 
     def libs = [
             /* support */
@@ -61,6 +63,9 @@ ext {
             supportV4              : [group: 'com.android.support', name: 'support-v4', version: androidSupportLibs],
             constrainLayout        : [group: 'com.android.support.constraint', name: 'constraint-layout', version: constraintLayoutVersion],
             kotlin_stdlib          : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
+            archLifecycleRuntime   : [group: 'android.arch.lifecycle', name: 'runtime', version: architectureComponentsVersion],
+            archLifecycleExtensions: [group: 'android.arch.lifecycle', name: 'extensions', version: architectureComponentsVersion],
+            archLifecycleCompiler  : [group: 'android.arch.lifecycle', name: 'compiler', version: architectureComponentsVersion],
             /* rx */
             rxJava                 : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
             rxAndroid              : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
@@ -92,6 +97,7 @@ ext {
             calligraphy            : [group: 'uk.co.chrisjenx', name: 'calligraphy', version: calligraphyVersion],
             multiSection           : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
             slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
+            particlesDrawable      : [group: 'com.github.doctoror.particlesdrawable', name: 'library', version: particlesDrawableVersion],
             // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
             androidAnimations      : "com.daimajia.androidanimations:library:$androidAnimationsVersion"
     ]
@@ -124,6 +130,9 @@ ext {
             [configuration: "implementation", dependency: libs.supportRecyclerView],
             [configuration: "implementation", dependency: libs.supportV4],
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
+            [configuration: "implementation", dependency: libs.archLifecycleRuntime],
+            [configuration: "implementation", dependency: libs.archLifecycleExtensions],
+            [configuration: "annotationProcessor", dependency: libs.archLifecycleCompiler],
             // frontend
             [configuration: "implementation", dependency: libs.ripple],
             [configuration: "implementation", dependency: libs.constrainLayout],
@@ -134,6 +143,7 @@ ext {
             [configuration: "implementation", dependency: libs.slidingRootNav],
             [configuration: "implementation", dependency: libs.androidAnimations],
             [configuration: "annotationProcessor", dependency: libs.glideCompiler],
+            [configuration: "implementation", dependency: libs.particlesDrawable],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
             [configuration: "kapt", dependency: libs.butterKnifeCompiler],
