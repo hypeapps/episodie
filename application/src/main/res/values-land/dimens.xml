@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="recycler_most_popular_span_count">12</integer>
+    <integer name="recycler_most_popular_item_span_size">3</integer>
+    <integer name="recycler_most_popular_loading_span_size">12</integer>
+    <integer name="recycler_most_popular_max_items">93</integer>
+</resources>
