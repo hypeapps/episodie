@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/EpisodieTheme.Toolbar"
+    app:contentInsetStart="@dimen/toolbar_inset_start"
+    app:contentInsetStartWithNavigation="@dimen/toolbar_inset_start_with_navigation"
+    app:titleTextColor="@android:color/white">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/toolbar_title_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:lottie_colorFilter="@color/text_primary"
+        app:lottie_scale="@dimen/toolbar_title_animation_scale"/>
+
+</android.support.v7.widget.Toolbar>
