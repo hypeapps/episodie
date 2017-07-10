@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_view_most_popular_cover"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item_most_popular_cover"
+        android:contentDescription="@string/item_most_popular_cover_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/am"/>
+
+    <TextView
+        android:id="@+id/text_view_most_popular_runtime"
+        android:layout_width="@dimen/width_item_most_popular_runtime"
+        android:layout_height="@dimen/height_item_most_popular_runtime"
+        android:layout_margin="@dimen/margin_small"
+        android:background="@drawable/ic_timer_item_most_popular"
+        android:gravity="center"
+        android:paddingTop="@dimen/padding_top_item_most_popular_runtime"
+        android:textSize="@dimen/text_size_item_most_popular_runtime"
+        app:layout_constraintStart_toStartOf="@id/image_view_most_popular_cover"
+        app:layout_constraintTop_toTopOf="@id/image_view_most_popular_cover"/>
+
+    <View
+        android:id="@+id/view_item_most_popular_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gradient"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_most_popular_cover"
+        app:layout_constraintTop_toTopOf="@+id/text_view_item_most_popular_title"/>
+
+    <TextView
+        android:id="@+id/text_view_item_most_popular_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_top_item_most_popular_title"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small"
+        android:ellipsize="end"
+        android:maxLines="3"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_most_popular_cover"
+        app:layout_constraintEnd_toEndOf="@id/image_view_most_popular_cover"
+        app:layout_constraintStart_toStartOf="@id/image_view_most_popular_cover"/>
+
+</android.support.constraint.ConstraintLayout>
