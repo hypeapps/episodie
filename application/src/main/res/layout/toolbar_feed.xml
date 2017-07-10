@@ -2,19 +2,17 @@
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
+    android:id="@+id/toolbar_feed"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/EpisodieTheme.Toolbar"
-    app:contentInsetStart="@dimen/toolbar_inset_start"
-    app:contentInsetStartWithNavigation="@dimen/toolbar_inset_start_with_navigation"
-    app:titleTextColor="@android:color/white">
+    app:contentInsetStartWithNavigation="@dimen/inset_start_with_navigation_toolbar">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/toolbar_title_animation"
+        android:id="@+id/animation_view_toolbar_feed_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:lottie_colorFilter="@color/text_primary"
-        app:lottie_scale="@dimen/toolbar_title_animation_scale"/>
+        app:lottie_colorFilter="@android:color/white"
+        app:lottie_scale="@dimen/scale_toolbar_feed_title_animation"/>
 
 </android.support.v7.widget.Toolbar>
