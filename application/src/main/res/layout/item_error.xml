@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:paddingBottom="@dimen/padding_bottom_item"
-    android:paddingTop="@dimen/padding_top_item">
+    android:paddingBottom="@dimen/padding_bottom_item_all"
+    android:paddingTop="@dimen/padding_top_item_all">
 
     <ImageView
         android:id="@+id/image_view_item_error_icon"
-        android:layout_width="@dimen/width_error_icon_item_error"
-        android:layout_height="@dimen/height_error_icon_item_error"
+        android:layout_width="@dimen/width_item_error_icon"
+        android:layout_height="@dimen/height_tem_error_icon"
         android:contentDescription="@string/item_error_content_description"
         android:src="@drawable/ic_error"
         app:layout_constraintEnd_toEndOf="parent"
