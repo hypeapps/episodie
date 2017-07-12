@@ -25,6 +25,7 @@ ext {
     def jUnitVersion = '4.12'
     def mockitoVersion = '2.8.47'
     def mockitoKotlinVersion = '1.5.0'
+    def kluentVersion = '1.24'
     def espressoVersion = '2.2.2'
     def rxJavaVersion = '2.1.0'
     def rxAndroidVersion = '2.0.1'
@@ -106,6 +107,7 @@ ext {
             espressoCore : [group: 'com.android.support.test.espresso', name: 'espresso-core', version: espressoVersion],
             mockito      : [group: 'org.mockito', name: 'mockito-inline', version: mockitoVersion],
             mockitoKotlin: [group: 'com.nhaarman', name: 'mockito-kotlin-kt1.1', version: mockitoKotlinVersion],
+            kluent       : [group: 'org.amshove.kluent', name: 'kluent', version: kluentVersion],
     ]
 
     def modules = [
@@ -158,6 +160,7 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
+            [configuration: "testImplementation", dependency: testLibs.kluent],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
             // modules
@@ -175,6 +178,7 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
+            [configuration: "testImplementation", dependency: testLibs.kluent],
             // modules
             [configuration: "implementation", dependency: project(modules.domain)]
     ]
@@ -189,6 +193,7 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
+            [configuration: "testImplementation", dependency: testLibs.kluent],
     ]
 
     dataprovidersModuleDependencies = [
@@ -210,6 +215,7 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
+            [configuration: "testImplementation", dependency: testLibs.kluent],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
             // modules
