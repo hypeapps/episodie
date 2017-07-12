@@ -4,7 +4,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.RecyclerView
 
 
-class OnScrollHideFabButton(val fabButton: FloatingActionButton) : RecyclerView.OnScrollListener() {
+class OnScrollHideFabButtonListener(val fabButton: FloatingActionButton) : RecyclerView.OnScrollListener() {
 
     override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
         if (dy > 6) {
