@@ -22,7 +22,7 @@ abstract class AbsRxSingleUseCase<T, Params> protected constructor(
                 .subscribeWith(observer))
     }
 
-    fun execute(params: Params): Single<T> {
+    internal fun execute(params: Params): Single<T> {
         return createSingle(params)
     }
 
