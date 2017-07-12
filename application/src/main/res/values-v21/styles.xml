@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EpisodieTheme" parent="BaseEpisodieTheme">
+        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
+        <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+    </style>
+
+    <style name="EpisodieTheme.FabButton" parent="EpisodieTheme.V21.FabButton"/>
+
+    <style name="EpisodieTheme.V21.FabButton" parent="EpisodieTheme.V0.FabButton">
+        <item name="android:elevation">@dimen/fab_button_elevation</item>
+        <item name="pressedTranslationZ">@dimen/fab_button_pressed_translation_z</item>
+    </style>
+
+</resources>

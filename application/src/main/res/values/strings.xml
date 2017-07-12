@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Episodie</string>
+    <string name="folder_assets_images">Images</string>
+
+    <string name="menu_action_most_popular_title">Most popular</string>
+    <string name="menu_action_top_list_title">TOP 100</string>
+    <string name="menu_action_watched">Watched</string>
+
+    <string name="animation_loading">logo_loading_anim.json</string>
+    <string name="animation_episodie_text">episodie_anim.json</string>
+
+    <string name="item_error_message">Ops, something went wrong</string>
+    <string name="item_error_content_description">Error icon</string>
+    <string name="item_error_retry">Retry</string>
+
+    <string name="item_most_popular_cover_description">Tv show\'s cover</string>
+    <string name="item_loading_message">Loading…</string>
 </resources>

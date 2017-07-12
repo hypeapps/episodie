@@ -2,14 +2,39 @@
 
     <!-- Base application theme. -->
     <style name="BaseEpisodieTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:buttonStyle">@style/EpisodieTheme.Button</item>
         <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
     </style>
 
-    <style name="EpisodieTheme" parent="BaseEpisodieTheme"/>
+    <style name="EpisodieTheme" parent="BaseEpisodieTheme">
+        <!--<item name="android:navigationBarColor">#20000000</item>-->
+        <!--&lt;!&ndash;<item name="android:navigationBarColor">@android:color/transparent</item>&ndash;&gt;-->
+        <!--<item name="android:windowTranslucentStatus">false</item>-->
+        <!--<item name="android:statusBarColor">#30000000</item>-->
+        <!--&lt;!&ndash;<item name="android:windowTranslucentNavigation">true</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:windowDrawsSystemBarBackgrounds">true</item>&ndash;&gt;-->
+    </style>
+
+    <style name="EpisodieTheme.Button" parent="Base.Widget.AppCompat.Button">
+        <item name="android:textColor">@color/primary_dark</item>
+    </style>
+
+    <style name="EpisodieTheme.Toolbar" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/primary_dark</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+    </style>
+
+    <style name="EpisodieTheme.FabButton" parent="EpisodieTheme.V0.FabButton"/>
+
+    <style name="EpisodieTheme.V0.FabButton" parent="@style/Widget.Design.FloatingActionButton">
+        <item name="android:src">@drawable/ic_search</item>
+        <item name="fabSize">normal</item>
+        <item name="borderWidth">@dimen/border_width_fab_button</item>
+    </style>
 
 </resources>
