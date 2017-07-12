@@ -5,6 +5,14 @@ import android.view.ViewGroup
 
 interface ViewTypeDelegateAdapter {
 
+    interface OnViewSelectedListener {
+        fun onItemSelected()
+    }
+
+    interface OnRetryListener {
+        fun onRetry()
+    }
+
     fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
 
     fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType)
