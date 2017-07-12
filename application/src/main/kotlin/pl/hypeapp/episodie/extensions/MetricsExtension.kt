@@ -44,12 +44,17 @@ fun Context.getNavigationBarSize(): Point {
 
 fun Context.getActionBarSize(): Int {
     val value = TypedValue()
-    this.theme.resolveAttribute(android.R.attr.actionBarSize, value, true)
+    this.theme.resolveAttribute(R.attr.actionBarSize, value, true)
     val actionBarSize = TypedValue.complexToDimensionPixelSize(
             value.data, this.resources.displayMetrics)
     return actionBarSize
 }
 
-fun Context.getStatusBarSize(): Int {
-    return this.resources.getDimension(R.dimen.status_bar_padding).toInt()
+fun Resources.getStatusBarHeight(): Int {
+    var statusBarHeight: Int = 0
+    val resourceId = this.getIdentifier("status_bar_height", "dimen", "android")
+    if (resourceId > 0) {
+        statusBarHeight = this.getDimensionPixelSize(resourceId)
+    }
+    return statusBarHeight
 }
