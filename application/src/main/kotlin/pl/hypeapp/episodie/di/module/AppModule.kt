@@ -4,10 +4,12 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import pl.hypeapp.dataproviders.executor.JobExecutor
+import pl.hypeapp.dataproviders.repository.MostPopularDataRepository
 import pl.hypeapp.dataproviders.repository.TvShowDataRepository
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.repository.Repository
+import pl.hypeapp.domain.repository.MostPopularRepository
+import pl.hypeapp.domain.repository.TvShowRepository
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.UIThread
 import javax.inject.Singleton
@@ -39,10 +41,16 @@ class AppModule(private val app: App) {
         return uiThread
     }
 
+    @Provides
+    @Singleton
+    fun provideMostPopularRepository(mostPopularDataRepository: MostPopularDataRepository): MostPopularRepository {
+        return mostPopularDataRepository
+    }
 
     @Provides
     @Singleton
-    fun provideRepository(tvShowDataRepository: TvShowDataRepository): Repository {
+    fun provideTvShowRepository(tvShowDataRepository: TvShowDataRepository): TvShowRepository {
         return tvShowDataRepository
     }
+
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Most popular recycler view settings-->
+    <integer name="span_count_recycler_most_popular">15</integer>
+    <integer name="span_size_recycler_most_popular_item">3</integer>
+    <integer name="span_size_recycler_most_popular_loading">15</integer>
+    <integer name="span_size_recycler_most_popular_error">15</integer>
+    <integer name="max_items_recycler_most_popular">90</integer>
+</resources>

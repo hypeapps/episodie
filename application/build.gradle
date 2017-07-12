@@ -1,3 +1,4 @@
+apply plugin: 'kotlin-android-extensions'
 rootProject.applicationModulePlugins.each {
     apply plugin: it
 }
@@ -39,7 +40,7 @@ android {
             java.srcDirs += 'src/main/kotlin'
         }
         test {
-            java.srcDirs = ['src/test/groovy']
+            java.srcDirs = ['src/test/kotlin']
         }
         androidTest {
             java.srcDirs = ['src/androidTest/kotlin']

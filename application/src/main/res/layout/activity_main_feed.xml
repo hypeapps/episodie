@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rec"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.hypeapp.episodie.ui.mainfeed.MainFeedActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@color/primary_dark"
+            app:elevation="0dp"
+            app:menu="@menu/my_navigation_items"/>
+
+        <View
+            android:id="@+id/navigation_bar_background"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="bottom"
+            android:background="#272727"/>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

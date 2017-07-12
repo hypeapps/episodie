@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/padding_bottom_item_all"
+    android:paddingTop="@dimen/padding_top_item_all">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view_item_loading"
+        android:layout_width="@dimen/width_item_loading_animation_view"
+        android:layout_height="@dimen/height_item_loading_animation_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_imageAssetsFolder="@string/folder_assets_images"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/item_loading_message"
+        android:layout_marginTop="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animation_view_item_loading"/>
+
+</android.support.constraint.ConstraintLayout>

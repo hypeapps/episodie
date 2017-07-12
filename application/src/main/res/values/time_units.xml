@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="time_units">
+        <item>m</item>
+        <item>h</item>
+        <item>d</item>
+    </string-array>
+</resources>

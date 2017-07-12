@@ -7,10 +7,10 @@ targetCompatibility = "1.7"
 
 sourceSets {
     main {
-        java.srcDirs += 'src/main/kotlin'
+        java.srcDirs = [ 'src/main/kotlin' ]
     }
     test {
-        groovy.srcDirs = ['src/test/groovy']
+        java.srcDirs = ['src/test/kotlin']
     }
 }
 
