@@ -10,34 +10,31 @@ ext {
 
     /* build plugins versions */
     build = [
-            gradle: "3.0.0-alpha5",
-            kotlin: "1.1.3",
-            groovy: "1.1.0"
+            gradle: "3.0.0-alpha6",
+            kotlin: "1.1.3-2",
     ]
 
     buildPlugins = [
             gradle: "com.android.tools.build:gradle:$build.gradle",
             kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin",
-            groovy: "org.codehaus.groovy:groovy-android-gradle-plugin:$build.groovy"
     ]
 
     /* dependency version */
-    def androidSupportLibs = '26.0.0-beta2'
+    def androidSupportLibs = '26.0.0-beta1'
     def constraintLayoutVersion = '1.0.2'
     def jUnitVersion = '4.12'
+    def mockitoVersion = '2.8.47'
+    def mockitoKotlinVersion = '1.5.0'
     def espressoVersion = '2.2.2'
     def rxJavaVersion = '2.1.0'
     def rxAndroidVersion = '2.0.1'
     def okHttpVersion = '3.8.0'
-    def debugBottleVersion = '1.1.1'
+    def leakCanaryVersion = '1.5.1'
+    def blockCanaryVersion = '1.5.0'
     def gsonVersion = '2.8.1'
     def retrofitVersion = '2.3.0'
     def daggerVersion = '2.11'
     def javaxInjectVersion = '1'
-    def spockVersion = '1.1-groovy-2.4-rc-3'
-    def objenesisVersion = '2.5'
-    def nodepVersion = '3.2.5'
-    def groovyVersion = '2.4.10'
     def stethoVersion = '1.5.0'
     def stethoOkHttpVersion = "1.5.0"
     def extensiblePageIndicatorVersion = '1.0.1'
@@ -52,6 +49,7 @@ ext {
     def androidAnimationsVersion = '2.2@aar'
     def architectureComponentsVersion = '1.0.0-alpha3'
     def particlesDrawableVersion = '1.0.7'
+    def lottieVersion = '2.0.0'
 
     def libs = [
             /* support */
@@ -84,8 +82,8 @@ ext {
             /* debug tools */
             stetho                 : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion],
             stethoOkHttp           : [group: 'com.facebook.stetho', name: 'stetho-okhttp3', version: stethoOkHttpVersion],
-            debugBottleRuntime     : [group: 'com.exyui.android', name: 'debug-bottle-runtime', version: debugBottleVersion],
-            debugBottleNoop        : [group: 'com.exyui.android', name: 'debug-bottle-noop-kotlin', version: debugBottleVersion],
+            blockCanary            : [group: 'com.github.markzhai', name: 'blockcanary-android', version: blockCanaryVersion],
+            leakCanary             : [group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakCanaryVersion],
             extensiblePageIndicator: [group: 'com.merhold.extensiblepageindicator', name: 'extensiblepageindicator', version: extensiblePageIndicatorVersion],
             /* persistence */
             rxCache                : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: rxCacheVersion],
@@ -98,17 +96,16 @@ ext {
             multiSection           : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
             slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
             particlesDrawable      : [group: 'com.github.doctoror.particlesdrawable', name: 'library', version: particlesDrawableVersion],
+            lottie                 : [group: 'com.airbnb.android', name: 'lottie', version: lottieVersion],
             // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
             androidAnimations      : "com.daimajia.androidanimations:library:$androidAnimationsVersion"
     ]
 
     def testLibs = [
-            junit       : [group: 'junit', name: 'junit', version: jUnitVersion],
-            espressoCore: [group: 'com.android.support.test.espresso', name: 'espresso-core', version: espressoVersion],
-            spock       : [group: 'org.spockframework', name: 'spock-core', version: spockVersion],
-            objenesis   : [group: 'org.objenesis', name: 'objenesis', version: objenesisVersion],
-            nodep       : [group: 'cglib', name: 'cglib-nodep', version: nodepVersion],
-            groovy      : [group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion]
+            junit        : [group: 'junit', name: 'junit', version: jUnitVersion],
+            espressoCore : [group: 'com.android.support.test.espresso', name: 'espresso-core', version: espressoVersion],
+            mockito      : [group: 'org.mockito', name: 'mockito-inline', version: mockitoVersion],
+            mockitoKotlin: [group: 'com.nhaarman', name: 'mockito-kotlin-kt1.1', version: mockitoKotlinVersion],
     ]
 
     def modules = [
@@ -144,6 +141,7 @@ ext {
             [configuration: "implementation", dependency: libs.androidAnimations],
             [configuration: "kapt", dependency: libs.glideCompiler],
             [configuration: "implementation", dependency: libs.particlesDrawable],
+            [configuration: "implementation", dependency: libs.lottie],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
             [configuration: "kapt", dependency: libs.butterKnifeCompiler],
@@ -151,13 +149,15 @@ ext {
             [configuration: "kapt", dependency: libs.daggerCompiler],
             // debug tools
             [configuration: "implementation", dependency: libs.stetho],
+            [configuration: "implementation", dependency: libs.blockCanary],
+            [configuration: "implementation", dependency: libs.leakCanary],
             // rx
             [configuration: "implementation", dependency: libs.rxJava],
             [configuration: "implementation", dependency: libs.rxAndroid],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
-            [configuration: "testImplementation", dependency: testLibs.spock],
-            [configuration: "testImplementation", dependency: testLibs.groovy],
+            [configuration: "testImplementation", dependency: testLibs.mockito],
+            [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
             // modules
@@ -173,8 +173,8 @@ ext {
             [configuration: "implementation", dependency: libs.rxJava],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
-            [configuration: "testImplementation", dependency: testLibs.spock],
-            [configuration: "testImplementation", dependency: testLibs.groovy],
+            [configuration: "testImplementation", dependency: testLibs.mockito],
+            [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
             // modules
             [configuration: "implementation", dependency: project(modules.domain)]
     ]
@@ -187,8 +187,8 @@ ext {
             [configuration: "implementation", dependency: libs.rxJava],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
-            [configuration: "testImplementation", dependency: testLibs.spock],
-            [configuration: "testImplementation", dependency: testLibs.groovy]
+            [configuration: "testImplementation", dependency: testLibs.mockito],
+            [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
     ]
 
     dataprovidersModuleDependencies = [
@@ -208,8 +208,8 @@ ext {
             [configuration: "api", dependency: libs.jolyglotGson],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
-            [configuration: "testImplementation", dependency: testLibs.spock],
-            [configuration: "testImplementation", dependency: testLibs.groovy],
+            [configuration: "testImplementation", dependency: testLibs.mockito],
+            [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
             [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
              options      : supportAnnotationsExclude],
             // modules
@@ -220,14 +220,11 @@ ext {
             android_library    : 'com.android.library',
             android_application: 'com.android.application',
             kotlin_android     : 'kotlin-android',
-            kotlin             : 'kotlin',
-            java               : 'java',
-            groovy_android     : 'groovyx.android',
-            groovy             : 'groovy'
+            kotlin             : 'kotlin'
     ]
 
-    applicationModulePlugins = [plugins.android_application, plugins.kotlin_android, plugins.groovy_android]
-    presentationModulePlugins = [plugins.kotlin, plugins.groovy]
-    domainModulePlugins = [plugins.kotlin, plugins.groovy]
-    dataprovidersModulePlugins = [plugins.android_library, plugins.kotlin_android, plugins.groovy_android]
+    applicationModulePlugins = [plugins.android_application, plugins.kotlin_android]
+    presentationModulePlugins = [plugins.kotlin]
+    domainModulePlugins = [plugins.kotlin]
+    dataprovidersModulePlugins = [plugins.android_library, plugins.kotlin_android]
 }

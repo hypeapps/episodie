@@ -7,7 +7,6 @@ buildscript {
         apply from: 'dependencies.gradle'
         classpath buildPlugins.gradle
         classpath buildPlugins.kotlin
-        classpath buildPlugins.groovy
     }
 }
 
