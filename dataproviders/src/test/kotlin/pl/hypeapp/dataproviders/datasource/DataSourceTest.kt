@@ -44,14 +44,14 @@ class DataSourceTest {
 
     @Test
     fun `should evict most popular`() {
-        dataSource.getMostPopular(pageableRequest, false)
+        dataSource.getMostPopular(pageableRequest, true)
 
         verify(evictCache).evictAllMatchingDynamicKey(any())
     }
 
     @Test
     fun `should not evict most popular`() {
-        dataSource.getMostPopular(pageableRequest, true)
+        dataSource.getMostPopular(pageableRequest, false)
 
         verifyZeroInteractions(evictCache)
     }
