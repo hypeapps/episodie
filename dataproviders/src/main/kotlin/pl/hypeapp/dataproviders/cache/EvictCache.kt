@@ -8,9 +8,10 @@ import javax.inject.Singleton
 @Singleton
 class EvictCache @Inject constructor(private val disk: Disk) {
 
-    private val PREFIX_DYNAMIC_KEY = "\$d\$d\$d$"
-
-    private val PREFIX_DYNAMIC_KEY_GROUP = "\$g\$g\$g$"
+    private companion object {
+        val PREFIX_DYNAMIC_KEY = "\$d\$d\$d$"
+        val PREFIX_DYNAMIC_KEY_GROUP = "\$g\$g\$g$"
+    }
 
     fun evictAllMatchingDynamicKey(dynamicKey: DynamicKey) {
         val key: String = dynamicKey.dynamicKey.toString()
