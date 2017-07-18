@@ -1,58 +1,98 @@
 package pl.hypeapp.episodie.ui.features.navigationdrawer
 
+import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
+import android.support.constraint.ConstraintLayout
+import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.widget.TextView
+import butterknife.BindView
+import butterknife.ButterKnife
+import com.doctoror.particlesdrawable.ParticlesDrawable
 import com.yarolegovich.slidingrootnav.SlidingRootNav
-import com.yarolegovich.slidingrootnav.SlidingRootNavLayout
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
+import com.yarolegovich.slidingrootnav.callback.DragStateListener
 import pl.hypeapp.episodie.R
 import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerView
 
-class NavigationDrawer(val slidingRootNav: SlidingRootNav) : LifecycleObserver, NavigationDrawerView {
+class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObserver, NavigationDrawerView, DragStateListener {
+
+    private val slidingRootNavigator: SlidingRootNav = SlidingRootNavBuilder(activity)
+            .withToolbarMenuToggle(toolbar)
+            .withMenuLayout(R.layout.drawer_navigation)
+            .addDragStateListener(this)
+            .inject()
+
+    @BindView(R.id.drawer_menu_item_feed)
+    lateinit var feedItem: DrawerMenuItemView
+
+    private val particlesDrawable: ParticlesDrawable = ParticlesDrawable()
+
+    init {
+        particlesDrawable.lineDistance = 270f
+        slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
+        Log.e("line distance", " " + particlesDrawable.lineDistance)
+    }
 
     override fun showError() {
         TODO("not implemented")
     }
 
-    val slidingRootNavLayout: SlidingRootNavLayout = slidingRootNav.layout
+    fun toggleDrawer() {
+        if (slidingRootNavigator.isMenuHidden) {
+            slidingRootNavigator.closeMenu(true)
+        } else {
+            slidingRootNavigator.openMenu(true)
+        }
+    }
+
+    override fun onDragEnd(isMenuOpened: Boolean) {
+        if (!isMenuOpened) {
+            particlesDrawable.stop()
+        }
+    }
+
+    override fun onDragStart() {
+        if (!particlesDrawable.isRunning)
+            particlesDrawable.start()
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
+    private fun onStart() {
         Log.e("EVENT", "ON START")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
+    private fun onCreate() {
         Log.e("EVENT", "ON CREATE")
-        change()
+        ButterKnife.bind(this, activity)
+        feedItem.setActive()
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
+    private fun onStop() {
         Log.e("EVENT", "ON STOP")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
+    private fun onDestroy() {
         Log.e("EVENT", "ON DESTROY")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
-        Log.e("EVENT", "ON PAUSE")
+    private fun onPause() {
+        if (particlesDrawable.isRunning) {
+            particlesDrawable.stop()
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        Log.e("EVENT", "ON RESUME")
-    }
-
-    fun change() {
-        val slid: SlidingRootNavLayout = slidingRootNav.layout
-        val text = slid.findViewById<TextView>(R.id.chuj)
-        text.setOnClickListener({ text.text = "ELO" })
+    private fun onResume() {
+        if (!slidingRootNavigator.isMenuHidden) {
+            particlesDrawable.start()
+        }
     }
 
 }
