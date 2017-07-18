@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
+        android:contentDescription="@string/drawer_menu_item_icon_description"
         android:id="@+id/image_view_drawer_menu_item_icon"
         android:layout_width="@dimen/width_drawer_item_icon"
         app:layout_constraintTop_toTopOf="@+id/text_view_drawer_menu_item_title"

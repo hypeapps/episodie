@@ -24,5 +24,6 @@
     <string name="drawer_time_calculator">Time calculator</string>
     <string name="drawer_statistics">Statistics</string>
     <string name="drawer_logo_description">Logo of the application</string>
+    <string name="drawer_menu_item_icon_description">Icon of menu item</string>
 
 </resources>
