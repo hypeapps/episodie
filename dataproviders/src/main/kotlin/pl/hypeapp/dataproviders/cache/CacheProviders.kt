@@ -11,7 +11,7 @@ interface CacheProviders {
     @Expirable(true)
     fun getTvShow(tvShowEntity: Single<TvShowEntity>, query: DynamicKey, update: EvictDynamicKey): Single<TvShowEntity>
 
-    @LifeCache(duration = 24, timeUnit = TimeUnit.HOURS)
+    @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
     fun getMostPopular(mostPopularEntity: Single<MostPopularEntity>, query: DynamicKeyGroup, evictDynamicKeyGroup: EvictDynamicKeyGroup): Single<MostPopularEntity>
 
 }

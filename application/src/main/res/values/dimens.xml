@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Naming convention: <WHAT>_<WHERE>_(OPTIONAL)<DESCRIPTION>_(OPTIONAL)<SIZE>-->
+    <!--navigation bottom view-->
+    <dimen name="height_feed_navigation_bottom_end">58dp</dimen>
+    <dimen name="elevation_feed_navigation_bottom_view">0dp</dimen>
+    <!--toolbar-->
+    <dimen name="inset_start_toolbar">48dp</dimen>
+    <dimen name="inset_start_with_navigation_toolbar">16dp</dimen>
+    <item name="scale_toolbar_feed_title_animation" type="dimen" format="float">0.50</item>
+    <!--Item error-->
+    <dimen name="width_item_error_icon">64dp</dimen>
+    <dimen name="height_tem_error_icon">64dp</dimen>
+    <!--item loading-->
+    <dimen name="width_item_loading_animation_view">82dp</dimen>
+    <dimen name="height_item_loading_animation_view">82dp</dimen>
+    <!--item most popular-->
+    <dimen name="height_item_most_popular_cover">170dp</dimen>
+    <dimen name="width_item_most_popular_runtime">30dp</dimen>
+    <dimen name="height_item_most_popular_runtime">30dp</dimen>
+    <dimen name="padding_top_item_most_popular_runtime">2dp</dimen>
+    <!--navigation drawer-->
+    <dimen name="logo_drawer_size">64dp</dimen>
+    <dimen name="size_drawer_text_item">20sp</dimen>
+    <dimen name="width_drawer_item_icon">24dp</dimen>
+    <!--misc-->
+    <dimen name="padding_bottom_item_all">36dp</dimen>
+    <dimen name="padding_top_item_all">24dp</dimen>
+    <dimen name="border_width_fab_button">0dp</dimen>
+    <dimen name="status_bar_padding">0dp</dimen>
+    <dimen name="margin_default">8dp</dimen>
+    <dimen name="text_size_item_most_popular_runtime">12sp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="padding_top_item_most_popular_title">4dp</dimen>
+    <dimen name="margin_big">16dp</dimen>
+    <dimen name="padding_drawer">30dp</dimen>
+</resources>

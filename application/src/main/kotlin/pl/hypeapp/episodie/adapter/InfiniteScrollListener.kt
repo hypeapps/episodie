@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.adapter;
+package pl.hypeapp.episodie.adapter
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView

@@ -26,8 +26,8 @@ class MostPopularDelegateAdapter(val onViewSelectedLister: ViewTypeDelegateAdapt
 
         fun bind(item: TvShowViewModel) = with(itemView) {
             text_view_item_most_popular_title.text = item.tvShow?.name
-            text_view_most_popular_runtime.setTvShowRuntime(item.tvShow?.fullRuntime)
-            image_view_most_popular_cover.loadImage(item.tvShow?.imageMedium)
+            text_view_item_most_popular_runtime.setTvShowRuntime(item.tvShow?.fullRuntime)
+            image_view_item_most_popular_cover.loadImage(item.tvShow?.imageMedium)
             super.itemView.setOnClickListener { onViewSelectedLister.onItemSelected() }
         }
     }

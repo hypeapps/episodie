@@ -15,4 +15,7 @@
     <color name="filter_green">#3eab25</color>
     <color name="indicator_page_alpha">#40FFFFFF</color>
     <color name="gradient">#70000000</color>
+
+    <color name="drawer_background">#272727</color>
+    <color name="drawer_item_inactive">#6d6d6d</color>
 </resources>

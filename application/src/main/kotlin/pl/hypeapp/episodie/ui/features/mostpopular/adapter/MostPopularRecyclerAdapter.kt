@@ -80,6 +80,4 @@ class MostPopularRecyclerAdapter(val totalItemCount: Int,
 
     private fun isThereItemsToLoad() = items.size < totalItemCount
 
-    private fun getLastPosition() = if (items.lastIndex == -1) 0 else items.lastIndex
-
 }

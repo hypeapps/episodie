@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/image_view_most_popular_cover"
+        android:id="@+id/image_view_item_most_popular_cover"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_most_popular_cover"
         android:contentDescription="@string/item_most_popular_cover_description"
@@ -14,7 +14,7 @@
         android:src="@drawable/am"/>
 
     <TextView
-        android:id="@+id/text_view_most_popular_runtime"
+        android:id="@+id/text_view_item_most_popular_runtime"
         android:layout_width="@dimen/width_item_most_popular_runtime"
         android:layout_height="@dimen/height_item_most_popular_runtime"
         android:layout_margin="@dimen/margin_small"
@@ -22,15 +22,15 @@
         android:gravity="center"
         android:paddingTop="@dimen/padding_top_item_most_popular_runtime"
         android:textSize="@dimen/text_size_item_most_popular_runtime"
-        app:layout_constraintStart_toStartOf="@id/image_view_most_popular_cover"
-        app:layout_constraintTop_toTopOf="@id/image_view_most_popular_cover"/>
+        app:layout_constraintStart_toStartOf="@id/image_view_item_most_popular_cover"
+        app:layout_constraintTop_toTopOf="@id/image_view_item_most_popular_cover"/>
 
     <View
         android:id="@+id/view_item_most_popular_gradient"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/gradient"
-        app:layout_constraintBottom_toBottomOf="@id/image_view_most_popular_cover"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_item_most_popular_cover"
         app:layout_constraintTop_toTopOf="@+id/text_view_item_most_popular_title"/>
 
     <TextView
@@ -43,8 +43,8 @@
         android:layout_marginStart="@dimen/margin_small"
         android:ellipsize="end"
         android:maxLines="3"
-        app:layout_constraintBottom_toBottomOf="@id/image_view_most_popular_cover"
-        app:layout_constraintEnd_toEndOf="@id/image_view_most_popular_cover"
-        app:layout_constraintStart_toStartOf="@id/image_view_most_popular_cover"/>
+        app:layout_constraintBottom_toBottomOf="@id/image_view_item_most_popular_cover"
+        app:layout_constraintEnd_toEndOf="@id/image_view_item_most_popular_cover"
+        app:layout_constraintStart_toStartOf="@id/image_view_item_most_popular_cover"/>
 
 </android.support.constraint.ConstraintLayout>

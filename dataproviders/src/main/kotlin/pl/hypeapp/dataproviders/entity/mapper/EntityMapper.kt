@@ -1,7 +1,5 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import java.util.*
-
 abstract class EntityMapper<Model, Entity> {
 
     abstract fun transform(entity: Entity?): Model?
