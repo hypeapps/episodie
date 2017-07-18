@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image_view_drawer_menu_item_icon"
+        android:layout_width="@dimen/width_drawer_item_icon"
+        app:layout_constraintTop_toTopOf="@+id/text_view_drawer_menu_item_title"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_drawer_menu_item_title"
+        android:layout_height="0dp" />
+
+    <TextView
+        app:layout_constraintStart_toEndOf="@id/image_view_drawer_menu_item_icon"
+        android:id="@+id/text_view_drawer_menu_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:textSize="@dimen/size_drawer_text_item" />
+
+</merge>

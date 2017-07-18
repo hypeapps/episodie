@@ -15,4 +15,14 @@
 
     <string name="item_most_popular_cover_description">Tv show\'s cover</string>
     <string name="item_loading_message">Loading…</string>
+
+    <string name="watching_time_2d_12h_30m">Watching time: 2d : 12h : 30m</string>
+
+    <string name="drawer_feed">Feed</string>
+    <string name="drawer_search">Search</string>
+    <string name="drawer_watched">Watched</string>
+    <string name="drawer_time_calculator">Time calculator</string>
+    <string name="drawer_statistics">Statistics</string>
+    <string name="drawer_logo_description">Logo of the application</string>
+
 </resources>
