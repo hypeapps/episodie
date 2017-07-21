@@ -9,16 +9,15 @@
         android:id="@+id/image_view_item_most_popular_cover"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_most_popular_cover"
-        android:contentDescription="@string/item_most_popular_cover_description"
-        android:scaleType="fitXY"
-        android:src="@drawable/am"/>
+        android:contentDescription="@string/all_item_cover_description"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/text_view_item_most_popular_runtime"
         android:layout_width="@dimen/width_item_most_popular_runtime"
         android:layout_height="@dimen/height_item_most_popular_runtime"
         android:layout_margin="@dimen/margin_small"
-        android:background="@drawable/ic_timer_item_most_popular"
+        android:background="@drawable/all_item_ic_timer"
         android:gravity="center"
         android:paddingTop="@dimen/padding_top_item_most_popular_runtime"
         android:textSize="@dimen/text_size_item_most_popular_runtime"
