@@ -10,7 +10,7 @@ ext {
 
     /* build plugins versions */
     build = [
-            gradle: "3.0.0-alpha6",
+            gradle: "3.0.0-alpha7",
             kotlin: "1.1.3-2",
     ]
 
