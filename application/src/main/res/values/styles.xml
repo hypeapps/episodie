@@ -27,14 +27,21 @@
     <style name="EpisodieTheme.Toolbar" parent="@style/ThemeOverlay.AppCompat.Light">
         <item name="android:background">@color/primary_dark</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="EpisodieTheme.FabButton" parent="EpisodieTheme.V0.FabButton"/>
 
     <style name="EpisodieTheme.V0.FabButton" parent="@style/Widget.Design.FloatingActionButton">
-        <item name="android:src">@drawable/ic_search</item>
+        <item name="android:src">@drawable/all_ic_search</item>
         <item name="fabSize">normal</item>
         <item name="borderWidth">@dimen/border_width_fab_button</item>
+    </style>
+
+    <style name="EpisodieTheme.TopListAppBar" parent="EpisodieTheme.V0.TopListAppBar" />
+
+    <style name="EpisodieTheme.V0.TopListAppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:layout_height">300dp</item>
     </style>
 
 </resources>

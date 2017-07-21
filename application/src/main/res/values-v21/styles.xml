@@ -17,4 +17,10 @@
         <item name="pressedTranslationZ">@dimen/fab_button_pressed_translation_z</item>
     </style>
 
+    <style name="EpisodieTheme.TopListAppBar" parent="EpisodieTheme.V21.TopListAppBar" />
+
+    <style name="EpisodieTheme.V21.TopListAppBar" parent="EpisodieTheme.V0.TopListAppBar">
+        <item name="android:stateListAnimator">@animator/elevation_animator</item>
+    </style>
+
 </resources>

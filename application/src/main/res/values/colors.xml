@@ -18,4 +18,6 @@
 
     <color name="drawer_background">#272727</color>
     <color name="drawer_item_inactive">#6d6d6d</color>
+
+    <color name="item_top_list_background">#272727</color>
 </resources>

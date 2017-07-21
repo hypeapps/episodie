@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="text_size_item_top_list_position">78sp</dimen>
+    <dimen name="text_size_item_top_list_title">32sp</dimen>
+    <dimen name="text_size_item_top_list_rank">20sp</dimen>
 </resources>

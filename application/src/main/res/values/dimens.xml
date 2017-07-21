@@ -8,6 +8,7 @@
     <dimen name="inset_start_toolbar">48dp</dimen>
     <dimen name="inset_start_with_navigation_toolbar">16dp</dimen>
     <item name="scale_toolbar_feed_title_animation" type="dimen" format="float">0.50</item>
+    <item name="height_all_divider" type="dimen">0.25dp</item>
     <!--Item error-->
     <dimen name="width_item_error_icon">64dp</dimen>
     <dimen name="height_tem_error_icon">64dp</dimen>
@@ -19,6 +20,17 @@
     <dimen name="width_item_most_popular_runtime">30dp</dimen>
     <dimen name="height_item_most_popular_runtime">30dp</dimen>
     <dimen name="padding_top_item_most_popular_runtime">2dp</dimen>
+    <dimen name="padding_top_item_most_popular_title">4dp</dimen>
+    <dimen name="text_size_item_most_popular_runtime">12sp</dimen>
+    <!--item top list-->
+    <dimen name="text_size_item_top_list_title">18sp</dimen>
+    <dimen name="width_item_top_list_cover">120dp</dimen>
+    <dimen name="height_item_top_list_cover">170dp</dimen>
+    <dimen name="padding_big">16dp</dimen>
+    <dimen name="text_size_item_top_list_position">42sp</dimen>
+    <dimen name="size_item_top_list_runtime">30dp</dimen>
+    <dimen name="padding_top_item_top_list_runtime">2dp</dimen>
+    <dimen name="text_size_item_top_list_runtime">12sp</dimen>
     <!--navigation drawer-->
     <dimen name="logo_drawer_size">64dp</dimen>
     <dimen name="size_drawer_text_item">20sp</dimen>
@@ -29,9 +41,9 @@
     <dimen name="border_width_fab_button">0dp</dimen>
     <dimen name="status_bar_padding">0dp</dimen>
     <dimen name="margin_default">8dp</dimen>
-    <dimen name="text_size_item_most_popular_runtime">12sp</dimen>
     <dimen name="margin_small">4dp</dimen>
-    <dimen name="padding_top_item_most_popular_title">4dp</dimen>
     <dimen name="margin_big">16dp</dimen>
     <dimen name="padding_drawer">30dp</dimen>
+    <dimen name="height_all_diamond">24dp</dimen>
+    <dimen name="width_height_all_diamond">24dp</dimen>
 </resources>

@@ -13,10 +13,8 @@
     <string name="item_error_content_description">Error icon</string>
     <string name="item_error_retry">Retry</string>
 
-    <string name="item_most_popular_cover_description">Tv show\'s cover</string>
+    <string name="all_item_cover_description">Tv show\'s cover</string>
     <string name="item_loading_message">Loading…</string>
-
-    <string name="watching_time_2d_12h_30m">Watching time: 2d : 12h : 30m</string>
 
     <string name="drawer_feed">Feed</string>
     <string name="drawer_search">Search</string>
@@ -25,5 +23,9 @@
     <string name="drawer_statistics">Statistics</string>
     <string name="drawer_logo_description">Logo of the application</string>
     <string name="drawer_menu_item_icon_description">Icon of menu item</string>
+    <string name="drawer_ic_watching_time">Icon of watching time</string>
+    <string name="watching_time_2d_12h_30m">Watching time: 2d : 12h : 30m</string>
 
+    <string name="top_list_app_bar_title">Top 100</string>
+    <string name="item_top_list_ic_diamond_description">Image button add to watched</string>
 </resources>
