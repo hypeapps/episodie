@@ -16,8 +16,8 @@ interface EpisodieApi {
     @GET("tvshow/mostpopular")
     fun getMostPopular(@Query("page") page: Int, @Query("size") size: Int): Single<MostPopularEntity>
 
-    @GET("tvshow/toplist?page={page}&size={size}")
-    fun getTopList(@Path("page") page: Int, @Path("size") size: Int): Single<TopListEntity>
+    @GET("tvshow/toplist")
+    fun getTopList(@Query("page") page: Int, @Query("size") size: Int): Single<TopListEntity>
 
     @GET("tvshow/search?query={query}")
     fun search(@Path("query") query: String): Single<List<TvShowEntity>>

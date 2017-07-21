@@ -9,6 +9,7 @@ import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.entity.MostPopularEntity
+import pl.hypeapp.dataproviders.entity.TopListEntity
 
 class ApiServiceTest {
 
@@ -30,6 +31,17 @@ class ApiServiceTest {
 
         verify(episodieApi).getMostPopular(any(), any())
         mostPopularEntity `should equal` response
+    }
+
+    @Test
+    fun `should get top list`() {
+        val topListEntity: Single<TopListEntity> = mock()
+        given(episodieApi.getTopList(any(), any())).willReturn(topListEntity)
+
+        val response = apiService.getTopList(any(), any())
+
+        verify(episodieApi).getTopList(any(), any())
+        topListEntity `should equal` response
     }
 
 }
