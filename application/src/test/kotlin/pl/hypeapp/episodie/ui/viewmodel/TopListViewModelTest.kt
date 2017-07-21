@@ -8,67 +8,67 @@ import org.amshove.kluent.`should equal`
 import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
-import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.domain.model.PageableRequest
+import pl.hypeapp.domain.model.TopListModel
 import pl.hypeapp.domain.model.TvShowModel
 
-class MostPopularViewModelTest {
+class TopListViewModelTest {
 
-    lateinit var mostPopularViewModel: MostPopularViewModel
+    lateinit var topListViewModel: TopListViewModel
 
-    private val mostPopularModel: MostPopularModel = mock()
+    private val topListModel: TopListModel = mock()
 
     private val pageableRequest: PageableRequest = mock()
 
     @Before
     fun setUp() {
-        mostPopularViewModel = MostPopularViewModel()
-        given(mostPopularModel.pageableRequest).willReturn(pageableRequest)
+        topListViewModel = TopListViewModel()
+        given(topListModel.pageableRequest).willReturn(pageableRequest)
     }
 
     @Test
     fun `should clear and retain model`() {
-        mostPopularViewModel.clearAndRetainModel(mostPopularModel)
+        topListViewModel.clearAndRetainModel(topListModel)
 
-        mostPopularViewModel.retainedModel `should equal` mostPopularModel
-        mostPopularViewModel.page `should equal` 0
-        mostPopularViewModel.tvShowList `should equal` mostPopularModel.tvShows
+        topListViewModel.retainedModel `should equal` topListModel
+        topListViewModel.page `should equal` 0
+        topListViewModel.tvShowList `should equal` topListModel.tvShows
     }
 
     @Test
     fun `should retain model`() {
         val model = createFakeModel()
-        mostPopularViewModel.retainModel(model)
+        topListViewModel.retainModel(model)
 
-        mostPopularViewModel.retainedModel `should equal` model
-        mostPopularViewModel.page `should equal to` 2
+        topListViewModel.retainedModel `should equal` model
+        topListViewModel.page `should equal to` 2
     }
 
     @Test
     fun `should populate recycler while model is not null`() {
         val model = createFakeModel()
-        mostPopularViewModel.retainedModel = model
+        topListViewModel.retainedModel = model
         val populateRecycler: () -> Unit = mock()
         val requestMostPopular: () -> Unit = mock()
 
-        mostPopularViewModel.loadModel(requestMostPopular, populateRecycler)
+        topListViewModel.loadModel(requestMostPopular, populateRecycler)
         verify(populateRecycler).invoke()
         verifyZeroInteractions(requestMostPopular)
     }
 
     @Test
     fun `should request most popular while model is null`() {
-        mostPopularViewModel.retainedModel = null
+        topListViewModel.retainedModel = null
         val populateRecycler: () -> Unit = mock()
         val requestMostPopular: () -> Unit = mock()
 
-        mostPopularViewModel.loadModel(requestMostPopular, populateRecycler)
+        topListViewModel.loadModel(requestMostPopular, populateRecycler)
         verify(requestMostPopular).invoke()
         verifyZeroInteractions(populateRecycler)
     }
 
-    private fun createFakeModel(): MostPopularModel {
-        val tvShowModel = MostPopularModel(arrayListOf(TvShowModel(
+    private fun createFakeModel(): TopListModel {
+        val tvShowModel = TopListModel(arrayListOf(TvShowModel(
                 id = "2",
                 episodeRuntime = 200L,
                 fullRuntime = 200L,
