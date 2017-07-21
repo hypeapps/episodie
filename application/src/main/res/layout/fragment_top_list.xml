@@ -18,14 +18,13 @@
                 android:id="@+id/image_view_top_list_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/mrrobot_background" />
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/image_view_top_list_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="@dimen/padding_big"
                 android:src="@drawable/all_ic_share"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -36,23 +35,24 @@
                 android:id="@+id/drawer_hamburger_item_top_list"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:padding="16dp"
+                android:padding="@dimen/padding_big"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_top_list_share"
                 app:layout_constraintTop_toTopOf="@id/image_view_top_list_share" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:background="@drawable/gradient"
+                android:layout_height="@dimen/height_top_list_gradient"
+                android:background="@drawable/all_gradient"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/appBartext"
+                android:id="@+id/text_view_appbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="52dp"
+                android:paddingEnd="@dimen/padding_text_view_top_list_appbar_title"
+                android:paddingStart="@dimen/padding_text_view_top_list_appbar_title"
                 android:text="@string/top_list_app_bar_title"
-                android:textSize="30sp"
+                android:textSize="@dimen/text_size_top_list_appbar_title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.9" />
@@ -64,8 +64,8 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout_top_list"
         android:layout_width="match_parent"
-        app:layout_behavior="pl.hypeapp.episodie.ui.features.top.TitleScrollingBehaviour"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="pl.hypeapp.episodie.ui.features.top.TitleScrollingBehaviour">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_top_list"
@@ -73,7 +73,6 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:clipToPadding="false"
-            android:focusable="false"
             android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>

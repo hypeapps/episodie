@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import butterknife.BindView
 import kotlinx.android.synthetic.main.activity_main_feed.fab_search
 import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
@@ -21,6 +22,7 @@ import pl.hypeapp.episodie.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
 import pl.hypeapp.episodie.extensions.getNavigationBarSize
+import pl.hypeapp.episodie.extensions.loadDrawableResource
 import pl.hypeapp.episodie.ui.base.BaseFragment
 import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
 import pl.hypeapp.episodie.ui.features.mainfeed.listener.OnScrollHideBottomNavigationListener
@@ -45,6 +47,9 @@ class TopListFragment : BaseFragment<TopListViewModel>(), TopListView, TopListOn
     @BindView(R.id.drawer_hamburger_item_top_list)
     lateinit var drawerHamburgerArrow: DrawerHamburgerArrow
 
+    @BindView(R.id.image_view_top_list_backdrop)
+    lateinit var appBarBackdrop: ImageView
+
     @Inject
     lateinit var presenter: TopListPresenter
 
@@ -67,6 +72,11 @@ class TopListFragment : BaseFragment<TopListViewModel>(), TopListView, TopListOn
         initSwipeRefreshLayout()
         onDragAnimateDrawerHamburgerArrow()
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        appBarBackdrop.loadDrawableResource(R.drawable.mrrobot_background)
     }
 
     override fun onDestroyView() {
