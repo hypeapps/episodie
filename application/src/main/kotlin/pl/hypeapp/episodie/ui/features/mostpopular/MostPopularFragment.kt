@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
+import kotlinx.android.synthetic.main.activity_main_feed.fab_search
+import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
 import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.adapter.InfiniteScrollListener
+import pl.hypeapp.episodie.adapter.TvShowRecyclerAdapter
 import pl.hypeapp.episodie.adapter.ViewType
 import pl.hypeapp.episodie.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
@@ -24,7 +27,7 @@ import pl.hypeapp.episodie.ui.base.BaseFragment
 import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
 import pl.hypeapp.episodie.ui.features.mainfeed.listener.OnScrollHideBottomNavigationListener
 import pl.hypeapp.episodie.ui.features.mainfeed.listener.OnScrollHideFabButtonListener
-import pl.hypeapp.episodie.ui.features.mostpopular.adapter.MostPopularRecyclerAdapter
+import pl.hypeapp.episodie.ui.features.mostpopular.adapter.MostPopularDelegateAdapter
 import pl.hypeapp.episodie.ui.viewmodel.MostPopularViewModel
 import pl.hypeapp.presentation.mostpopular.MostPopularPresenter
 import pl.hypeapp.presentation.mostpopular.MostPopularView
@@ -46,7 +49,7 @@ class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularVie
 
     override val viewModelClass: Class<MostPopularViewModel> = MostPopularViewModel::class.java
 
-    private lateinit var mostPopularRecyclerAdapter: MostPopularRecyclerAdapter
+    private lateinit var mostPopularRecyclerAdapter: TvShowRecyclerAdapter
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
@@ -55,9 +58,9 @@ class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularVie
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = super.onCreateView(inflater, container, savedInstanceState)
+        component.inject(this)
         initRecyclerAdapter()
         initSwipeRefreshLayout()
-        component.inject(this)
         presenter.onAttachView(this)
         return view
     }
@@ -74,7 +77,7 @@ class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularVie
     }
 
     override fun populateRecyclerList(mostPopularModel: MostPopularModel?) {
-        // If pull to refresh we need to clear view model and init recycler adapter
+        // If pull to refresh we need to clear view model and re init recycler adapter
         if (swipeRefresh.isRefreshing) {
             swipeRefresh.isRefreshing = false
             initRecyclerAdapter()
@@ -110,14 +113,14 @@ class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularVie
     }
 
     private fun initRecyclerAdapter() {
-        mostPopularRecyclerAdapter = MostPopularRecyclerAdapter(resources.getInteger(R.integer.max_items_recycler_most_popular), this, this)
+        mostPopularRecyclerAdapter = TvShowRecyclerAdapter(resources.getInteger(R.integer.max_items_recycler_most_popular), MostPopularDelegateAdapter(this), this)
         recyclerView.apply {
             setHasFixedSize(true)
             val gridLayout = GridLayoutManager(context, resources.getInteger(R.integer.span_count_recycler_most_popular))
             gridLayout.spanSizeLookup = spanSizeLookup()
             layoutManager = gridLayout
-            addOnScrollListener(OnScrollHideBottomNavigationListener((activity as MainFeedActivity).bottomNavigationLayout))
-            addOnScrollListener(OnScrollHideFabButtonListener((activity as MainFeedActivity).fabButton))
+            addOnScrollListener(OnScrollHideBottomNavigationListener((activity as MainFeedActivity).navigation_bottom_layout))
+            addOnScrollListener(OnScrollHideFabButtonListener((activity as MainFeedActivity).fab_search))
             // When list scroll to end presenter load next page of most popular
             addOnScrollListener(InfiniteScrollListener({ presenter.requestMostPopular(++viewModel.page, false) },
                     gridLayout))

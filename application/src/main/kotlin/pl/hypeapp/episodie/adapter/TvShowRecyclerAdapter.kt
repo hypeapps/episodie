@@ -1,17 +1,13 @@
-package pl.hypeapp.episodie.ui.features.mostpopular.adapter
+package pl.hypeapp.episodie.adapter
 
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import pl.hypeapp.episodie.adapter.ErrorDelegateAdapter
-import pl.hypeapp.episodie.adapter.LoadingDelegateAdapter
-import pl.hypeapp.episodie.adapter.ViewType
-import pl.hypeapp.episodie.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.ui.viewmodel.TvShowViewModel
 
-class MostPopularRecyclerAdapter(val totalItemCount: Int,
-                                 onViewSelectedListener: ViewTypeDelegateAdapter.OnViewSelectedListener,
-                                 onRetryListener: ViewTypeDelegateAdapter.OnRetryListener)
+class TvShowRecyclerAdapter(val totalItemCount: Int,
+                            viewItemDelegateAdapter: ViewTypeDelegateAdapter,
+                            onRetryListener: ViewTypeDelegateAdapter.OnRetryListener)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: ArrayList<ViewType>
@@ -28,7 +24,7 @@ class MostPopularRecyclerAdapter(val totalItemCount: Int,
 
     init {
         delegateAdapters.put(ViewType.LOADING, LoadingDelegateAdapter())
-        delegateAdapters.put(ViewType.ITEM, MostPopularDelegateAdapter(onViewSelectedListener))
+        delegateAdapters.put(ViewType.ITEM, viewItemDelegateAdapter)
         delegateAdapters.put(ViewType.ERROR, ErrorDelegateAdapter(onRetryListener))
         items = ArrayList()
         addLoadingView()

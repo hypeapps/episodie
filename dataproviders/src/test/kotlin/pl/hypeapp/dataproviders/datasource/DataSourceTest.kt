@@ -11,6 +11,7 @@ import org.junit.Test
 import pl.hypeapp.dataproviders.cache.CacheProviders
 import pl.hypeapp.dataproviders.cache.EvictCache
 import pl.hypeapp.dataproviders.entity.MostPopularEntity
+import pl.hypeapp.dataproviders.entity.TopListEntity
 import pl.hypeapp.dataproviders.service.api.ApiService
 import pl.hypeapp.domain.model.PageableRequest
 
@@ -52,6 +53,31 @@ class DataSourceTest {
     @Test
     fun `should not evict most popular`() {
         dataSource.getMostPopular(pageableRequest, false)
+
+        verifyZeroInteractions(evictCache)
+    }
+
+    @Test
+    fun `should get top list`() {
+        val topListEntity: Single<TopListEntity> = mock()
+        given(apiService.getTopList(pageableRequest.page, pageableRequest.size)).willReturn(topListEntity)
+
+        dataSource.getTopList(pageableRequest, false)
+
+        verify(cacheProviders).getTopList(any(), any(), any())
+        verify(apiService).getTopList(pageableRequest.page, pageableRequest.size)
+    }
+
+    @Test
+    fun `should evict top list`() {
+        dataSource.getTopList(pageableRequest, true)
+
+        verify(evictCache).evictAllMatchingDynamicKey(any())
+    }
+
+    @Test
+    fun `should not evict top list`() {
+        dataSource.getTopList(pageableRequest, false)
 
         verifyZeroInteractions(evictCache)
     }

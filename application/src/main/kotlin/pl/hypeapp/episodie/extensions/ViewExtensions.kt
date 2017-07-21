@@ -1,6 +1,7 @@
 package pl.hypeapp.episodie.extensions
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.target.Target
 import pl.hypeapp.episodie.GlideApp
 import pl.hypeapp.episodie.R
 import java.util.concurrent.TimeUnit.MINUTES
@@ -37,9 +39,13 @@ fun TextView.setTvShowRuntime(runtime: Long?) {
     }
 }
 
-fun ImageView.loadImage(url: String?) =
+fun ImageView.loadImage(url: String?): Target<Drawable> =
         GlideApp.with(this)
                 .load(url)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(this)
 
+fun ImageView.loadDrawableResource(drawableResource: Int): Target<Drawable> =
+        GlideApp.with(this)
+                .load(drawableResource)
+                .into(this)

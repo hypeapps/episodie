@@ -13,7 +13,7 @@
         android:layout_width="@dimen/width_item_error_icon"
         android:layout_height="@dimen/height_tem_error_icon"
         android:contentDescription="@string/item_error_content_description"
-        android:src="@drawable/ic_error"
+        android:src="@drawable/all_item_ic_error"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

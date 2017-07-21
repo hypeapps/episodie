@@ -5,5 +5,7 @@
     <integer name="span_size_recycler_most_popular_item">3</integer>
     <integer name="span_size_recycler_most_popular_loading">9</integer>
     <integer name="span_size_recycler_most_popular_error">9</integer>
+    <!--Item top list recycler view settings-->
     <integer name="max_items_recycler_most_popular">93</integer>
+    <integer name="max_items_recycler_top_list">100</integer>
 </resources>

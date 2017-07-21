@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator_layout_item_top_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary"
+    android:padding="@dimen/padding_big">
+
+    <ImageView
+        android:id="@+id/image_view_item_top_list_cover"
+        android:layout_width="@dimen/width_item_top_list_cover"
+        android:layout_height="@dimen/height_item_top_list_cover"
+        android:contentDescription="@string/all_item_cover_description"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_item_top_list_runtime"
+        android:layout_width="@dimen/size_item_top_list_runtime"
+        android:layout_height="@dimen/size_item_top_list_runtime"
+        android:layout_margin="@dimen/margin_small"
+        android:background="@drawable/all_item_ic_timer"
+        android:gravity="center"
+        android:paddingTop="@dimen/padding_top_item_top_list_runtime"
+        android:textSize="@dimen/text_size_item_top_list_runtime"
+        app:layout_constraintStart_toStartOf="@id/image_view_item_top_list_cover"
+        app:layout_constraintTop_toTopOf="@id/image_view_item_top_list_cover" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/text_view_top_list_position"
+        app:layout_constraintStart_toStartOf="@id/text_view_top_list_position"
+        app:layout_constraintTop_toTopOf="@id/text_view_top_list_position" />
+
+    <TextView
+        android:id="@+id/text_view_top_list_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_big"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/text_size_item_top_list_position"
+        app:layout_constraintBottom_toBottomOf="@id/view_item_top_list_divider"
+        app:layout_constraintStart_toStartOf="@id/view_item_top_list_divider" />
+
+    <View
+        android:id="@+id/view_item_top_list_divider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_all_divider"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:layout_marginStart="@dimen/margin_big"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_view_item_top_list_diamond"
+        app:layout_constraintStart_toEndOf="@id/image_view_item_top_list_cover"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_item_top_list_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_big"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textSize="@dimen/text_size_item_top_list_title"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_item_top_list_cover"
+        app:layout_constraintEnd_toEndOf="@id/view_item_top_list_divider"
+        app:layout_constraintStart_toStartOf="@id/view_item_top_list_divider"
+        app:layout_constraintTop_toBottomOf="@id/view_item_top_list_divider" />
+
+    <ImageView
+        android:id="@+id/image_view_item_top_list_diamond"
+        android:layout_width="@dimen/width_height_all_diamond"
+        android:layout_height="@dimen/height_all_diamond"
+        android:contentDescription="@string/item_top_list_ic_diamond_description"
+        android:src="@drawable/all_ic_diamond_unchecked"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
