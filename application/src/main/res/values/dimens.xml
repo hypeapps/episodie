@@ -22,6 +22,10 @@
     <dimen name="padding_top_item_most_popular_runtime">2dp</dimen>
     <dimen name="padding_top_item_most_popular_title">4dp</dimen>
     <dimen name="text_size_item_most_popular_runtime">12sp</dimen>
+    <!--top list fragment-->
+    <dimen name="padding_text_view_top_list_appbar_title">52dp</dimen>
+    <dimen name="text_size_top_list_appbar_title">30sp</dimen>
+    <dimen name="height_top_list_gradient">160dp</dimen>
     <!--item top list-->
     <dimen name="text_size_item_top_list_title">18sp</dimen>
     <dimen name="width_item_top_list_cover">120dp</dimen>
