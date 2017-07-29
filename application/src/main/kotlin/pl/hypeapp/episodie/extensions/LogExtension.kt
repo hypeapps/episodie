@@ -4,15 +4,15 @@ package pl.hypeapp.episodie.extensions
 
 import android.util.Log
 
-inline fun v(tag: String, msg: String) = Log.v(tag, msg)
+fun Any.v(msg: String) = Log.v(tag, msg)
 
-inline fun d(tag: String, msg: String) = Log.d(tag, msg)
+fun Any.d(msg: String) = Log.d(tag, msg)
 
-inline fun i(tag: String, msg: String) = Log.i(tag, msg)
+fun Any.i(msg: String) = Log.i(tag, msg)
 
-inline fun w(tag: String, msg: String) = Log.w(tag, msg)
+fun Any.w(msg: String) = Log.w(tag, msg)
 
-inline fun e(tag: String, msg: String) = Log.e(tag, msg)
+fun Any.e(msg: String) = Log.e(tag, msg)
 
 private val Any.tag: String
     get() = javaClass.simpleName
