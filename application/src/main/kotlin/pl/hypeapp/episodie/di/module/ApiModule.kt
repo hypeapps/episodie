@@ -9,6 +9,7 @@ import pl.hypeapp.dataproviders.service.api.EpisodieApi
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -27,6 +28,8 @@ class ApiModule(private val endpoint: String,
     fun provideOkHttpClient(basicAuthInterceptor: BasicAuthInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .addInterceptor(basicAuthInterceptor)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .addNetworkInterceptor(StethoInterceptor()).build()
     }
 
