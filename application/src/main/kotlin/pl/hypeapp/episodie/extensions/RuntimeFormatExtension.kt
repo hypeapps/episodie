@@ -23,7 +23,7 @@ fun TextView.setFullRuntime(runtime: Long?) {
         val days: Long = MINUTES.toDays(it)
         val hours = MINUTES.toHours((it - DAYS.toMinutes(days)))
         val minutes = MINUTES.toMinutes(it - HOURS.toMinutes(hours) - DAYS.toMinutes(days))
-        val minutesFormatted: String = if (minutes < 10) minutes.toString() else "0$minutes"
+        val minutesFormatted: String = if (minutes < 10) "0$minutes" else minutes.toString()
         if (isUpToOneHour(it)) {
             this.text = String.format(resources.getString(R.string.time_unit_format_minutes), it)
         } else if (isAtLeastOneDay(it)) {
