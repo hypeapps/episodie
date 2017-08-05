@@ -27,17 +27,15 @@ fun TextView.setFullRuntime(runtime: Long?) {
         if (isUpToOneHour(it)) {
             this.text = String.format(resources.getString(R.string.time_unit_format_minutes), it)
         } else if (isAtLeastOneDay(it)) {
-            if (isMinutesZerosOnly(minutesFormatted)) {
-                this.text = String.format(resources.getString(R.string.time_unit_format_days_hours), days, hours)
-            } else {
-                this.text = String.format(resources.getString(R.string.time_unit_format_full), days, hours, minutesFormatted)
-            }
+            this.text = if (isMinutesZerosOnly(minutesFormatted))
+                String.format(resources.getString(R.string.time_unit_format_days_hours), days, hours)
+            else
+                String.format(resources.getString(R.string.time_unit_format_full), days, hours, minutesFormatted)
         } else {
-            if (isMinutesZerosOnly(minutesFormatted)) {
-                this.text = String.format(resources.getString(R.string.time_unit_format_hours), hours)
-            } else {
-                this.text = String.format(resources.getString(R.string.time_unit_format_hours_minutes), hours, minutesFormatted)
-            }
+            this.text = if (isMinutesZerosOnly(minutesFormatted))
+                String.format(resources.getString(R.string.time_unit_format_hours), hours)
+            else
+                String.format(resources.getString(R.string.time_unit_format_hours_minutes), hours, minutesFormatted)
         }
     }
 }
