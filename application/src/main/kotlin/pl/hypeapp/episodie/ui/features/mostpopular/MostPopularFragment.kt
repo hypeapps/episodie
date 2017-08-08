@@ -1,17 +1,18 @@
 package pl.hypeapp.episodie.ui.features.mostpopular
 
-import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
-import kotlinx.android.synthetic.main.activity_main_feed.fab_search
+import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
 import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
+import kotlinx.android.synthetic.main.fragment_most_popular.recycler_view_most_popular
+import kotlinx.android.synthetic.main.fragment_most_popular.swipe_refresh_layout_most_popular
 import pl.hypeapp.domain.model.MostPopularModel
+import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.adapter.InfiniteScrollListener
@@ -20,10 +21,9 @@ import pl.hypeapp.episodie.adapter.ViewType
 import pl.hypeapp.episodie.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
-import pl.hypeapp.episodie.extensions.getActionBarSize
-import pl.hypeapp.episodie.extensions.getNavigationBarSize
-import pl.hypeapp.episodie.extensions.getStatusBarHeight
-import pl.hypeapp.episodie.ui.base.BaseFragment
+import pl.hypeapp.episodie.extensions.setRecyclerViewPadding
+import pl.hypeapp.episodie.navigation.Navigator
+import pl.hypeapp.episodie.ui.base.BaseViewModelFragment
 import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
 import pl.hypeapp.episodie.ui.features.mainfeed.listener.OnScrollHideBottomNavigationListener
 import pl.hypeapp.episodie.ui.features.mainfeed.listener.OnScrollHideFabButtonListener
@@ -33,23 +33,18 @@ import pl.hypeapp.presentation.mostpopular.MostPopularPresenter
 import pl.hypeapp.presentation.mostpopular.MostPopularView
 import javax.inject.Inject
 
-class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularView, ViewTypeDelegateAdapter.OnViewSelectedListener,
+
+class MostPopularFragment : BaseViewModelFragment<MostPopularViewModel>(), MostPopularView, ViewTypeDelegateAdapter.OnViewSelectedListener,
         ViewTypeDelegateAdapter.OnRetryListener, SwipeRefreshLayout.OnRefreshListener {
-
-    @BindView(R.id.recycler_view_most_popular)
-    lateinit var recyclerView: RecyclerView
-
-    @BindView(R.id.swipe_refresh_layout_most_popular)
-    lateinit var swipeRefresh: SwipeRefreshLayout
-
-    @Inject
-    lateinit var presenter: MostPopularPresenter
 
     override fun getLayoutRes(): Int = R.layout.fragment_most_popular
 
     override val viewModelClass: Class<MostPopularViewModel> = MostPopularViewModel::class.java
 
     private lateinit var mostPopularRecyclerAdapter: TvShowRecyclerAdapter
+
+    @Inject
+    lateinit var presenter: MostPopularPresenter
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
@@ -59,10 +54,12 @@ class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularVie
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = super.onCreateView(inflater, container, savedInstanceState)
         component.inject(this)
-        initRecyclerAdapter()
-        initSwipeRefreshLayout()
-        presenter.onAttachView(this)
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.onAttachView(this)
     }
 
     override fun onDestroyView() {
@@ -78,8 +75,8 @@ class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularVie
 
     override fun populateRecyclerList(mostPopularModel: MostPopularModel?) {
         // If pull to refresh we need to clear view model and re init recycler adapter
-        if (swipeRefresh.isRefreshing) {
-            swipeRefresh.isRefreshing = false
+        if (swipe_refresh_layout_most_popular.isRefreshing) {
+            swipe_refresh_layout_most_popular.isRefreshing = false
             initRecyclerAdapter()
             mostPopularModel?.let { viewModel.clearAndRetainModel(it) }
         } else {
@@ -88,48 +85,49 @@ class MostPopularFragment : BaseFragment<MostPopularViewModel>(), MostPopularVie
         mostPopularRecyclerAdapter.addItems(viewModel.tvShowList)
     }
 
-    override fun showError() {
+    override fun showError() = with(swipe_refresh_layout_most_popular) {
         mostPopularRecyclerAdapter.addErrorItem()
-        if (swipeRefresh.isRefreshing) {
-            swipeRefresh.isRefreshing = false
+        if (isRefreshing) {
+            isRefreshing = false
         }
     }
 
     override fun onRefresh() {
-        presenter.requestMostPopular(0, true)
+        presenter.onRefresh()
     }
 
     override fun onRetry() {
         presenter.requestMostPopular(viewModel.page, false)
     }
 
-    override fun onItemSelected() {
-        TODO("not implemented")
+    override fun onItemSelected(item: TvShowModel?, cover: View, title: View) {
+        item?.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Navigator.startTvShowDetailsWithSharedElement(activity, it, cover, title)
+            } else {
+                Navigator.startTvShowDetails(activity, it)
+            }
+        }
     }
 
-    private fun initSwipeRefreshLayout() = with(swipeRefresh) {
+    override fun initSwipeRefreshLayout() = with(swipe_refresh_layout_most_popular) {
         setProgressViewEndTarget(true, 400)
         setOnRefreshListener(this@MostPopularFragment)
     }
 
-    private fun initRecyclerAdapter() {
+    override fun initRecyclerAdapter() {
         mostPopularRecyclerAdapter = TvShowRecyclerAdapter(resources.getInteger(R.integer.max_items_recycler_most_popular), MostPopularDelegateAdapter(this), this)
-        recyclerView.apply {
+        recycler_view_most_popular.apply {
             setHasFixedSize(true)
             val gridLayout = GridLayoutManager(context, resources.getInteger(R.integer.span_count_recycler_most_popular))
             gridLayout.spanSizeLookup = spanSizeLookup()
             layoutManager = gridLayout
             addOnScrollListener(OnScrollHideBottomNavigationListener((activity as MainFeedActivity).navigation_bottom_layout))
-            addOnScrollListener(OnScrollHideFabButtonListener((activity as MainFeedActivity).fab_search))
-            // When list scroll to end presenter load next page of most popular
+            addOnScrollListener(OnScrollHideFabButtonListener((activity as MainFeedActivity).fab_button_main_feed_search))
+            // When list scroll to end presenter loadOrRetainModel next page of most popular
             addOnScrollListener(InfiniteScrollListener({ presenter.requestMostPopular(++viewModel.page, false) },
                     gridLayout))
-            // If orientation is landscape add navigation bar size to padding end
-            val navigationBarPadding: Int = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                context.getNavigationBarSize().x
-            else 0
-            setPadding(paddingStart, (resources.getStatusBarHeight() + context.getActionBarSize()), navigationBarPadding,
-                    paddingBottom)
+            setRecyclerViewPadding(insetPaddingTop = true)
             adapter = mostPopularRecyclerAdapter
         }
     }
