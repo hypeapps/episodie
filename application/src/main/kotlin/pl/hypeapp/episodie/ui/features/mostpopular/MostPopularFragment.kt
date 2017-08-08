@@ -92,13 +92,9 @@ class MostPopularFragment : BaseViewModelFragment<MostPopularViewModel>(), MostP
         }
     }
 
-    override fun onRefresh() {
-        presenter.onRefresh()
-    }
+    override fun onRefresh() = presenter.onRefresh()
 
-    override fun onRetry() {
-        presenter.requestMostPopular(viewModel.page, false)
-    }
+    override fun onRetry() = presenter.requestMostPopular(viewModel.page, false)
 
     override fun onItemSelected(item: TvShowModel?, cover: View, title: View) {
         item?.let {
