@@ -6,26 +6,33 @@ import pl.hypeapp.domain.usecase.top.TopListUseCase
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject
 
-class TopListPresenter @Inject constructor(val topListUseCase: TopListUseCase) : Presenter<TopListView>() {
+class TopListPresenter @Inject constructor(val useCase: TopListUseCase) : Presenter<TopListView>() {
 
     private companion object {
         val SIZE = 10
-        val MAX_PAGE = 9
+        val PAGE_LIMIT = 9
     }
 
     override fun onAttachView(view: TopListView) {
         super.onAttachView(view)
-        view.loadViewModel()
+        this.view?.initSwipeRefreshLayout()
+        this.view?.initRecyclerAdapter()
+        this.view?.observeDragDrawer()
+        this.view?.loadViewModel()
     }
 
     override fun onDetachView() {
         super.onDetachView()
-        topListUseCase.dispose()
+        useCase.dispose()
+    }
+
+    fun onDrawerDrag(dragProgress: Float) {
+        view?.animateDrawerHamburgerArrow(dragProgress)
     }
 
     fun requestTopList(page: Int, update: Boolean) {
-        if (page <= MAX_PAGE)
-            topListUseCase.execute(TopListObserver(), TopListUseCase.Params.createQuery(page, SIZE, update))
+        if (page <= PAGE_LIMIT)
+            useCase.execute(TopListObserver(), TopListUseCase.Params.createQuery(page, SIZE, update))
     }
 
     inner class TopListObserver : DefaultSingleObserver<TopListModel>() {
@@ -38,4 +45,6 @@ class TopListPresenter @Inject constructor(val topListUseCase: TopListUseCase) :
             this@TopListPresenter.view?.showError()
         }
     }
+
+
 }
