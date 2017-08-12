@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/margin_bottom_about_tv_show_nested_scroll">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_corner_shape"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_big"
+        android:paddingEnd="@dimen/padding_big"
+        android:paddingStart="@dimen/padding_big"
+        android:paddingTop="@dimen/padding_default">
+
+        <TextView
+            android:id="@+id/text_view_summary_about_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_tv_show_summary_header"
+            android:textSize="@dimen/text_size_about_tv_show_header"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_about_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layout_constraintTop_toBottomOf="@id/text_view_summary_about_header" />
+
+        <TextView
+            android:id="@+id/text_view_about_genres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            android:includeFontPadding="false"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toStartOf="@id/image_view_info_ic_network"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_about_summary" />
+
+        <ImageView
+            android:id="@+id/image_view_info_ic_network"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_about_tv_show_ic_network"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:visibility="gone"
+            android:contentDescription="@string/about_tv_show_ic_network_description"
+            android:src="@drawable/about_ic_network"
+            app:layout_constraintEnd_toStartOf="@id/text_view_about_network"
+            app:layout_constraintTop_toBottomOf="@id/text_view_about_summary" />
+
+        <TextView
+            android:id="@+id/text_view_about_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_info_ic_network"
+            app:layout_constraintEnd_toStartOf="@id/image_view_info_ic_runtime"
+            app:layout_constraintTop_toTopOf="@id/image_view_info_ic_network" />
+
+        <ImageView
+            android:id="@+id/image_view_info_ic_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_about_tv_show_ic_runtime"
+            android:layout_marginTop="@dimen/margin_default"
+            android:contentDescription="@string/item_all_ic_runtime_description"
+            android:src="@drawable/all_ic_runtime"
+            app:layout_constraintEnd_toStartOf="@id/text_view_about_runtime"
+            app:layout_constraintTop_toBottomOf="@id/text_view_about_summary" />
+
+        <TextView
+            android:id="@+id/text_view_about_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:includeFontPadding="false"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_info_ic_runtime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_view_info_ic_runtime" />
+
+        <TextView
+            android:id="@+id/text_view_about_learn_more_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            android:text="@string/about_tv_show_lear_more_header"
+            android:textSize="@dimen/text_size_about_tv_show_header"
+            app:layout_constraintTop_toBottomOf="@id/text_view_about_genres" />
+
+        <ImageView
+            android:id="@+id/image_view_about_ic_official_website"
+            android:layout_width="@dimen/size_about_tv_show_learn_more_ic_more"
+            android:layout_height="@dimen/size_about_tv_show_learn_more_ic_more"
+            android:layout_marginStart="@dimen/margin_default"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_default"
+            android:contentDescription="@string/about_tv_show_ic_official_website_description"
+            android:src="@drawable/about_tv_show_ic_official_website"
+            app:layout_constraintTop_toBottomOf="@id/text_view_about_learn_more_header" />
+
+        <TextView
+            android:id="@+id/text_view_about_official_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/margin_default"
+            android:gravity="center_vertical"
+            android:text="@string/about_tv_show_official_website_description"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_about_ic_official_website"
+            app:layout_constraintStart_toEndOf="@id/image_view_about_ic_official_website"
+            app:layout_constraintTop_toTopOf="@id/image_view_about_ic_official_website" />
+
+        <ImageView
+            android:id="@+id/image_view_about_ic_imdb"
+            android:layout_width="@dimen/size_about_tv_show_learn_more_ic_more"
+            android:layout_height="@dimen/size_about_tv_show_learn_more_ic_more"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:contentDescription="@string/about_tv_show_logo_imdb_description"
+            android:src="@drawable/about_tv_show_ic_imdb"
+            app:layout_constraintTop_toBottomOf="@id/image_view_about_ic_official_website" />
+
+        <TextView
+            android:id="@+id/text_view_about_imdb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:text="@string/about_tv_show_imdb_description"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_about_ic_imdb"
+            app:layout_constraintStart_toEndOf="@id/image_view_about_ic_imdb"
+            app:layout_constraintTop_toTopOf="@id/image_view_about_ic_imdb" />
+
+        <ImageView
+            android:id="@+id/image_view_about_ic_tv_maze"
+            android:layout_width="@dimen/size_about_tv_show_learn_more_ic_more"
+            android:layout_height="@dimen/size_about_tv_show_learn_more_ic_more"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:contentDescription="@string/about_tv_show_logo_tv_maze_description"
+            android:src="@drawable/about_tv_show_ic_tv_maze"
+            app:layout_constraintTop_toBottomOf="@id/image_view_about_ic_imdb" />
+
+        <TextView
+            android:id="@+id/text_view_about_tv_maze"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:text="@string/about_tv_show_tv_maze_description"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_about_ic_tv_maze"
+            app:layout_constraintStart_toEndOf="@id/image_view_about_ic_tv_maze"
+            app:layout_constraintTop_toTopOf="@id/image_view_about_ic_tv_maze" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>
