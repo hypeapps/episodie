@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.adapter
+package pl.hypeapp.episodie.ui.base.adapter
 
 interface ViewType {
 

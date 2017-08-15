@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.adapter
+package pl.hypeapp.episodie.ui.base.adapter
 
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
