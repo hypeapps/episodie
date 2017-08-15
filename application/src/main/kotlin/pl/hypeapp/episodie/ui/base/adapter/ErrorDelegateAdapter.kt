@@ -1,8 +1,8 @@
-package pl.hypeapp.episodie.adapter
+package pl.hypeapp.episodie.ui.base.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.item_error.view.*
+import kotlinx.android.synthetic.main.item_error.view.button_item_error_retry
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.inflate
 
