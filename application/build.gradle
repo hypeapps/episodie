@@ -1,4 +1,6 @@
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'jacoco'
+
 rootProject.applicationModulePlugins.each {
     apply plugin: it
 }
@@ -19,12 +21,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            testCoverageEnabled true
+        }
     }
     buildTypes.each {
         it.buildConfigField('String', 'USERNAME_EPISODIE_API', USERNAME_EPISODIE_API)
         it.buildConfigField('String', 'PASSWORD_EPISODIE_API', PASSWORD_EPISODIE_API)
     }
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
@@ -40,10 +45,10 @@ android {
             java.srcDirs += 'src/main/kotlin'
         }
         test {
-            java.srcDirs = ['src/test/kotlin']
+            java.srcDirs += 'src/test/kotlin'
         }
         androidTest {
-            java.srcDirs = ['src/androidTest/kotlin']
+            java.srcDirs += 'src/androidTest/kotlin'
         }
     }
 }
@@ -53,6 +58,7 @@ kapt {
 }
 
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.aar'])
     rootProject.applicationModuleDependencies.each {
         add(it.configuration, it.dependency, it.options)
     }
