@@ -13,4 +13,6 @@ interface MostPopularView : View {
 
     fun initRecyclerAdapter()
 
+    fun showError()
+
 }
