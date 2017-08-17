@@ -1,4 +1,4 @@
-package pl.hypeapp.presentation.aboutvshow
+package pl.hypeapp.presentation.tvshowinfo
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -8,15 +8,15 @@ import org.junit.Test
 import org.mockito.Mockito.`when`
 import pl.hypeapp.domain.model.TvShowModel
 
-class AboutTvShowPresenterTest {
+class TvShowInfoPresenterTest {
 
-    private lateinit var presenter: AboutTvShowPresenter
+    private lateinit var presenter: TvShowInfoPresenter
 
-    private val view: AboutTvShowView = mock()
+    private val view: TvShowInfoView = mock()
 
     @Before
     fun setUp() {
-        presenter = AboutTvShowPresenter()
+        presenter = TvShowInfoPresenter()
         `when`(view.getModel()).thenReturn(fakeModel)
     }
 
@@ -45,7 +45,7 @@ class AboutTvShowPresenterTest {
 
         presenter.onImdbSitePressed()
 
-        verify(view).openBrowserIntent(AboutTvShowPresenter.URL_IMDB + fakeModel.imdbId)
+        verify(view).openBrowserIntent(TvShowInfoPresenter.URL_IMDB + fakeModel.imdbId)
     }
 
     @Test
@@ -54,7 +54,7 @@ class AboutTvShowPresenterTest {
 
         presenter.onTvMazeSitePressed()
 
-        verify(view).openBrowserIntent(AboutTvShowPresenter.URL_TV_MAZE + fakeModel.id)
+        verify(view).openBrowserIntent(TvShowInfoPresenter.URL_TV_MAZE + fakeModel.id)
     }
 
     @Test
