@@ -1,6 +1,5 @@
 rootProject.presentationModulePlugins.each {
     apply plugin: it
-
 }
 
 sourceCompatibility = "1.7"

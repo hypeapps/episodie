@@ -1,42 +1,18 @@
 package pl.hypeapp.episodie.extensions
 
-import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.text.Html
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
-import pl.hypeapp.episodie.GlideApp
-import pl.hypeapp.episodie.R
-import java.util.concurrent.TimeUnit.MINUTES
+import pl.hypeapp.episodie.glide.GlideApp
 
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
-}
-
-fun TextView.setTextFromHtml(text: String?) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-        this.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
-    else
-        this.text = Html.fromHtml(text)
-}
-
-@SuppressLint("SetTextI18n")
-fun TextView.setTvShowRuntime(runtime: Long?) {
-    runtime?.let {
-        if (runtime <= MINUTES.convert(60, MINUTES)) {
-            this.text = "${MINUTES.toMinutes(runtime)}${resources.getStringArray(R.array.time_units)[0]}"
-        } else if (runtime <= MINUTES.convert(24 * 60, MINUTES)) {
-            this.text = "${MINUTES.toHours(runtime)}${resources.getStringArray(R.array.time_units)[1]}"
-        } else {
-            this.text = "${MINUTES.toDays(runtime)}${resources.getStringArray(R.array.time_units)[2]}"
-        }
-    }
 }
 
 fun ImageView.loadImage(url: String?): Target<Drawable> =
@@ -48,4 +24,25 @@ fun ImageView.loadImage(url: String?): Target<Drawable> =
 fun ImageView.loadDrawableResource(drawableResource: Int): Target<Drawable> =
         GlideApp.with(this)
                 .load(drawableResource)
+                .centerCrop()
                 .into(this)
+
+// We need to play games with padding to proper displayed recycler view
+fun RecyclerView.setRecyclerViewPadding(insetPaddingTop: Boolean) {
+    val top = if (insetPaddingTop) (resources.getStatusBarHeight() + context.getActionBarSize()) else 0
+    var right = paddingRight
+    var bottom = paddingBottom
+    // If orientation is landscape addItems navigation bar size to padding end
+    if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        right = context.getNavigationBarSize().x
+    }
+    val screenWidth = context.getRealScreenSize().x
+    // If orientation is landscape and nav bar size is equals to width screen addItems navigation bar y size
+    // to padding bottom
+    if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE &&
+            context.getNavigationBarSize().x == screenWidth) {
+        right = paddingRight
+        bottom = context.getNavigationBarSize().y
+    }
+    setPadding(paddingStart, top, right, bottom)
+}

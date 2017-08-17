@@ -21,7 +21,7 @@
             android:src="@drawable/episodie_logo"
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_feed" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_feed"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_search"
             app:text="@string/drawer_feed" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_search"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -39,7 +39,7 @@
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_watched"
             app:text="@string/drawer_search" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_watched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             app:layout_constraintVertical_bias="0.65"
             app:text="@string/drawer_watched" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_time_calculator"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/drawer_menu_item_watched"
             app:text="@string/drawer_time_calculator" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_stats"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -77,18 +77,18 @@
             android:text="@string/watching_time_2d_12h_30m"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@id/image_view_drawer_ic_watching_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95" />
+            app:layout_constraintVertical_bias="0.90" />
 
         <ImageView
             android:id="@+id/image_view_drawer_ic_watching_time"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:contentDescription="@string/drawer_ic_watching_time"
-            android:src="@drawable/drawer_ic_watching_time"
+            android:src="@drawable/all_ic_watching_time"
             app:layout_constraintBottom_toBottomOf="@id/text_view_drawer_watching_time"
             app:layout_constraintEnd_toStartOf="@id/text_view_drawer_watching_time"
             app:layout_constraintTop_toTopOf="@id/text_view_drawer_watching_time" />

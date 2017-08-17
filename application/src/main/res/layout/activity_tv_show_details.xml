@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <pl.hypeapp.noiseview.NoiseView
+        android:id="@+id/noise_view_tv_show_details"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/guideline_backdrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_backdrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <ImageView
+        android:id="@+id/image_view_tv_show_details_ic_back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_big"
+        android:contentDescription="@string/tv_show_details_ic_arrow_back_description"
+        android:padding="@dimen/padding_big"
+        android:src="@drawable/all_ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <ImageView
+        android:id="@+id/image_view_tv_show_details_ic_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/tv_show_details_ic_share_description"
+        android:padding="@dimen/padding_big"
+        android:src="@drawable/all_ic_share"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_tv_show_details_ic_back_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_view_tv_show_details_ic_back_arrow" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_diagonal_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <com.github.florent37.diagonallayout.DiagonalLayout
+        android:id="@+id/diagonal_layout_tv_show_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:diagonal_angle="15"
+        app:diagonal_direction="right"
+        app:diagonal_position="top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_diagonal_top">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/item_top_list_background" />
+
+    </com.github.florent37.diagonallayout.DiagonalLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout_tv_show_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_tv_show_details"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@android:color/transparent"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginEnd="@dimen/margin_big"
+                    android:layout_marginStart="@dimen/margin_big">
+
+                    <View
+                        android:id="@+id/top_corner_shape_tv_show_details"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/margin_top_tv_show_details_top_corner"
+                        android:background="@drawable/top_corner_shape"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_view_tv_show_details_full_runtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_big"
+                        app:cardBackgroundColor="@color/primary"
+                        app:cardCornerRadius="@dimen/corner_radius_tv_show_details"
+                        app:cardElevation="@dimen/card_elevation_tv_show_details"
+                        app:layout_constraintBottom_toBottomOf="@id/card_view_tv_show_details_cover"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/card_view_tv_show_details_cover"
+                        app:layout_constraintVertical_bias="0.1">
+
+                        <TextView
+                            android:id="@+id/text_view_tv_show_details_full_runtime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/size_tv_show_details_ic_full_runtime"
+                            android:layout_margin="@dimen/margin_default"
+                            android:drawablePadding="@dimen/padding_small"
+                            android:drawableStart="@drawable/all_ic_watching_time"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:textSize="@dimen/text_size_tv_show_details_full_runtime" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/text_view_tv_show_details_title"
+                        style="@style/EpisodieTheme.TextViewTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_default"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:maxLines="2"
+                        android:textSize="@dimen/text_size_tv_show_details_title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/top_corner_shape_tv_show_details"
+                        app:layout_constraintStart_toEndOf="@id/card_view_tv_show_details_cover"
+                        app:layout_constraintTop_toBottomOf="@id/card_view_tv_show_details_full_runtime"
+                        app:layout_constraintVertical_bias="0.2" />
+
+                    <TextView
+                        android:id="@+id/text_view_tv_show_details_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:layout_marginStart="@dimen/margin_default"
+                        android:layout_marginTop="@dimen/margin_default"
+                        android:textColor="@android:color/darker_gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/card_view_tv_show_details_cover"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_tv_show_details_title" />
+
+                    <TextView
+                        android:id="@+id/text_view_tv_show_details_premiered"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/margin_default"
+                        android:textColor="@android:color/darker_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/card_view_tv_show_details_cover"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_tv_show_details_status" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_view_tv_show_details_cover"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:layout_marginStart="@dimen/margin_big"
+                        app:cardBackgroundColor="@color/primary"
+                        app:cardCornerRadius="@dimen/corner_radius_tv_show_details_cover"
+                        app:cardElevation="@dimen/card_elevation_tv_show_details_cover"
+                        app:cardPreventCornerOverlap="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                            android:id="@+id/image_view_tv_show_details_cover"
+                            style="@style/EpisodieTheme.ImageViewCover"
+                            android:layout_width="@dimen/width_tv_show_details_cover"
+                            android:layout_height="@dimen/height_tv_show_details_cover"
+                            android:contentDescription="@string/tv_show_details_cover_description"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/tron" />
+
+                    </android.support.v7.widget.CardView>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_big"
+            android:layout_marginStart="@dimen/margin_big"
+            android:orientation="vertical"
+            app:layout_behavior="pl.hypeapp.episodie.ui.features.tvshowdetails.TvShowDetailsAppBarBehavior">
+
+            <pl.hypeapp.episodie.ui.widget.CustomFontTabLayout
+                android:id="@+id/tab_layout_tv_show_details"
+                style="@style/EpisodieTheme.CustomFontTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_tab_layout"
+                android:background="@color/primary"
+                android:gravity="center_horizontal"
+                android:paddingBottom="@dimen/padding_bottom_tv_show_details_tab"
+                app:fontPath="@string/all_font_path"
+                app:tabGravity="center"
+                app:tabTextColor="@color/primary_light" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager_tv_show_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_button_tv_show_details_add_to_watched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_tv_show_details_fab_button"
+            android:layout_marginEnd="@dimen/margin_end_tv_show_details_fab_button"
+            android:paddingTop="@dimen/padding_top_tv_show_details_fab_button"
+            android:src="@drawable/all_ic_diamond_unchecked"
+            android:theme="@style/EpisodieTheme.FabButton"
+            app:layout_anchor="@id/view_pager_tv_show_details"
+            app:layout_anchorGravity="bottom|end" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!--This views are only for arrow and share icons be clickable because they are under app bar -->
+    <View
+        android:id="@+id/dummy_view_tv_show_details_back_arrow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_tv_show_details_ic_back_arrow"
+        app:layout_constraintEnd_toEndOf="@id/image_view_tv_show_details_ic_back_arrow"
+        app:layout_constraintStart_toStartOf="@id/image_view_tv_show_details_ic_back_arrow"
+        app:layout_constraintTop_toTopOf="@id/image_view_tv_show_details_ic_back_arrow" />
+
+    <View
+        android:id="@+id/dummy_view_tv_show_details_share"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_tv_show_details_ic_share"
+        app:layout_constraintEnd_toEndOf="@id/image_view_tv_show_details_ic_share"
+        app:layout_constraintStart_toStartOf="@id/image_view_tv_show_details_ic_share"
+        app:layout_constraintTop_toTopOf="@id/image_view_tv_show_details_ic_share" />
+
+
+</android.support.constraint.ConstraintLayout>

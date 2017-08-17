@@ -9,4 +9,14 @@ interface TopListView : View {
 
     fun loadViewModel()
 
+    fun initSwipeRefreshLayout()
+
+    fun initRecyclerAdapter()
+
+    fun observeDragDrawer()
+
+    fun animateDrawerHamburgerArrow(progress: Float)
+
+    fun showError()
+
 }

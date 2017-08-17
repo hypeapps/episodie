@@ -10,6 +10,7 @@ import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.cache.CacheProviders
 import pl.hypeapp.dataproviders.cache.EvictCache
+import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
 import pl.hypeapp.dataproviders.entity.MostPopularEntity
 import pl.hypeapp.dataproviders.entity.TopListEntity
 import pl.hypeapp.dataproviders.service.api.ApiService
@@ -80,6 +81,18 @@ class DataSourceTest {
         dataSource.getTopList(pageableRequest, false)
 
         verifyZeroInteractions(evictCache)
+    }
+
+    @Test
+    fun `should get all seasons`() {
+        val allSeasonsEntity: Single<AllSeasonsEntity> = mock()
+        val tvShowId = "12"
+        given(apiService.getAllSeasons(tvShowId)).willReturn(allSeasonsEntity)
+
+        dataSource.getAllSeasons(tvShowId, false)
+
+        verify(cacheProviders).getAllSeasons(any(), any(), any())
+        verify(apiService).getAllSeasons(tvShowId)
     }
 
 }

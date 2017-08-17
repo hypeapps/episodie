@@ -17,10 +17,14 @@ class TopListViewModel : ViewModel() {
         page = model.pageableRequest.page
     }
 
-    fun clearAndRetainModel(model: TopListModel) {
+    fun clearModel() {
         retainedModel = null
         tvShowList.clear()
         page = 0
+    }
+
+    fun clearAndRetainModel(model: TopListModel) {
+        clearModel()
         retainModel(model)
     }
 

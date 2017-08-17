@@ -9,4 +9,10 @@ interface MostPopularView : View {
 
     fun loadViewModel()
 
+    fun initSwipeRefreshLayout()
+
+    fun initRecyclerAdapter()
+
+    fun showError()
+
 }

@@ -11,7 +11,7 @@ import pl.hypeapp.episodie.R
 fun Resources.convertPixelsToDp(pixels: Float): Float =
         pixels / (displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
 
-private fun Context.getAppUsableScreenSize(): Point {
+fun Context.getAppUsableScreenSize(): Point {
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val display = windowManager.defaultDisplay
     val size = Point()
@@ -19,7 +19,7 @@ private fun Context.getAppUsableScreenSize(): Point {
     return size
 }
 
-private fun Context.getRealScreenSize(): Point {
+fun Context.getRealScreenSize(): Point {
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val display = windowManager.defaultDisplay
     val size = Point()
@@ -41,6 +41,8 @@ fun Context.getNavigationBarSize(): Point {
     // navigation bar is not present
     return Point()
 }
+
+fun Context.isNavigationBarLandscape(): Boolean = getNavigationBarSize().x == getRealScreenSize().x
 
 fun Context.getActionBarSize(): Int {
     val value = TypedValue()

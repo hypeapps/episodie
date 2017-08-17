@@ -3,15 +3,15 @@
     <item
         android:id="@+id/action_most_popular"
         android:title="@string/menu_action_most_popular_title"
-        android:icon="@drawable/ic_most_popular"/>
+        android:icon="@drawable/bottom_navigation_ic_most_popular" />
 
     <item
         android:id="@+id/action_top_list"
         android:title="@string/menu_action_top_list_title"
-        android:icon="@drawable/ic_top_list"/>
+        android:icon="@drawable/bottom_navigation_ic_top_list" />
 
     <item
-        android:id="@+id/action_watched"
-        android:title="@string/menu_action_watched"
-        android:icon="@drawable/ic_watched"/>
+        android:id="@+id/action_premieres"
+        android:title="@string/menu_action_premieres"
+        android:icon="@drawable/bottom_navigation_ic_premieres" />
 </menu>

@@ -4,14 +4,30 @@
     android:id="@+id/coordinator_layout_item_top_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary"
-    android:padding="@dimen/padding_big">
+    android:background="@color/primary">
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_view_item_top_list"
+        app:rv_color="@android:color/black"
+        app:rv_alpha="30"
+        app:rv_rippleDuration="200"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_view_item_top_list_cover"
+        style="@style/EpisodieTheme.ImageViewCover"
         android:layout_width="@dimen/width_item_top_list_cover"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_medium"
         android:layout_height="@dimen/height_item_top_list_cover"
-        android:contentDescription="@string/all_item_cover_description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/item_all_cover_description"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,15 +45,6 @@
         app:layout_constraintTop_toTopOf="@id/image_view_item_top_list_cover" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:textSize="@dimen/text_size_item_top_list_rank"
-        app:layout_constraintBottom_toTopOf="@id/text_view_top_list_position"
-        app:layout_constraintStart_toStartOf="@id/text_view_top_list_position"
-        app:layout_constraintTop_toTopOf="@id/text_view_top_list_position" />
-
-    <TextView
         android:id="@+id/text_view_top_list_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,6 +57,7 @@
 
     <TextView
         android:id="@+id/text_view_item_top_list_title"
+        style="@style/EpisodieTheme.TextViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_big"
@@ -66,7 +74,8 @@
         android:id="@+id/image_view_item_top_list_diamond"
         android:layout_width="@dimen/width_height_all_diamond"
         android:layout_height="@dimen/height_all_diamond"
-        android:contentDescription="@string/item_top_list_ic_diamond_description"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:contentDescription="@string/item_all_ic_diamond_description"
         android:src="@drawable/all_ic_diamond_unchecked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

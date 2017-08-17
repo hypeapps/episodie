@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_default"
+    android:background="@color/primary_dark">
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_view_item_season"
+        style="@style/EpisodieTheme.RippleView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_view_item_season_cover"
+        android:layout_width="@dimen/width_item_season_screen"
+        android:layout_height="@dimen/height_item_season_screen"
+        android:contentDescription="@string/item_season_season_cover_description"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/text_view_item_season_season_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/gradient"
+        android:paddingEnd="@dimen/padding_small"
+        android:paddingStart="@dimen/padding_small" />
+
+    <TextView
+        android:id="@+id/text_view_item_season_episode_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:layout_marginStart="@dimen/padding_default"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_item_season_cover"
+        app:layout_constraintStart_toEndOf="@id/image_view_item_season_cover" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:contentDescription="@string/item_all_ic_runtime_description"
+        android:src="@drawable/all_ic_watching_time"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_item_season_runtime"
+        app:layout_constraintEnd_toStartOf="@id/text_view_item_season_runtime"
+        app:layout_constraintTop_toTopOf="@id/text_view_item_season_runtime" />
+
+    <TextView
+        android:id="@+id/text_view_item_season_runtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_view_item_season_add_to_watched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/item_all_ic_diamond_description"
+        android:padding="@dimen/padding_default"
+        android:src="@drawable/all_ic_diamond_unchecked"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_item_season_cover"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

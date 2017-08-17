@@ -12,6 +12,10 @@
         android:layout_width="@dimen/width_item_loading_animation_view"
         android:layout_height="@dimen/height_item_loading_animation_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_cacheStrategy="strong"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="@string/animation_loading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_imageAssetsFolder="@string/folder_assets_images"/>
