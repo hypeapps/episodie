@@ -1,6 +1,7 @@
 package pl.hypeapp.dataproviders.service.api
 
 import io.reactivex.Single
+import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
 import pl.hypeapp.dataproviders.entity.MostPopularEntity
 import pl.hypeapp.dataproviders.entity.TopListEntity
 import pl.hypeapp.dataproviders.entity.TvShowEntity
@@ -21,5 +22,8 @@ interface EpisodieApi {
 
     @GET("tvshow/search?query={query}")
     fun search(@Path("query") query: String): Single<List<TvShowEntity>>
+
+    @GET("tvshow/extended/get/{tvShowId}")
+    fun getAllSeasons(@Path("tvShowId") tvShowId: String): Single<AllSeasonsEntity>
 
 }
