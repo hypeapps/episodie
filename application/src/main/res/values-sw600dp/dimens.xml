@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_item_most_popular_cover">250dp</dimen>
+    <dimen name="margin_bottom_tv_show_details_fab_button">64dp</dimen>
+</resources>

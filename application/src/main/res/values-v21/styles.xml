@@ -2,25 +2,42 @@
 <resources>
 
     <style name="EpisodieTheme" parent="BaseEpisodieTheme">
-        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
+        <item name="android:navigationBarColor">@color/default_navigation_bar</item>
         <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:statusBarColor">@color/status_bar</item>
         <!--<item name="android:windowTranslucentNavigation">true</item>-->
         <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
     </style>
 
-    <style name="EpisodieTheme.FabButton" parent="EpisodieTheme.V21.FabButton"/>
-
+    <style name="EpisodieTheme.FabButton" parent="EpisodieTheme.V21.FabButton" />
     <style name="EpisodieTheme.V21.FabButton" parent="EpisodieTheme.V0.FabButton">
         <item name="android:elevation">@dimen/fab_button_elevation</item>
         <item name="pressedTranslationZ">@dimen/fab_button_pressed_translation_z</item>
     </style>
 
     <style name="EpisodieTheme.TopListAppBar" parent="EpisodieTheme.V21.TopListAppBar" />
-
     <style name="EpisodieTheme.V21.TopListAppBar" parent="EpisodieTheme.V0.TopListAppBar">
         <item name="android:stateListAnimator">@animator/elevation_animator</item>
+    </style>
+
+    <style name="EpisodieTheme.CustomFontTabLayout" parent="EpisodieTheme.V21.CustomFontTabLayout" />
+
+    <style name="EpisodieTheme.V21.CustomFontTabLayout" parent="EpisodieTheme.V0.CustomFontTabLayout">
+        <item name="android:elevation">@dimen/elevation_tab_layout</item>
+    </style>
+
+    <style name="EpisodieTheme.ImageViewCover" parent="EpisodieTheme.V21.ImageViewCover" />
+
+    <style name="EpisodieTheme.V21.ImageViewCover" parent="ImageViewCoverV0">
+        <item name="android:transitionName">@string/cover_transition</item>
+    </style>
+
+    <style name="EpisodieTheme.TextViewTitle" parent="EpisodieTheme.V21.TextViewTitle" />
+
+    <style name="EpisodieTheme.V21.TextViewTitle" parent="EpisodieTheme.V0.TextViewTitle">
+        <item name="android:transitionName">@string/title_transition</item>
     </style>
 
 </resources>
