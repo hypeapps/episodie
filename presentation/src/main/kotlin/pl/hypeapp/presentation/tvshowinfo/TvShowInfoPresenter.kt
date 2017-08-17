@@ -1,15 +1,15 @@
-package pl.hypeapp.presentation.aboutvshow
+package pl.hypeapp.presentation.tvshowinfo
 
 import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject
 
-class AboutTvShowPresenter @Inject constructor() : Presenter<AboutTvShowView>() {
+class TvShowInfoPresenter @Inject constructor() : Presenter<TvShowInfoView>() {
 
     private var model: TvShowModel? = null
         get() = view?.getModel()
 
-    override fun onAttachView(view: AboutTvShowView) {
+    override fun onAttachView(view: TvShowInfoView) {
         super.onAttachView(view)
         fillInfoAboutTvShow(model)
     }
@@ -19,11 +19,11 @@ class AboutTvShowPresenter @Inject constructor() : Presenter<AboutTvShowView>() 
     }
 
     fun onImdbSitePressed() {
-        view?.openBrowserIntent("$URL_IMDB${model?.imdbId}")
+        view?.openBrowserIntent("${URL_IMDB}${model?.imdbId}")
     }
 
     fun onTvMazeSitePressed() {
-        view?.openBrowserIntent("$URL_TV_MAZE${model?.id}")
+        view?.openBrowserIntent("${URL_TV_MAZE}${model?.id}")
     }
 
     private fun fillInfoAboutTvShow(model: TvShowModel?) {
