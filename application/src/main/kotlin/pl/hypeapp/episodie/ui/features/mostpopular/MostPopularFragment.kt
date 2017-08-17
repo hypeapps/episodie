@@ -15,15 +15,15 @@ import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
-import pl.hypeapp.episodie.adapter.InfiniteScrollListener
-import pl.hypeapp.episodie.adapter.TvShowRecyclerAdapter
-import pl.hypeapp.episodie.adapter.ViewType
-import pl.hypeapp.episodie.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
 import pl.hypeapp.episodie.extensions.setRecyclerViewPadding
 import pl.hypeapp.episodie.navigation.Navigator
 import pl.hypeapp.episodie.ui.base.BaseViewModelFragment
+import pl.hypeapp.episodie.ui.base.adapter.InfiniteScrollListener
+import pl.hypeapp.episodie.ui.base.adapter.TvShowRecyclerAdapter
+import pl.hypeapp.episodie.ui.base.adapter.ViewType
+import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
 import pl.hypeapp.episodie.ui.features.mainfeed.listener.OnScrollHideBottomNavigationListener
 import pl.hypeapp.episodie.ui.features.mainfeed.listener.OnScrollHideFabButtonListener
@@ -96,10 +96,10 @@ class MostPopularFragment : BaseViewModelFragment<MostPopularViewModel>(), MostP
 
     override fun onRetry() = presenter.requestMostPopular(viewModel.page, false)
 
-    override fun onItemSelected(item: TvShowModel?, cover: View, title: View) {
+    override fun onItemSelected(item: TvShowModel?, vararg views: View) {
         item?.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Navigator.startTvShowDetailsWithSharedElement(activity, it, cover, title)
+                Navigator.startTvShowDetailsWithSharedElement(activity, it, views)
             } else {
                 Navigator.startTvShowDetails(activity, it)
             }
