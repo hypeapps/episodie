@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.ui.features.navigationdrawer
+package pl.hypeapp.episodie.ui.widget
 
 import android.content.Context
 import android.content.res.TypedArray
