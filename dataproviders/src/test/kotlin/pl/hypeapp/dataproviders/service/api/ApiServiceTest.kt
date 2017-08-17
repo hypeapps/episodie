@@ -8,6 +8,7 @@ import org.amshove.kluent.any
 import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
+import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
 import pl.hypeapp.dataproviders.entity.MostPopularEntity
 import pl.hypeapp.dataproviders.entity.TopListEntity
 
@@ -42,6 +43,18 @@ class ApiServiceTest {
 
         verify(episodieApi).getTopList(any(), any())
         topListEntity `should equal` response
+    }
+
+    @Test
+    fun `should get all seasons`() {
+        val id = "12"
+        val allSeasonsEntity: Single<AllSeasonsEntity> = mock()
+        given(episodieApi.getAllSeasons(id)).willReturn(allSeasonsEntity)
+
+        val response = apiService.getAllSeasons(id)
+
+        verify(episodieApi).getAllSeasons(id)
+        allSeasonsEntity `should equal` response
     }
 
 }

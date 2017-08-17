@@ -1,6 +1,7 @@
 package pl.hypeapp.dataproviders.service.api
 
 import io.reactivex.Single
+import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
 import pl.hypeapp.dataproviders.entity.MostPopularEntity
 import pl.hypeapp.dataproviders.entity.TopListEntity
 import pl.hypeapp.dataproviders.entity.TvShowEntity
@@ -24,6 +25,10 @@ class ApiService @Inject constructor(private val episodieApi: EpisodieApi) : Epi
 
     override fun getTvShow(tvShowId: String): Single<TvShowEntity> {
         return episodieApi.getTvShow(tvShowId)
+    }
+
+    override fun getAllSeasons(tvShowId: String): Single<AllSeasonsEntity> {
+        return episodieApi.getAllSeasons(tvShowId)
     }
 
 }
