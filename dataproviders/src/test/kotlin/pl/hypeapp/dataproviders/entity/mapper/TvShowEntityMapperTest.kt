@@ -29,6 +29,11 @@ class TvShowEntityMapperTest {
         entity.imageMedium `should equal` tvShowModel.imageMedium
         entity.imageOriginal `should equal` tvShowModel.imageOriginal
         entity.premiered `should equal` tvShowModel.premiered
+        entity.summary `should equal` tvShowModel.summary
+        entity.status `should equal` tvShowModel.status
+        entity.network `should equal` tvShowModel.network
+        entity.genre `should equal` tvShowModel.genre
+        entity.officialSite `should equal` tvShowModel.officialSite
     }
 
     private fun createFakeTvShowEntity(): TvShowEntity {

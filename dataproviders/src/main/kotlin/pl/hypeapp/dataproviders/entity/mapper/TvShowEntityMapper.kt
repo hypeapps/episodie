@@ -10,12 +10,18 @@ class TvShowEntityMapper @Inject constructor() : EntityMapper<TvShowModel, TvSho
 
     override fun transform(entity: TvShowEntity?): TvShowModel =
             TvShowModel(
-                    entity?.id,
-                    entity?.imdbId,
-                    entity?.name,
-                    entity?.episodeRuntime,
-                    entity?.fullRuntime,
-                    entity?.premiered,
-                    entity?.imageMedium,
-                    entity?.imageOriginal)
+                    id = entity?.id,
+                    imdbId = entity?.imdbId,
+                    name = entity?.name,
+                    episodeRuntime = entity?.episodeRuntime,
+                    fullRuntime = entity?.fullRuntime,
+                    premiered = entity?.premiered,
+                    summary = entity?.summary,
+                    imageMedium = entity?.imageMedium,
+                    status = entity?.status,
+                    imageOriginal = entity?.imageOriginal,
+                    genre = entity?.genre,
+                    officialSite = entity?.officialSite,
+                    network = entity?.network)
+
 }
