@@ -17,10 +17,14 @@ class MostPopularViewModel : ViewModel() {
         page = model.pageableRequest.page
     }
 
-    fun clearAndRetainModel(model: MostPopularModel) {
+    fun clearModel() {
         retainedModel = null
         tvShowList.clear()
         page = 0
+    }
+
+    fun clearAndRetainModel(model: MostPopularModel) {
+        clearModel()
         retainModel(model)
     }
 
