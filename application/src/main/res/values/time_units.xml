@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="time_units">
-        <item>m</item>
-        <item>h</item>
-        <item>d</item>
-    </string-array>
+    <string name="time_unit_format_minutes">%1$sm</string>
+    <string name="time_unit_format_hours">%1$sh</string>
+    <string name="time_unit_format_days">%1$sd</string>
+    <string name="time_unit_format_full">%1$sd : %2$sh : %3$sm</string>
+    <string name="time_unit_format_hours_minutes">%1$sh : %2$sm</string>
+    <string name="time_unit_format_days_hours">%1$sd : %2$sh</string>
 </resources>
