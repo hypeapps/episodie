@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/image_view_item_most_popular_cover"
+        style="@style/EpisodieTheme.ImageViewCover"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_most_popular_cover"
-        android:contentDescription="@string/all_item_cover_description"
+        android:contentDescription="@string/item_all_cover_description"
         android:scaleType="fitXY" />
 
     <TextView
@@ -22,28 +22,19 @@
         android:paddingTop="@dimen/padding_top_item_most_popular_runtime"
         android:textSize="@dimen/text_size_item_most_popular_runtime"
         app:layout_constraintStart_toStartOf="@id/image_view_item_most_popular_cover"
-        app:layout_constraintTop_toTopOf="@id/image_view_item_most_popular_cover"/>
-
-    <View
-        android:id="@+id/view_item_most_popular_gradient"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/gradient"
-        app:layout_constraintBottom_toBottomOf="@id/image_view_item_most_popular_cover"
-        app:layout_constraintTop_toTopOf="@+id/text_view_item_most_popular_title"/>
+        app:layout_constraintTop_toTopOf="@id/image_view_item_most_popular_cover" />
 
     <TextView
         android:id="@+id/text_view_item_most_popular_title"
+        style="@style/EpisodieTheme.TextViewTitle"
+        android:textSize="@dimen/text_size_item_most_popular_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/padding_top_item_most_popular_title"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:layout_marginStart="@dimen/margin_small"
-        android:ellipsize="end"
+        android:background="@color/gradient"
         android:maxLines="3"
+        android:padding="@dimen/padding_small"
         app:layout_constraintBottom_toBottomOf="@id/image_view_item_most_popular_cover"
         app:layout_constraintEnd_toEndOf="@id/image_view_item_most_popular_cover"
-        app:layout_constraintStart_toStartOf="@id/image_view_item_most_popular_cover"/>
+        app:layout_constraintStart_toStartOf="@id/image_view_item_most_popular_cover" />
 
 </android.support.constraint.ConstraintLayout>
