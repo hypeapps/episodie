@@ -17,4 +17,6 @@ interface TopListView : View {
 
     fun animateDrawerHamburgerArrow(progress: Float)
 
+    fun showError()
+
 }
