@@ -7,6 +7,7 @@ import io.rx_cache2.EvictDynamicKey
 import io.rx_cache2.EvictDynamicKeyGroup
 import pl.hypeapp.dataproviders.cache.CacheProviders
 import pl.hypeapp.dataproviders.cache.EvictCache
+import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
 import pl.hypeapp.dataproviders.entity.MostPopularEntity
 import pl.hypeapp.dataproviders.entity.TopListEntity
 import pl.hypeapp.dataproviders.entity.TvShowEntity
@@ -35,6 +36,10 @@ class DataSource @Inject constructor(private val apiService: ApiService,
         return cacheProviders.getTopList(apiService.getTopList(pageableRequest.page,
                 pageableRequest.size), DynamicKeyGroup(TOP_LIST_KEY, pageableRequest.page),
                 EvictDynamicKeyGroup(update))
+    }
+
+    override fun getAllSeasons(tvShowId: String, update: Boolean): Single<AllSeasonsEntity> {
+        return cacheProviders.getAllSeasons(apiService.getAllSeasons(tvShowId), DynamicKey(tvShowId), EvictDynamicKey(update))
     }
 
     private companion object {
