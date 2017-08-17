@@ -9,8 +9,9 @@
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#0079ea</color>
 
-    <color name="status_bar_color">#30000000</color>
-    <color name="navigation_bar_color">#20000000</color>
+    <color name="status_bar">#30000000</color>
+    <color name="default_navigation_bar">#20000000</color>
+    <color name="tv_show_details_navigation_bar">#40000000</color>
 
     <color name="filter_green">#3eab25</color>
     <color name="indicator_page_alpha">#40FFFFFF</color>
@@ -20,4 +21,5 @@
     <color name="drawer_item_inactive">#6d6d6d</color>
 
     <color name="item_top_list_background">#272727</color>
+    <color name="navigation_background_color">#272727</color>
 </resources>

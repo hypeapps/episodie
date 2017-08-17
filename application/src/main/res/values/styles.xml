@@ -31,17 +31,37 @@
     </style>
 
     <style name="EpisodieTheme.FabButton" parent="EpisodieTheme.V0.FabButton"/>
-
     <style name="EpisodieTheme.V0.FabButton" parent="@style/Widget.Design.FloatingActionButton">
-        <item name="android:src">@drawable/all_ic_search</item>
         <item name="fabSize">normal</item>
         <item name="borderWidth">@dimen/border_width_fab_button</item>
     </style>
 
     <style name="EpisodieTheme.TopListAppBar" parent="EpisodieTheme.V0.TopListAppBar" />
-
     <style name="EpisodieTheme.V0.TopListAppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:layout_height">300dp</item>
+    </style>
+
+    <style name="EpisodieTheme.CustomFontTabLayout" parent="EpisodieTheme.V0.CustomFontTabLayout" />
+
+    <style name="EpisodieTheme.V0.CustomFontTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">@dimen/height_tab_indicator</item>
+        <item name="tabIndicatorColor">@android:color/white</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+    </style>
+
+    <style name="EpisodieTheme.ImageViewCover" parent="ImageViewCoverV0" />
+
+    <style name="ImageViewCoverV0" />
+
+    <style name="EpisodieTheme.TextViewTitle" parent="EpisodieTheme.V0.TextViewTitle" />
+
+    <style name="EpisodieTheme.V0.TextViewTitle" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="EpisodieTheme.RippleView">
+        <item name="rv_rippleDuration">150</item>
+        <item name="rv_color">@color/primary</item>
     </style>
 
 </resources>
