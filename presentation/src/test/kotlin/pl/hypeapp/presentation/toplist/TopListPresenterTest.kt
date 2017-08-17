@@ -17,7 +17,7 @@ class TopListPresenterTest {
 
     companion object {
         val PAGE = 6
-        val PAGE_OVER_MAX = 10
+        val PAGE_LIMIT = 10
     }
 
     @Before
@@ -44,8 +44,8 @@ class TopListPresenterTest {
     }
 
     @Test
-    fun `should not execute use case while page is over max`() {
-        topListPresenter.requestTopList(PAGE_OVER_MAX, false)
+    fun `should not execute use case when page exceeds page limit`() {
+        topListPresenter.requestTopList(PAGE_LIMIT, false)
         verifyZeroInteractions(topListUseCase)
     }
 
