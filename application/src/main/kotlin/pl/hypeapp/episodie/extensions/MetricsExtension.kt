@@ -42,6 +42,8 @@ fun Context.getNavigationBarSize(): Point {
     return Point()
 }
 
+fun Context.isNavigationBarLandscape(): Boolean = getNavigationBarSize().x == getRealScreenSize().x
+
 fun Context.getActionBarSize(): Int {
     val value = TypedValue()
     this.theme.resolveAttribute(R.attr.actionBarSize, value, true)
