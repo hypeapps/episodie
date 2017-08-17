@@ -4,8 +4,9 @@ import android.content.Context
 import dagger.Component
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
+import pl.hypeapp.domain.repository.AllSeasonsRepository
 import pl.hypeapp.domain.repository.MostPopularRepository
-import pl.hypeapp.domain.repository.TvShowRepository
+import pl.hypeapp.domain.repository.TopListRepository
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.di.module.ApiModule
 import pl.hypeapp.episodie.di.module.AppModule
@@ -28,6 +29,8 @@ interface AppComponent {
 
     fun mostPopularRepository(): MostPopularRepository
 
-    fun tvShowRepository(): TvShowRepository
+    fun topListRepository(): TopListRepository
+
+    fun allSeasonsRepository(): AllSeasonsRepository
 
 }
