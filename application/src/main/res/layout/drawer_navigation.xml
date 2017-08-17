@@ -18,10 +18,10 @@
             android:layout_height="@dimen/logo_drawer_size"
             android:layout_marginBottom="@dimen/margin_big"
             android:contentDescription="@string/drawer_logo_description"
-            android:src="@drawable/episodie_logo"
+            android:src="@drawable/logo_episodie"
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_feed" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_feed"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_search"
             app:text="@string/drawer_feed" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_search"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -39,7 +39,7 @@
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_watched"
             app:text="@string/drawer_search" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_watched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             app:layout_constraintVertical_bias="0.47"
             app:text="@string/drawer_watched" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_time_calculator"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/drawer_menu_item_watched"
             app:text="@string/drawer_time_calculator" />
 
-        <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerMenuItemView
+        <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_stats"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:contentDescription="@string/drawer_ic_watching_time"
-            android:src="@drawable/drawer_ic_watching_time"
+            android:src="@drawable/all_ic_watching_time"
             app:layout_constraintBottom_toBottomOf="@id/text_view_drawer_watching_time"
             app:layout_constraintTop_toTopOf="@id/text_view_drawer_watching_time" />
 

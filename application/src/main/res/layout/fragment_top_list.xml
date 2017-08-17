@@ -31,8 +31,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.11" />
 
-            <pl.hypeapp.episodie.ui.features.navigationdrawer.DrawerHamburgerArrow
-                android:id="@+id/drawer_hamburger_item_top_list"
+            <pl.hypeapp.episodie.ui.widget.DrawerHamburgerArrow
+                android:id="@+id/image_view_tv_show_details_ic_back_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:padding="@dimen/padding_big"
