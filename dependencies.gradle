@@ -48,7 +48,7 @@ ext {
     def rxCacheVersion = '1.8.0-2.x'
     def jolyglotGsonVersion = '0.0.3'
     def androidAnimationsVersion = '2.2@aar'
-    def architectureComponentsVersion = '1.0.0-alpha3'
+    def architectureComponentsVersion = '1.0.0-alpha5'
     def particlesDrawableVersion = '1.0.7'
     def lottieVersion = '2.0.0'
     def groupieVersion = '2.0.0-alpha2'
@@ -56,54 +56,56 @@ ext {
 
     def libs = [
             /* support */
-            supportAppCompat       : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
-            supportCardView        : [group: 'com.android.support', name: 'cardview-v7', version: androidSupportLibs],
-            supportDesign          : [group: 'com.android.support', name: 'design', version: androidSupportLibs],
-            supportPalette         : [group: 'com.android.support', name: 'palette-v7', version: androidSupportLibs],
-            supportRecyclerView    : [group: 'com.android.support', name: 'recyclerview-v7', version: androidSupportLibs],
-            supportV4              : [group: 'com.android.support', name: 'support-v4', version: androidSupportLibs],
-            constrainLayout        : [group: 'com.android.support.constraint', name: 'constraint-layout', version: constraintLayoutVersion],
-            kotlin_stdlib          : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
-            archLifecycleRuntime   : [group: 'android.arch.lifecycle', name: 'runtime', version: architectureComponentsVersion],
-            archLifecycleExtensions: [group: 'android.arch.lifecycle', name: 'extensions', version: architectureComponentsVersion],
-            archLifecycleCompiler  : [group: 'android.arch.lifecycle', name: 'compiler', version: architectureComponentsVersion],
+            supportAppCompat           : [group: 'com.android.support', name: 'appcompat-v7', version: androidSupportLibs],
+            supportCardView            : [group: 'com.android.support', name: 'cardview-v7', version: androidSupportLibs],
+            supportDesign              : [group: 'com.android.support', name: 'design', version: androidSupportLibs],
+            supportPalette             : [group: 'com.android.support', name: 'palette-v7', version: androidSupportLibs],
+            supportRecyclerView        : [group: 'com.android.support', name: 'recyclerview-v7', version: androidSupportLibs],
+            supportV4                  : [group: 'com.android.support', name: 'support-v4', version: androidSupportLibs],
+            constrainLayout            : [group: 'com.android.support.constraint', name: 'constraint-layout', version: constraintLayoutVersion],
+            kotlin_stdlib              : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
+            archLifecycleRuntime       : [group: 'android.arch.lifecycle', name: 'runtime', version: architectureComponentsVersion],
+            archLifecycleExtensions    : [group: 'android.arch.lifecycle', name: 'extensions', version: architectureComponentsVersion],
+            archLifecycleCompiler      : [group: 'android.arch.lifecycle', name: 'compiler', version: architectureComponentsVersion],
+            archPersistenceRoom        : [group: 'android.arch.persistence.room', name: 'runtime', version: architectureComponentsVersion],
+            archPersistenceRoomCompiler: [group: 'android.arch.persistence.room', name: 'compiler', version: architectureComponentsVersion],
             /* rx */
-            rxJava                 : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
-            rxAndroid              : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
+            rxJava                     : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
+            rxAndroid                  : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
             /* networking */
-            okHttp                 : [group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion],
-            gson                   : [group: 'com.google.code.gson', name: 'gson', version: gsonVersion],
-            retrofit               : [group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion],
-            retrofitRxJavaAdapater : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: retrofitVersion],
-            retrofitGsonConverter  : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion],
+            okHttp                     : [group: 'com.squareup.okhttp3', name: 'okhttp', version: okHttpVersion],
+            gson                       : [group: 'com.google.code.gson', name: 'gson', version: gsonVersion],
+            retrofit                   : [group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion],
+            retrofitRxJavaAdapater     : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: retrofitVersion],
+            retrofitGsonConverter      : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion],
             /* dependency injection */
-            dagger                 : [group: 'com.google.dagger', name: 'dagger', version: daggerVersion],
-            daggerCompiler         : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion],
-            javaxInject            : [group: 'javax.inject', name: 'javax.inject', version: javaxInjectVersion],
-            butterKnife            : [group: 'com.jakewharton', name: 'butterknife', version: butterKnifeVersion],
-            butterKnifeCompiler    : [group: 'com.jakewharton', name: 'butterknife-compiler', version: butterKnifeVersion],
+            dagger                     : [group: 'com.google.dagger', name: 'dagger', version: daggerVersion],
+            daggerCompiler             : [group: 'com.google.dagger', name: 'dagger-compiler', version: daggerVersion],
+            javaxInject                : [group: 'javax.inject', name: 'javax.inject', version: javaxInjectVersion],
+            butterKnife                : [group: 'com.jakewharton', name: 'butterknife', version: butterKnifeVersion],
+            butterKnifeCompiler        : [group: 'com.jakewharton', name: 'butterknife-compiler', version: butterKnifeVersion],
             /* debug tools */
-            stetho                 : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion],
-            stethoOkHttp           : [group: 'com.facebook.stetho', name: 'stetho-okhttp3', version: stethoOkHttpVersion],
-            blockCanary            : [group: 'com.github.markzhai', name: 'blockcanary-android', version: blockCanaryVersion],
-            leakCanary             : [group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakCanaryVersion],
-            extensiblePageIndicator: [group: 'com.merhold.extensiblepageindicator', name: 'extensiblepageindicator', version: extensiblePageIndicatorVersion],
+            stetho                     : [group: 'com.facebook.stetho', name: 'stetho', version: stethoVersion],
+            stethoOkHttp               : [group: 'com.facebook.stetho', name: 'stetho-okhttp3', version: stethoOkHttpVersion],
+            blockCanary                : [group: 'com.github.markzhai', name: 'blockcanary-android', version: blockCanaryVersion],
+            leakCanary                 : [group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakCanaryVersion],
+            extensiblePageIndicator    : [group: 'com.merhold.extensiblepageindicator', name: 'extensiblepageindicator', version: extensiblePageIndicatorVersion],
             /* persistence */
-            rxCache                : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: rxCacheVersion],
-            jolyglotGson           : [group: 'com.github.VictorAlbertos.Jolyglot', name: 'gson', version: jolyglotGsonVersion],
+            rxCache                    : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: rxCacheVersion],
+            jolyglotGson               : [group: 'com.github.VictorAlbertos.Jolyglot', name: 'gson', version: jolyglotGsonVersion],
             /* frontend */
-            glide                  : [group: 'com.github.bumptech.glide', name: 'glide', version: glideVersion],
-            glideCompiler          : [group: 'com.github.bumptech.glide', name: 'compiler', version: glideVersion],
-            ripple                 : [group: 'com.patrickpissurno', name: 'ripple-effect', version: rippleVersion],
-            calligraphy            : [group: 'uk.co.chrisjenx', name: 'calligraphy', version: calligraphyVersion],
-            multiSection           : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
-            slidingRootNav         : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
-            particlesDrawable      : [group: 'com.github.doctoror.particlesdrawable', name: 'library', version: particlesDrawableVersion],
-            lottie                 : [group: 'com.airbnb.android', name: 'lottie', version: lottieVersion],
-            groupie                : [group: 'com.xwray', name: 'groupie', version: groupieVersion],
-            noiseView              : [group: 'pl.hypeapp', name: 'noiseview', version: noiseViewVersion],
+            glide                      : [group: 'com.github.bumptech.glide', name: 'glide', version: glideVersion],
+            glideCompiler              : [group: 'com.github.bumptech.glide', name: 'compiler', version: glideVersion],
+            ripple                     : [group: 'com.patrickpissurno', name: 'ripple-effect', version: rippleVersion],
+            calligraphy                : [group: 'uk.co.chrisjenx', name: 'calligraphy', version: calligraphyVersion],
+            multiSection               : [group: 'com.github.yalantis', name: 'multi-selection', version: multiSectionVersion],
+            slidingRootNav             : [group: 'com.yarolegovich', name: 'sliding-root-nav', version: slidingRootNavVersion],
+            particlesDrawable          : [group: 'com.github.doctoror.particlesdrawable', name: 'library', version: particlesDrawableVersion],
+            lottie                     : [group: 'com.airbnb.android', name: 'lottie', version: lottieVersion],
+            groupie                    : [group: 'com.xwray', name: 'groupie', version: groupieVersion],
+            noiseView                  : [group: 'pl.hypeapp', name: 'noiseview', version: noiseViewVersion],
             // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
-            androidAnimations      : "com.daimajia.androidanimations:library:$androidAnimationsVersion"
+            androidAnimations          : "com.daimajia.androidanimations:library:$androidAnimationsVersion"
     ]
 
     def testLibs = [
@@ -216,6 +218,9 @@ ext {
             // cache
             [configuration: "api", dependency: libs.rxCache],
             [configuration: "api", dependency: libs.jolyglotGson],
+            // persistence
+            [configuration: "api", dependency: libs.archPersistenceRoom],
+            [configuration: "kapt", dependency: libs.archPersistenceRoomCompiler],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.mockito],
