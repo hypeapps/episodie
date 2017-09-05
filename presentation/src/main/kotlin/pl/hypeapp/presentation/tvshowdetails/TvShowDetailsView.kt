@@ -7,9 +7,9 @@ interface TvShowDetailsView : View {
 
     fun setNavigationBarOptions()
 
-    fun onAddToWatched()
+    fun onChangeWatchTvShowState()
 
-    fun getModel(): TvShowModel
+    var model: TvShowModel
 
     fun setCover(url: String?)
 
@@ -25,6 +25,8 @@ interface TvShowDetailsView : View {
 
     fun setFullRuntime(fullRuntime: Long?)
 
+    fun updateWatchState(watchState: Int)
+
     fun expandAppBar()
 
     fun startFabButtonAnimation()
@@ -33,6 +35,8 @@ interface TvShowDetailsView : View {
 
     fun onBackArrowPressed()
 
-    fun showError()
+    fun onChangeWatchStateError()
 
+    fun hideFabButton()
+    fun onChangedWatchState()
 }
