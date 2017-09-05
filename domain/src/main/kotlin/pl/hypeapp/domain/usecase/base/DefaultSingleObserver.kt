@@ -4,11 +4,8 @@ import io.reactivex.observers.DisposableSingleObserver
 
 open class DefaultSingleObserver<T> : DisposableSingleObserver<T>() {
 
-    override fun onSuccess(model: T) {
-        TODO("not implemented")
-    }
+    override fun onSuccess(model: T) {}
 
-    override fun onError(error: Throwable) {
-        TODO("not implemented")
-    }
+    override fun onError(error: Throwable) {}
+
 }

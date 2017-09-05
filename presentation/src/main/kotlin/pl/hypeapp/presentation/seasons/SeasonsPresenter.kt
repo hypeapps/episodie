@@ -4,12 +4,12 @@ import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.EpisodeModel
 import pl.hypeapp.domain.model.SeasonModel
 import pl.hypeapp.domain.model.WatchState
-import pl.hypeapp.domain.usecase.addtowatched.ManageEpisodeWatchStateUseCase
-import pl.hypeapp.domain.usecase.addtowatched.ManageSeasonsWatchStateUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.mapwatched.SeasonWatchStateIntegrityUseCase
 import pl.hypeapp.domain.usecase.seasons.AllEpisodesUseCase
+import pl.hypeapp.domain.usecase.watchstate.ManageEpisodeWatchStateUseCase
+import pl.hypeapp.domain.usecase.watchstate.ManageSeasonsWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
 import java.util.logging.Logger
 import javax.inject.Inject
