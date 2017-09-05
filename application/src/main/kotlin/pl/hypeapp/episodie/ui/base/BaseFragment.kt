@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import pl.hypeapp.episodie.extensions.inflate
+import pl.hypeapp.episodie.ui.animation.SmallBangAnimator
 
 abstract class BaseFragment : Fragment() {
 
@@ -17,10 +18,17 @@ abstract class BaseFragment : Fragment() {
 
     protected lateinit var unbinder: Unbinder
 
+    protected lateinit var smallBangAnimator: SmallBangAnimator
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = container?.inflate(getLayoutRes())
         unbinder = ButterKnife.bind(this, view!!)
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        smallBangAnimator = SmallBangAnimator(activity)
     }
 
     override fun onDestroyView() {
