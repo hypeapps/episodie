@@ -12,11 +12,12 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/image_view_top_list_backdrop"
                 android:layout_width="match_parent"
+                android:contentDescription="@string/fragment_top_list_backdrop_description"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
 
@@ -25,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_big"
+                android:contentDescription="@string/all_ic_share_description"
                 android:src="@drawable/all_ic_share"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
