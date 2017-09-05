@@ -25,8 +25,7 @@ class TvShowInfoFragment : BaseFragment(), TvShowInfoView {
 
     override fun getLayoutRes(): Int = R.layout.fragment_tv_show_info
 
-    @Inject
-    lateinit var presenter: TvShowInfoPresenter
+    @Inject lateinit var presenter: TvShowInfoPresenter
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
@@ -35,8 +34,7 @@ class TvShowInfoFragment : BaseFragment(), TvShowInfoView {
 
     override fun getModel(): TvShowModel {
         val tvShowModelParcelable: TvShowModelParcelable = arguments.getParcelable(ARGUMENT_INFO_ABOUT_TV_SHOW)
-        val tvShowModel: TvShowModel = tvShowModelParcelable.mapToTvShowModel()
-        return tvShowModel
+        return tvShowModelParcelable.mapToTvShowModel()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -102,7 +100,7 @@ class TvShowInfoFragment : BaseFragment(), TvShowInfoView {
         private val bundle: Bundle = Bundle()
 
         fun newInstance(tvShowModel: TvShowModel?): TvShowInfoFragment = with(TvShowInfoFragment()) {
-            bundle.putParcelable(ARGUMENT_INFO_ABOUT_TV_SHOW, TvShowModelParcelable(tvShowModel))
+            bundle.putParcelable(ARGUMENT_INFO_ABOUT_TV_SHOW, TvShowModelParcelable(tvShowModel!!))
             this.arguments = bundle
             return this
         }

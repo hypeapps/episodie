@@ -2,6 +2,7 @@ package pl.hypeapp.episodie.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import pl.hypeapp.domain.model.TopListModel
+import pl.hypeapp.domain.model.TvShowModel
 
 class TopListViewModel : ViewModel() {
 
@@ -26,6 +27,12 @@ class TopListViewModel : ViewModel() {
     fun clearAndRetainModel(model: TopListModel) {
         clearModel()
         retainModel(model)
+    }
+
+    fun updateModel(tvShows: List<TvShowModel>) {
+        retainedModel?.tvShows = tvShows
+        tvShowList.clear()
+        tvShowList.addAll(tvShows.map { TvShowViewModel(it) })
     }
 
     inline fun loadModel(requestMostPopular: () -> Unit, populateRecyclerList: () -> Unit) {

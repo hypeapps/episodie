@@ -73,15 +73,19 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
         presenter.onDetachView()
     }
 
+    override fun loadBackdrop() {
+        image_view_top_list_backdrop.loadDrawableResource(R.drawable.mrrobot_background)
+    }
+
     // While view model is null call request otherwise attach retained model
     override fun loadViewModel() {
         viewModel.loadModel({ presenter.requestTopList(viewModel.page, false) },
                 { topListRecyclerAdapter.addItems(viewModel.tvShowList) })
     }
 
-    override fun loadBackdrop() {
-        image_view_top_list_backdrop.loadDrawableResource(R.drawable.mrrobot_background)
-    }
+    override fun onRefresh() = presenter.requestTopList(0, true)
+
+    override fun onRetry() = presenter.requestTopList(viewModel.page, false)
 
     override fun populateRecyclerList(topListModel: TopListModel?) {
         // If pull to refresh we need to clear view model and re init recycler adapter
@@ -128,7 +132,7 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
         presenter.updateModel(viewModel.tvShowList.map { it.tvShow!! })
     }
 
-    // On activity reenter and on changed watched tv show state needs to update view model
+    // On activity reenter and on changed watch tv show state needs to update view model
     override fun observeActivityReenter() {
         (activity as MainFeedActivity).onActivityReenterSubject.subscribe({
             if (it == STATE_CHANGED)
@@ -139,10 +143,6 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
     override fun observeDragDrawer() {
         (activity as MainFeedActivity).navigationDrawer.onDrag()?.subscribe({ presenter.onDrawerDrag(it) })
     }
-
-    override fun onRefresh() = presenter.requestTopList(0, true)
-
-    override fun onRetry() = presenter.requestTopList(viewModel.page, false)
 
     override fun animateDrawerHamburgerArrow(progress: Float) = image_view_tv_show_details_ic_back_arrow.setProgress(progress)
 
