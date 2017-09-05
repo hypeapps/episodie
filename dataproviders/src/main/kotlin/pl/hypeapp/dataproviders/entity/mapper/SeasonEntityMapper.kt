@@ -11,6 +11,7 @@ class SeasonEntityMapper @Inject constructor(val episodeEntityMapper: EpisodeEnt
     override fun transform(entity: SeasonEntity?): SeasonModel? {
         return SeasonModel(
                 seasonId = entity?.seasonId,
+                tvShowId = entity?.tvShowId,
                 episodeOrder = entity?.episodes?.size,
                 seasonNumber = entity?.seasonNumber,
                 runtime = entity?.runtime,

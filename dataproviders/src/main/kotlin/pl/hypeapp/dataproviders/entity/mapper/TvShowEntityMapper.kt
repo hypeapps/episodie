@@ -15,6 +15,7 @@ class TvShowEntityMapper @Inject constructor() : EntityMapper<TvShowModel, TvSho
                     name = entity?.name,
                     episodeRuntime = entity?.episodeRuntime,
                     fullRuntime = entity?.fullRuntime,
+                    episodeOrder = entity?.episodeOrder,
                     premiered = entity?.premiered,
                     summary = entity?.summary,
                     imageMedium = entity?.imageMedium,
