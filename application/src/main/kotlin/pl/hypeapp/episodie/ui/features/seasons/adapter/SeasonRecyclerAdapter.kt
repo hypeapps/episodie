@@ -5,7 +5,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import pl.hypeapp.domain.model.SeasonModel
 
-class SeasonRecyclerAdapter : GroupAdapter<ViewHolder>(), OnToggleGroupListener {
+class SeasonRecyclerAdapter(private val onChangeWatchStateListener: OnChangeWatchStateListener)
+    : GroupAdapter<ViewHolder>(), OnToggleGroupListener {
 
     private val expandableGroups: ArrayList<ExpandableGroup> = ArrayList()
 
@@ -14,14 +15,20 @@ class SeasonRecyclerAdapter : GroupAdapter<ViewHolder>(), OnToggleGroupListener 
     fun addItems(items: ArrayList<SeasonModel>) {
         this.items.addAll(items)
         this.items.forEach {
-            val seasonItemExpandableItem = SeasonItemHolder(it, this)
+            val seasonItemExpandableItem = SeasonItemHolder(it, this, onChangeWatchStateListener)
             val expandableGroup = ExpandableGroup(seasonItemExpandableItem)
             it.episodes?.forEach {
-                expandableGroup.add(EpisodeItemHolder(it, this))
+                expandableGroup.add(EpisodeItemHolder(it, this, onChangeWatchStateListener))
             }
             this@SeasonRecyclerAdapter.add(expandableGroup)
             expandableGroups.add(expandableGroup)
         }
+        notifyDataSetChanged()
+    }
+
+    fun updateItems(items: ArrayList<SeasonModel>) {
+        this.items.clear()
+        this.items.addAll(items)
         notifyDataSetChanged()
     }
 

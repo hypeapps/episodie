@@ -6,23 +6,33 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import butterknife.OnClick
-import kotlinx.android.synthetic.main.fragment_seasons.*
+import kotlinx.android.synthetic.main.fragment_seasons.recycler_view_fragment_seasons
+import kotlinx.android.synthetic.main.fragment_seasons.swipe_refresh_layout_fragment_seasons
 import pl.hypeapp.domain.model.AllSeasonsModel
+import pl.hypeapp.domain.model.EpisodeModel
+import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
+import pl.hypeapp.episodie.extensions.manageWatchStateIcon
 import pl.hypeapp.episodie.ui.base.BaseViewModelFragment
 import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
+import pl.hypeapp.episodie.ui.features.seasons.adapter.OnChangeWatchStateListener
 import pl.hypeapp.episodie.ui.features.seasons.adapter.SeasonRecyclerAdapter
+import pl.hypeapp.episodie.ui.features.tvshowdetails.TvShowDetailsActivity
 import pl.hypeapp.episodie.ui.viewmodel.AllSeasonsViewModel
 import pl.hypeapp.presentation.seasons.SeasonsPresenter
 import pl.hypeapp.presentation.seasons.SeasonsView
 import javax.inject.Inject
 
 class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsView,
-        ViewTypeDelegateAdapter.OnRetryListener, SwipeRefreshLayout.OnRefreshListener {
+        ViewTypeDelegateAdapter.OnRetryListener, SwipeRefreshLayout.OnRefreshListener,
+        OnChangeWatchStateListener {
 
     override fun getLayoutRes(): Int = R.layout.fragment_seasons
 
@@ -34,8 +44,9 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
 
     private var onRetry = false
 
-    @Inject
-    lateinit var presenter: SeasonsPresenter
+    private lateinit var seasonLayoutState: SeasonsLayoutState
+
+    @Inject lateinit var presenter: SeasonsPresenter
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
@@ -46,6 +57,7 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         val view = super.onCreateView(inflater, container, savedInstanceState)
         component.inject(this)
         tvShowId = arguments.getString(ARGUMENT_TV_SHOW_ID)
+        seasonLayoutState = SeasonsLayoutState(view)
         return view
     }
 
@@ -61,12 +73,10 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         }
     }
 
-    override fun initSwipeToRefresh() {
-        swipe_refresh_layout_fragment_seasons.setOnRefreshListener(this)
-    }
+    override fun initSwipeToRefresh() = swipe_refresh_layout_fragment_seasons.setOnRefreshListener(this)
 
     override fun initRecyclerAdapter() {
-        recyclerAdapter = SeasonRecyclerAdapter()
+        recyclerAdapter = SeasonRecyclerAdapter(this)
         recycler_view_fragment_seasons.apply {
             val linearLayout = LinearLayoutManager(context)
             layoutManager = linearLayout
@@ -81,11 +91,7 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
     }
 
     override fun populateRecyclerView(seasonsModel: AllSeasonsModel?) {
-        text_view_fragment_episodes_empty_seasons.visibility = View.GONE
-        view_error_fragment_seasons.visibility = View.GONE
-        view_loading_fragment_seasons.visibility = View.GONE
-        swipe_refresh_layout_fragment_seasons.visibility = View.VISIBLE
-        // If pull to refresh re init recycler adapter
+        seasonLayoutState.onShowContent()
         if (swipe_refresh_layout_fragment_seasons.isRefreshing or onRetry) {
             swipe_refresh_layout_fragment_seasons.isRefreshing = false
             onRetry = false
@@ -99,25 +105,12 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         if (swipe_refresh_layout_fragment_seasons.isRefreshing) {
             swipe_refresh_layout_fragment_seasons.isRefreshing = false
         }
-        swipe_refresh_layout_fragment_seasons.visibility = View.GONE
-        text_view_fragment_episodes_empty_seasons.visibility = View.GONE
-        view_loading_fragment_seasons.visibility = View.GONE
-        view_error_fragment_seasons.visibility = View.VISIBLE
+        seasonLayoutState.onError()
     }
 
-    override fun showLoading() {
-        swipe_refresh_layout_fragment_seasons.visibility = View.GONE
-        text_view_fragment_episodes_empty_seasons.visibility = View.GONE
-        view_error_fragment_seasons.visibility = View.GONE
-        view_loading_fragment_seasons.visibility = View.VISIBLE
-    }
+    override fun showLoading() = seasonLayoutState.onLoading()
 
-    override fun showEmptySeasonsMessage() {
-        swipe_refresh_layout_fragment_seasons.visibility = View.GONE
-        view_error_fragment_seasons.visibility = View.GONE
-        view_loading_fragment_seasons.visibility = View.GONE
-        text_view_fragment_episodes_empty_seasons.visibility = View.VISIBLE
-    }
+    override fun showEmptySeasonsMessage() = seasonLayoutState.onEmptySeasonMessage()
 
     @OnClick(R.id.button_item_error_retry)
     override fun onRetry() {
@@ -125,8 +118,39 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         presenter.requestAllSeasons(tvShowId, false)
     }
 
-    override fun onRefresh() {
-        presenter.requestAllSeasons(tvShowId, true)
+    override fun onRefresh() = presenter.requestAllSeasons(tvShowId, true)
+
+    override fun onChangeSeasonWatchState(seasonModel: SeasonModel, view: ImageView) {
+        smallBangAnimator.bang(view)
+        view.manageWatchStateIcon(WatchState.manageWatchState(seasonModel.watchState))
+        presenter.changeSeasonWatchState(seasonModel)
+    }
+
+    override fun onChangeEpisodeWatchState(episodeModel: EpisodeModel, view: ImageView) {
+        smallBangAnimator.bang(view)
+        view.manageWatchStateIcon(WatchState.manageWatchState(episodeModel.watchState))
+        presenter.changeEpisodeWatchState(episodeModel)
+    }
+
+    override fun onChangeWatchStateError() {
+        presenter.checkWatchStateIntegrity(viewModel.retainedModel)
+        Toast.makeText(context, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onChangedWatchState() {
+        presenter.checkWatchStateIntegrity(viewModel.retainedModel)
+        (activity as TvShowDetailsActivity).onChangedChildFragmentWatchState()
+    }
+
+    override fun observeWatchStateInParentActivity() {
+        (activity as TvShowDetailsActivity).watchStateChangedNotifySubject.subscribe {
+            presenter.checkWatchStateIntegrity(viewModel.retainedModel)
+        }
+    }
+
+    override fun updateRecyclerList(seasonsModel: AllSeasonsModel?) {
+        seasonsModel?.let { viewModel.clearAndRetainModel(it) }
+        recyclerAdapter.updateItems(viewModel.seasonsList)
     }
 
     companion object {
