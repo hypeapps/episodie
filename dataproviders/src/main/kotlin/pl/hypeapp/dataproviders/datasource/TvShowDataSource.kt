@@ -17,9 +17,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DataSource @Inject constructor(private val apiService: ApiService,
-                                     private val cacheProviders: CacheProviders,
-                                     private val evictCache: EvictCache) : DataStore {
+class TvShowDataSource @Inject constructor(private val apiService: ApiService,
+                                           private val cacheProviders: CacheProviders,
+                                           private val evictCache: EvictCache) : TvShowDataStore {
 
     override fun getTvShow(tvShowId: String, update: Boolean): Single<TvShowEntity> =
             cacheProviders.getTvShow(apiService.getTvShow(tvShowId), DynamicKey(tvShowId), EvictDynamicKey(update))
