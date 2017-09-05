@@ -33,12 +33,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
-    <!---->
+
     <ImageView
         android:id="@+id/image_view_tv_show_details_ic_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/tv_show_details_ic_share_description"
+        android:contentDescription="@string/all_ic_share_description"
         android:padding="@dimen/padding_big"
         android:src="@drawable/all_ic_share"
         app:layout_constraintBottom_toBottomOf="@id/image_view_tv_show_details_ic_back_arrow"
@@ -235,7 +235,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_bottom_tv_show_details_fab_button"
             android:layout_marginEnd="@dimen/margin_end_tv_show_details_fab_button"
-            android:paddingTop="@dimen/padding_top_tv_show_details_fab_button"
             android:src="@drawable/all_ic_diamond_unchecked"
             android:theme="@style/EpisodieTheme.FabButton"
             app:layout_anchor="@id/view_pager_tv_show_details"

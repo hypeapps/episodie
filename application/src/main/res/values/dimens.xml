@@ -67,7 +67,7 @@
     <dimen name="width_item_season_screen">70dp</dimen>
     <dimen name="height_item_season_screen">90dp</dimen>
     <!--seasons fragment-->
-    <dimen name="margin_bottom_fragment_season_recycler_view">64dp</dimen>
+    <dimen name="margin_bottom_fragment_season_recycler_view">90dp</dimen>
     <!--misc-->
     <dimen name="padding_bottom_item_all">36dp</dimen>
     <dimen name="padding_top_item_all">24dp</dimen>
