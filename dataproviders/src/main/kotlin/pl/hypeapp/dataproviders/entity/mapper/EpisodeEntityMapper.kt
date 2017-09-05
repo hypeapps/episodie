@@ -11,6 +11,8 @@ class EpisodeEntityMapper @Inject constructor() : EntityMapper<EpisodeModel, Epi
     override fun transform(entity: EpisodeEntity?): EpisodeModel? {
         return EpisodeModel(
                 episodeId = entity?.episodeId,
+                tvShowId = entity?.tvShowId,
+                seasonId = entity?.seasonId,
                 name = entity?.name,
                 premiereDate = entity?.premiereDate,
                 runtime = entity?.runtime,
