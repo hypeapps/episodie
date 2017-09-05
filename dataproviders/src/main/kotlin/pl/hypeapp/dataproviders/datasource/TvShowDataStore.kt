@@ -7,7 +7,7 @@ import pl.hypeapp.dataproviders.entity.TopListEntity
 import pl.hypeapp.dataproviders.entity.TvShowEntity
 import pl.hypeapp.domain.model.PageableRequest
 
-interface DataStore {
+interface TvShowDataStore {
 
     fun getTvShow(tvShowId: String, update: Boolean): Single<TvShowEntity>
 
