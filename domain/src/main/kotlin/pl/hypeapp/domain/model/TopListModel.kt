@@ -1,5 +1,5 @@
 package pl.hypeapp.domain.model
 
 data class TopListModel(
-        val tvShows: List<TvShowModel>,
+        var tvShows: List<TvShowModel>,
         val pageableRequest: PageableRequest)
