@@ -1,7 +1,5 @@
 package pl.hypeapp.domain.model
 
-import java.io.Serializable
-
 data class TvShowModel(val id: String?,
                        val imdbId: String?,
                        val name: String?,
@@ -14,4 +12,6 @@ data class TvShowModel(val id: String?,
                        val fullRuntime: Long?,
                        val premiered: String?,
                        val imageMedium: String?,
-                       val imageOriginal: String?) : Serializable
+                       val imageOriginal: String?,
+                       var watchState: Int = 0,
+                       val episodeOrder: Int? = 0)

@@ -9,6 +9,7 @@ data class TvShowEntity(@SerializedName("tvShowApiId")
                         val network: String,
                         val genre: String,
                         val summary: String,
+                        val episodeOrder: Int,
                         val officialSite: String,
                         val status: String,
                         @SerializedName("runtime")
