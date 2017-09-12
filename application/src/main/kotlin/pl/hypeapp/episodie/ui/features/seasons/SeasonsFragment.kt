@@ -61,9 +61,13 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         return view
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.onAttachView(this)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        presenter.onAttachView(this)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

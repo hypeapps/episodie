@@ -51,12 +51,14 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
 
     override lateinit var model: TvShowModel
 
+    private lateinit var tvShowModelParcelable: TvShowModelParcelable
+
     val watchStateChangedNotifySubject: PublishSubject<String> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         component.inject(this)
-        val tvShowModelParcelable: TvShowModelParcelable = intent.getParcelableExtra(EXTRA_INTENT_TV_SHOW_MODEL)
+        tvShowModelParcelable = intent.getParcelableExtra(EXTRA_INTENT_TV_SHOW_MODEL)
         model = tvShowModelParcelable.mapToTvShowModel()
         presenter.onAttachView(this)
     }
@@ -77,7 +79,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     }
 
     override fun initPagerAdapter(tvShowModel: TvShowModel?) = with(view_pager_tv_show_details) {
-        val tvShowDetailsPagerAdapter = TvShowDetailsPagerAdapter(supportFragmentManager, tvShowModel)
+        val tvShowDetailsPagerAdapter = TvShowDetailsPagerAdapter(supportFragmentManager, tvShowModelParcelable)
         adapter = tvShowDetailsPagerAdapter
         setPageTransformer(true, DepthPageTransformer())
         addOnPageChangeListener(this@TvShowDetailsActivity)
@@ -129,7 +131,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     override fun setBackdrop(backdropUrl: String?, placeholderUrl: String?) {
         GlideApp.with(this)
                 .load(backdropUrl)
-                .override(640, 860)
+                .override(340, 560)
                 .thumbnail(GlideApp.with(this).load(placeholderUrl).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
@@ -156,8 +158,9 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         // TODO
     }
 
-    override fun updateWatchState(watchState: Int) =
-            fab_button_tv_show_details_add_to_watched.manageWatchStateIcon(watchState)
+    override fun updateWatchState(watchState: Int) {
+        fab_button_tv_show_details_add_to_watched.manageWatchStateIcon(watchState)
+    }
 
     @OnClick(R.id.fab_button_tv_show_details_add_to_watched)
     override fun onChangeWatchTvShowState() = with(fab_button_tv_show_details_add_to_watched) {

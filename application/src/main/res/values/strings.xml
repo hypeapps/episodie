@@ -31,14 +31,14 @@
     <string name="lorem_ipsum2"><p>Based on the bestselling book series <i>A Song of Ice and Fire</i> by George R.R. Martin, this sprawling new HBO drama is set in a world where summers span decades and winters can last a lifetime. From the scheming south and the savage eastern lands, to the frozen north and ancient Wall that protects the realm from the mysterious darkness beyond, the powerful families of the Seven Kingdoms are locked in a battle for the Iron Throne. This is a story of duplicity and treachery, nobility and honor, conquest and triumph. In the <b>Game of Thrones</b>, you either win or you die.</p></string>
 
     <string name="tv_show_info_imdb_description">IMDb: Movies and TV</string>
-    <string name="tv_show_info_official_website_description">Official website</string>
-    <string name="tv_show_info_tv_maze_description">TvMaze: TV series database</string>
-    <string name="tv_show_info_learn_more_header">Learn more</string>
-    <string name="tv_show_info_ic_official_website_description">Icon of official website</string>
-    <string name="tv_show_info_logo_tv_maze_description">Logo of tv maze</string>
-    <string name="tv_show_info_logo_imdb_description">Logo of imdb</string>
-    <string name="tv_show_info_ic_network_description">Icon of network</string>
-    <string name="tv_show_info_summary_header">Summary</string>
+    <string name="tv_show_summary_official_website_description">Official website</string>
+    <string name="tv_show_summary_tv_maze_description">TvMaze: TV series database</string>
+    <string name="tv_show_summary_learn_more_header">Learn more</string>
+    <string name="tv_show_summary_ic_official_website_description">Icon of official website</string>
+    <string name="tv_show_summary_logo_tv_maze_description">Logo of tv maze</string>
+    <string name="tv_show_summary_logo_imdb_description">Logo of imdb</string>
+    <string name="tv_show_summary_ic_network_description">Icon of network</string>
+    <string name="tv_show_summary_header">Summary</string>
 
     <string name="all_ic_share_description">Icon of share</string>
     <string name="tv_show_details_ic_arrow_back_description">Back button</string>

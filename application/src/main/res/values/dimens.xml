@@ -5,7 +5,6 @@
     <dimen name="height_navigation_bottom_view">58dp</dimen>
     <dimen name="elevation_feed_navigation_bottom_view">0dp</dimen>
     <!--toolbar-->
-    <dimen name="inset_start_toolbar">48dp</dimen>
     <dimen name="inset_start_with_navigation_toolbar">16dp</dimen>
     <item name="scale_toolbar_feed_title_animation" type="dimen" format="float">0.50</item>
     <item name="height_all_divider" type="dimen">0.25dp</item>
@@ -39,12 +38,12 @@
     <dimen name="size_drawer_text_item">20sp</dimen>
     <dimen name="width_drawer_item_icon">24dp</dimen>
     <dimen name="padding_drawer">30dp</dimen>
-    <!--tv show info-->
-    <dimen name="size_tv_show_info_ic_more">24dp</dimen>
-    <dimen name="text_size_tv_show_info_header">20sp</dimen>
-    <dimen name="height_tv_show_info_ic_runtime">18dp</dimen>
-    <dimen name="height_tv_show_info_ic_network">18dp</dimen>
-    <dimen name="margin_bottom_tv_show_info_nested_scroll">32dp</dimen>
+    <!--tv show summary-->
+    <dimen name="size_tv_show_summary_ic_more">24dp</dimen>
+    <dimen name="text_size_tv_show_summary_header">20sp</dimen>
+    <dimen name="height_tv_show_summary_ic_runtime">18dp</dimen>
+    <dimen name="height_tv_show_summary_ic_network">18dp</dimen>
+    <dimen name="margin_bottom_tv_show_summary_nested_scroll">32dp</dimen>
     <!--tv show details-->
     <dimen name="margin_top_tv_show_details_top_corner">32dp</dimen>
     <dimen name="corner_radius_tv_show_details">8dp</dimen>
@@ -62,7 +61,6 @@
     <dimen name="width_height_all_diamond">24dp</dimen>
     <dimen name="margin_bottom_tv_show_details_fab_button">48dp</dimen>
     <dimen name="margin_end_tv_show_details_fab_button">32dp</dimen>
-    <dimen name="padding_top_tv_show_details_fab_button">2dp</dimen>
     <!--item season-->
     <dimen name="width_item_season_screen">70dp</dimen>
     <dimen name="height_item_season_screen">90dp</dimen>
