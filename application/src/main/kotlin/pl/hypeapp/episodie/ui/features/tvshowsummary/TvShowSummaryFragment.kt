@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.ui.features.tvshowinfo
+package pl.hypeapp.episodie.ui.features.tvshowsummary
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.OnClick
-import kotlinx.android.synthetic.main.fragment_tv_show_info.*
+import kotlinx.android.synthetic.main.fragment_tv_show_summary.*
 import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
@@ -17,15 +17,15 @@ import pl.hypeapp.episodie.extensions.setRuntime
 import pl.hypeapp.episodie.extensions.setTextFromHtml
 import pl.hypeapp.episodie.ui.base.BaseFragment
 import pl.hypeapp.episodie.ui.viewmodel.TvShowModelParcelable
-import pl.hypeapp.presentation.tvshowinfo.TvShowInfoPresenter
-import pl.hypeapp.presentation.tvshowinfo.TvShowInfoView
+import pl.hypeapp.presentation.tvshowsummary.TvShowSummaryPresenter
+import pl.hypeapp.presentation.tvshowsummary.TvShowSummaryView
 import javax.inject.Inject
 
-class TvShowInfoFragment : BaseFragment(), TvShowInfoView {
+class TvShowSummaryFragment : BaseFragment(), TvShowSummaryView {
 
-    override fun getLayoutRes(): Int = R.layout.fragment_tv_show_info
+    override fun getLayoutRes(): Int = R.layout.fragment_tv_show_summary
 
-    @Inject lateinit var presenter: TvShowInfoPresenter
+    @Inject lateinit var presenter: TvShowSummaryPresenter
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
@@ -53,44 +53,46 @@ class TvShowInfoFragment : BaseFragment(), TvShowInfoView {
         presenter.onDetachView()
     }
 
-    override fun setSummary(summary: String?) = text_view_tv_show_info_summary.setTextFromHtml(summary)
+    override fun setSummary(summary: String?) {
+        text_view_tv_show_summary.setTextFromHtml(summary)
+    }
 
-    override fun setEpisodeRuntime(runtime: Long?) = text_view_tv_show_info_runtime.setRuntime(runtime)
+    override fun setEpisodeRuntime(runtime: Long?) = text_view_tv_show_summary_runtime.setRuntime(runtime)
 
     override fun setGenre(genre: String?) {
-        text_view_tv_show_info_genres.text = genre
+        text_view_tv_show_summary_genres.text = genre
     }
 
     override fun setNetwork(network: String?) {
-        text_view_tv_show_info_network.visibility = View.VISIBLE
-        image_view_tv_show_info_ic_network.visibility = View.VISIBLE
-        text_view_tv_show_info_network.text = network
+        text_view_tv_show_summary_network.visibility = View.VISIBLE
+        image_view_tv_show_summary_ic_network.visibility = View.VISIBLE
+        text_view_tv_show_summary_network.text = network
     }
 
     override fun setOfficialSiteVisible() {
         image_view_tv_show_info_ic_official_website.visibility = View.VISIBLE
-        text_view_tv_show_info_official_website.visibility = View.VISIBLE
+        text_view_tv_show_summary_official_website.visibility = View.VISIBLE
     }
 
     override fun openBrowserIntent(url: String?) {
-        val browserIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         activity.startActivity(browserIntent)
     }
 
-    @OnClick(R.id.text_view_tv_show_info_official_website,
+    @OnClick(R.id.text_view_tv_show_summary_official_website,
             R.id.image_view_tv_show_info_ic_official_website)
     fun onOfficialSitePressed() {
         presenter.onOfficialSitePressed()
     }
 
-    @OnClick(R.id.text_view_tv_show_info_imdb,
-            R.id.image_view_tv_show_info_ic_imdb)
+    @OnClick(R.id.text_view_tv_show_summary_imdb,
+            R.id.image_view_tv_show_summary_ic_imdb)
     fun onImdbSitePressed() {
         presenter.onImdbSitePressed()
     }
 
-    @OnClick(R.id.text_view_tv_show_info_tv_maze,
-            R.id.image_view_tv_show_info_ic_tv_maze)
+    @OnClick(R.id.text_view_tv_show_summary_tv_maze,
+            R.id.image_view_tv_show_summary_ic_tv_maze)
     fun onTvMazeSitePressed() {
         presenter.onTvMazeSitePressed()
     }
@@ -99,8 +101,8 @@ class TvShowInfoFragment : BaseFragment(), TvShowInfoView {
         val ARGUMENT_INFO_ABOUT_TV_SHOW = "TV_SHOW_MODEL"
         private val bundle: Bundle = Bundle()
 
-        fun newInstance(tvShowModel: TvShowModel?): TvShowInfoFragment = with(TvShowInfoFragment()) {
-            bundle.putParcelable(ARGUMENT_INFO_ABOUT_TV_SHOW, TvShowModelParcelable(tvShowModel!!))
+        fun newInstance(tvShowModel: TvShowModelParcelable): TvShowSummaryFragment = with(TvShowSummaryFragment()) {
+            bundle.putParcelable(ARGUMENT_INFO_ABOUT_TV_SHOW, tvShowModel)
             this.arguments = bundle
             return this
         }

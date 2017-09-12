@@ -1,9 +1,9 @@
-package pl.hypeapp.presentation.tvshowinfo
+package pl.hypeapp.presentation.tvshowsummary
 
 import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.presentation.base.View
 
-interface TvShowInfoView : View {
+interface TvShowSummaryView : View {
 
     fun getModel(): TvShowModel
 

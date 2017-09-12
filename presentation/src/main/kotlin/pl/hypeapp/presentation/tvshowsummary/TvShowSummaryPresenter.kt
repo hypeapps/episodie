@@ -1,15 +1,15 @@
-package pl.hypeapp.presentation.tvshowinfo
+package pl.hypeapp.presentation.tvshowsummary
 
 import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject
 
-class TvShowInfoPresenter @Inject constructor() : Presenter<TvShowInfoView>() {
+class TvShowSummaryPresenter @Inject constructor() : Presenter<TvShowSummaryView>() {
 
     private var model: TvShowModel? = null
         get() = view?.getModel()
 
-    override fun onAttachView(view: TvShowInfoView) {
+    override fun onAttachView(view: TvShowSummaryView) {
         super.onAttachView(view)
         fillInfoAboutTvShow(model)
     }
