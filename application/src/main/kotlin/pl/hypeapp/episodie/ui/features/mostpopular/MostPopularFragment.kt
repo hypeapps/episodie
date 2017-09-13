@@ -33,7 +33,6 @@ import pl.hypeapp.presentation.mostpopular.MostPopularPresenter
 import pl.hypeapp.presentation.mostpopular.MostPopularView
 import javax.inject.Inject
 
-
 class MostPopularFragment : BaseViewModelFragment<MostPopularViewModel>(), MostPopularView, ViewTypeDelegateAdapter.OnViewSelectedListener,
         ViewTypeDelegateAdapter.OnRetryListener, SwipeRefreshLayout.OnRefreshListener {
 

@@ -11,10 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
 import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
-import kotlinx.android.synthetic.main.fragment_top_list.image_view_top_list_backdrop
-import kotlinx.android.synthetic.main.fragment_top_list.image_view_tv_show_details_ic_back_arrow
-import kotlinx.android.synthetic.main.fragment_top_list.recycler_view_top_list
-import kotlinx.android.synthetic.main.fragment_top_list.swipe_refresh_layout_top_list
+import kotlinx.android.synthetic.main.fragment_top_list.*
 import pl.hypeapp.domain.model.TopListModel
 import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.domain.model.WatchState
@@ -121,7 +118,7 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
         }
     }
 
-    override fun onChangeWatchState(tvShow: TvShowModel, diamondIcon: ImageView) {
+    override fun onWatchStateChange(tvShow: TvShowModel, diamondIcon: ImageView) {
         smallBangAnimator.bang(diamondIcon)
         diamondIcon.manageWatchStateIcon(WatchState.manageWatchState(tvShow.watchState))
         presenter.changeWatchedState(tvShow)
@@ -137,14 +134,18 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
         (activity as MainFeedActivity).onActivityReenterSubject.subscribe({
             if (it == STATE_CHANGED)
                 viewModel.tvShowList.let { presenter.updateModel(viewModel.tvShowList.map { it.tvShow!! }) }
+            presenter.updateUserRuntime()
         })
     }
+
+    override fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long) =
+            alerter_top_list.show(oldUserRuntime, newRuntime)
 
     override fun observeDragDrawer() {
         (activity as MainFeedActivity).navigationDrawer.onDrag()?.subscribe({ presenter.onDrawerDrag(it) })
     }
 
-    override fun animateDrawerHamburgerArrow(progress: Float) = image_view_tv_show_details_ic_back_arrow.setProgress(progress)
+    override fun animateDrawerHamburgerArrow(progress: Float) = image_view_top_list_ic_back_arrow.setProgress(progress)
 
     override fun initSwipeRefreshLayout() = with(swipe_refresh_layout_top_list) {
         setProgressViewEndTarget(true, 400)

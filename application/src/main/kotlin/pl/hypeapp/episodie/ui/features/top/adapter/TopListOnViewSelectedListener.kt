@@ -6,6 +6,6 @@ import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
 
 interface TopListOnViewSelectedListener : ViewTypeDelegateAdapter.OnViewSelectedListener {
 
-    fun onChangeWatchState(tvShow: TvShowModel, diamondIcon: ImageView)
+    fun onWatchStateChange(tvShow: TvShowModel, diamondIcon: ImageView)
 
 }

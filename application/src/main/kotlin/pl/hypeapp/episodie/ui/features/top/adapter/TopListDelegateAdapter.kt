@@ -36,7 +36,7 @@ class TopListDelegateAdapter(val onViewSelectedListener: TopListOnViewSelectedLi
                 text_view_item_top_list_runtime.setRuntime(it.fullRuntime)
                 ripple_view_item_top_list.setOnRippleCompleteListener { onViewSelected(item.tvShow) }
                 image_view_item_top_list_diamond.setOnClickListener { view ->
-                    onViewSelectedListener.onChangeWatchState(it, view as ImageView)
+                    onViewSelectedListener.onWatchStateChange(it, view as ImageView)
                 }
                 image_view_item_top_list_diamond.manageWatchStateIcon(it.watchState)
             }
