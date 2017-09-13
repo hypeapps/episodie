@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.facebook.device.yearclass.YearClass
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_tv_show_details.*
 import pl.hypeapp.domain.model.TvShowModel
@@ -78,20 +79,23 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         isWatchStateChanged = savedInstanceState?.getBoolean(WATCH_STATE_CHANGED)!!
     }
 
-    override fun initPagerAdapter(tvShowModel: TvShowModel?) = with(view_pager_tv_show_details) {
+    override fun initPagerAdapter(tvShowModel: TvShowModel?): Unit = with(view_pager_tv_show_details) {
         val tvShowDetailsPagerAdapter = TvShowDetailsPagerAdapter(supportFragmentManager, tvShowModelParcelable)
         adapter = tvShowDetailsPagerAdapter
         setPageTransformer(true, DepthPageTransformer())
         addOnPageChangeListener(this@TvShowDetailsActivity)
+        offscreenPageLimit = 1
         tab_layout_tv_show_details.setupWithViewPager(this)
         presenter.onPagerAdapterInit()
     }
 
     override fun startFabButtonAnimation() {
-        YoYo.with(Techniques.ZoomIn)
-                .duration(700)
-                .delay(200)
-                .playOn(fab_button_tv_show_details_add_to_watched)
+        if (YearClass.CLASS_2013 <= YearClass.get(applicationContext)) {
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .delay(200)
+                    .playOn(fab_button_tv_show_details_add_to_watched)
+        }
     }
 
     override fun setNavigationBarOptions() {
@@ -129,13 +133,19 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     }
 
     override fun setBackdrop(backdropUrl: String?, placeholderUrl: String?) {
+        if (YearClass.CLASS_2013 < YearClass.get(applicationContext)) {
+            stub_tv_show_details_background.layoutResource = R.layout.noise_view_background_tv_show_details
+        } else {
+            stub_tv_show_details_background.layoutResource = R.layout.image_view_background_tv_show_details
+        }
+        stub_tv_show_details_background.inflate()
         GlideApp.with(this)
                 .load(backdropUrl)
                 .override(340, 560)
                 .thumbnail(GlideApp.with(this).load(placeholderUrl).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(noise_view_tv_show_details)
+                .into(findViewById(R.id.background_tv_show_details))
     }
 
     override fun hideFabButton() = fab_button_tv_show_details_add_to_watched.viewGone()
@@ -158,8 +168,10 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         // TODO
     }
 
-    override fun updateWatchState(watchState: Int) {
-        fab_button_tv_show_details_add_to_watched.manageWatchStateIcon(watchState)
+    override fun updateWatchState(watchState: Int): Unit = with(fab_button_tv_show_details_add_to_watched) {
+        postDelayed({
+            manageWatchStateIcon(watchState)
+        }, 200)
     }
 
     @OnClick(R.id.fab_button_tv_show_details_add_to_watched)
@@ -174,17 +186,20 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         presenter.onChangeWatchedTvShowState()
     }
 
-    override fun onChangeWatchStateError() {
+    override fun onWatchStateChangeError() {
         Toast.makeText(applicationContext, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
     }
 
-    override fun onChangedWatchState() {
-        watchStateChangedNotifySubject.onNext(WATCH_STATE_CHANGED)
+    override fun onWatchStateChanged() = watchStateChangedNotifySubject.onNext(WATCH_STATE_CHANGED)
+
+    override fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long) {
+        runtime_alerter_tv_show_details.show(oldUserRuntime, newRuntime)
     }
 
     fun onChangedChildFragmentWatchState() {
         isWatchStateChanged = true
         presenter.updateWatchState()
+        presenter.showRuntimeNotification()
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

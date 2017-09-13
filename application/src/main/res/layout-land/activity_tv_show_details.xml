@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <pl.hypeapp.noiseview.NoiseView
-        android:id="@+id/noise_view_tv_show_details"
+    <ViewStub
+        android:id="@+id/stub_tv_show_details_background"
         android:layout_width="0dp"
-        android:contentDescription="@string/tv_show_details_backdrop_description"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@id/guideline_backdrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -261,5 +259,10 @@
         app:layout_constraintStart_toStartOf="@id/image_view_tv_show_details_ic_share"
         app:layout_constraintTop_toTopOf="@id/image_view_tv_show_details_ic_share" />
 
+    <pl.hypeapp.episodie.ui.widget.RuntimeAlerterView
+        android:id="@+id/runtime_alerter_tv_show_details"
+        android:layout_width="match_parent"
+        android:layout_marginTop="-40dp"
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

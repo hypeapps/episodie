@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import butterknife.OnClick
 import kotlinx.android.synthetic.main.fragment_seasons.recycler_view_fragment_seasons
 import kotlinx.android.synthetic.main.fragment_seasons.swipe_refresh_layout_fragment_seasons
 import pl.hypeapp.domain.model.AllSeasonsModel
@@ -66,10 +65,6 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         presenter.onAttachView(this)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
@@ -109,14 +104,15 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         if (swipe_refresh_layout_fragment_seasons.isRefreshing) {
             swipe_refresh_layout_fragment_seasons.isRefreshing = false
         }
-        seasonLayoutState.onError()
+        seasonLayoutState.onError({ onRetry() })
     }
 
     override fun showLoading() = seasonLayoutState.onLoading()
 
+    override fun startLoadingAnimation() = seasonLayoutState.startLoadingAnimation()
+
     override fun showEmptySeasonsMessage() = seasonLayoutState.onEmptySeasonMessage()
 
-    @OnClick(R.id.button_item_error_retry)
     override fun onRetry() {
         onRetry = true
         presenter.requestAllSeasons(tvShowId, false)
