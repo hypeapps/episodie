@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_view_runtime_alerter"
+    android:background="@color/primary_dark"
+    android:paddingTop="@dimen/padding_top_view_runtime_alerter">
+
+    <ImageView
+        android:id="@+id/view_alerter_icon"
+        android:layout_width="@dimen/size_icon_view_runtime_alerter"
+        android:layout_height="@dimen/size_icon_view_runtime_alerter"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:src="@drawable/all_ic_diamond_checked"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/view_runtime_alerter_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.hanks.htextview.evaporate.EvaporateTextView
+        android:id="@+id/view_alerter_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:minWidth="@dimen/min_width_evaporate_text_view_runtime_alerter"
+        android:textSize="@dimen/text_size_view_runtime_alerter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/view_alerter_runtime_diff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_alerter_text" />
+
+</android.support.constraint.ConstraintLayout>

@@ -67,5 +67,5 @@
     <string name="item_episode_summary_header">Summary</string>
     <string name="all_toast_error_message">Something went wrong</string>
     <string name="fragment_top_list_backdrop_description">Background of app bar</string>
-
+    <string name="view_runtime_alerter_description">Icon of runtime alert</string>
 </resources>
