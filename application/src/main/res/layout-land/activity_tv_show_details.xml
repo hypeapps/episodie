@@ -259,10 +259,18 @@
         app:layout_constraintStart_toStartOf="@id/image_view_tv_show_details_ic_share"
         app:layout_constraintTop_toTopOf="@id/image_view_tv_show_details_ic_share" />
 
+    <Space
+        android:id="@+id/space_runtime_alerter"
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <pl.hypeapp.episodie.ui.widget.RuntimeAlerterView
+        app:layout_constraintBottom_toBottomOf="@id/space_runtime_alerter"
         android:id="@+id/runtime_alerter_tv_show_details"
         android:layout_width="match_parent"
-        android:layout_marginTop="-40dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-40dp" />
 
 </android.support.constraint.ConstraintLayout>
