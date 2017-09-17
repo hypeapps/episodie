@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="0dp">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_corner_shape">
 
-        <include
+        <ViewStub
             android:id="@+id/view_loading_fragment_seasons"
-            layout="@layout/item_loading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:layout="@layout/item_loading" />
 
-        <include
+        <ViewStub
             android:id="@+id/view_error_fragment_seasons"
-            layout="@layout/item_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:layout="@layout/item_error" />
 
         <TextView
             android:id="@+id/text_view_fragment_episodes_empty_seasons"
@@ -39,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -55,7 +53,7 @@
                 android:paddingEnd="@dimen/padding_big"
                 android:paddingStart="@dimen/padding_big" />
 
-        </LinearLayout>
+        </FrameLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

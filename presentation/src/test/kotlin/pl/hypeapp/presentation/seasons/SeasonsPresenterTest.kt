@@ -1,21 +1,34 @@
 package pl.hypeapp.presentation.seasons
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.verifyZeroInteractions
+import org.amshove.kluent.any
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.SeasonModel
-import pl.hypeapp.domain.usecase.seasons.SeasonsUseCase
+import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
+import pl.hypeapp.domain.usecase.mapwatched.SeasonWatchStateIntegrityUseCase
+import pl.hypeapp.domain.usecase.watchstate.ManageEpisodeWatchStateUseCase
+import pl.hypeapp.domain.usecase.watchstate.ManageSeasonsWatchStateUseCase
 
 class SeasonsPresenterTest {
 
     private lateinit var presenter: SeasonsPresenter
 
-    private val useCase: SeasonsUseCase = mock()
+    private val useCase: AllEpisodesUseCase = mock()
 
     private val view: SeasonsView = mock()
+
+    private val manageEpisodeWatchStateUseCase: ManageEpisodeWatchStateUseCase = mock()
+
+    private val manageSeasonWatchStateUseCase: ManageSeasonsWatchStateUseCase = mock()
+
+    private val seasonWatchStateIntegrityUseCase: SeasonWatchStateIntegrityUseCase = mock()
 
     private val tvShowId = "1212"
 
@@ -23,19 +36,33 @@ class SeasonsPresenterTest {
 
     @Before
     fun setUp() {
-        presenter = SeasonsPresenter(useCase)
+        presenter = SeasonsPresenter(useCase, manageEpisodeWatchStateUseCase, manageSeasonWatchStateUseCase,
+                seasonWatchStateIntegrityUseCase)
     }
 
     @Test
     fun `should init pager adapter`() {
-        presenter.onAttachView(view)
+        presenter.view = view
+
+        presenter.onViewShown()
 
         verify(view).initRecyclerAdapter()
     }
 
     @Test
+    fun `should observer watch state in parent activity`() {
+        presenter.view = view
+
+        presenter.onViewShown()
+
+        verify(view).observeWatchStateInParentActivity()
+    }
+
+    @Test
     fun `should init swipe to refresh`() {
-        presenter.onAttachView(view)
+        presenter.view = view
+
+        presenter.onViewShown()
 
         verify(view).initSwipeToRefresh()
     }
@@ -82,6 +109,16 @@ class SeasonsPresenterTest {
 
         verify(view).showLoading()
         verify(useCase).execute(any(), any())
+    }
+
+    @Test
+    fun `should check watch state integrity`() {
+        presenter.isViewShown = true
+        val allSeasonsModel: AllSeasonsModel = mock()
+
+        presenter.checkWatchStateIntegrity(allSeasonsModel)
+
+        verify(seasonWatchStateIntegrityUseCase).execute(any(), any())
     }
 
     @Test

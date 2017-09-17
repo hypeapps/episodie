@@ -1,10 +1,12 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import pl.hypeapp.dataproviders.entity.TopListEntity
+import pl.hypeapp.dataproviders.entity.api.TopListEntity
 import pl.hypeapp.domain.model.PageableRequest
 import pl.hypeapp.domain.model.TopListModel
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TopListEntityMapper @Inject constructor() : EntityMapper<TopListModel, TopListEntity>() {
 
     override fun transform(entity: TopListEntity?): TopListModel {

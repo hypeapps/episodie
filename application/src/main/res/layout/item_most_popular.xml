@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/la_mp"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -11,6 +12,18 @@
         android:layout_height="@dimen/height_item_most_popular_cover"
         android:contentDescription="@string/item_all_cover_description"
         android:scaleType="fitXY" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_view_item_most_popular"
+        app:rv_color="@android:color/white"
+        app:rv_alpha="30"
+        app:rv_rippleDuration="150"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_view_item_most_popular_runtime"

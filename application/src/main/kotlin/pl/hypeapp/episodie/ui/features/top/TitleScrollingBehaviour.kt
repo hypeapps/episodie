@@ -17,7 +17,7 @@ class TitleScrollingBehaviour(context: Context, attrs: AttributeSet) : AppBarLay
 
     override fun onDependentViewChanged(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
         val scrollPercentage = (dependency?.y!!.toFloat() / dependency.height) * -1
-        with(dependency.findViewById<TextView>(R.id.text_view_appbar_title)) {
+        with(dependency.findViewById<TextView>(R.id.text_view_top_list_appbar_title)) {
             scaleY = 1f - scrollPercentage / 2.5f
             scaleX = 1f - scrollPercentage / 2.5f
         }

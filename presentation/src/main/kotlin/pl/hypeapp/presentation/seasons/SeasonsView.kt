@@ -11,6 +11,8 @@ interface SeasonsView : View {
 
     fun initSwipeToRefresh()
 
+    fun updateRecyclerList(seasonsModel: AllSeasonsModel?)
+
     fun populateRecyclerView(seasonsModel: AllSeasonsModel?)
 
     fun showError()
@@ -19,4 +21,11 @@ interface SeasonsView : View {
 
     fun showEmptySeasonsMessage()
 
+    fun onChangedWatchState()
+
+    fun onChangeWatchStateError()
+
+    fun observeWatchStateInParentActivity()
+
+    fun startLoadingAnimation()
 }

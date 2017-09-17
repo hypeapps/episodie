@@ -58,6 +58,14 @@ class TvShowRecyclerAdapter(val totalItemCount: Int,
         notifyItemRangeChanged(initPosition, this.items.size)
     }
 
+    fun updateItems(items: List<TvShowViewModel>) {
+        this.items.clear()
+        items.forEach({
+            this.items.add(it)
+        })
+        notifyDataSetChanged()
+    }
+
     fun addErrorItem() {
         val initPosition = this.items.size - 1
         this.items.removeAt(initPosition)

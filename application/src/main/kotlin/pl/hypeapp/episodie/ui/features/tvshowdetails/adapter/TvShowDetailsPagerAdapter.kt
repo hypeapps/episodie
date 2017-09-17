@@ -4,24 +4,24 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.episodie.ui.features.seasons.SeasonsFragment
-import pl.hypeapp.episodie.ui.features.tvshowinfo.TvShowInfoFragment
+import pl.hypeapp.episodie.ui.features.tvshowsummary.TvShowSummaryFragment
+import pl.hypeapp.episodie.ui.viewmodel.TvShowModelParcelable
 
-class TvShowDetailsPagerAdapter(fm: FragmentManager, private val tvShowModel: TvShowModel?) : FragmentStatePagerAdapter(fm) {
+class TvShowDetailsPagerAdapter(fm: FragmentManager, private val tvShowModel: TvShowModelParcelable) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        when (position) {
-            PAGE_ABOUT -> return TvShowInfoFragment.newInstance(tvShowModel)
-            PAGE_EPISODES -> return SeasonsFragment.newInstance(tvShowModel?.id)
+        return when (position) {
+            PAGE_ABOUT -> TvShowSummaryFragment.newInstance(tvShowModel)
+            PAGE_SEASONS -> SeasonsFragment.newInstance(tvShowModel.id)
             else -> throw IllegalStateException("Invalid fragment index")
         }
     }
 
     override fun getPageTitle(position: Int): CharSequence {
-        when (position) {
-            PAGE_ABOUT -> return TITLE_PAGE_ABOUT
-            PAGE_EPISODES -> return TITLE_PAGE_EPISODES
+        return when (position) {
+            PAGE_ABOUT -> TITLE_PAGE_ABOUT
+            PAGE_SEASONS -> TITLE_PAGE_SEASONS
             else -> throw IllegalStateException("Invalid pager adapter position")
         }
     }
@@ -30,10 +30,10 @@ class TvShowDetailsPagerAdapter(fm: FragmentManager, private val tvShowModel: Tv
 
     private companion object {
         val PAGE_ABOUT = 0
-        val PAGE_EPISODES = 1
+        val PAGE_SEASONS = 1
         val NUM_PAGES = 2
         val TITLE_PAGE_ABOUT = "ABOUT"
-        val TITLE_PAGE_EPISODES = "EPISODES"
+        val TITLE_PAGE_SEASONS = "EPISODES"
     }
 
     interface OnChangePageListener : ViewPager.OnPageChangeListener {

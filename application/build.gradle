@@ -4,6 +4,7 @@ apply plugin: 'jacoco'
 rootProject.applicationModulePlugins.each {
     apply plugin: it
 }
+apply plugin: 'com.frogermcs.androiddevmetrics'
 
 android {
     def ext = rootProject.extensions.ext
@@ -58,7 +59,7 @@ kapt {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
     rootProject.applicationModuleDependencies.each {
         add(it.configuration, it.dependency, it.options)
     }

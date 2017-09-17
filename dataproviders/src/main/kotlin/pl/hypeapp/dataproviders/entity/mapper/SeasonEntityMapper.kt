@@ -1,6 +1,6 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import pl.hypeapp.dataproviders.entity.SeasonEntity
+import pl.hypeapp.dataproviders.entity.api.SeasonEntity
 import pl.hypeapp.domain.model.SeasonModel
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,6 +11,7 @@ class SeasonEntityMapper @Inject constructor(val episodeEntityMapper: EpisodeEnt
     override fun transform(entity: SeasonEntity?): SeasonModel? {
         return SeasonModel(
                 seasonId = entity?.seasonId,
+                tvShowId = entity?.tvShowId,
                 episodeOrder = entity?.episodes?.size,
                 seasonNumber = entity?.seasonNumber,
                 runtime = entity?.runtime,

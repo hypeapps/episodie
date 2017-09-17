@@ -4,14 +4,10 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import pl.hypeapp.dataproviders.executor.JobExecutor
-import pl.hypeapp.dataproviders.repository.AllSeasonsDataRepository
-import pl.hypeapp.dataproviders.repository.MostPopularDataRepository
-import pl.hypeapp.dataproviders.repository.TopListDataRepository
+import pl.hypeapp.dataproviders.repository.*
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.repository.AllSeasonsRepository
-import pl.hypeapp.domain.repository.MostPopularRepository
-import pl.hypeapp.domain.repository.TopListRepository
+import pl.hypeapp.domain.repository.*
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.UIThread
 import javax.inject.Singleton
@@ -59,6 +55,18 @@ class AppModule(private val app: App) {
     @Singleton
     fun provideAllSeasonsRepository(allSeasonsDataRepository: AllSeasonsDataRepository): AllSeasonsRepository {
         return allSeasonsDataRepository
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddToWatchedRepository(watchedDataRepository: WatchedDataRepository): WatchedRepository {
+        return watchedDataRepository
+    }
+
+    @Provides
+    @Singleton
+    fun provideRuntimeRepository(runtimeDataRepository: RuntimeDataRepository): RuntimeRepository {
+        return runtimeDataRepository
     }
 
 }

@@ -14,22 +14,25 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.facebook.device.yearclass.YearClass
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_tv_show_details.*
 import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
-import pl.hypeapp.episodie.extensions.getNavigationBarSize
-import pl.hypeapp.episodie.extensions.isLandscapeOrientation
-import pl.hypeapp.episodie.extensions.isNavigationBarLandscape
-import pl.hypeapp.episodie.extensions.setFullRuntime
+import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.glide.GlideApp
 import pl.hypeapp.episodie.glide.transformation.BlurTransformation
 import pl.hypeapp.episodie.navigation.EXTRA_INTENT_TV_SHOW_MODEL
+import pl.hypeapp.episodie.navigation.STATE_CHANGED
+import pl.hypeapp.episodie.navigation.STATE_NOT_CHANGED
 import pl.hypeapp.episodie.ui.animation.pagetransformer.DepthPageTransformer
 import pl.hypeapp.episodie.ui.base.BaseActivity
 import pl.hypeapp.episodie.ui.features.tvshowdetails.adapter.TvShowDetailsPagerAdapter
+import pl.hypeapp.episodie.ui.viewmodel.TvShowModelParcelable
 import pl.hypeapp.presentation.tvshowdetails.TvShowDetailsPresenter
 import pl.hypeapp.presentation.tvshowdetails.TvShowDetailsView
 import javax.inject.Inject
@@ -38,19 +41,26 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
 
     override fun getLayoutRes(): Int = R.layout.activity_tv_show_details
 
-    @Inject
-    lateinit var presenter: TvShowDetailsPresenter
+    @Inject lateinit var presenter: TvShowDetailsPresenter
 
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
                 .build()
 
-    override fun getModel(): TvShowModel = intent.getSerializableExtra(EXTRA_INTENT_TV_SHOW_MODEL) as TvShowModel
+    private var isWatchStateChanged: Boolean = false
+
+    override lateinit var model: TvShowModel
+
+    private lateinit var tvShowModelParcelable: TvShowModelParcelable
+
+    val watchStateChangedNotifySubject: PublishSubject<String> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         component.inject(this)
+        tvShowModelParcelable = intent.getParcelableExtra(EXTRA_INTENT_TV_SHOW_MODEL)
+        model = tvShowModelParcelable.mapToTvShowModel()
         presenter.onAttachView(this)
     }
 
@@ -59,20 +69,33 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         presenter.onDetachView()
     }
 
-    override fun initPagerAdapter(tvShowModel: TvShowModel?) = with(view_pager_tv_show_details) {
-        val tvShowDetailsPagerAdapter = TvShowDetailsPagerAdapter(supportFragmentManager, tvShowModel)
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putBoolean(WATCH_STATE_CHANGED, isWatchStateChanged)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        isWatchStateChanged = savedInstanceState?.getBoolean(WATCH_STATE_CHANGED)!!
+    }
+
+    override fun initPagerAdapter(tvShowModel: TvShowModel?): Unit = with(view_pager_tv_show_details) {
+        val tvShowDetailsPagerAdapter = TvShowDetailsPagerAdapter(supportFragmentManager, tvShowModelParcelable)
         adapter = tvShowDetailsPagerAdapter
         setPageTransformer(true, DepthPageTransformer())
         addOnPageChangeListener(this@TvShowDetailsActivity)
+        offscreenPageLimit = 1
         tab_layout_tv_show_details.setupWithViewPager(this)
         presenter.onPagerAdapterInit()
     }
 
     override fun startFabButtonAnimation() {
-        YoYo.with(Techniques.ZoomIn)
-                .duration(700)
-                .delay(200)
-                .playOn(fab_button_tv_show_details_add_to_watched)
+        if (YearClass.CLASS_2013 <= YearClass.get(applicationContext)) {
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .delay(200)
+                    .playOn(fab_button_tv_show_details_add_to_watched)
+        }
     }
 
     override fun setNavigationBarOptions() {
@@ -103,42 +126,41 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         text_view_tv_show_details_status.text = String.format(getString(R.string.tv_show_details_status), status)
     }
 
-    override fun onPageSelected(position: Int) {
-        presenter.onPageSelected(position)
-    }
+    override fun onPageSelected(position: Int) = presenter.onPageSelected(position)
 
     override fun setCover(url: String?) {
-        GlideApp.with(this)
-                .load(url)
-                .into(image_view_tv_show_details_cover)
+        image_view_tv_show_details_cover.loadImage(url)
     }
 
     override fun setBackdrop(backdropUrl: String?, placeholderUrl: String?) {
+        if (YearClass.CLASS_2013 < YearClass.get(applicationContext)) {
+            stub_tv_show_details_background.layoutResource = R.layout.noise_view_background_tv_show_details
+        } else {
+            stub_tv_show_details_background.layoutResource = R.layout.image_view_background_tv_show_details
+        }
+        stub_tv_show_details_background.inflate()
         GlideApp.with(this)
                 .load(backdropUrl)
-                .override(640, 860)
+                .override(340, 560)
                 .thumbnail(GlideApp.with(this).load(placeholderUrl).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(noise_view_tv_show_details)
+                .into(findViewById(R.id.background_tv_show_details))
     }
 
-    @OnClick(R.id.fab_button_tv_show_details_add_to_watched)
-    override fun onAddToWatched() {
-        presenter.onAddToWatched()
-    }
+    override fun hideFabButton() = fab_button_tv_show_details_add_to_watched.viewGone()
 
-    override fun expandAppBar() {
-        app_bar_tv_show_details.setExpanded(true, true)
-    }
-
-    override fun showError() {
-        Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_LONG).show()
-    }
+    override fun expandAppBar() = app_bar_tv_show_details.setExpanded(true, true)
 
     @OnClick(R.id.dummy_view_tv_show_details_back_arrow)
-    override fun onBackArrowPressed() {
-        onBackPressed()
+    override fun onBackArrowPressed() = onBackPressed()
+
+    override fun onBackPressed() {
+        when (isWatchStateChanged) {
+            true -> setResult(STATE_CHANGED)
+            else -> setResult(STATE_NOT_CHANGED)
+        }
+        super.onBackPressed()
     }
 
     @OnClick(R.id.dummy_view_tv_show_details_share)
@@ -146,17 +168,53 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         // TODO
     }
 
+    override fun updateWatchState(watchState: Int): Unit = with(fab_button_tv_show_details_add_to_watched) {
+        postDelayed({
+            manageWatchStateIcon(watchState)
+        }, 200)
+    }
+
+    @OnClick(R.id.fab_button_tv_show_details_add_to_watched)
+    override fun onChangeWatchTvShowState() = with(fab_button_tv_show_details_add_to_watched) {
+        isWatchStateChanged = true
+        // Workaround for better animation flow.
+        hide()
+        show()
+        smallBangAnimator.bang(this)
+        val watchState = model.watchState
+        postDelayed({ manageWatchStateIcon(WatchState.manageWatchState(watchState)) }, 200)
+        presenter.onChangeWatchedTvShowState()
+    }
+
+    override fun onWatchStateChangeError() {
+        Toast.makeText(applicationContext, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onWatchStateChanged() = watchStateChangedNotifySubject.onNext(WATCH_STATE_CHANGED)
+
+    override fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long) {
+        runtime_alerter_tv_show_details.show(oldUserRuntime, newRuntime)
+    }
+
+    fun onChangedChildFragmentWatchState() {
+        isWatchStateChanged = true
+        presenter.updateWatchState()
+        presenter.showRuntimeNotification()
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setNavigationBarColor(@ColorInt color: Int) {
         window.navigationBarColor = color
     }
 
-    private fun setLandscapeNavBarPaddingEnd(vararg views: View) {
-        views.forEach {
-            with(it) {
-                setPadding(paddingStart, paddingTop, (paddingEnd + getNavigationBarSize().x), paddingBottom)
-            }
+    private fun setLandscapeNavBarPaddingEnd(vararg views: View) = views.forEach {
+        with(it) {
+            setPadding(paddingStart, paddingTop, (paddingEnd + getNavigationBarSize().x), paddingBottom)
         }
+    }
+
+    companion object {
+        const val WATCH_STATE_CHANGED = "WATCH_STATE_CHANGED"
     }
 
 }

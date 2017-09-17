@@ -4,7 +4,8 @@ import com.nhaarman.mockito_kotlin.mock
 import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
-import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
+import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
+import pl.hypeapp.domain.model.AllSeasonsModel
 
 class AllSeasonsEntityMapperTest {
 
@@ -21,7 +22,7 @@ class AllSeasonsEntityMapperTest {
 
     @Test
     fun `should transform entity to model`() {
-        val model = allSeasonsEntityMapper.transform(allSeasonsEntity)
+        val model: AllSeasonsModel = allSeasonsEntityMapper.transform(allSeasonsEntity)
 
         model.seasons `should equal` allSeasonsEntity.seasons
     }

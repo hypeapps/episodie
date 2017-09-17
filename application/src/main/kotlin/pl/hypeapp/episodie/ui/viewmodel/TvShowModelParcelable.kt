@@ -16,22 +16,26 @@ class TvShowModelParcelable constructor(val id: String?,
                                         val fullRuntime: Long?,
                                         val premiered: String?,
                                         val imageMedium: String?,
-                                        val imageOriginal: String?) : Parcelable {
+                                        val imageOriginal: String?,
+                                        val episodeOrder: Int?,
+                                        val watchState: Int) : Parcelable {
 
-    constructor(tvShowModel: TvShowModel?) : this(
-            tvShowModel?.id,
-            tvShowModel?.imdbId,
-            tvShowModel?.name,
-            tvShowModel?.network,
-            tvShowModel?.status,
-            tvShowModel?.summary,
-            tvShowModel?.episodeRuntime,
-            tvShowModel?.genre,
-            tvShowModel?.officialSite,
-            tvShowModel?.fullRuntime,
-            tvShowModel?.premiered,
-            tvShowModel?.imageMedium,
-            tvShowModel?.imageOriginal)
+    constructor(tvShowModel: TvShowModel) : this(
+            id = tvShowModel.id,
+            imdbId = tvShowModel.imdbId,
+            name = tvShowModel.name,
+            network = tvShowModel.network,
+            status = tvShowModel.status,
+            summary = tvShowModel.summary,
+            episodeRuntime = tvShowModel.episodeRuntime,
+            genre = tvShowModel.genre,
+            officialSite = tvShowModel.officialSite,
+            fullRuntime = tvShowModel.fullRuntime,
+            premiered = tvShowModel.premiered,
+            imageMedium = tvShowModel.imageMedium,
+            imageOriginal = tvShowModel.imageOriginal,
+            episodeOrder = tvShowModel.episodeOrder,
+            watchState = tvShowModel.watchState)
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -46,7 +50,9 @@ class TvShowModelParcelable constructor(val id: String?,
             parcel.readValue(Long::class.java.classLoader) as? Long,
             parcel.readString(),
             parcel.readString(),
-            parcel.readString())
+            parcel.readString(),
+            parcel.readInt(),
+            parcel.readInt())
 
     fun mapToTvShowModel(): TvShowModel {
         return TvShowModel(
@@ -62,7 +68,9 @@ class TvShowModelParcelable constructor(val id: String?,
                 this.fullRuntime,
                 this.premiered,
                 this.imageMedium,
-                this.imageOriginal)
+                this.imageOriginal,
+                this.watchState,
+                this.episodeOrder)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -79,6 +87,8 @@ class TvShowModelParcelable constructor(val id: String?,
         parcel.writeString(premiered)
         parcel.writeString(imageMedium)
         parcel.writeString(imageOriginal)
+        parcel.writeInt(episodeOrder!!)
+        parcel.writeInt(watchState)
     }
 
     override fun describeContents(): Int {

@@ -8,7 +8,6 @@
         <item name="android:windowBackground">@color/background_dark</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:buttonStyle">@style/EpisodieTheme.Button</item>
-        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
     </style>
 
     <style name="EpisodieTheme" parent="BaseEpisodieTheme">
@@ -18,6 +17,10 @@
         <!--<item name="android:statusBarColor">#30000000</item>-->
         <!--&lt;!&ndash;<item name="android:windowTranslucentNavigation">true</item>&ndash;&gt;-->
         <!--&lt;!&ndash;<item name="android:windowDrawsSystemBarBackgrounds">true</item>&ndash;&gt;-->
+    </style>
+
+    <style name="EpisodieTheme.TvShowDetailsActivityTheme" parent="EpisodieTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="EpisodieTheme.Button" parent="Base.Widget.AppCompat.Button">
@@ -62,6 +65,10 @@
     <style name="EpisodieTheme.RippleView">
         <item name="rv_rippleDuration">150</item>
         <item name="rv_color">@color/primary</item>
+    </style>
+
+    <style name="EpisodieTheme.TvShowDetailsAppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
 </resources>

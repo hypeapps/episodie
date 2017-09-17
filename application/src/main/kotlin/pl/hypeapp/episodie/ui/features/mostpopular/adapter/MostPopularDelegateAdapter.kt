@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.item_most_popular.view.image_view_item_most_popular_cover
+import kotlinx.android.synthetic.main.item_most_popular.view.ripple_view_item_most_popular
 import kotlinx.android.synthetic.main.item_most_popular.view.text_view_item_most_popular_runtime
 import kotlinx.android.synthetic.main.item_most_popular.view.text_view_item_most_popular_title
 import pl.hypeapp.episodie.R
@@ -38,7 +39,7 @@ class MostPopularDelegateAdapter(val onViewSelectedLister: ViewTypeDelegateAdapt
                         .into(image_view_item_most_popular_cover)
                 text_view_item_most_popular_title.text = it.name
                 text_view_item_most_popular_runtime.setRuntime(it.fullRuntime)
-                super.itemView.setOnClickListener {
+                ripple_view_item_most_popular.setOnRippleCompleteListener {
                     onViewSelectedLister.onItemSelected(
                             item.tvShow,
                             image_view_item_most_popular_cover,

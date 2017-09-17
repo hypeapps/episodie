@@ -4,25 +4,26 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
 import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
-import kotlinx.android.synthetic.main.fragment_top_list.image_view_top_list_backdrop
-import kotlinx.android.synthetic.main.fragment_top_list.image_view_tv_show_details_ic_back_arrow
-import kotlinx.android.synthetic.main.fragment_top_list.recycler_view_top_list
-import kotlinx.android.synthetic.main.fragment_top_list.swipe_refresh_layout_top_list
+import kotlinx.android.synthetic.main.fragment_top_list.*
 import pl.hypeapp.domain.model.TopListModel
 import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
 import pl.hypeapp.episodie.extensions.loadDrawableResource
+import pl.hypeapp.episodie.extensions.manageWatchStateIcon
 import pl.hypeapp.episodie.extensions.setRecyclerViewPadding
 import pl.hypeapp.episodie.navigation.Navigator
+import pl.hypeapp.episodie.navigation.STATE_CHANGED
 import pl.hypeapp.episodie.ui.base.BaseViewModelFragment
 import pl.hypeapp.episodie.ui.base.adapter.InfiniteScrollListener
 import pl.hypeapp.episodie.ui.base.adapter.TvShowRecyclerAdapter
@@ -40,8 +41,7 @@ import javax.inject.Inject
 class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, TopListOnViewSelectedListener,
         ViewTypeDelegateAdapter.OnRetryListener, SwipeRefreshLayout.OnRefreshListener {
 
-    @Inject
-    lateinit var presenter: TopListPresenter
+    @Inject lateinit var presenter: TopListPresenter
 
     override val viewModelClass: Class<TopListViewModel> = TopListViewModel::class.java
 
@@ -63,7 +63,6 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onAttachView(this)
-        image_view_top_list_backdrop.loadDrawableResource(R.drawable.mrrobot_background)
     }
 
     override fun onDestroyView() {
@@ -71,11 +70,19 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
         presenter.onDetachView()
     }
 
+    override fun loadBackdrop() {
+        image_view_top_list_backdrop.loadDrawableResource(R.drawable.mrrobot_background)
+    }
+
     // While view model is null call request otherwise attach retained model
     override fun loadViewModel() {
         viewModel.loadModel({ presenter.requestTopList(viewModel.page, false) },
                 { topListRecyclerAdapter.addItems(viewModel.tvShowList) })
     }
+
+    override fun onRefresh() = presenter.requestTopList(0, true)
+
+    override fun onRetry() = presenter.requestTopList(viewModel.page, false)
 
     override fun populateRecyclerList(topListModel: TopListModel?) {
         // If pull to refresh we need to clear view model and re init recycler adapter
@@ -87,6 +94,11 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
             topListModel?.let { viewModel.retainModel(it) }
         }
         topListRecyclerAdapter.addItems(viewModel.tvShowList)
+    }
+
+    override fun updateRecyclerList(tvShows: List<TvShowModel>) {
+        viewModel.updateModel(tvShows)
+        topListRecyclerAdapter.updateItems(viewModel.tvShowList)
     }
 
     override fun showError() = with(swipe_refresh_layout_top_list) {
@@ -106,25 +118,38 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
         }
     }
 
-    override fun onAddToWatched(tvShowId: String) {
-        Log.e("on addItems to watched", tvShowId)
+    override fun onWatchStateChange(tvShow: TvShowModel, diamondIcon: ImageView) {
+        smallBangAnimator.bang(diamondIcon)
+        diamondIcon.manageWatchStateIcon(WatchState.manageWatchState(tvShow.watchState))
+        presenter.changeWatchedState(tvShow)
     }
 
-    override fun onRefresh() = presenter.requestTopList(0, true)
-
-    override fun onRetry() = presenter.requestTopList(viewModel.page, false)
-
-    override fun initSwipeRefreshLayout() = with(swipe_refresh_layout_top_list) {
-        setProgressViewEndTarget(true, 400)
-        setOnRefreshListener(this@TopListFragment)
+    override fun onChangeWatchStateError() {
+        Toast.makeText(context, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
+        presenter.updateModel(viewModel.tvShowList.map { it.tvShow!! })
     }
+
+    // On activity reenter and on changed watch tv show state needs to update view model
+    override fun observeActivityReenter() {
+        (activity as MainFeedActivity).onActivityReenterSubject.subscribe({
+            if (it == STATE_CHANGED)
+                viewModel.tvShowList.let { presenter.updateModel(viewModel.tvShowList.map { it.tvShow!! }) }
+            presenter.updateUserRuntime()
+        })
+    }
+
+    override fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long) =
+            alerter_top_list.show(oldUserRuntime, newRuntime)
 
     override fun observeDragDrawer() {
         (activity as MainFeedActivity).navigationDrawer.onDrag()?.subscribe({ presenter.onDrawerDrag(it) })
     }
 
-    override fun animateDrawerHamburgerArrow(progress: Float) {
-        image_view_tv_show_details_ic_back_arrow.setProgress(progress)
+    override fun animateDrawerHamburgerArrow(progress: Float) = image_view_top_list_ic_back_arrow.setProgress(progress)
+
+    override fun initSwipeRefreshLayout() = with(swipe_refresh_layout_top_list) {
+        setProgressViewEndTarget(true, 400)
+        setOnRefreshListener(this@TopListFragment)
     }
 
     override fun initRecyclerAdapter() {
@@ -135,7 +160,7 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
             layoutManager = linearLayout
             addOnScrollListener(OnScrollHideBottomNavigationListener((activity as MainFeedActivity).navigation_bottom_layout))
             addOnScrollListener(OnScrollHideFabButtonListener((activity as MainFeedActivity).fab_button_main_feed_search))
-            // When list scroll to end presenter loadOrRetainModel next page of most popular
+            // When scroll to end of list presenter load next page of most popular
             addOnScrollListener(InfiniteScrollListener({ presenter.requestTopList(++viewModel.page, false) },
                     linearLayout))
             setRecyclerViewPadding(insetPaddingTop = false)

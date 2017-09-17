@@ -4,11 +4,11 @@ import com.nhaarman.mockito_kotlin.mock
 import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
-import pl.hypeapp.dataproviders.entity.SeasonEntity
+import pl.hypeapp.dataproviders.entity.api.SeasonEntity
 
 class SeasonEntityMapperTest {
 
-    private lateinit var seasonEnityMapper: SeasonEntityMapper
+    private lateinit var seasonEntityMapper: SeasonEntityMapper
 
     private val episodeEntityMapper: EpisodeEntityMapper = mock()
 
@@ -16,12 +16,12 @@ class SeasonEntityMapperTest {
 
     @Before
     fun setUp() {
-        seasonEnityMapper = SeasonEntityMapper(episodeEntityMapper)
+        seasonEntityMapper = SeasonEntityMapper(episodeEntityMapper)
     }
 
     @Test
     fun `should transform entity to model`() {
-        val model = seasonEnityMapper.transform(entity)
+        val model = seasonEntityMapper.transform(entity)
 
         model?.episodes `should equal` entity.episodes
         model?.seasonNumber `should equal` entity.seasonNumber

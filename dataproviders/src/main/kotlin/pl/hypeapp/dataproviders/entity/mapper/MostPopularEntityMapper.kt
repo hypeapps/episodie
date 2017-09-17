@@ -1,6 +1,6 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import pl.hypeapp.dataproviders.entity.MostPopularEntity
+import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
 import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.domain.model.PageableRequest
 import javax.inject.Inject

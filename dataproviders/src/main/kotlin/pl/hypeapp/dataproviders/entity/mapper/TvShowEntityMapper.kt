@@ -1,6 +1,6 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import pl.hypeapp.dataproviders.entity.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.TvShowEntity
 import pl.hypeapp.domain.model.TvShowModel
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,6 +15,7 @@ class TvShowEntityMapper @Inject constructor() : EntityMapper<TvShowModel, TvSho
                     name = entity?.name,
                     episodeRuntime = entity?.episodeRuntime,
                     fullRuntime = entity?.fullRuntime,
+                    episodeOrder = entity?.episodeOrder,
                     premiered = entity?.premiered,
                     summary = entity?.summary,
                     imageMedium = entity?.imageMedium,
