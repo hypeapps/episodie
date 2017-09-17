@@ -11,7 +11,6 @@ import pl.hypeapp.domain.usecase.mapwatched.SeasonWatchStateIntegrityUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageEpisodeWatchStateUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageSeasonsWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEpisodesUseCase,
@@ -71,8 +70,6 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
                     SeasonWatchStateIntegrityUseCase.Params.createParams(allSeasonsModel!!))
         }
     }
-
-    val log: Logger = Logger.getLogger("Seasons")
 
     inner class SeasonsObserver : DefaultSingleObserver<AllSeasonsModel>() {
         override fun onSuccess(model: AllSeasonsModel) {
