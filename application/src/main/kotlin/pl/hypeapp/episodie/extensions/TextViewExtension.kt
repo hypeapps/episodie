@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.extensions
 
+import android.content.res.Resources
 import android.os.Build
 import android.text.Html
 import android.widget.TextView
@@ -19,25 +20,30 @@ fun TextView.setRuntime(runtime: Long?) {
 }
 
 fun TextView.setFullRuntime(runtime: Long?) {
+    this.text = getFullRuntimeFormatted(resources, runtime)
+}
+
+fun getFullRuntimeFormatted(resources: Resources, runtime: Long?): String {
     runtime?.let {
         val days: Long = TimeUnit.MINUTES.toDays(it)
         val hours = TimeUnit.MINUTES.toHours((it - TimeUnit.DAYS.toMinutes(days)))
         val minutes = TimeUnit.MINUTES.toMinutes(it - TimeUnit.HOURS.toMinutes(hours) - TimeUnit.DAYS.toMinutes(days))
         val minutesFormatted: String = if (minutes < 10) "0$minutes" else minutes.toString()
-        if (isUpToOneHour(it)) {
-            this.text = String.format(resources.getString(R.string.time_unit_format_minutes), it)
+        return if (isUpToOneHour(it)) {
+            String.format(resources.getString(R.string.time_unit_format_minutes), it)
         } else if (isAtLeastOneDay(it)) {
-            this.text = if (isMinutesZerosOnly(minutesFormatted))
+            if (isMinutesZerosOnly(minutesFormatted))
                 String.format(resources.getString(R.string.time_unit_format_days_hours), days, hours)
             else
                 String.format(resources.getString(R.string.time_unit_format_full), days, hours, minutesFormatted)
         } else {
-            this.text = if (isMinutesZerosOnly(minutesFormatted))
+            if (isMinutesZerosOnly(minutesFormatted))
                 String.format(resources.getString(R.string.time_unit_format_hours), hours)
             else
                 String.format(resources.getString(R.string.time_unit_format_hours_minutes), hours, minutesFormatted)
         }
     }
+    return ""
 }
 
 @SuppressWarnings("deprecation")
