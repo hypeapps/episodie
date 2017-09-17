@@ -76,7 +76,14 @@ class MostPopularViewModelTest {
                 imageOriginal = "http://fakeOriginal.jpg",
                 imdbId = "tt2222",
                 name = "example show",
-                premiered = "2017-11-11"
+                premiered = "2017-11-11",
+                genre = "Drama",
+                watchState = 0,
+                summary = "",
+                episodeOrder = 10,
+                officialSite = "official site",
+                network = "HBO",
+                status = "running"
         )), PageableRequest(page = 2, size = 15))
         return tvShowModel
     }
