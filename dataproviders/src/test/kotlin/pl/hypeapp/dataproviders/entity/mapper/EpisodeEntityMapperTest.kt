@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.mock
 import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
-import pl.hypeapp.dataproviders.entity.EpisodeEntity
+import pl.hypeapp.dataproviders.entity.api.EpisodeEntity
 
 class EpisodeEntityMapperTest {
 
