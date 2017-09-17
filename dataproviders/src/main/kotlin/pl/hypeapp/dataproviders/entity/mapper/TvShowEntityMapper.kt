@@ -1,6 +1,6 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import pl.hypeapp.dataproviders.entity.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.TvShowEntity
 import pl.hypeapp.domain.model.TvShowModel
 import javax.inject.Inject
 import javax.inject.Singleton
