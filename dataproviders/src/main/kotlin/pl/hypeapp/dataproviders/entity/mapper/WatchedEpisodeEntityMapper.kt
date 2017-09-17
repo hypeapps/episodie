@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class WatchedEpisodeModelMapper @Inject constructor() : EntityMapper<WatchedEpisodeEntity, EpisodeModel>() {
+class WatchedEpisodeEntityMapper @Inject constructor() : EntityMapper<WatchedEpisodeEntity, EpisodeModel>() {
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun transform(model: EpisodeModel?): WatchedEpisodeEntity {

@@ -1,6 +1,6 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import pl.hypeapp.dataproviders.entity.TopListEntity
+import pl.hypeapp.dataproviders.entity.api.TopListEntity
 import pl.hypeapp.domain.model.PageableRequest
 import pl.hypeapp.domain.model.TopListModel
 import javax.inject.Inject
