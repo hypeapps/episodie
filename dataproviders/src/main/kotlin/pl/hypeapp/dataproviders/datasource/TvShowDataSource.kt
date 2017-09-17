@@ -7,10 +7,10 @@ import io.rx_cache2.EvictDynamicKey
 import io.rx_cache2.EvictDynamicKeyGroup
 import pl.hypeapp.dataproviders.cache.CacheProviders
 import pl.hypeapp.dataproviders.cache.EvictCache
-import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
-import pl.hypeapp.dataproviders.entity.MostPopularEntity
-import pl.hypeapp.dataproviders.entity.TopListEntity
-import pl.hypeapp.dataproviders.entity.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
+import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
+import pl.hypeapp.dataproviders.entity.api.TopListEntity
+import pl.hypeapp.dataproviders.entity.api.TvShowEntity
 import pl.hypeapp.dataproviders.service.api.ApiService
 import pl.hypeapp.domain.model.PageableRequest
 import javax.inject.Inject

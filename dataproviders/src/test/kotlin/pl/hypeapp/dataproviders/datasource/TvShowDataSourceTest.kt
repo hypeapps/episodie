@@ -10,15 +10,16 @@ import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.cache.CacheProviders
 import pl.hypeapp.dataproviders.cache.EvictCache
-import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
-import pl.hypeapp.dataproviders.entity.MostPopularEntity
-import pl.hypeapp.dataproviders.entity.TopListEntity
+import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
+import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
+import pl.hypeapp.dataproviders.entity.api.TopListEntity
 import pl.hypeapp.dataproviders.service.api.ApiService
 import pl.hypeapp.domain.model.PageableRequest
 
-class DataSourceTest {
 
-    private lateinit var dataSource: DataSource
+class TvShowDataSourceTest {
+
+    private lateinit var tvShowDataSource: TvShowDataSource
 
     private val apiService: ApiService = mock()
 
@@ -30,7 +31,7 @@ class DataSourceTest {
 
     @Before
     fun setUp() {
-        dataSource = DataSource(apiService, cacheProviders, evictCache)
+        tvShowDataSource = TvShowDataSource(apiService, cacheProviders, evictCache)
     }
 
     @Test
@@ -38,7 +39,7 @@ class DataSourceTest {
         val mostPopularEntity: Single<MostPopularEntity> = mock()
         given(apiService.getMostPopular(pageableRequest.page, pageableRequest.size)).willReturn(mostPopularEntity)
 
-        dataSource.getMostPopular(pageableRequest, false)
+        tvShowDataSource.getMostPopular(pageableRequest, false)
 
         verify(cacheProviders).getMostPopular(any(), any(), any())
         verify(apiService).getMostPopular(pageableRequest.page, pageableRequest.size)
@@ -46,14 +47,14 @@ class DataSourceTest {
 
     @Test
     fun `should evict most popular`() {
-        dataSource.getMostPopular(pageableRequest, true)
+        tvShowDataSource.getMostPopular(pageableRequest, true)
 
         verify(evictCache).evictAllMatchingDynamicKey(any())
     }
 
     @Test
     fun `should not evict most popular`() {
-        dataSource.getMostPopular(pageableRequest, false)
+        tvShowDataSource.getMostPopular(pageableRequest, false)
 
         verifyZeroInteractions(evictCache)
     }
@@ -63,7 +64,7 @@ class DataSourceTest {
         val topListEntity: Single<TopListEntity> = mock()
         given(apiService.getTopList(pageableRequest.page, pageableRequest.size)).willReturn(topListEntity)
 
-        dataSource.getTopList(pageableRequest, false)
+        tvShowDataSource.getTopList(pageableRequest, false)
 
         verify(cacheProviders).getTopList(any(), any(), any())
         verify(apiService).getTopList(pageableRequest.page, pageableRequest.size)
@@ -71,14 +72,14 @@ class DataSourceTest {
 
     @Test
     fun `should evict top list`() {
-        dataSource.getTopList(pageableRequest, true)
+        tvShowDataSource.getTopList(pageableRequest, true)
 
         verify(evictCache).evictAllMatchingDynamicKey(any())
     }
 
     @Test
     fun `should not evict top list`() {
-        dataSource.getTopList(pageableRequest, false)
+        tvShowDataSource.getTopList(pageableRequest, false)
 
         verifyZeroInteractions(evictCache)
     }
@@ -89,7 +90,7 @@ class DataSourceTest {
         val tvShowId = "12"
         given(apiService.getAllSeasons(tvShowId)).willReturn(allSeasonsEntity)
 
-        dataSource.getAllSeasons(tvShowId, false)
+        tvShowDataSource.getAllSeasons(tvShowId, false)
 
         verify(cacheProviders).getAllSeasons(any(), any(), any())
         verify(apiService).getAllSeasons(tvShowId)

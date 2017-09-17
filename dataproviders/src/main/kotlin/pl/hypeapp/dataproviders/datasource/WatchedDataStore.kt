@@ -18,12 +18,12 @@ interface WatchedDataStore {
 
     fun deleteSeasonFromWatched(seasonId: String)
 
-    fun getWatchedEpisodesCountById(tvShowId: String): WatchedEpisodesCountEntity
+    fun getWatchedEpisodesCountByTvShowId(tvShowId: String): WatchedEpisodesCountEntity
 
     fun getWatchedEpisodesCountByTvShowIds(tvShowIds: List<String>): List<WatchedEpisodesCountEntity>
 
     fun getWatchedEpisodesCountBySeasonIds(seasonsIds: List<String>): List<WatchedSeasonCountEntity>
 
-    fun getWatchEpisodesIdsBySeasonId(seasonId: String): List<String>
+    fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String>
 
 }
