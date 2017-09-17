@@ -2,7 +2,7 @@ package pl.hypeapp.dataproviders.repository
 
 import io.reactivex.Completable
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.WatchedEpisodeModelMapper
+import pl.hypeapp.dataproviders.entity.mapper.WatchedEpisodeEntityMapper
 import pl.hypeapp.dataproviders.entity.mapper.WatchedEpisodesCountModelMapper
 import pl.hypeapp.dataproviders.entity.mapper.WatchedSeasonCountModelMapper
 import pl.hypeapp.dataproviders.entity.room.WatchedEpisodesCountEntity
@@ -13,7 +13,7 @@ import pl.hypeapp.domain.repository.WatchedRepository
 import javax.inject.Inject
 
 class WatchedDataRepository @Inject constructor(private val dataFactory: DataFactory,
-                                                private val watchedEpisodeModelMapper: WatchedEpisodeModelMapper,
+                                                private val watchedEpisodeEntityMapper: WatchedEpisodeEntityMapper,
                                                 private val watchedEpisodesCountModelMapper: WatchedEpisodesCountModelMapper,
                                                 private val watchedSeasonCountModelMapper: WatchedSeasonCountModelMapper)
     : WatchedRepository {
@@ -22,7 +22,7 @@ class WatchedDataRepository @Inject constructor(private val dataFactory: DataFac
         return Completable.fromAction {
             dataFactory
                     .createWatchedDataSource()
-                    .addEpisodeToWatched(watchedEpisodeModelMapper.transform(episodeModel))
+                    .addEpisodeToWatched(watchedEpisodeEntityMapper.transform(episodeModel))
         }
     }
 
@@ -30,7 +30,7 @@ class WatchedDataRepository @Inject constructor(private val dataFactory: DataFac
         return Completable.fromAction {
             dataFactory
                     .createWatchedDataSource()
-                    .addTvShowToWatched(watchedEpisodeModelMapper.transform(episodeModels))
+                    .addTvShowToWatched(watchedEpisodeEntityMapper.transform(episodeModels))
         }
     }
 
@@ -38,7 +38,7 @@ class WatchedDataRepository @Inject constructor(private val dataFactory: DataFac
         return Completable.fromAction {
             dataFactory
                     .createWatchedDataSource()
-                    .addSeasonToWatched(watchedEpisodeModelMapper.transform(seasonsEpisodes))
+                    .addSeasonToWatched(watchedEpisodeEntityMapper.transform(seasonsEpisodes))
         }
     }
 
@@ -69,14 +69,14 @@ class WatchedDataRepository @Inject constructor(private val dataFactory: DataFac
     override fun getWatchedEpisodesCountById(tvShowId: String): WatchedEpisodesCountModel {
         val watchedEpisodesCountEntity: WatchedEpisodesCountEntity = dataFactory
                 .createWatchedDataSource()
-                .getWatchedEpisodesCountById(tvShowId)
+                .getWatchedEpisodesCountByTvShowId(tvShowId)
         return watchedEpisodesCountModelMapper.transform(watchedEpisodesCountEntity)
     }
 
     override fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String> {
         return dataFactory
                 .createWatchedDataSource()
-                .getWatchEpisodesIdsBySeasonId(seasonId)
+                .getWatchedEpisodesIdsBySeasonId(seasonId)
     }
 
     override fun getWatchedEpisodesCountByTvShowIds(tvShowsIds: List<String>): List<WatchedEpisodesCountModel> {
