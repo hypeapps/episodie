@@ -4,17 +4,16 @@ import android.content.Context
 import dagger.Component
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.repository.AllSeasonsRepository
-import pl.hypeapp.domain.repository.MostPopularRepository
-import pl.hypeapp.domain.repository.TopListRepository
+import pl.hypeapp.domain.repository.*
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.di.module.ApiModule
 import pl.hypeapp.episodie.di.module.AppModule
 import pl.hypeapp.episodie.di.module.CacheModule
+import pl.hypeapp.episodie.di.module.DatabaseModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class, ApiModule::class, CacheModule::class))
+@Component(modules = arrayOf(AppModule::class, ApiModule::class, CacheModule::class, DatabaseModule::class))
 interface AppComponent {
 
     fun inject(app: App)
@@ -32,5 +31,9 @@ interface AppComponent {
     fun topListRepository(): TopListRepository
 
     fun allSeasonsRepository(): AllSeasonsRepository
+
+    fun addToWatchedRepository(): WatchedRepository
+
+    fun runtimeRepository(): RuntimeRepository
 
 }
