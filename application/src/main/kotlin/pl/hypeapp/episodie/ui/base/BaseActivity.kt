@@ -1,5 +1,7 @@
 package pl.hypeapp.episodie.ui.base
 
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LifecycleRegistryOwner
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes

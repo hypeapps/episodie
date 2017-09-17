@@ -11,6 +11,7 @@ import com.github.moduth.blockcanary.BlockCanaryContext
 import com.github.moduth.blockcanary.internal.BlockInfo
 import com.squareup.leakcanary.LeakCanary
 import pl.hypeapp.episodie.di.components.AppComponent
+import pl.hypeapp.episodie.di.components.DaggerAppComponent
 import pl.hypeapp.episodie.di.module.ApiModule
 import pl.hypeapp.episodie.di.module.AppModule
 import pl.hypeapp.episodie.di.module.CacheModule
