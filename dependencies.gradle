@@ -10,7 +10,7 @@ ext {
 
     /* build plugins versions */
     build = [
-            gradle: "3.0.0-beta5",
+            gradle: "3.0.0-beta6",
             kotlin: "1.1.3-2",
     ]
 
@@ -240,8 +240,6 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
             [configuration: "testImplementation", dependency: testLibs.kluent],
-            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
-             options      : supportAnnotationsExclude],
             // modules
             [configuration: "api", dependency: project(modules.domain)]
     ]
@@ -251,7 +249,6 @@ ext {
             android_application: 'com.android.application',
             kotlin_android     : 'kotlin-android',
             kotlin             : 'kotlin',
-            kotlin_exten       : 'kotlin-android-extensions'
     ]
 
     applicationModulePlugins = [plugins.android_application, plugins.kotlin_android]
