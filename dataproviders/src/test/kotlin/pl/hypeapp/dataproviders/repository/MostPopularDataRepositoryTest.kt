@@ -7,8 +7,8 @@ import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.datasource.DataStore
-import pl.hypeapp.dataproviders.entity.MostPopularEntity
+import pl.hypeapp.dataproviders.datasource.TvShowDataStore
+import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
 import pl.hypeapp.dataproviders.entity.mapper.MostPopularEntityMapper
 import pl.hypeapp.domain.model.PageableRequest
 
@@ -20,12 +20,12 @@ class MostPopularDataRepositoryTest {
 
     private val mostPopularEntityMapper: MostPopularEntityMapper = mock()
 
-    private val dataStore: DataStore = mock()
+    private val tvShowDataStore: TvShowDataStore = mock()
 
     @Before
     fun setUp() {
         mostPopularDataRepository = MostPopularDataRepository(dataFactory, mostPopularEntityMapper)
-        given(dataFactory.createTvShowDataSource()).willReturn(dataStore)
+        given(dataFactory.createTvShowDataSource()).willReturn(tvShowDataStore)
     }
 
     @Test
@@ -33,12 +33,12 @@ class MostPopularDataRepositoryTest {
         val mostPopularEntity: MostPopularEntity = mock()
         val pageableRequest: PageableRequest = mock()
         val update = false
-        given(dataStore.getMostPopular(pageableRequest, update)).willReturn(Single.just(mostPopularEntity))
+        given(tvShowDataStore.getMostPopular(pageableRequest, update)).willReturn(Single.just(mostPopularEntity))
 
         mostPopularDataRepository.getMostPopular(pageableRequest, update)
 
         verify(dataFactory).createTvShowDataSource()
-        verify(dataStore).getMostPopular(pageableRequest, update)
+        verify(tvShowDataStore).getMostPopular(pageableRequest, update)
     }
 
 }
