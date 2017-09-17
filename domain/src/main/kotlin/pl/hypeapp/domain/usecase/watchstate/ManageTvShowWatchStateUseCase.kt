@@ -6,8 +6,8 @@ import pl.hypeapp.domain.executor.ThreadExecutor
 import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.EpisodeModel
 import pl.hypeapp.domain.repository.WatchedRepository
+import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.AbsRxCompletableUseCase
-import pl.hypeapp.domain.usecase.seasons.AllEpisodesUseCase
 import javax.inject.Inject
 
 class ManageTvShowWatchStateUseCase @Inject constructor(threadExecutor: ThreadExecutor,

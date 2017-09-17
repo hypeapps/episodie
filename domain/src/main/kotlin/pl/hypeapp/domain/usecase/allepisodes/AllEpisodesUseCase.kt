@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.usecase.seasons
+package pl.hypeapp.domain.usecase.allepisodes
 
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
