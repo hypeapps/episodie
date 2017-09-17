@@ -4,7 +4,7 @@ import org.amshove.kluent.`should equal`
 import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
-import pl.hypeapp.dataproviders.entity.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.TvShowEntity
 
 class TvShowEntityMapperTest {
 

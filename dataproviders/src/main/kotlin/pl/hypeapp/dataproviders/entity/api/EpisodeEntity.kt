@@ -1,4 +1,4 @@
-package pl.hypeapp.dataproviders.entity
+package pl.hypeapp.dataproviders.entity.api
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
