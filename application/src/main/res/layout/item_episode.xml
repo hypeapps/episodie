@@ -21,8 +21,7 @@
         android:id="@+id/image_view_item_episode_screen"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/place" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/text_view_item_episode_number"
