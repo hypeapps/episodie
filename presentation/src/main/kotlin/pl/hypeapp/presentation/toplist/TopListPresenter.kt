@@ -6,6 +6,7 @@ import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateIntegrityUseCase
+import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
 import pl.hypeapp.domain.usecase.top.TopListUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
@@ -14,8 +15,13 @@ import javax.inject.Inject
 
 class TopListPresenter @Inject constructor(private val topListUseCase: TopListUseCase,
                                            private val manageTvShowWatchStateUseCase: ManageTvShowWatchStateUseCase,
-                                           private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase)
+                                           private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase,
+                                           private val userRuntimeUseCase: UserRuntimeUseCase)
     : Presenter<TopListView>() {
+
+    private var userRuntime: Long = 0
+
+    val log: Logger = Logger.getAnonymousLogger()
 
     private companion object {
         val SIZE = 10
@@ -30,6 +36,7 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
         this.view?.observeDragDrawer()
         this.view?.observeActivityReenter()
         this.view?.loadViewModel()
+        this.updateUserRuntime()
     }
 
     override fun onDetachView() {
@@ -37,11 +44,10 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
         topListUseCase.dispose()
         tvShowWatchStateIntegrityUseCase.dispose()
         manageTvShowWatchStateUseCase.dispose()
+        userRuntimeUseCase.dispose()
     }
 
-    fun onDrawerDrag(dragProgress: Float) {
-        this.view?.animateDrawerHamburgerArrow(dragProgress)
-    }
+    fun onDrawerDrag(dragProgress: Float) = this.view?.animateDrawerHamburgerArrow(dragProgress)
 
     fun requestTopList(page: Int, update: Boolean) {
         if (page <= PAGE_LIMIT)
@@ -60,6 +66,10 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
                 ManageTvShowWatchStateUseCase.Params.createParams(id!!, addToWatched))
     }
 
+    fun updateUserRuntime() {
+        userRuntimeUseCase.execute(UserRuntimeObserver(), null)
+    }
+
     inner class TopListObserver : DefaultSingleObserver<TopListModel>() {
         override fun onSuccess(model: TopListModel) {
             this@TopListPresenter.view?.populateRecyclerList(model)
@@ -70,8 +80,6 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
         }
     }
 
-    val log: Logger = Logger.getAnonymousLogger()
-
     inner class UpdateTopListObserver : DefaultSingleObserver<List<TvShowModel>>() {
         override fun onSuccess(model: List<TvShowModel>) {
             this@TopListPresenter.view?.updateRecyclerList(model)
@@ -80,11 +88,25 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
 
     inner class ManageTvShowWatchStateObserver : DefaultCompletableObserver() {
         override fun onComplete() {
-
+            // Get updated runtime and execute UserRuntimeAfterChangeObserver
+            this@TopListPresenter.userRuntimeUseCase.execute(UserRuntimeAfterChangeObserver(), null)
         }
 
         override fun onError(e: Throwable) {
             this@TopListPresenter.view?.onChangeWatchStateError()
+        }
+    }
+
+    inner class UserRuntimeAfterChangeObserver : DefaultSingleObserver<Long>() {
+        override fun onSuccess(model: Long) {
+            this@TopListPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = model)
+            this@TopListPresenter.userRuntime = model
+        }
+    }
+
+    inner class UserRuntimeObserver : DefaultSingleObserver<Long>() {
+        override fun onSuccess(model: Long) {
+            this@TopListPresenter.userRuntime = model
         }
     }
 

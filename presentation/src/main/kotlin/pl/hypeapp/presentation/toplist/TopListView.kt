@@ -28,4 +28,6 @@ interface TopListView : View {
 
     fun onChangeWatchStateError()
 
+    fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long)
+
 }

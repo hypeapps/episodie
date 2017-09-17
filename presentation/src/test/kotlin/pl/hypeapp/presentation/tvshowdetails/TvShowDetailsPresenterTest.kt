@@ -1,13 +1,14 @@
 package pl.hypeapp.presentation.tvshowdetails
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyZeroInteractions
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateIntegrityUseCase
+import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
+import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
 
 class TvShowDetailsPresenterTest {
 
@@ -15,20 +16,28 @@ class TvShowDetailsPresenterTest {
 
     private val view: TvShowDetailsView = mock()
 
+    private val manageTvShowWatchStateUseCase: ManageTvShowWatchStateUseCase = mock()
+
+    private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase = mock()
+
+    private val userRuntimeUseCase: UserRuntimeUseCase = mock()
+
     @Before
     fun setUp() {
-        presenter = TvShowDetailsPresenter()
+        presenter = TvShowDetailsPresenter(manageTvShowWatchStateUseCase,
+                tvShowWatchStateIntegrityUseCase,
+                userRuntimeUseCase)
     }
 
     @Test
     fun `should get model`() {
-        `when`(view.getModel()).thenReturn(fakeModel)
+        `when`(view.model).thenReturn(fakeModel)
 
         presenter.onAttachView(view)
 
-        verify(view).getModel()
+        verify(view, times(2)).model
 
-        val model = view.getModel()
+        val model = view.model
         assertEquals(model, fakeModel)
     }
 
@@ -61,7 +70,7 @@ class TvShowDetailsPresenterTest {
 
     @Test
     fun `should fill tv show details info `() {
-        `when`(view.getModel()).thenReturn(fakeModel)
+        `when`(view.model).thenReturn(fakeModel)
 
         presenter.onAttachView(view)
 
@@ -75,6 +84,7 @@ class TvShowDetailsPresenterTest {
 
     @Test
     fun `should apply navigation bar options`() {
+        `when`(view.model).thenReturn(fakeModel)
         presenter.onAttachView(view)
 
         verify(view).setNavigationBarOptions()
@@ -82,12 +92,23 @@ class TvShowDetailsPresenterTest {
 
     @Test
     fun `should init pager adapter`() {
-        `when`(view.getModel()).thenReturn(fakeModel)
+        `when`(view.model).thenReturn(fakeModel)
 
         presenter.onAttachView(view)
 
         verify(view).initPagerAdapter(fakeModel)
     }
+
+    @Test
+    fun `should execute watch state integrity use case`() {
+        `when`(view.model).thenReturn(fakeModel)
+
+        presenter.onAttachView(view)
+        presenter.updateWatchState()
+
+        verify(tvShowWatchStateIntegrityUseCase, times(2)).execute(any(), any())
+    }
+
 
     private var fakeModel: TvShowModel = TvShowModel(
             id = "t23",
