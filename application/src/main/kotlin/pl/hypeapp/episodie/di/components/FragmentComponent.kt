@@ -5,7 +5,7 @@ import pl.hypeapp.episodie.di.scope.PerFragment
 import pl.hypeapp.episodie.ui.features.mostpopular.MostPopularFragment
 import pl.hypeapp.episodie.ui.features.seasons.SeasonsFragment
 import pl.hypeapp.episodie.ui.features.top.TopListFragment
-import pl.hypeapp.episodie.ui.features.tvshowinfo.TvShowInfoFragment
+import pl.hypeapp.episodie.ui.features.tvshowsummary.TvShowSummaryFragment
 
 @PerFragment
 @Component(dependencies = arrayOf(AppComponent::class))
@@ -15,7 +15,7 @@ interface FragmentComponent {
 
     fun inject(topListFragment: TopListFragment)
 
-    fun inject(tvShowInfoFragment: TvShowInfoFragment)
+    fun inject(tvShowSummaryFragment: TvShowSummaryFragment)
 
     fun inject(seasonsFragment: SeasonsFragment)
 
