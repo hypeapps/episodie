@@ -18,7 +18,7 @@ interface WatchedEpisodeDao {
     fun insertWatchedEpisodes(watchedEpisodeEntities: List<WatchedEpisodeEntity>)
 
     @Query("SELECT tv_show_id, COUNT(*) as count FROM watched_episodes WHERE tv_show_id = :arg0")
-    fun getWatchedEpisodesCountById(tvShowId: String): WatchedEpisodesCountEntity
+    fun getWatchedEpisodesCountByTvShowId(tvShowId: String): WatchedEpisodesCountEntity
 
     @Query("SELECT tv_show_id, COUNT(*) AS count FROM watched_episodes WHERE tv_show_id IN(:arg0) GROUP BY tv_show_id")
     fun getWatchedEpisodesCountByTvShowIds(tvShowIds: List<String>): List<WatchedEpisodesCountEntity>
@@ -27,7 +27,7 @@ interface WatchedEpisodeDao {
     fun getWatchedEpisodesCountBySeasonIds(seasonIds: List<String>): List<WatchedSeasonCountEntity>
 
     @Query("SELECT episode_id FROM watched_episodes WHERE season_id = :arg0")
-    fun getWatchEpisodesIdsBySeasonId(seasonId: String): List<String>
+    fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String>
 
     @Query("DELETE FROM watched_episodes WHERE tv_show_id = :arg0")
     fun deleteWatchedTvShow(tvShowId: String)

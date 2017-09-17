@@ -11,6 +11,8 @@ abstract class RoomService : RoomDatabase() {
 
     abstract val watchedEpisodeDao: WatchedEpisodeDao
 
+    abstract val runtimeDao: RuntimeDao
+
     companion object {
 
         @Volatile private var INSTANCE: RoomService? = null
