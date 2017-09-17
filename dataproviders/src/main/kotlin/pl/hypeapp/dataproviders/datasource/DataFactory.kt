@@ -17,4 +17,6 @@ class DataFactory @Inject constructor(private val apiService: ApiService,
 
     fun createWatchedDataSource(): WatchedDataStore = WatchedDataSource(roomService)
 
+    fun createRuntimeDataSource(): RuntimeDataStore = RuntimeDataSource(roomService)
+
 }

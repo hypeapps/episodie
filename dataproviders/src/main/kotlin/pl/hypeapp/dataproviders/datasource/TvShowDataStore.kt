@@ -1,10 +1,10 @@
 package pl.hypeapp.dataproviders.datasource
 
 import io.reactivex.Single
-import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
-import pl.hypeapp.dataproviders.entity.MostPopularEntity
-import pl.hypeapp.dataproviders.entity.TopListEntity
-import pl.hypeapp.dataproviders.entity.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
+import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
+import pl.hypeapp.dataproviders.entity.api.TopListEntity
+import pl.hypeapp.dataproviders.entity.api.TvShowEntity
 import pl.hypeapp.domain.model.PageableRequest
 
 interface TvShowDataStore {

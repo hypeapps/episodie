@@ -8,6 +8,7 @@ import org.junit.Test
 import pl.hypeapp.dataproviders.cache.CacheProviders
 import pl.hypeapp.dataproviders.cache.EvictCache
 import pl.hypeapp.dataproviders.service.api.ApiService
+import pl.hypeapp.dataproviders.service.room.RoomService
 
 class DataFactoryTest {
 
@@ -19,16 +20,32 @@ class DataFactoryTest {
 
     private val evictCache: EvictCache = mock()
 
+    private val roomService: RoomService = mock()
+
     @Before
     fun setUp() {
-        dataFactory = DataFactory(apiService, cacheProviders, evictCache)
+        dataFactory = DataFactory(apiService, cacheProviders, evictCache, roomService)
     }
 
     @Test
     fun `should create tv show data store`() {
-        val dataStore: DataStore = dataFactory.createTvShowDataSource()
-        dataStore `should not be` null
-        dataStore `should be instance of` DataStore::class.java
+        val tvShowDataStore: TvShowDataStore = dataFactory.createTvShowDataSource()
+        tvShowDataStore `should not be` null
+        tvShowDataStore `should be instance of` TvShowDataStore::class.java
+    }
+
+    @Test
+    fun `should create watched data store`() {
+        val watchedDataStore: WatchedDataStore = dataFactory.createWatchedDataSource()
+        watchedDataStore `should not be` null
+        watchedDataStore `should be instance of` WatchedDataStore::class.java
+    }
+
+    @Test
+    fun `should create runtime data store`() {
+        val runtimeDataStore: RuntimeDataStore = dataFactory.createRuntimeDataSource()
+        runtimeDataStore `should not be` null
+        runtimeDataStore `should be instance of` RuntimeDataStore::class.java
     }
 
 }

@@ -34,8 +34,8 @@ class WatchedDataSource @Inject constructor(private val roomService: RoomService
         roomService.watchedEpisodeDao.deleteWatchedSeason(seasonId)
     }
 
-    override fun getWatchedEpisodesCountById(tvShowId: String): WatchedEpisodesCountEntity {
-        return roomService.watchedEpisodeDao.getWatchedEpisodesCountById(tvShowId)
+    override fun getWatchedEpisodesCountByTvShowId(tvShowId: String): WatchedEpisodesCountEntity {
+        return roomService.watchedEpisodeDao.getWatchedEpisodesCountByTvShowId(tvShowId)
     }
 
     override fun getWatchedEpisodesCountByTvShowIds(tvShowIds: List<String>): List<WatchedEpisodesCountEntity> {
@@ -46,8 +46,8 @@ class WatchedDataSource @Inject constructor(private val roomService: RoomService
         return roomService.watchedEpisodeDao.getWatchedEpisodesCountBySeasonIds(seasonsIds)
     }
 
-    override fun getWatchEpisodesIdsBySeasonId(seasonId: String): List<String> {
-        return roomService.watchedEpisodeDao.getWatchEpisodesIdsBySeasonId(seasonId)
+    override fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String> {
+        return roomService.watchedEpisodeDao.getWatchedEpisodesIdsBySeasonId(seasonId)
     }
 
     private inline fun executeQuery(query: () -> Unit) {
