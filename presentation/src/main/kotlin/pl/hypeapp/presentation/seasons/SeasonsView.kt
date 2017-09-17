@@ -27,4 +27,5 @@ interface SeasonsView : View {
 
     fun observeWatchStateInParentActivity()
 
+    fun startLoadingAnimation()
 }

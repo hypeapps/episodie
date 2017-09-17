@@ -35,8 +35,11 @@ interface TvShowDetailsView : View {
 
     fun onBackArrowPressed()
 
-    fun onChangeWatchStateError()
+    fun onWatchStateChangeError()
 
     fun hideFabButton()
-    fun onChangedWatchState()
+
+    fun onWatchStateChanged()
+
+    fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long)
 }

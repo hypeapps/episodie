@@ -4,7 +4,6 @@ import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.mostpopular.MostPopularUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class MostPopularPresenter @Inject constructor(val useCase: MostPopularUseCase) : Presenter<MostPopularView>() {
@@ -37,8 +36,6 @@ class MostPopularPresenter @Inject constructor(val useCase: MostPopularUseCase) 
         requestMostPopular(0, true)
     }
 
-    val log: Logger = Logger.getAnonymousLogger()
-
     inner class MostPopularObserver : DefaultSingleObserver<MostPopularModel>() {
 
         override fun onSuccess(model: MostPopularModel) {
@@ -47,10 +44,8 @@ class MostPopularPresenter @Inject constructor(val useCase: MostPopularUseCase) 
         }
 
         override fun onError(error: Throwable) {
-            log.info(error.printStackTrace().toString())
             this@MostPopularPresenter.view?.showError()
         }
     }
-
 
 }

@@ -4,10 +4,10 @@ import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.EpisodeModel
 import pl.hypeapp.domain.model.SeasonModel
 import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.mapwatched.SeasonWatchStateIntegrityUseCase
-import pl.hypeapp.domain.usecase.seasons.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageEpisodeWatchStateUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageSeasonsWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
@@ -24,10 +24,7 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
 
     override fun onAttachView(view: SeasonsView) {
         super.onAttachView(view)
-        this.view?.initRecyclerAdapter()
-        this.view?.initSwipeToRefresh()
         this.view?.showLoading()
-        this.view?.observeWatchStateInParentActivity()
     }
 
     override fun onDetachView() {
@@ -41,12 +38,16 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
     fun onViewShown() {
         if (!isViewShown) {
             isViewShown = true
+            this.view?.initRecyclerAdapter()
+            this.view?.initSwipeToRefresh()
+            this.view?.observeWatchStateInParentActivity()
             this.view?.loadViewModel()
         }
     }
 
     fun requestAllSeasons(tvShowId: String, update: Boolean) {
         this.view?.showLoading()
+        this.view?.startLoadingAnimation()
         allEpisodesUseCase.execute(SeasonsObserver(), AllEpisodesUseCase.Params.createQuery(tvShowId, update))
     }
 

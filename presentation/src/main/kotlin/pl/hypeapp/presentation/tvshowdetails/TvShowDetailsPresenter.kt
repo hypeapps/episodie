@@ -5,28 +5,33 @@ import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateIntegrityUseCase
+import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchStateUseCase: ManageTvShowWatchStateUseCase,
-                                                 private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase)
+                                                 private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase,
+                                                 private val userRuntimeUseCase: UserRuntimeUseCase)
     : Presenter<TvShowDetailsView>() {
+
+    private var userRuntime: Long = 0
 
     override fun onAttachView(view: TvShowDetailsView) {
         super.onAttachView(view)
         val model = this.view?.model
         this.view?.setNavigationBarOptions()
-        this.view?.initPagerAdapter(model)
         updateWatchState()
         filTvShowDetailsInfo(model)
+        this.view?.initPagerAdapter(model)
+        updateUserRuntime()
     }
 
     override fun onDetachView() {
         super.onDetachView()
         manageTvShowWatchStateUseCase.dispose()
         tvShowWatchStateIntegrityUseCase.dispose()
+        userRuntimeUseCase.dispose()
     }
 
     fun onPageSelected(position: Int) {
@@ -35,9 +40,7 @@ class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchSt
         }
     }
 
-    fun onPagerAdapterInit() {
-        view?.startFabButtonAnimation()
-    }
+    fun onPagerAdapterInit() = view?.startFabButtonAnimation()
 
     fun onChangeWatchedTvShowState() = with(this.view?.model!!) {
         val addToWatched: Boolean = watchState != WatchState.WATCHED
@@ -49,6 +52,15 @@ class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchSt
     fun updateWatchState() = with(this.view?.model!!) {
         tvShowWatchStateIntegrityUseCase.execute(TvShowWatchStateIntegrityObserver(),
                 TvShowWatchStateIntegrityUseCase.Params.createParams(listOf(this)))
+    }
+
+    fun showRuntimeNotification() {
+        // Get updated runtime and execute UserRuntimeAfterChangeObserver
+        userRuntimeUseCase.execute(UserRuntimeAfterChangeObserver(), null)
+    }
+
+    private fun updateUserRuntime() {
+        userRuntimeUseCase.execute(UserRuntimeObserver(), null)
     }
 
     private fun filTvShowDetailsInfo(tvShowModel: TvShowModel?) {
@@ -63,16 +75,15 @@ class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchSt
         }
     }
 
-    val logger: Logger = Logger.getLogger(this::class.java.toString())
-
     inner class ManageTvShowWatchStateObserver : DefaultCompletableObserver() {
         override fun onComplete() {
-            this@TvShowDetailsPresenter.view?.onChangedWatchState()
+            this@TvShowDetailsPresenter.view?.onWatchStateChanged()
+            this@TvShowDetailsPresenter.showRuntimeNotification()
         }
 
         override fun onError(e: Throwable) {
             this@TvShowDetailsPresenter.updateWatchState()
-            this@TvShowDetailsPresenter.view?.onChangeWatchStateError()
+            this@TvShowDetailsPresenter.view?.onWatchStateChangeError()
         }
     }
 
@@ -80,6 +91,19 @@ class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchSt
         override fun onSuccess(model: List<TvShowModel>) {
             this@TvShowDetailsPresenter.view?.model?.watchState = model.first().watchState
             this@TvShowDetailsPresenter.view?.updateWatchState(model.first().watchState)
+        }
+    }
+
+    inner class UserRuntimeAfterChangeObserver : DefaultSingleObserver<Long>() {
+        override fun onSuccess(model: Long) {
+            this@TvShowDetailsPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = model)
+            this@TvShowDetailsPresenter.userRuntime = model
+        }
+    }
+
+    inner class UserRuntimeObserver : DefaultSingleObserver<Long>() {
+        override fun onSuccess(model: Long) {
+            this@TvShowDetailsPresenter.userRuntime = model
         }
     }
 
