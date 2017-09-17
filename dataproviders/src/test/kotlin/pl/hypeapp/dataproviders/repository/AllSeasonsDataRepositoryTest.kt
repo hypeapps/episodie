@@ -7,8 +7,8 @@ import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.datasource.DataStore
-import pl.hypeapp.dataproviders.entity.AllSeasonsEntity
+import pl.hypeapp.dataproviders.datasource.TvShowDataStore
+import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
 import pl.hypeapp.dataproviders.entity.mapper.AllSeasonsEntityMapper
 
 class AllSeasonsDataRepositoryTest {
@@ -19,12 +19,12 @@ class AllSeasonsDataRepositoryTest {
 
     private val allSeasonsEntityMapper: AllSeasonsEntityMapper = mock()
 
-    private val dataStore: DataStore = mock()
+    private val tvShowDataStore: TvShowDataStore = mock()
 
     @Before
     fun setUp() {
         dataRepository = AllSeasonsDataRepository(dataFactory, allSeasonsEntityMapper)
-        given(dataFactory.createTvShowDataSource()).willReturn(dataStore)
+        given(dataFactory.createTvShowDataSource()).willReturn(tvShowDataStore)
     }
 
     @Test
@@ -33,12 +33,12 @@ class AllSeasonsDataRepositoryTest {
         val single: Single<AllSeasonsEntity> = Single.just(allSeasonsEntity)
         val tvShowId = "12"
         val update = true
-        given(dataStore.getAllSeasons(tvShowId, update)).willReturn(single)
+        given(tvShowDataStore.getAllSeasons(tvShowId, update)).willReturn(single)
 
         dataRepository.getAllSeasons(tvShowId, update)
 
         verify(dataFactory).createTvShowDataSource()
-        verify(dataStore).getAllSeasons(tvShowId, update)
+        verify(tvShowDataStore).getAllSeasons(tvShowId, update)
     }
 
 }
