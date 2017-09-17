@@ -4,6 +4,7 @@ apply plugin: 'jacoco'
 rootProject.applicationModulePlugins.each {
     apply plugin: it
 }
+apply plugin: 'com.frogermcs.androiddevmetrics'
 
 android {
     def ext = rootProject.extensions.ext

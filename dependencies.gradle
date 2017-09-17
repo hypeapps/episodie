@@ -48,12 +48,15 @@ ext {
     def rxCacheVersion = '1.8.0-2.x'
     def jolyglotGsonVersion = '0.0.3'
     def androidAnimationsVersion = '2.2@aar'
+    def easingLibraryVersion = '2.1@aar'
     def architectureComponentsVersion = '1.0.0-alpha5'
     def particlesDrawableVersion = '1.0.7'
     def lottieVersion = '2.0.0'
     def groupieVersion = '2.0.0-alpha2'
     def noiseViewVersion = '1.0'
     def smallBangVersion = '0.1.2'
+    def hTextViewVersion = '0.1.1'
+    def yearClassVersion = '2.0.0'
 
     def libs = [
             /* support */
@@ -71,6 +74,7 @@ ext {
             archPersistenceRoom         : [group: 'android.arch.persistence.room', name: 'runtime', version: architectureComponentsVersion],
             archPersistenceRoomCompiler : [group: 'android.arch.persistence.room', name: 'compiler', version: architectureComponentsVersion],
             archPersistenceRoomRxSupport: [group: 'android.arch.persistence.room', name: 'rxjava2', version: architectureComponentsVersion],
+            yearClass                   : [group: 'com.facebook.device.yearclass', name: 'yearclass', version: yearClassVersion],
             /* rx */
             rxJava                      : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
             rxAndroid                   : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
@@ -107,8 +111,10 @@ ext {
             groupie                     : [group: 'com.xwray', name: 'groupie', version: groupieVersion],
             noiseView                   : [group: 'pl.hypeapp', name: 'noiseview', version: noiseViewVersion],
             smallBang                   : [group: 'hanks.xyz', name: 'smallbang-library', version: smallBangVersion],
+            hTextView                   : [group: 'com.hanks', name: 'htextview-evaporate', version: hTextViewVersion],
             // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
-            androidAnimations           : "com.daimajia.androidanimations:library:$androidAnimationsVersion"
+            androidAnimations           : "com.daimajia.androidanimations:library:$androidAnimationsVersion",
+            easingLibrary               : "com.daimajia.easing:library:$easingLibraryVersion"
     ]
 
     def testLibs = [
@@ -141,6 +147,7 @@ ext {
             [configuration: "implementation", dependency: libs.archLifecycleRuntime],
             [configuration: "implementation", dependency: libs.archLifecycleExtensions],
             [configuration: "annotationProcessor", dependency: libs.archLifecycleCompiler],
+            [configuration: "implementation", dependency: libs.yearClass],
             // frontend
             [configuration: "implementation", dependency: libs.constrainLayout],
             [configuration: "implementation", dependency: libs.glide],
@@ -155,6 +162,8 @@ ext {
             [configuration: "implementation", dependency: libs.groupie],
             [configuration: "implementation", dependency: libs.noiseView],
             [configuration: "implementation", dependency: libs.smallBang],
+            [configuration: "implementation", dependency: libs.hTextView],
+            [configuration: "implementation", dependency: libs.easingLibrary],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
             [configuration: "kapt", dependency: libs.butterKnifeCompiler],
