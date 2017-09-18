@@ -62,7 +62,7 @@ fun View.viewVisible() {
 fun ImageView.manageWatchStateIcon(watchState: Int) {
     val diamondDrawable: Int = when (watchState) {
         WatchState.WATCHED -> R.drawable.all_ic_diamond_checked
-        WatchState.PARTIALLY_WATCHED -> R.drawable.abc_ic_ab_back_material
+        WatchState.PARTIALLY_WATCHED -> R.drawable.all_ic_diamond_partially_checked
         else -> R.drawable.all_ic_diamond_unchecked
     }
     this.setImageDrawable(ContextCompat.getDrawable(this.context, diamondDrawable))
@@ -71,7 +71,7 @@ fun ImageView.manageWatchStateIcon(watchState: Int) {
 fun FloatingActionButton.manageWatchStateIcon(watchState: Int) {
     val diamondDrawable: Int = when (watchState) {
         WatchState.WATCHED -> R.drawable.all_ic_diamond_checked
-        WatchState.PARTIALLY_WATCHED -> R.drawable.abc_ic_ab_back_material
+        WatchState.PARTIALLY_WATCHED -> R.drawable.all_ic_diamond_partially_checked
         else -> R.drawable.all_ic_diamond_unchecked
     }
     this.setImageResource(diamondDrawable)
