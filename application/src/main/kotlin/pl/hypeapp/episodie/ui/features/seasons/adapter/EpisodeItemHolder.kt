@@ -27,7 +27,7 @@ class EpisodeItemHolder(val model: EpisodeModel,
 
     private fun bindData(viewHolder: ViewHolder) = with(viewHolder.itemView) {
         image_view_item_episode_screen.loadImage(model.imageMedium)
-        text_view_item_episode_summary.setTextFromHtml(model.summary)
+        text_view_item_episode_summary.text = model.summary
         text_view_item_episode_runtime.setFullRuntime(model.runtime)
         text_view_item_episode_number.setHashTagPrefix(model.episodeNumber ?: 0)
         text_view_item_episode_title.text = model.name

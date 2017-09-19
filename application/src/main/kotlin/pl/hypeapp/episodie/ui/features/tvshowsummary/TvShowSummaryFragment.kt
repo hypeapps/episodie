@@ -14,7 +14,6 @@ import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
 import pl.hypeapp.episodie.extensions.setRuntime
-import pl.hypeapp.episodie.extensions.setTextFromHtml
 import pl.hypeapp.episodie.ui.base.BaseFragment
 import pl.hypeapp.episodie.ui.viewmodel.TvShowModelParcelable
 import pl.hypeapp.presentation.tvshowsummary.TvShowSummaryPresenter
@@ -54,7 +53,7 @@ class TvShowSummaryFragment : BaseFragment(), TvShowSummaryView {
     }
 
     override fun setSummary(summary: String?) {
-        text_view_tv_show_summary.setTextFromHtml(summary)
+        text_view_tv_show_summary.text = summary
     }
 
     override fun setEpisodeRuntime(runtime: Long?) = text_view_tv_show_summary_runtime.setRuntime(runtime)
