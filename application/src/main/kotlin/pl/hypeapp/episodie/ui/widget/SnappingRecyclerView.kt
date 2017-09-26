@@ -74,9 +74,9 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
 
     override fun onChildAttachedToWindow(child: View?) {
         super.onChildAttachedToWindow(child)
-
         if (!scrolling && _scrollState == RecyclerView.SCROLL_STATE_IDLE) {
             updateViews()
+            postDelayed({ smoothScrollToLastChild() }, 300)
         }
     }
 
@@ -151,7 +151,7 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
             override fun smoothScrollToPosition(recyclerView: RecyclerView?, state: RecyclerView.State?, position: Int) {
                 val smoothScroller = object : LinearSmoothScroller(recyclerView?.context) {
                     override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
-                        return 300f / displayMetrics?.densityDpi!!
+                        return 200f / displayMetrics?.densityDpi!!
                     }
                 }
                 smoothScroller.targetPosition = position
@@ -308,7 +308,7 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
     private val centerView: View?
         get() = getChildClosestToLocation(centerLocation)
 
-    private fun scrollToView(child: View?) {
+    fun scrollToView(child: View?) {
         if (child == null)
             return
 
@@ -318,6 +318,14 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
 
         if (scrollDistance != 0)
             smoothScrollBy(scrollDistance)
+    }
+
+    fun smoothScrollToLastChild() {
+        if (selectedPosition + 1 in adapter.itemCount - 1..adapter.itemCount + 1) {
+            scrollToView(getChildAt(childCount - 1))
+        } else {
+            smoothScrollToPosition(layoutManager.itemCount)
+        }
     }
 
     private fun getScrollDistance(child: View): Int {
@@ -338,7 +346,7 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
     private val centerLocation: Int
         get() = if (_orientation == Orientation.VERTICAL) measuredHeight / 2 else measuredWidth / 2
 
-    fun smoothScrollBy(distance: Int) {
+    private fun smoothScrollBy(distance: Int) {
         if (_orientation == Orientation.VERTICAL) {
             super.smoothScrollBy(0, distance)
             return
@@ -346,24 +354,6 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
 
         super.smoothScrollBy(distance, 0)
     }
-//
-//    fun scrollBy(distance: Int) {
-//        if (_orientation == Orientation.VERTICAL) {
-//            super.scrollBy(0, distance)
-//            return
-//        }
-//
-//        super.scrollBy(distance, 0)
-//    }
-
-//    private fun scrollTo(position: Int) {
-//        val currentScroll = scrollOffset
-//        scrollBy(position - currentScroll)
-//    }
-
-    val scrollOffset: Int
-        get() =
-            if (_orientation == Orientation.VERTICAL) computeVerticalScrollOffset() else computeHorizontalScrollOffset()
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
@@ -404,4 +394,5 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
 
         private val MINIMUM_SCROLL_EVENT_OFFSET_MS = 20
     }
+
 }
