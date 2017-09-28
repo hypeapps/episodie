@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout_time_calculator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_view_time_calculator_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/breaking_bad_backgorund"
+        android:contentDescription="@string/time_calculator_background_description"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_time_calculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/EpisodieTheme.Toolbar.Transparent"
+        app:contentInsetStartWithNavigation="@dimen/inset_start_with_navigation_toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/time_calculator_toolbar_title"
+            android:textSize="@dimen/text_size_time_calculator_toolbar_title"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <pl.hypeapp.episodie.ui.widget.TimeCalculatorCounterView
+        android:id="@+id/time_calculator_runtime_view"
+        android:layout_width="0dp"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"/>
+
+    <pl.hypeapp.episodie.ui.widget.SnappingRecyclerView
+        android:id="@+id/recycler_view_time_calculator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="@dimen/padding_top_time_calculator_recycler_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_time_calculator_backdrop"
+        app:layout_constraintVertical_bias="0.4"/>
+
+    <TextView
+        android:id="@+id/text_view_time_calculator_info_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/margin_default"
+        android:drawableTop="@drawable/all_ic_diamond_checked"
+        android:gravity="center"
+        android:paddingEnd="@dimen/padding_time_calculator_info_header"
+        android:paddingStart="@dimen/padding_time_calculator_info_header"
+        android:text="@string/time_calculator_header_info"
+        android:textSize="@dimen/text_size_time_calculator_info_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"/>
+
+    <TextView
+        android:id="@+id/text_view_time_calculator_backdrop"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/time_calculator_backdrop_color"
+        android:drawablePadding="@dimen/drawable_padding_time_calculator_backdrop"
+        android:drawableStart="@drawable/all_ic_search"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:paddingStart="@dimen/padding_big"
+        android:paddingEnd="@dimen/padding_big"
+        android:text="@string/time_calculator_backdrop_hint"
+        android:textSize="@dimen/text_size_time_calculator_backdrop"
+        app:layout_constraintEnd_toEndOf="@id/search_view"
+        app:layout_constraintStart_toStartOf="@id/search_view"
+        app:layout_constraintTop_toTopOf="@id/search_view"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_time_calculator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.35"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:hint="@string/all_search_view_hint"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:layout_marginStart="@dimen/margin_big"
+        android:textColor="@color/primary"
+        app:layout_constraintTop_toBottomOf="@id/guideline_vertical_time_calculator"/>
+
+    <ImageView
+        android:id="@+id/image_view_time_calculator_icon_selected"
+        android:layout_width="@dimen/size_time_calculator_icon"
+        android:layout_height="@dimen/size_time_calculator_icon"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:contentDescription="@string/item_all_ic_diamond_description"
+        android:layout_marginStart="@dimen/margin_big"
+        android:src="@drawable/all_ic_diamond_checked"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/image_view_time_calculator_icon_episodes"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.hanks.htextview.evaporate.EvaporateTextView
+        android:id="@+id/evaporate_text_view_time_calculator_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_time_calculator_icon_selected"
+        app:layout_constraintStart_toEndOf="@id/image_view_time_calculator_icon_selected"
+        app:layout_constraintTop_toTopOf="@id/image_view_time_calculator_icon_selected"/>
+
+    <TextView
+        android:id="@+id/text_view_time_calculator_selected_increment"
+        android:layout_width="wrap_content"
+        android:text="@string/time_calculator_increment_selected"
+        android:visibility="invisible"
+        android:textSize="@dimen/text_size_time_calculator_all_increment"
+        android:layout_marginStart="@dimen/margin_start_time_calculator_all_increment"
+        app:layout_constraintTop_toTopOf="@id/evaporate_text_view_time_calculator_selected"
+        app:layout_constraintStart_toEndOf="@id/evaporate_text_view_time_calculator_selected"
+        app:layout_constraintBottom_toBottomOf="@id/evaporate_text_view_time_calculator_selected"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/image_view_time_calculator_icon_episodes"
+        android:layout_width="@dimen/size_time_calculator_icon"
+        android:layout_height="@dimen/size_time_calculator_icon"
+        android:layout_marginStart="@dimen/margin_big"
+        android:src="@drawable/drawer_ic_watched"
+        android:visibility="gone"
+        android:contentDescription="@string/time_calculator_episode_order_icon_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"/>
+
+    <com.hanks.htextview.evaporate.EvaporateTextView
+        android:id="@+id/evaporate_text_view_time_calculator_episodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_time_calculator_icon_episodes"
+        app:layout_constraintStart_toEndOf="@id/image_view_time_calculator_icon_episodes"
+        app:layout_constraintTop_toTopOf="@id/image_view_time_calculator_icon_episodes"/>
+
+    <TextView
+        android:id="@+id/text_view_time_calculator_episodes_increment"
+        android:layout_width="wrap_content"
+        android:visibility="invisible"
+        android:textSize="@dimen/text_size_time_calculator_all_increment"
+        android:layout_marginStart="@dimen/margin_start_time_calculator_all_increment"
+        app:layout_constraintTop_toTopOf="@id/evaporate_text_view_time_calculator_episodes"
+        app:layout_constraintStart_toEndOf="@id/evaporate_text_view_time_calculator_episodes"
+        app:layout_constraintBottom_toBottomOf="@id/evaporate_text_view_time_calculator_episodes"
+        android:layout_height="wrap_content"/>
+
+</android.support.constraint.ConstraintLayout>
