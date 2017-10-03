@@ -1,10 +1,7 @@
 package pl.hypeapp.dataproviders.service.api
 
 import io.reactivex.Single
-import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
-import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
-import pl.hypeapp.dataproviders.entity.api.TopListEntity
-import pl.hypeapp.dataproviders.entity.api.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -22,6 +19,9 @@ interface EpisodieApi {
 
     @GET("tvshow/search?query={query}")
     fun search(@Path("query") query: String): Single<List<TvShowEntity>>
+
+    @GET("tvshow/basic/search")
+    fun basicSearch(@Query("query") query: String): Single<List<BasicSearchResultEntity>>
 
     @GET("tvshow/extended/get/{tvShowId}")
     fun getAllSeasons(@Path("tvShowId") tvShowId: String): Single<AllSeasonsEntity>
