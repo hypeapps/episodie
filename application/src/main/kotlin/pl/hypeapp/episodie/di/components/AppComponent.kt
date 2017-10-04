@@ -36,4 +36,8 @@ interface AppComponent {
 
     fun runtimeRepository(): RuntimeRepository
 
+    fun searchRepository(): SearchRepository
+
+    fun tvShowRepository(): TvShowRepository
+
 }
