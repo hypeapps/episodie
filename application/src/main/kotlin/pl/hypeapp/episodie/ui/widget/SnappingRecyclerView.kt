@@ -72,12 +72,37 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
 
     private var scrolling: Boolean = false
 
+    private var isFirstAttach: Boolean = true
+
     override fun onChildAttachedToWindow(child: View?) {
         super.onChildAttachedToWindow(child)
         if (!scrolling && _scrollState == RecyclerView.SCROLL_STATE_IDLE) {
             updateViews()
-            postDelayed({ smoothScrollToLastChild() }, 300)
+            if (isFirstAttach) {
+                postDelayed({
+                    smoothScrollToLastChild()
+                }, 300)
+                isFirstAttach = false
+            }
         }
+    }
+
+    fun scrollToLastChild() {
+        if (!isFirstAttach) {
+            postDelayed({
+                smoothScrollToLastChild()
+            }, 300)
+        }
+    }
+
+    fun scrollToCenterView() {
+        scrollToView(centerView)
+        postDelayed({
+            updateViews()
+            centerView?.let {
+                smoothScrollBy(getScrollDistance(it))
+            }
+        }, 300)
     }
 
     private fun enableSnapping() {
@@ -320,7 +345,7 @@ class SnappingRecyclerView @JvmOverloads constructor(context: Context, attrs: At
             smoothScrollBy(scrollDistance)
     }
 
-    fun smoothScrollToLastChild() {
+    private fun smoothScrollToLastChild() {
         if (selectedPosition + 1 in adapter.itemCount - 1..adapter.itemCount + 1) {
             scrollToView(getChildAt(childCount - 1))
         } else {
