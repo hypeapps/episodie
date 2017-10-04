@@ -18,7 +18,7 @@ import io.reactivex.subjects.PublishSubject
 import pl.hypeapp.episodie.R
 import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerView
 
-internal class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObserver, NavigationDrawerView,
+class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObserver, NavigationDrawerView,
         DragStateListener, DragListener {
 
 //    @BindView(R.id.drawer_menu_item_feed)
