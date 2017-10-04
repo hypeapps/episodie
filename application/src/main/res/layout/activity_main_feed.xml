@@ -7,37 +7,40 @@
 
     <include
         android:id="@id/toolbar_feed"
-        layout="@layout/toolbar_feed" />
+        layout="@layout/toolbar_feed"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
-    <!--Due to view pager is above toolbar we need to provide transparent view which be imitate home button for clicks.-->
+    <!--
+        Due to view pager is above toolbar we need to provide transparent view
+        which be imitate home button for clicks.
+    -->
     <View
         android:id="@+id/toolbar_feed_home_button"
         android:layout_width="50dp"
-        android:layout_alignTop="@id/toolbar_feed"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@id/toolbar_feed"
-        android:layout_height="wrap_content" />
+        android:layout_alignTop="@id/toolbar_feed"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_button_main_feed_search"
-        android:theme="@style/EpisodieTheme.FabButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/all_ic_search"
         android:layout_above="@id/navigation_bottom_layout"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/all_ic_search"
+        android:theme="@style/EpisodieTheme.FabButton"/>
 
     <include
         android:id="@+id/navigation_bottom_layout"
         layout="@layout/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

@@ -72,6 +72,8 @@
     <dimen name="size_icon_view_runtime_alerter">32dp</dimen>
     <dimen name="min_width_evaporate_text_view_runtime_alerter">50dp</dimen>
     <dimen name="text_size_view_runtime_alerter">18sp</dimen>
+    <!--view time calculator counter-->
+    <dimen name="text_size_view_counter">18sp</dimen>
     <!--misc-->
     <dimen name="padding_bottom_item_all">36dp</dimen>
     <dimen name="padding_top_item_all">24dp</dimen>
@@ -85,4 +87,13 @@
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_big">16dp</dimen>
     <dimen name="height_all_diamond">24dp</dimen>
+    <dimen name="text_size_time_calculator_toolbar_title">17sp</dimen>
+    <dimen name="drawable_padding_time_calculator_backdrop">24dp</dimen>
+    <dimen name="text_size_time_calculator_backdrop">16sp</dimen>
+    <dimen name="size_time_calculator_icon">24dp</dimen>
+    <dimen name="text_size_time_calculator_all_increment">13sp</dimen>
+    <dimen name="margin_start_time_calculator_all_increment">24dp</dimen>
+    <dimen name="padding_top_time_calculator_recycler_view">60dp</dimen>
+    <dimen name="text_size_time_calculator_info_header">15sp</dimen>
+    <dimen name="padding_time_calculator_info_header">50dp</dimen>
 </resources>

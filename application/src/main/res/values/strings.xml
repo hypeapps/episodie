@@ -52,6 +52,8 @@
     <string name="item_season_season_cover_description">Cover of season</string>
 
     <string name="item_episode_hashtag_prefix_format">#%1$s</string>
+    <string name="item_episode_screen_description">Screen of the episode</string>
+    <string name="item_episode_summary_header">Summary</string>
 
     <string name="item_all_ic_diamond_description">Image button add to watched</string>
     <string name="item_all_cover_description">Tv show\'s cover</string>
@@ -59,13 +61,28 @@
 
     <string name="fragment_seasons_empty_episodes_message">Episodes have not been added yet</string>
 
+    <string name="time_calculator_search_result_not_found">Nothing found</string>
+    <string name="time_calculator_toolbar_title">Time calculator</string>
+    <string name="time_calculator_header_info">Calculate your total time spent watching TV shows</string>
+    <string name="time_calculator_background_description">Background</string>
+    <string name="time_calculator_backdrop_hint">Search for a tv show</string>
+    <string name="time_calculator_increment_selected">+1 selected</string>
+    <string name="time_calculator_episode_order_icon_description">Icon of episode order</string>
+
     <string name="all_font_path">fonts/coolvetica.ttf</string>
     <string name="cover_transition">transition_cover</string>
     <string name="title_transition">titile_transition</string>
     <string name="zero_prefix_format">0%1$s</string>
-    <string name="item_episode_screen_description">Screen of the episode</string>
-    <string name="item_episode_summary_header">Summary</string>
+
     <string name="all_toast_error_message">Something went wrong</string>
     <string name="fragment_top_list_backdrop_description">Background of app bar</string>
     <string name="view_runtime_alerter_description">Icon of runtime alert</string>
+    <string name="view_time_calculator_counter_icon__description">Icon of runtime alert</string>
+    <string name="all_suggestion_dialog_title">Select one</string>
+    <string name="all_search_view_hint">Type a tv show</string>
+    <string name="time_calculator_incerement_selected">+ 1 selected</string>
+    <string name="time_calculator_decrement_selected">- 1 selected</string>
+    <string name="time_calculator_addition_episodes">+ %1$s episodes</string>
+    <string name="time_calculator_subtraction_episodes">- %1$s episodes</string>
+    <string name="time_calculator_tv_show_present">TV Show already added.</string>
 </resources>

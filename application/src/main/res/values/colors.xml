@@ -22,4 +22,7 @@
 
     <color name="item_top_list_background">#272727</color>
     <color name="navigation_background_color">#272727</color>
+
+    <color name="search_view_background">#9c8c1b</color>
+    <color name="time_calculator_backdrop_color">#80121212</color>
 </resources>
