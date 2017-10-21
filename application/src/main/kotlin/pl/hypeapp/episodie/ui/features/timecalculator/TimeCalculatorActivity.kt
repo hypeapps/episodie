@@ -17,21 +17,22 @@ import android.widget.TextView
 import android.widget.Toast
 import butterknife.OnClick
 import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.miguelcatalan.materialsearchview.MaterialSearchView
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_time_calculator.*
-import kotlinx.android.synthetic.main.activity_time_calculator.view.*
 import pl.hypeapp.domain.model.BasicSearchResultModel
 import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
+import pl.hypeapp.episodie.di.components.DaggerActivityComponent
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
 import pl.hypeapp.episodie.extensions.viewVisible
+import pl.hypeapp.episodie.glide.GlideApp
 import pl.hypeapp.episodie.glide.transformation.BlurTransformation
 import pl.hypeapp.episodie.navigation.Navigator
 import pl.hypeapp.episodie.ui.base.BaseActivity
@@ -79,7 +80,6 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         presenter.onAttachView(this)
         GlideApp.with(this)
                 .load(R.drawable.breaking_bad_backgorund)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 17), CenterCrop()))
                 .into(image_view_time_calculator_background)
     }
@@ -106,14 +106,14 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         startZoomInAnimation(image_view_time_calculator_icon_selected)
     }
 
-    override fun initSearchView() = with(search_view) {
+    override fun initSearchView() = with(time_calculator_search_view) {
         setOnQueryTextListener(this@TimeCalculatorActivity)
         findViewById<View>(R.id.transparent_view).background = null
         setSubmitOnClick(true)
         setSuggestionIcon(ContextCompat.getDrawable(this@TimeCalculatorActivity, R.drawable.all_ic_diamond_checked_dark))
-        searchViewSubscription = RxTextView.textChanges(search_view.findViewById(R.id.searchTextView))
+        searchViewSubscription = RxTextView.textChanges(time_calculator_search_view.findViewById(R.id.searchTextView))
                 .filter { it.length > 2 }
-                .debounce(300, TimeUnit.MILLISECONDS)
+                .debounce(TIMEOUT_DEBOUNCE, TimeUnit.MILLISECONDS)
                 .map { it.toString() }
                 .distinctUntilChanged()
                 .filter { !it.isEmpty() }
@@ -162,7 +162,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
 
     override fun addEpisodeOrder(episodeOrder: Int) {
         episodeOrderSum += episodeOrder
-        startEpisodeOrderAnimation(String.format(getString(R.string.time_calculator_addition_episodes), episodeOrder), 900)
+        startEpisodeOrderAnimation(String.format(getString(R.string.time_calculator_addition_episodes), episodeOrder), DELAY_START_ANIMATION)
     }
 
     override fun subtractEpisodeOrder(episodeOrder: Int) {
@@ -172,7 +172,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
 
     override fun incrementSelected() {
         selectedSum++
-        startSelectedAnimation(getString(R.string.time_calculator_incerement_selected), 900L)
+        startSelectedAnimation(getString(R.string.time_calculator_incerement_selected), DELAY_START_ANIMATION)
     }
 
     override fun decrementSelected() {
@@ -190,19 +190,19 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         time_calculator_runtime_view.startDecrementRuntimeAnimation(this.runtime, episodeRuntime)
     }
 
-    override fun dismissSearchView() = with(search_view) {
+    override fun dismissSearchView() = with(time_calculator_search_view) {
         if (isSearchOpen) {
             hideKeyboard(this@TimeCalculatorActivity.currentFocus)
             dismissSuggestions()
-            search_view.setSuggestions(arrayOf(""))
+            time_calculator_search_view.setSuggestions(arrayOf(""))
             findViewById<EditText>(R.id.searchTextView).text.clear()
         }
     }
 
     @OnClick(R.id.text_view_time_calculator_backdrop)
-    fun showSearchView() = search_view.showSearch()
+    fun showSearchView() = time_calculator_search_view.showSearch()
 
-    override fun setSearchSuggestions(suggestions: Array<String>) = search_view.setSuggestions(suggestions)
+    override fun setSearchSuggestions(suggestions: Array<String>) = time_calculator_search_view.setSuggestions(suggestions)
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         presenter.onSearchQuerySubmit(query)
@@ -245,7 +245,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         }
 
         override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder?): Float {
-            return 0.1f
+            return SWIPE_THRESHOLD
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
@@ -288,5 +288,11 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     private fun startZoomInAnimation(view: View) = YoYo.with(Techniques.ZoomIn)
             .onStart { view.viewVisible() }
             .playOn(view)
+
+    private companion object {
+        val SWIPE_THRESHOLD = 0.1f
+        val TIMEOUT_DEBOUNCE = 200L
+        val DELAY_START_ANIMATION = 900L
+    }
 
 }

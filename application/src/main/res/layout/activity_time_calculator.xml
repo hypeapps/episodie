@@ -10,7 +10,6 @@
         android:id="@+id/image_view_time_calculator_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/breaking_bad_backgorund"
         android:contentDescription="@string/time_calculator_background_description"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,9 +87,9 @@
         android:paddingEnd="@dimen/padding_big"
         android:text="@string/time_calculator_backdrop_hint"
         android:textSize="@dimen/text_size_time_calculator_backdrop"
-        app:layout_constraintEnd_toEndOf="@id/search_view"
-        app:layout_constraintStart_toStartOf="@id/search_view"
-        app:layout_constraintTop_toTopOf="@id/search_view"/>
+        app:layout_constraintEnd_toEndOf="@id/time_calculator_search_view"
+        app:layout_constraintStart_toStartOf="@id/time_calculator_search_view"
+        app:layout_constraintTop_toTopOf="@id/time_calculator_search_view"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_vertical_time_calculator"
@@ -102,7 +101,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.miguelcatalan.materialsearchview.MaterialSearchView
-        android:id="@+id/search_view"
+        android:id="@+id/time_calculator_search_view"
         android:layout_width="match_parent"
         android:hint="@string/all_search_view_hint"
         android:layout_height="wrap_content"

@@ -11,6 +11,7 @@ import pl.hypeapp.domain.model.BasicSearchResultModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.inflate
 import pl.hypeapp.episodie.extensions.setRuntime
+import pl.hypeapp.episodie.glide.GlideApp
 import pl.hypeapp.episodie.ui.base.adapter.ViewType
 import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.ui.viewmodel.BasicSearchResultViewModel
