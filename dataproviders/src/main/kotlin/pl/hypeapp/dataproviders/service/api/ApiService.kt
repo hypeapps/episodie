@@ -1,10 +1,7 @@
 package pl.hypeapp.dataproviders.service.api
 
 import io.reactivex.Single
-import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
-import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
-import pl.hypeapp.dataproviders.entity.api.TopListEntity
-import pl.hypeapp.dataproviders.entity.api.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,6 +20,10 @@ class ApiService @Inject constructor(private val episodieApi: EpisodieApi) : Epi
         return episodieApi.search(query)
     }
 
+    override fun basicSearch(query: String): Single<List<BasicSearchResultEntity>> {
+        return episodieApi.basicSearch(query)
+    }
+
     override fun getTvShow(tvShowId: String): Single<TvShowEntity> {
         return episodieApi.getTvShow(tvShowId)
     }
@@ -30,5 +31,4 @@ class ApiService @Inject constructor(private val episodieApi: EpisodieApi) : Epi
     override fun getAllSeasons(tvShowId: String): Single<AllSeasonsEntity> {
         return episodieApi.getAllSeasons(tvShowId)
     }
-
 }

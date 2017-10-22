@@ -30,4 +30,13 @@ object Navigator {
         activity.startActivity(intent, activityOptions.toBundle())
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    fun startTvShowDetailsWithSharedElement(activity: Activity, tvShowModel: TvShowModel, transitionView: View) {
+        val intent = Intent(activity, TvShowDetailsActivity::class.java)
+        intent.putExtra(EXTRA_INTENT_TV_SHOW_MODEL, TvShowModelParcelable(tvShowModel))
+        val p1 = android.support.v4.util.Pair.create(transitionView, activity.getString(R.string.cover_transition))
+        val activityOptions: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, p1)
+        activity.startActivity(intent, activityOptions.toBundle())
+    }
+
 }

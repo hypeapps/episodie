@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import butterknife.OnClick
 import com.bumptech.glide.load.MultiTransformation
@@ -22,9 +23,7 @@ import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
-import pl.hypeapp.episodie.di.components.DaggerActivityComponent
 import pl.hypeapp.episodie.extensions.*
-import pl.hypeapp.episodie.glide.GlideApp
 import pl.hypeapp.episodie.glide.transformation.BlurTransformation
 import pl.hypeapp.episodie.navigation.EXTRA_INTENT_TV_SHOW_MODEL
 import pl.hypeapp.episodie.navigation.STATE_CHANGED
@@ -145,7 +144,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
                 .thumbnail(GlideApp.with(this).load(placeholderUrl).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(findViewById(R.id.background_tv_show_details))
+                .into(findViewById(R.id.background_tv_show_details) as ImageView)
     }
 
     override fun hideFabButton() = fab_button_tv_show_details_add_to_watched.viewGone()

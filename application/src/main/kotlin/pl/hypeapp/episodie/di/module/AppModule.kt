@@ -69,4 +69,16 @@ class AppModule(private val app: App) {
         return runtimeDataRepository
     }
 
+    @Provides
+    @Singleton
+    fun provideSearchRepository(searchDataRepository: SearchDataRepository): SearchRepository {
+        return searchDataRepository
+    }
+
+    @Provides
+    @Singleton
+    fun provideTvShowRepository(tvShowDataRepository: TvShowDataRepository): TvShowRepository {
+        return tvShowDataRepository
+    }
+
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/view_time_calculator_counter_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:contentDescription="@string/view_time_calculator_counter_icon__description"
+        android:src="@drawable/all_ic_watching_time"
+        app:layout_constraintBottom_toBottomOf="@id/view_time_calculator_counter_runtime"
+        app:layout_constraintEnd_toStartOf="@id/view_time_calculator_counter_runtime"
+        app:layout_constraintTop_toTopOf="@id/view_time_calculator_counter_runtime"/>
+
+    <com.hanks.htextview.evaporate.EvaporateTextView
+        android:id="@+id/view_time_calculator_counter_runtime"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:textSize="@dimen/text_size_view_counter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/view_time_calculator_counter_runtime_diff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_time_calculator_counter_runtime"/>
+
+</android.support.constraint.ConstraintLayout>

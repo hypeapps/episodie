@@ -8,14 +8,12 @@ import butterknife.OnClick
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
 import kotlinx.android.synthetic.main.activity_main_feed.view_pager
-import kotlinx.android.synthetic.main.bottom_navigation_view.navigation_bar_background
-import kotlinx.android.synthetic.main.bottom_navigation_view.navigation_bottom_view
-import kotlinx.android.synthetic.main.toolbar_feed.animation_view_toolbar_feed_title
+import kotlinx.android.synthetic.main.bottom_navigation_view.*
+import kotlinx.android.synthetic.main.toolbar_feed.*
 import kotlinx.android.synthetic.main.toolbar_feed.toolbar_feed
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
-import pl.hypeapp.episodie.di.components.DaggerActivityComponent
 import pl.hypeapp.episodie.extensions.getNavigationBarSize
 import pl.hypeapp.episodie.extensions.getRealScreenSize
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
@@ -30,7 +28,7 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
 
     override fun getLayoutRes(): Int = R.layout.activity_main_feed
 
-    internal lateinit var navigationDrawer: NavigationDrawer
+    lateinit var navigationDrawer: NavigationDrawer
 
     private lateinit var toolbarTitleAnimation: ToolbarTitleAnimation
 
