@@ -9,6 +9,7 @@ import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
 import pl.hypeapp.domain.repository.*
 import pl.hypeapp.episodie.App
+import pl.hypeapp.episodie.Prefs
 import pl.hypeapp.episodie.UIThread
 import javax.inject.Singleton
 
@@ -38,6 +39,10 @@ class AppModule(private val app: App) {
     fun providePostExecutionThread(uiThread: UIThread): PostExecutionThread {
         return uiThread
     }
+
+    @Provides
+    @Singleton
+    fun providePrefs(applicationContext: Context): Prefs = Prefs(applicationContext)
 
     @Provides
     @Singleton
@@ -79,6 +84,12 @@ class AppModule(private val app: App) {
     @Singleton
     fun provideTvShowRepository(tvShowDataRepository: TvShowDataRepository): TvShowRepository {
         return tvShowDataRepository
+    }
+
+    @Provides
+    @Singleton
+    fun provideSeasonTrackerRepository(seasonTrackerDataRepository: SeasonTrackerDataRepository): SeasonTrackerRepository {
+        return seasonTrackerDataRepository
     }
 
 }
