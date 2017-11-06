@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/season_tracker_search_component"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_view_binge_watching_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/time_calculator_background_description"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_view_binge_watching_info_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/margin_default"
+        android:drawableTop="@drawable/all_ic_diamond_checked"
+        android:gravity="center"
+        android:paddingEnd="@dimen/padding_time_calculator_info_header"
+        android:paddingStart="@dimen/padding_time_calculator_info_header"
+        android:text="I will help you tracking progress of your favorite TV show"
+        android:textSize="@dimen/text_size_time_calculator_info_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"/>
+
+    <TextView
+        android:id="@+id/text_view_binge_watching_backdrop"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/all_backdrop_color"
+        android:drawablePadding="@dimen/drawable_padding_time_calculator_backdrop"
+        android:drawableStart="@drawable/all_ic_search"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:paddingEnd="@dimen/padding_big"
+        android:paddingStart="@dimen/padding_big"
+        android:text="@string/all_backdrop_hint"
+        android:textSize="@dimen/text_size_time_calculator_backdrop"
+        app:layout_constraintEnd_toEndOf="@id/binge_watching_search_view"
+        app:layout_constraintStart_toStartOf="@id/binge_watching_search_view"
+        app:layout_constraintTop_toTopOf="@id/binge_watching_search_view"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_vertical_binge_watching"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.32"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/binge_watching_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:layout_marginStart="@dimen/margin_big"
+        android:hint="@string/all_search_view_hint"
+        android:textColor="@color/primary"
+        app:layout_constraintTop_toBottomOf="@id/guideline_vertical_binge_watching"/>
+
+</android.support.constraint.ConstraintLayout>

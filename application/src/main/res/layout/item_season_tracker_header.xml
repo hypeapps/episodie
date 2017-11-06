@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pl.hypeapp.materialtimelineview.MaterialTimelineView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/timeline_view_item_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:timeline_margin_start="32dp"
+    app:timeline_position="first"
+    app:timeline_type="item">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_shape_season_tracker"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_top_season_tracker_top_corner"
+        app:cardBackgroundColor="@color/background_dark"
+        app:cardCornerRadius="@dimen/corner_radius_season_tracker"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_season_tracker_full_runtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_big"
+        app:cardBackgroundColor="@color/primary"
+        app:cardCornerRadius="@dimen/corner_radius_season_tracker"
+        app:cardElevation="@dimen/card_elevation_season_tracker"
+        app:layout_constraintBottom_toBottomOf="@id/card_view_season_tracker_cover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/card_view_season_tracker_cover"
+        app:layout_constraintVertical_bias="0.1">
+
+        <TextView
+            android:id="@+id/text_view_season_tracker_full_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_season_tracker_ic_full_runtime"
+            android:layout_margin="@dimen/margin_default"
+            android:drawablePadding="@dimen/padding_small"
+            android:drawableStart="@drawable/all_ic_watching_time"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="@dimen/text_size_season_tracker_full_runtime"/>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_view_season_tracker_title"
+        style="@style/EpisodieTheme.TextViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:textSize="@dimen/text_size_season_tracker_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card_view_season_tracker_cover"
+        app:layout_constraintTop_toBottomOf="@id/card_view_season_tracker_full_runtime"
+        app:layout_constraintVertical_bias="0.2"/>
+
+    <TextView
+        android:id="@+id/text_view_season_tracker_season"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card_view_season_tracker_cover"
+        app:layout_constraintTop_toBottomOf="@id/text_view_season_tracker_title"/>
+
+    <TextView
+        android:id="@+id/text_view_season_tracker_episodes_watched"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableStart="@drawable/drawer_ic_watched"
+        android:gravity="center_vertical"
+        android:paddingTop="4dp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@id/progress_bar_season_tracker_header"
+        app:layout_constraintEnd_toEndOf="@id/progress_bar_season_tracker_header"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_season_tracker_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="@dimen/margin_big"
+        app:cardBackgroundColor="@color/primary"
+        app:cardCornerRadius="@dimen/corner_radius_season_tracker_cover"
+        app:cardElevation="@dimen/card_elevation_season_tracker_cover"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/image_view_episode_cover"
+            style="@style/EpisodieTheme.ImageViewCover"
+            android:layout_width="@dimen/width_season_tracker_cover"
+            android:layout_height="@dimen/height_season_tracker_cover"
+            android:contentDescription="@string/season_tracker_cover_description"
+            android:scaleType="centerCrop"/>
+
+    </android.support.v7.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar_season_tracker_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_big"
+        android:progress="24"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_view_season_tracker_cover"/>
+
+</pl.hypeapp.materialtimelineview.MaterialTimelineView>
+
+
+
+

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout_season_tracker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_dark">
+
+    <ViewStub
+        android:id="@+id/stub_binge_watching_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline_backdrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.github.florent37.diagonallayout.DiagonalLayout
+        android:id="@+id/diagonal_layout_tv_show_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:diagonal_angle="15"
+        app:diagonal_direction="right"
+        app:diagonal_position="top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_diagonal_top">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/item_top_list_background"/>
+
+    </com.github.florent37.diagonallayout.DiagonalLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_diagonal_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_backdrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9"/>
+
+    <ViewStub
+        android:id="@+id/view_stub_binge_watching_search_component"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/layout_season_tracker_search"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_season_tracker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/EpisodieTheme.Toolbar.Transparent"
+        app:contentInsetStartWithNavigation="@dimen/inset_start_with_navigation_toolbar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_season_tracker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="120dp"
+        android:paddingEnd="@dimen/margin_medium"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingTop="120dp"/>
+
+    <View
+        android:id="@+id/view_hamburger_season_tracker"
+        android:layout_height="0dp"
+        android:layout_width="64dp"
+        app:layout_constraintTop_toTopOf="@id/toolbar_season_tracker"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_season_tracker"/>
+
+    <include
+        android:id="@+id/view_loading"
+        layout="@layout/item_loading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/margin_big"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_backdrop"/>
+
+    <include
+        android:id="@+id/view_error_season_tracker"
+        layout="@layout/item_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/guideline_backdrop"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_button_menu_season_tracker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_medium"
+        app:fab_addButtonColorNormal="@android:color/white"
+        app:fab_addButtonColorPressed="@android:color/white"
+        app:fab_addButtonPlusIconColor="@color/primary_dark"
+        app:fab_labelStyle="@style/EpisodieTheme.FabButtonMenuLabels"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_button_start_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@android:color/white"
+            app:fab_colorPressed="@android:color/white"
+            app:fab_size="mini"
+            app:fab_icon="@drawable/season_tracker_ic_start_new"
+            app:fab_title="Start new"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_button_disable_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@android:color/white"
+            app:fab_colorPressed="@android:color/white"
+            app:fab_size="mini"
+            app:fab_icon="@drawable/all_ic_notifications_on"
+            app:fab_title="Disable notifications"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</android.support.constraint.ConstraintLayout>
