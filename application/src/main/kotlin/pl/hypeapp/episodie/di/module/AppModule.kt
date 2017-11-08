@@ -92,4 +92,10 @@ class AppModule(private val app: App) {
         return seasonTrackerDataRepository
     }
 
+    @Provides
+    @Singleton
+    fun provideEpisodeReminderRepository(episodeReminderDataRepository: EpisodeReminderDataRepository): EpisodeReminderRepository {
+        return episodeReminderDataRepository
+    }
+
 }

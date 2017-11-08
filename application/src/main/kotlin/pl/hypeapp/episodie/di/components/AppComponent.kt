@@ -40,4 +40,8 @@ interface AppComponent {
 
     fun tvShowRepository(): TvShowRepository
 
+    fun seasonTrackerRepository(): SeasonTrackerRepository
+
+    fun episodeReminderRepository(): EpisodeReminderRepository
+
 }
