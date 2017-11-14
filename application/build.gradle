@@ -16,6 +16,7 @@ android {
         versionCode ext.android.versionCode
         versionName ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -52,28 +53,25 @@ android {
             java.srcDirs += 'src/androidTest/kotlin'
         }
     }
-
-
 }
 
 kapt {
     generateStubs = true
 }
 
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            if (!requested.name.startsWith("multidex")) {
-                details.useVersion '25.3.0'
-            }
-        }
-    }
-}
+//configurations.all {
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        def requested = details.requested
+//        if (requested.group == 'com.android.support') {
+//            if (!requested.name.startsWith("multidex")) {
+//                details.useVersion '25.3.0'
+//            }
+//        }
+//    }
+//}
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.aar'])
-    rootProject.applicationModuleDependencies.each {
+        rootProject.applicationModuleDependencies.each {
         add(it.configuration, it.dependency, it.options)
     }
 }
