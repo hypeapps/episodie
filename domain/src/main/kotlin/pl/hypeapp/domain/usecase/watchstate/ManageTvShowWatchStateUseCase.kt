@@ -3,8 +3,8 @@ package pl.hypeapp.domain.usecase.watchstate
 import io.reactivex.Completable
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.EpisodeModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.domain.repository.WatchedRepository
 import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.AbsRxCompletableUseCase
@@ -40,9 +40,9 @@ class ManageTvShowWatchStateUseCase @Inject constructor(threadExecutor: ThreadEx
 
     private class EpisodesParams private constructor(val episodeModels: ArrayList<EpisodeModel>) {
         companion object {
-            fun createParams(allSeasonsModel: AllSeasonsModel): EpisodesParams {
+            fun createParams(tvShowExtendedModel: TvShowExtendedModel): EpisodesParams {
                 val episodesModels: ArrayList<EpisodeModel> = arrayListOf()
-                allSeasonsModel.seasons?.forEach {
+                tvShowExtendedModel.seasons?.forEach {
                     it.episodes?.map {
                         episodesModels.add(it)
                     }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_big">
+
+    <View
+        android:id="@+id/card_view_dialog_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@drawable/top_corner_shape"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_dialog_select_season_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/card_view_tv_show_details_cover"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_tv_show_details_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_big"
+        app:cardBackgroundColor="@color/primary"
+        app:cardCornerRadius="@dimen/corner_radius_tv_show_details_cover"
+        app:cardElevation="@dimen/card_elevation_tv_show_details_cover"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/image_view_tv_show_details_cover"
+            style="@style/EpisodieTheme.ImageViewCover"
+            android:layout_width="@dimen/width_tv_show_details_cover"
+            android:layout_height="@dimen/height_tv_show_details_cover"
+            android:contentDescription="@string/tv_show_details_cover_description"
+            android:scaleType="fitXY"
+            android:src="@drawable/am"/>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_view_select_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/card_view_tv_show_details_cover"
+        app:layout_constraintStart_toEndOf="@id/card_view_tv_show_details_cover"
+        app:layout_constraintTop_toTopOf="@id/card_view_tv_show_details_cover"/>
+
+    <TextView
+        android:id="@+id/text_view_select_dialog_premiered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/card_view_tv_show_details_cover"
+        app:layout_constraintTop_toBottomOf="@id/text_view_select_dialog_title"/>
+
+    <TextView
+        android:id="@+id/text_view_select_dialog_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_default"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card_view_tv_show_details_cover"
+        app:layout_constraintTop_toBottomOf="@id/text_view_select_dialog_premiered"/>
+
+    <TextView
+        android:id="@+id/text_view_dialog_select_season_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:text="@string/dialog_select_season_header"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/card_view_tv_show_details_cover"
+        app:layout_constraintTop_toBottomOf="@id/card_view_tv_show_details_cover"/>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_dialog_select_season_header">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_select_season_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_corner_shape"
+            android:paddingBottom="@dimen/padding_big"
+            android:paddingEnd="@dimen/padding_big"
+            android:paddingStart="@dimen/padding_big"/>
+
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

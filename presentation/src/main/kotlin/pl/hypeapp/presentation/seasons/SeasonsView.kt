@@ -1,6 +1,6 @@
 package pl.hypeapp.presentation.seasons
 
-import pl.hypeapp.domain.model.AllSeasonsModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.presentation.base.View
 
 interface SeasonsView : View {
@@ -11,9 +11,9 @@ interface SeasonsView : View {
 
     fun initSwipeToRefresh()
 
-    fun updateRecyclerList(seasonsModel: AllSeasonsModel?)
+    fun updateRecyclerList(seasonsModel: TvShowExtendedModel?)
 
-    fun populateRecyclerView(seasonsModel: AllSeasonsModel?)
+    fun populateRecyclerView(seasonsModel: TvShowExtendedModel?)
 
     fun showError()
 

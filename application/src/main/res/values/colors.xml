@@ -19,10 +19,13 @@
 
     <color name="drawer_background">#272727</color>
     <color name="drawer_item_inactive">#6d6d6d</color>
+    <color name="drawer_item_inactive1">@android:color/white</color>
 
     <color name="item_top_list_background">#272727</color>
     <color name="navigation_background_color">#272727</color>
 
     <color name="search_view_background">#9c8c1b</color>
-    <color name="time_calculator_backdrop_color">#80121212</color>
+    <color name="all_backdrop_color">#80121212</color>
+    <color name="episode_item_inactive">#757575</color>
+    <color name="episode_item_watched">#0079ea</color>
 </resources>

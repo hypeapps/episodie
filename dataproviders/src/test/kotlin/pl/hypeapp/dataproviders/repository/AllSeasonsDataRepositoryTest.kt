@@ -33,12 +33,12 @@ class AllSeasonsDataRepositoryTest {
         val single: Single<AllSeasonsEntity> = Single.just(allSeasonsEntity)
         val tvShowId = "12"
         val update = true
-        given(tvShowDataStore.getAllSeasons(tvShowId, update)).willReturn(single)
+        given(tvShowDataStore.getAllSeasonsAfterPremiereDate(tvShowId, update)).willReturn(single)
 
-        dataRepository.getAllSeasons(tvShowId, update)
+        dataRepository.getAllSeasonsAfterPremiereDate(tvShowId, update)
 
         verify(dataFactory).createTvShowDataSource()
-        verify(tvShowDataStore).getAllSeasons(tvShowId, update)
+        verify(tvShowDataStore).getAllSeasonsAfterPremiereDate(tvShowId, update)
     }
 
 }

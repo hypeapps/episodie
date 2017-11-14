@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.util.Base64
 import android.util.Log
+import com.evernote.android.job.JobManager
 import com.facebook.stetho.Stetho
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics
 import com.github.moduth.blockcanary.BlockCanary
@@ -16,6 +17,7 @@ import pl.hypeapp.episodie.di.module.ApiModule
 import pl.hypeapp.episodie.di.module.AppModule
 import pl.hypeapp.episodie.di.module.CacheModule
 import pl.hypeapp.episodie.di.module.DatabaseModule
+import pl.hypeapp.episodie.job.episodereminder.EpisodeReminderJobCreator
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import java.nio.charset.Charset
 
@@ -31,6 +33,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        JobManager.create(this).addJobCreator(EpisodeReminderJobCreator(component.episodeReminderEngine()))
         initStetho()
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
@@ -43,6 +46,9 @@ class App : Application() {
                 .setDefaultFontPath("fonts/coolvetica.ttf")
                 .build())
         AndroidDevMetrics.initWith(this)
+        if (component.prefs().isEpisodeReminderNotificationsStarted) {
+//            SyncEpisodeReminderJob.scheduleJob(prefs.reminderTvShowId, prefs.reminderSeasonId)
+        }
     }
 
     private fun initStetho() {

@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_seasons.recycler_view_fragment_seasons
-import kotlinx.android.synthetic.main.fragment_seasons.swipe_refresh_layout_fragment_seasons
-import pl.hypeapp.domain.model.AllSeasonsModel
+import kotlinx.android.synthetic.main.fragment_seasons.*
 import pl.hypeapp.domain.model.EpisodeModel
 import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
@@ -89,7 +88,7 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
                 { populateRecyclerView(viewModel.retainedModel) })
     }
 
-    override fun populateRecyclerView(seasonsModel: AllSeasonsModel?) {
+    override fun populateRecyclerView(seasonsModel: TvShowExtendedModel?) {
         seasonLayoutState.onShowContent()
         if (swipe_refresh_layout_fragment_seasons.isRefreshing or onRetry) {
             swipe_refresh_layout_fragment_seasons.isRefreshing = false
@@ -148,7 +147,7 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
         }
     }
 
-    override fun updateRecyclerList(seasonsModel: AllSeasonsModel?) {
+    override fun updateRecyclerList(seasonsModel: TvShowExtendedModel?) {
         seasonsModel?.let { viewModel.clearAndRetainModel(it) }
         recyclerAdapter.updateItems(viewModel.seasonsList)
     }

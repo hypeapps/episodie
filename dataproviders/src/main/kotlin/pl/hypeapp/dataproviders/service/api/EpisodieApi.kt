@@ -24,6 +24,7 @@ interface EpisodieApi {
     fun basicSearch(@Query("query") query: String): Single<List<BasicSearchResultEntity>>
 
     @GET("tvshow/extended/get/{tvShowId}")
-    fun getAllSeasons(@Path("tvShowId") tvShowId: String): Single<AllSeasonsEntity>
+    fun getAllSeasons(@Path("tvShowId") tvShowId: String, @Query("afterPremiereDate") afterPremiereDate: Boolean)
+            : Single<AllSeasonsEntity>
 
 }

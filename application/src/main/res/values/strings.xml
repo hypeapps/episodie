@@ -45,6 +45,7 @@
     <string name="tv_show_details_cover_description">Cover of tv show</string>
     <string name="tv_show_details_status">Status: %1$s</string>
     <string name="item_all_format_premiered">Premiered: %1$s</string>
+    <string name="item_all_format_premiere">Premiere: %1$s</string>
     <string name="tv_show_details_backdrop_description">Background</string>
 
     <string name="item_season_s_prefix_format">S%1$s</string>
@@ -65,14 +66,22 @@
     <string name="time_calculator_toolbar_title">Time calculator</string>
     <string name="time_calculator_header_info">Calculate your total time spent watching TV shows</string>
     <string name="time_calculator_background_description">Background</string>
-    <string name="time_calculator_backdrop_hint">Search for a tv show</string>
     <string name="time_calculator_increment_selected">+1 selected</string>
     <string name="time_calculator_episode_order_icon_description">Icon of episode order</string>
+    <string name="time_calculator_incerement_selected">+ 1 selected</string>
+    <string name="time_calculator_decrement_selected">- 1 selected</string>
+    <string name="time_calculator_addition_episodes">+ %1$s episodes</string>
+    <string name="time_calculator_subtraction_episodes">- %1$s episodes</string>
+    <string name="time_calculator_tv_show_present">TV Show already added.</string>
+
+    <string name="season_tracker_cover_description">Cover of the episode</string>
 
     <string name="all_font_path">fonts/coolvetica.ttf</string>
     <string name="cover_transition">transition_cover</string>
     <string name="title_transition">titile_transition</string>
     <string name="zero_prefix_format">0%1$s</string>
+    <string name="divider_format">%1$s / %2$s</string>
+    <string name="season_number_format">Season #%1$s</string>
 
     <string name="all_toast_error_message">Something went wrong</string>
     <string name="fragment_top_list_backdrop_description">Background of app bar</string>
@@ -80,9 +89,16 @@
     <string name="view_time_calculator_counter_icon__description">Icon of runtime alert</string>
     <string name="all_suggestion_dialog_title">Select one</string>
     <string name="all_search_view_hint">Type a tv show</string>
-    <string name="time_calculator_incerement_selected">+ 1 selected</string>
-    <string name="time_calculator_decrement_selected">- 1 selected</string>
-    <string name="time_calculator_addition_episodes">+ %1$s episodes</string>
-    <string name="time_calculator_subtraction_episodes">- %1$s episodes</string>
-    <string name="time_calculator_tv_show_present">TV Show already added.</string>
+    <string name="all_backdrop_hint">Search for a tv show</string>
+
+    <string name="dialog_select_season_header">Select season</string>
+    <string name="item_episode_premiere_eta">Premiere: ETA</string>
+    <string name="snackbar_button_disable">Disable</string>
+    <string name="snackbar_message_about_notifications">You will receive a notifications about new episodes</string>
+    <string name="fab_button_notifications_on">Enable notifications</string>
+    <string name="fab_button_notifications_off">Disable notifications</string>
+
+    <string name="dialog_on_season_completed_message">Congratulations!\n\nYou have watched %1$s season %2$s\nTime spent watching: %3$s\nEpisode watched: %4$s</string>
+    <string name="dialog_season_tracker_start_new">Start new tracking</string>
+    <string name="notification_new_episode_title">New episode!</string>
 </resources>

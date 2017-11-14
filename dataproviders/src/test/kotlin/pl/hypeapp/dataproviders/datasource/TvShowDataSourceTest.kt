@@ -90,9 +90,9 @@ class TvShowDataSourceTest {
         val tvShowId = "12"
         given(apiService.getAllSeasons(tvShowId)).willReturn(allSeasonsEntity)
 
-        tvShowDataSource.getAllSeasons(tvShowId, false)
+        tvShowDataSource.getAllSeasonsAfterPremiereDate(tvShowId, false)
 
-        verify(cacheProviders).getAllSeasons(any(), any(), any())
+        verify(cacheProviders).getAllSeasonsAfterPremiereDate(any(), any(), any())
         verify(apiService).getAllSeasons(tvShowId)
     }
 

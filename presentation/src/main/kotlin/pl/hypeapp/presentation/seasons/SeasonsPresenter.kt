@@ -1,8 +1,8 @@
 package pl.hypeapp.presentation.seasons
 
-import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.EpisodeModel
 import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
@@ -11,6 +11,7 @@ import pl.hypeapp.domain.usecase.mapwatched.SeasonWatchStateIntegrityUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageEpisodeWatchStateUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageSeasonsWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
+import java.util.logging.Logger
 import javax.inject.Inject
 
 class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEpisodesUseCase,
@@ -64,15 +65,15 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
                 ManageSeasonsWatchStateUseCase.Params.createParams(this, addToWatched))
     }
 
-    fun checkWatchStateIntegrity(allSeasonsModel: AllSeasonsModel?) {
+    fun checkWatchStateIntegrity(tvShowExtendedModel: TvShowExtendedModel?) {
         if (isViewShown) {
             seasonWatchStateIntegrityUseCase.execute(UpdateSeasonsObserver(),
-                    SeasonWatchStateIntegrityUseCase.Params.createParams(allSeasonsModel!!))
+                    SeasonWatchStateIntegrityUseCase.Params.createParams(tvShowExtendedModel!!))
         }
     }
 
-    inner class SeasonsObserver : DefaultSingleObserver<AllSeasonsModel>() {
-        override fun onSuccess(model: AllSeasonsModel) {
+    inner class SeasonsObserver : DefaultSingleObserver<TvShowExtendedModel>() {
+        override fun onSuccess(model: TvShowExtendedModel) {
             if (model.seasons?.size != 0) {
                 this@SeasonsPresenter.view?.populateRecyclerView(model)
             } else {
@@ -81,6 +82,8 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
         }
 
         override fun onError(error: Throwable) {
+            val log: Logger = Logger.getAnonymousLogger()
+            log.info(error.message + " " + error.printStackTrace())
             this@SeasonsPresenter.view?.showError()
         }
     }
@@ -95,8 +98,8 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
         }
     }
 
-    inner class UpdateSeasonsObserver : DefaultSingleObserver<AllSeasonsModel>() {
-        override fun onSuccess(model: AllSeasonsModel) {
+    inner class UpdateSeasonsObserver : DefaultSingleObserver<TvShowExtendedModel>() {
+        override fun onSuccess(model: TvShowExtendedModel) {
             this@SeasonsPresenter.view?.updateRecyclerList(model)
         }
     }

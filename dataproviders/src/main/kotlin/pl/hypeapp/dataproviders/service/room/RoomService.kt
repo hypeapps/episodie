@@ -3,15 +3,24 @@ package pl.hypeapp.dataproviders.service.room
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 import android.content.Context
+import pl.hypeapp.dataproviders.entity.room.EpisodeReminderEntity
+import pl.hypeapp.dataproviders.entity.room.SeasonTrackerEntity
 import pl.hypeapp.dataproviders.entity.room.WatchedEpisodeEntity
 
-@Database(entities = arrayOf(WatchedEpisodeEntity::class), version = 1)
+@Database(entities = arrayOf(WatchedEpisodeEntity::class, SeasonTrackerEntity::class, EpisodeReminderEntity::class),
+        version = 1)
+@TypeConverters(Converters::class)
 abstract class RoomService : RoomDatabase() {
 
     abstract val watchedEpisodeDao: WatchedEpisodeDao
 
     abstract val runtimeDao: RuntimeDao
+
+    abstract val seasonTrackerDao: SeasonTrackerDao
+
+    abstract val episodeReminderDao: EpisodeReminderDao
 
     companion object {
 

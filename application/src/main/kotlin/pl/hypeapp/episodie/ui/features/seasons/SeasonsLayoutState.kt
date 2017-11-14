@@ -1,6 +1,5 @@
 package pl.hypeapp.episodie.ui.features.seasons
 
-import android.util.Log
 import android.view.View
 import android.view.ViewStub
 import android.widget.Button
@@ -58,7 +57,6 @@ internal class SeasonsLayoutState(val view: View?) {
         errorView.viewVisible()
         view?.findViewById<Button>(R.id.button_item_error_retry)?.setOnClickListener {
             function()
-            Log.e("CLICK", "CLICK")
         }
     }
 

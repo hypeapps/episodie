@@ -10,8 +10,8 @@ ext {
 
     /* build plugins versions */
     build = [
-            gradle: "3.0.0-beta7",
-            kotlin: "1.1.3-2",
+            gradle: "3.0.0",
+            kotlin: "1.1.51",
     ]
 
     buildPlugins = [
@@ -20,7 +20,7 @@ ext {
     ]
 
     /* dependency version */
-    def androidSupportLibs = '26.0.1'
+    def androidSupportLibs = '26.1.0'
     def constraintLayoutVersion = '1.0.2'
     def jUnitVersion = '4.12'
     def mockitoVersion = '2.10.0'
@@ -50,7 +50,7 @@ ext {
     def jolyglotGsonVersion = '0.0.3'
     def androidAnimationsVersion = '2.2@aar'
     def easingLibraryVersion = '2.1@aar'
-    def architectureComponentsVersion = '1.0.0-alpha5'
+    def architectureComponentsVersion = '1.0.0-beta1'
     def particlesDrawableVersion = '1.0.7'
     def lottieVersion = '2.0.0'
     def groupieVersion = '2.0.0-alpha2'
@@ -59,6 +59,11 @@ ext {
     def hTextViewVersion = '0.1.1'
     def yearClassVersion = '2.0.0'
     def materialSearchVersion = '1.4.0'
+    def materialTimelineViewVersion = '1.0'
+    def diagonalLayoutVersion = '1.0.8'
+    def fabButtonVersion = '1.10.1'
+    def androidJobVersion = '1.2.0'
+    def gcmVersion = '11.6.0'
 
     def libs = [
             /* support */
@@ -68,15 +73,18 @@ ext {
             supportPalette              : [group: 'com.android.support', name: 'palette-v7', version: androidSupportLibs],
             supportRecyclerView         : [group: 'com.android.support', name: 'recyclerview-v7', version: androidSupportLibs],
             supportV4                   : [group: 'com.android.support', name: 'support-v4', version: androidSupportLibs],
+            supportV7                   : [group: 'com.android.support', name: 'support-v7', version: androidSupportLibs],
             constrainLayout             : [group: 'com.android.support.constraint', name: 'constraint-layout', version: constraintLayoutVersion],
             kotlin_stdlib               : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
-            archLifecycleRuntime        : [group: 'android.arch.lifecycle', name: 'runtime', version: architectureComponentsVersion],
+            archLifecycleRuntime        : [group: 'android.arch.lifecycle', name: 'runtime', version: '1.0.0'],
             archLifecycleExtensions     : [group: 'android.arch.lifecycle', name: 'extensions', version: architectureComponentsVersion],
             archLifecycleCompiler       : [group: 'android.arch.lifecycle', name: 'compiler', version: architectureComponentsVersion],
             archPersistenceRoom         : [group: 'android.arch.persistence.room', name: 'runtime', version: architectureComponentsVersion],
             archPersistenceRoomCompiler : [group: 'android.arch.persistence.room', name: 'compiler', version: architectureComponentsVersion],
             archPersistenceRoomRxSupport: [group: 'android.arch.persistence.room', name: 'rxjava2', version: architectureComponentsVersion],
             yearClass                   : [group: 'com.facebook.device.yearclass', name: 'yearclass', version: yearClassVersion],
+            gcm                         : [group: 'com.google.android.gms', name: 'play-services-gcm', version: gcmVersion],
+            androidJob                  : [group: 'com.evernote', name: 'android-job', version: androidJobVersion],
             /* rx */
             rxJava                      : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxJavaVersion],
             rxAndroid                   : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rxAndroidVersion],
@@ -116,6 +124,9 @@ ext {
             smallBang                   : [group: 'hanks.xyz', name: 'smallbang-library', version: smallBangVersion],
             hTextView                   : [group: 'com.hanks', name: 'htextview-evaporate', version: hTextViewVersion],
             materialSearch              : [group: 'com.miguelcatalan', name: 'materialsearchview', version: materialSearchVersion],
+            materialTimelineView        : [group: 'pl.hypeapp', name: 'materialtimelineview', version: materialTimelineViewVersion],
+            diagonalLayout              : [group: 'com.github.florent37', name: 'diagonallayout', version: diagonalLayoutVersion],
+            fabButton                   : [group: 'com.getbase', name: 'floatingactionbutton', version: fabButtonVersion],
             // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
             androidAnimations           : "com.daimajia.androidanimations:library:$androidAnimationsVersion",
             easingLibrary               : "com.daimajia.easing:library:$easingLibraryVersion"
@@ -148,10 +159,11 @@ ext {
             [configuration: "implementation", dependency: libs.supportRecyclerView],
             [configuration: "implementation", dependency: libs.supportV4],
             [configuration: "implementation", dependency: libs.kotlin_stdlib],
-            [configuration: "implementation", dependency: libs.archLifecycleRuntime],
             [configuration: "implementation", dependency: libs.archLifecycleExtensions],
             [configuration: "annotationProcessor", dependency: libs.archLifecycleCompiler],
             [configuration: "implementation", dependency: libs.yearClass],
+            [configuration: "implementation", dependency: libs.gcm],
+            [configuration: "implementation", dependency: libs.androidJob],
             // frontend
             [configuration: "implementation", dependency: libs.constrainLayout],
             [configuration: "implementation", dependency: libs.glide],
@@ -168,6 +180,10 @@ ext {
             [configuration: "implementation", dependency: libs.smallBang],
             [configuration: "implementation", dependency: libs.hTextView],
             [configuration: "implementation", dependency: libs.easingLibrary],
+            [configuration: "implementation", dependency: libs.materialSearch],
+            [configuration: "implementation", dependency: libs.materialTimelineView],
+            [configuration: "implementation", dependency: libs.diagonalLayout],
+            [configuration: "implementation", dependency: libs.fabButton],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
             [configuration: "kapt", dependency: libs.butterKnifeCompiler],

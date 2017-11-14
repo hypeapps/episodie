@@ -12,6 +12,8 @@ interface TvShowDataStore {
 
     fun getTopList(pageableRequest: PageableRequest, update: Boolean): Single<TopListEntity>
 
+    fun getAllSeasonsAfterPremiereDate(tvShowId: String, update: Boolean): Single<AllSeasonsEntity>
+
     fun getAllSeasons(tvShowId: String, update: Boolean): Single<AllSeasonsEntity>
 
     fun basicSearch(query: String): Single<List<BasicSearchResultEntity>>

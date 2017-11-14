@@ -39,6 +39,13 @@
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
+    <style name="EpisodieTheme.Toolbar.Semitransparent" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/status_bar</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+
     <style name="EpisodieTheme.FabButton" parent="EpisodieTheme.V0.FabButton"/>
     <style name="EpisodieTheme.V0.FabButton" parent="@style/Widget.Design.FloatingActionButton">
         <item name="fabSize">normal</item>
@@ -79,6 +86,16 @@
 
     <style name="EpisodieTheme.AlertDialog">
         <item name="android:textColor">#ff0000</item>
+    </style>
+
+    <style name="EpisodieTheme.DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_up_accelerate</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_in_up</item>
+    </style>
+
+    <style name="EpisodieTheme.FabButtonMenuLabels">
+        <item name="android:background">@drawable/fab_button_menu_label_background</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

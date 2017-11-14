@@ -3,13 +3,15 @@ package pl.hypeapp.episodie.extensions
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.episodie.R
@@ -19,10 +21,23 @@ fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }
 
-fun ImageView.loadImage(url: String?): Target<Drawable> =
+fun ImageView.loadImage(url: String?,
+                        scaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_XY): Target<Drawable> =
         GlideApp.with(this)
                 .load(url)
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .error(R.drawable.episodie_logo_small)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        this@loadImage.scaleType = scaleType
+                        return false
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        this@loadImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                        return false
+                    }
+                })
                 .into(this)
 
 fun ImageView.loadDrawableResource(drawableResource: Int): Target<Drawable> =
@@ -65,7 +80,7 @@ fun ImageView.manageWatchStateIcon(watchState: Int) {
         WatchState.PARTIALLY_WATCHED -> R.drawable.all_ic_diamond_partially_checked
         else -> R.drawable.all_ic_diamond_unchecked
     }
-    this.setImageDrawable(ContextCompat.getDrawable(this.context, diamondDrawable))
+    this.setImageResource(diamondDrawable)
 }
 
 fun FloatingActionButton.manageWatchStateIcon(watchState: Int) {
