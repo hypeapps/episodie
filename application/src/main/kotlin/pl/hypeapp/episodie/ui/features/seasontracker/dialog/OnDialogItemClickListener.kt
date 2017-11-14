@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.ui.features.bingewatching.dialog
+package pl.hypeapp.episodie.ui.features.seasontracker.dialog
 
 import pl.hypeapp.domain.model.SeasonModel
 

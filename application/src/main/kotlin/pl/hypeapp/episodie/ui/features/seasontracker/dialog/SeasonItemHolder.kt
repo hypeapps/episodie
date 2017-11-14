@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.ui.features.bingewatching.dialog
+package pl.hypeapp.episodie.ui.features.seasontracker.dialog
 
 import android.support.v4.content.ContextCompat
 import com.xwray.groupie.Item
@@ -27,7 +27,7 @@ internal class SeasonItemHolder(private val seasonModel: SeasonModel,
         if (seasonModel.imageMedium != null) {
             image_view_item_season_cover.loadImage(seasonModel.imageMedium)
         } else {
-            // if cover of season is null replace it by first screen of season's episode.
+            // if cover of headerViewModel is null replace it by first screen of headerViewModel's episode.
             seasonModel.episodes?.let {
                 if (!it.isEmpty()) image_view_item_season_cover.loadImage(it[0].imageMedium)
             }

@@ -58,6 +58,8 @@
         android:maxLines="2"
         android:textSize="@dimen/text_size_season_tracker_title"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin_default"
         app:layout_constraintStart_toEndOf="@id/card_view_season_tracker_cover"
         app:layout_constraintTop_toBottomOf="@id/card_view_season_tracker_full_runtime"
         app:layout_constraintVertical_bias="0.2"/>

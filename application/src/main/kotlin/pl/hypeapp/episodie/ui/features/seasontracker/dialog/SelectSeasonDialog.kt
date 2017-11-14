@@ -1,4 +1,4 @@
-package pl.hypeapp.episodie.ui.features.bingewatching.dialog
+package pl.hypeapp.episodie.ui.features.seasontracker.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -11,11 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import pl.hypeapp.domain.model.AllSeasonsModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.loadImage
 
-class SelectSeasonDialog(context: Context, allSeasonsModel: AllSeasonsModel,
+class SelectSeasonDialog(context: Context, tvShowExtendedModel: TvShowExtendedModel,
                          onDialogItemClickListener: OnDialogItemClickListener) : Dialog(context) {
 
     var recyclerView: RecyclerView
@@ -34,19 +34,21 @@ class SelectSeasonDialog(context: Context, allSeasonsModel: AllSeasonsModel,
             setHasFixedSize(true)
             adapter = groupAdapter
         }
-        allSeasonsModel.seasons?.forEach {
-            groupAdapter.add(SeasonItemHolder(it, onDialogItemClickListener))
+        tvShowExtendedModel.seasons?.forEach {
+            if (it.premiereDate != null && it.episodeOrder != 0 && it.episodes != null) {
+                groupAdapter.add(SeasonItemHolder(it, onDialogItemClickListener))
+            }
         }
-        populateHeader(allSeasonsModel)
+        populateHeader(tvShowExtendedModel)
     }
 
-    private fun populateHeader(allSeasonsModel: AllSeasonsModel) {
-        this.findViewById<TextView>(R.id.text_view_select_dialog_title).text = allSeasonsModel.name
-        this.findViewById<ImageView>(R.id.image_view_tv_show_details_cover).loadImage(allSeasonsModel.imageMedium)
+    private fun populateHeader(tvShowExtendedModel: TvShowExtendedModel) {
+        this.findViewById<TextView>(R.id.text_view_select_dialog_title).text = tvShowExtendedModel.name
+        this.findViewById<ImageView>(R.id.image_view_tv_show_details_cover).loadImage(tvShowExtendedModel.imageMedium)
         this.findViewById<TextView>(R.id.text_view_select_dialog_premiered).text = String
-                .format(context.getString(R.string.item_all_format_premiered), allSeasonsModel.premiered)
+                .format(context.getString(R.string.item_all_format_premiered), tvShowExtendedModel.premiered)
         this.findViewById<TextView>(R.id.text_view_select_dialog_status).text =
-                String.format(context.getString(R.string.tv_show_details_status), allSeasonsModel.status)
+                String.format(context.getString(R.string.tv_show_details_status), tvShowExtendedModel.status)
     }
 
 }

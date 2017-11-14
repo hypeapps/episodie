@@ -1,16 +1,16 @@
 package pl.hypeapp.episodie.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
-import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 
 class AllSeasonsViewModel : ViewModel() {
 
-    var retainedModel: AllSeasonsModel? = null
+    var retainedModel: TvShowExtendedModel? = null
 
     var seasonsList: ArrayList<SeasonModel> = ArrayList()
 
-    fun retainModel(model: AllSeasonsModel) {
+    fun retainModel(model: TvShowExtendedModel) {
         retainedModel = model
         model.seasons?.let {
             seasonsList.addAll(it)
@@ -22,7 +22,7 @@ class AllSeasonsViewModel : ViewModel() {
         seasonsList.clear()
     }
 
-    fun clearAndRetainModel(model: AllSeasonsModel) {
+    fun clearAndRetainModel(model: TvShowExtendedModel) {
         clearModel()
         retainModel(model)
     }

@@ -20,6 +20,9 @@ interface CacheProviders {
     fun getTopList(topListEntity: Single<TopListEntity>, query: DynamicKeyGroup, evictDynamicKeyGroup: EvictDynamicKeyGroup): Single<TopListEntity>
 
     @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
+    fun getAllSeasonsAfterPremiereDate(allSeasonsEntity: Single<AllSeasonsEntity>, query: DynamicKey, evictDynamicKey: EvictDynamicKey): Single<AllSeasonsEntity>
+
+    @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
     fun getAllSeasons(allSeasonsEntity: Single<AllSeasonsEntity>, query: DynamicKey, evictDynamicKey: EvictDynamicKey): Single<AllSeasonsEntity>
 
 }

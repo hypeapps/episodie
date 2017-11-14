@@ -61,7 +61,7 @@
     <dimen name="width_height_all_diamond">24dp</dimen>
     <dimen name="margin_bottom_tv_show_details_fab_button">48dp</dimen>
     <dimen name="margin_end_tv_show_details_fab_button">32dp</dimen>
-    <!--item season-->
+    <!--iheaderViewModelason-->
     <dimen name="width_item_season_screen">70dp</dimen>
     <dimen name="height_item_season_screen">90dp</dimen>
     <!--seasons fragment-->
@@ -96,4 +96,15 @@
     <dimen name="padding_top_time_calculator_recycler_view">60dp</dimen>
     <dimen name="text_size_time_calculator_info_header">15sp</dimen>
     <dimen name="padding_time_calculator_info_header">50dp</dimen>
+    headerViewModelason tracker item header-->
+    <dimen name="card_elevation_season_tracker_cover">4dp</dimen>
+    <dimen name="corner_radius_season_tracker_cover">3dp</dimen>
+    <dimen name="width_season_tracker_cover">120dp</dimen>
+    <dimen name="height_season_tracker_cover">170dp</dimen>
+    <dimen name="text_size_season_tracker_title">20sp</dimen>
+    <dimen name="margin_top_season_tracker_top_corner">32dp</dimen>
+    <dimen name="corner_radius_season_tracker">8dp</dimen>
+    <dimen name="card_elevation_season_tracker">12dp</dimen>
+    <dimen name="size_season_tracker_ic_full_runtime">20dp</dimen>
+    <dimen name="text_size_season_tracker_full_runtime">16sp</dimen>
 </resources>
