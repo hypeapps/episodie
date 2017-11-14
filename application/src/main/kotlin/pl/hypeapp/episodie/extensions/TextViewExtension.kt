@@ -8,15 +8,18 @@ import pl.hypeapp.episodie.R
 import java.util.concurrent.TimeUnit
 
 fun TextView.setRuntime(runtime: Long?) {
+    this.text = getRuntimeFormatted(resources, runtime)
+}
+
+fun getRuntimeFormatted(resources: Resources, runtime: Long?): String {
     runtime?.let {
-        if (isUpToOneHour(it)) {
-            this.text = String.format(resources.getString(R.string.time_unit_format_minutes), TimeUnit.MINUTES.toMinutes(it))
-        } else if (isLessThanOneDay(it)) {
-            this.text = String.format(resources.getString(R.string.time_unit_format_hours), TimeUnit.MINUTES.toHours(it))
-        } else {
-            this.text = String.format(resources.getString(R.string.time_unit_format_days), TimeUnit.MINUTES.toDays(it))
+        return when {
+            isUpToOneHour(it) -> String.format(resources.getString(R.string.time_unit_format_minutes), TimeUnit.MINUTES.toMinutes(it))
+            isLessThanOneDay(it) -> String.format(resources.getString(R.string.time_unit_format_hours), TimeUnit.MINUTES.toHours(it))
+            else -> String.format(resources.getString(R.string.time_unit_format_days), TimeUnit.MINUTES.toDays(it))
         }
     }
+    return ""
 }
 
 fun TextView.setFullRuntime(runtime: Long?) {
