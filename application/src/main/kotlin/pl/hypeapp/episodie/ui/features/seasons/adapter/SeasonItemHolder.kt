@@ -41,8 +41,10 @@ class SeasonItemHolder constructor(private val seasonsModel: SeasonModel,
         if (seasonsModel.imageMedium != null) {
             image_view_item_season_cover.loadImage(seasonsModel.imageMedium)
         } else {
-            // if cover of season is null replace it by first screen of season's episode.
-            image_view_item_season_cover.loadImage(seasonsModel.episodes!![0].imageMedium)
+            // if cover of headerViewModel is null replace it by first screen of headerViewModel's episode.
+            seasonsModel.episodes?.let {
+                if (!it.isEmpty()) image_view_item_season_cover.loadImage(it[0].imageMedium)
+            }
         }
         text_view_item_season_season_number.setSPrefix(seasonsModel.seasonNumber!!)
         text_view_item_season_runtime.setFullRuntime(seasonsModel.runtime)

@@ -19,4 +19,8 @@ class DataFactory @Inject constructor(private val apiService: ApiService,
 
     fun createRuntimeDataSource(): RuntimeDataStore = RuntimeDataSource(roomService)
 
+    fun createSeasonTrackerDataSource(): SeasonTrackerDataStore = SeasonTrackerDataSource(roomService)
+
+    fun createEpisodeReminderDataSource(): EpisodeReminderDataStore = EpisodeReminderDataSource(roomService)
+
 }

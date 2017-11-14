@@ -5,7 +5,7 @@ import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
-import pl.hypeapp.domain.model.AllSeasonsModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 
 class AllSeasonsEntityMapperTest {
 
@@ -22,7 +22,7 @@ class AllSeasonsEntityMapperTest {
 
     @Test
     fun `should transform entity to model`() {
-        val model: AllSeasonsModel = allSeasonsEntityMapper.transform(allSeasonsEntity)
+        val model: TvShowExtendedModel = allSeasonsEntityMapper.transform(allSeasonsEntity)
 
         model.seasons `should equal` allSeasonsEntity.seasons
     }

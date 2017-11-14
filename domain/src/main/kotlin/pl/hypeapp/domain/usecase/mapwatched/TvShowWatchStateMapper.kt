@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class TvShowWatchStateMapper @Inject constructor(private val repository: WatchedRepository) {
 
-    fun map(seasonsModel: AllSeasonsModel) = seasonsModel.seasons?.let {
+    fun map(seasonsModel: TvShowExtendedModel) = seasonsModel.seasons?.let {
         // get seasons ids for repository call
         val seasonsIds: List<String> = it.map { it.seasonId!! }
         // map all episodes watch state to not watched

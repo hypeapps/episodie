@@ -39,5 +39,4 @@ abstract class BaseActivity : AppCompatActivity() {
         if (!it.isDisposed) it.dispose()
     }
 
-
 }

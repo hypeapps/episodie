@@ -69,29 +69,29 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
     fun onDrag(): Observable<Float>? = publishDragSubject
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    private fun onStart() {
+    fun onStart() {
         Log.e("EVENT", "ON START")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    private fun onCreate() {
+    fun onCreate() {
         Log.e("EVENT", "ON CREATE")
         ButterKnife.bind(this, activity)
 //        feedItem.setActive()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun onStop() {
+    fun onStop() {
         Log.e("EVENT", "ON STOP")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun onDestroy() {
+    fun onDestroy() {
         Log.e("EVENT", "ON DESTROY")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    private fun onPause() {
+    fun onPause() {
         if (particlesDrawable.isRunning) {
             particlesDrawable.stop()
         }

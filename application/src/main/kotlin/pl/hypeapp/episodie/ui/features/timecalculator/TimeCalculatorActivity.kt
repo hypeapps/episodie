@@ -22,7 +22,6 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_time_calculator.*
 import pl.hypeapp.domain.model.BasicSearchResultModel
 import pl.hypeapp.domain.model.TvShowModel
@@ -51,8 +50,6 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     override fun getLayoutRes(): Int = R.layout.activity_time_calculator
 
     @Inject lateinit var presenter: TimeCalculatorPresenter
-
-    private lateinit var searchViewSubscription: Disposable
 
     private lateinit var timeCalculatorRecyclerAdapter: TimeCalculatorRecyclerAdapter
 
@@ -87,7 +84,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDetachView()
-        searchViewSubscription.dispose()
+        disposeSubscription()
         suggestionDialog?.let {
             if (it.isShowing) {
                 it.dismiss()
@@ -111,7 +108,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         findViewById<View>(R.id.transparent_view).background = null
         setSubmitOnClick(true)
         setSuggestionIcon(ContextCompat.getDrawable(this@TimeCalculatorActivity, R.drawable.all_ic_diamond_checked_dark))
-        searchViewSubscription = RxTextView.textChanges(time_calculator_search_view.findViewById(R.id.searchTextView))
+        disposable = RxTextView.textChanges(time_calculator_search_view.findViewById(R.id.searchTextView))
                 .filter { it.length > 2 }
                 .debounce(TIMEOUT_DEBOUNCE, TimeUnit.MILLISECONDS)
                 .map { it.toString() }

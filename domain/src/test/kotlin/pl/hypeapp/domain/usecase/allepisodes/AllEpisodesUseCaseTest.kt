@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.AllSeasonsModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.domain.repository.AllSeasonsRepository
 import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateMapper
 
@@ -38,14 +38,14 @@ class AllEpisodesUseCaseTest {
     @Test
     fun `should get all seasons`() {
         val params: AllEpisodesUseCase.Params = AllEpisodesUseCase.Params.createQuery(ID, UPDATE)
-        val allSeasonsModel: AllSeasonsModel = mock()
-        val returnedSingle: Single<AllSeasonsModel> = Single.just(allSeasonsModel)
-        given(repository.getAllSeasons(ID, UPDATE)).willReturn(returnedSingle)
+        val tvShowExtendedModel: TvShowExtendedModel = mock()
+        val returnedSingle: Single<TvShowExtendedModel> = Single.just(tvShowExtendedModel)
+        given(repository.getAllSeasonsAfterPremiereDate(ID, UPDATE)).willReturn(returnedSingle)
 
         useCase.createSingle(params).blockingGet()
 
-        verify(repository).getAllSeasons(ID, UPDATE)
-        verify(watchStateMapper).map(allSeasonsModel)
+        verify(repository).getAllSeasonsAfterPremiereDate(ID, UPDATE)
+        verify(watchStateMapper).map(tvShowExtendedModel)
         verifyNoMoreInteractions(repository)
     }
 

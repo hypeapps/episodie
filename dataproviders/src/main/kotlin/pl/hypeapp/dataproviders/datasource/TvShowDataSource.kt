@@ -35,8 +35,14 @@ class TvShowDataSource @Inject constructor(private val apiService: ApiService,
                 EvictDynamicKeyGroup(update))
     }
 
+    override fun getAllSeasonsAfterPremiereDate(tvShowId: String, update: Boolean): Single<AllSeasonsEntity> {
+        return cacheProviders.getAllSeasonsAfterPremiereDate(apiService.getAllSeasons(tvShowId, true),
+                DynamicKey(tvShowId), EvictDynamicKey(update))
+    }
+
     override fun getAllSeasons(tvShowId: String, update: Boolean): Single<AllSeasonsEntity> {
-        return cacheProviders.getAllSeasons(apiService.getAllSeasons(tvShowId), DynamicKey(tvShowId), EvictDynamicKey(update))
+        return cacheProviders.getAllSeasons(apiService.getAllSeasons(tvShowId, false),
+                DynamicKey(tvShowId), EvictDynamicKey(update))
     }
 
     override fun basicSearch(query: String): Single<List<BasicSearchResultEntity>> = apiService.basicSearch(query)

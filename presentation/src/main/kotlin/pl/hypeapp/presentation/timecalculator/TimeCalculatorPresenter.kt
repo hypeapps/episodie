@@ -6,7 +6,6 @@ import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.gettvshow.GetTvShowUseCase
 import pl.hypeapp.domain.usecase.search.BasicSearchUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: BasicSearchUseCase,
@@ -90,10 +89,7 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
         this.view?.showSuggestionsDialog(suggestions)
     }
 
-    val logger: Logger = Logger.getAnonymousLogger()
-
     inner class SearchObserver : DefaultSingleObserver<List<BasicSearchResultModel>>() {
-
         override fun onSuccess(model: List<BasicSearchResultModel>) {
             if (!model.isEmpty())
                 this@TimeCalculatorPresenter.view?.setSearchSuggestions(model
@@ -110,12 +106,11 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
 
     inner class TvShowObserver : DefaultSingleObserver<TvShowModel>() {
         override fun onSuccess(model: TvShowModel) {
-            logger.info(" model " + model.name)
             this@TimeCalculatorPresenter.view?.openTvShowDetailsActivity(model)
         }
 
         override fun onError(error: Throwable) {
-
+            this@TimeCalculatorPresenter.view?.showErrorToast()
         }
     }
 

@@ -9,8 +9,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when`
-import pl.hypeapp.domain.model.AllSeasonsModel
 import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.mapwatched.SeasonWatchStateIntegrityUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageEpisodeWatchStateUseCase
@@ -114,9 +114,9 @@ class SeasonsPresenterTest {
     @Test
     fun `should check watch state integrity`() {
         presenter.isViewShown = true
-        val allSeasonsModel: AllSeasonsModel = mock()
+        val tvShowExtendedModel: TvShowExtendedModel = mock()
 
-        presenter.checkWatchStateIntegrity(allSeasonsModel)
+        presenter.checkWatchStateIntegrity(tvShowExtendedModel)
 
         verify(seasonWatchStateIntegrityUseCase).execute(any(), any())
     }
@@ -124,7 +124,7 @@ class SeasonsPresenterTest {
     @Test
     fun `should pass model and populate recycler`() {
         presenter.view = view
-        val model: AllSeasonsModel = fakeModel
+        val model: TvShowExtendedModel = fakeModel
 
         `when`(useCase.execute(any(), any())).thenAnswer {
             (it.arguments[0] as SeasonsPresenter.SeasonsObserver).onSuccess(model)
@@ -139,7 +139,7 @@ class SeasonsPresenterTest {
     @Test
     fun `should show empty seasons message`() {
         presenter.view = view
-        val model: AllSeasonsModel = mock()
+        val model: TvShowExtendedModel = mock()
 
         `when`(useCase.execute(any(), any())).thenAnswer {
             (it.arguments[0] as SeasonsPresenter.SeasonsObserver).onSuccess(model)
@@ -167,6 +167,6 @@ class SeasonsPresenterTest {
 
     var seasonModel: SeasonModel = mock()
 
-    var fakeModel: AllSeasonsModel = AllSeasonsModel(arrayListOf(seasonModel, seasonModel))
+    var fakeModel: TvShowExtendedModel = TvShowExtendedModel(arrayListOf(seasonModel, seasonModel))
 
 }
