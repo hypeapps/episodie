@@ -8,6 +8,7 @@ interface ViewType {
         val ITEM = 1
         val LOADING = 2
         val ERROR = 3
+        val DECORATOR = 4
     }
 
     interface SeasonTrackerViewType : ViewType {
