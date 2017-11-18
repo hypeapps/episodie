@@ -98,4 +98,10 @@ class AppModule(private val app: App) {
         return episodeReminderDataRepository
     }
 
+    @Provides
+    @Singleton
+    fun providePremiereDatesRepository(premiereDatesDataRepository: PremiereDatesDataRepository): PremiereDatesRepository {
+        return premiereDatesDataRepository
+    }
+
 }
