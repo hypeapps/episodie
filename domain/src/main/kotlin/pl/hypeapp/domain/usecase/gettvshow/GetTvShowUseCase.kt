@@ -15,6 +15,8 @@ class GetTvShowUseCase @Inject constructor(threadExecutor: ThreadExecutor,
 
     override fun createSingle(params: Params): Single<TvShowModel> {
         return repository.getTvShow(params.id, params.update)
+                .toObservable()
+                .lastOrError()
     }
 
     class Params private constructor(val id: String, val update: Boolean) {
