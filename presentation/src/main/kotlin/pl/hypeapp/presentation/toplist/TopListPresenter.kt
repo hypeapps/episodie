@@ -10,7 +10,6 @@ import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
 import pl.hypeapp.domain.usecase.top.TopListUseCase
 import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class TopListPresenter @Inject constructor(private val topListUseCase: TopListUseCase,
@@ -20,8 +19,6 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
     : Presenter<TopListView>() {
 
     private var userRuntime: Long = 0
-
-    val log: Logger = Logger.getAnonymousLogger()
 
     private companion object {
         val SIZE = 10
