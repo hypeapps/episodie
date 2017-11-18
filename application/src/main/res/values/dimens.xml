@@ -96,7 +96,7 @@
     <dimen name="padding_top_time_calculator_recycler_view">60dp</dimen>
     <dimen name="text_size_time_calculator_info_header">15sp</dimen>
     <dimen name="padding_time_calculator_info_header">50dp</dimen>
-    headerViewModelason tracker item header-->
+    <!--season tracker item header-->
     <dimen name="card_elevation_season_tracker_cover">4dp</dimen>
     <dimen name="corner_radius_season_tracker_cover">3dp</dimen>
     <dimen name="width_season_tracker_cover">120dp</dimen>
