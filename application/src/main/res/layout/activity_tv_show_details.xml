@@ -141,6 +141,7 @@
                         android:textSize="@dimen/text_size_tv_show_details_title"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/card_view_tv_show_details_cover"
+                        app:layout_constraintEnd_toEndOf="@id/top_corner_shape_tv_show_details"
                         app:layout_constraintTop_toBottomOf="@id/card_view_tv_show_details_full_runtime"
                         app:layout_constraintVertical_bias="0.2" />
 
