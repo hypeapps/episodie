@@ -101,4 +101,9 @@
     <string name="dialog_on_season_completed_message">Congratulations!\n\nYou have watched %1$s season %2$s\nTime spent watching: %3$s\nEpisode watched: %4$s</string>
     <string name="dialog_season_tracker_start_new">Start new tracking</string>
     <string name="notification_new_episode_title">New episode!</string>
+    <string name="notification_premiere_scheduled">You will be receive notification about TV show premiere.</string>
+    <string name="item_premiere_genre">Genre: %1$s</string>
+    <string name="fragment_premieres_title_app_bar">Premiere dates</string>
+    <string name="format_date_us">yyyy-MM-dd</string>
+    <string name="format_new_premiere">New premiere: %1$s</string>
 </resources>

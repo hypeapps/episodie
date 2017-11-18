@@ -54,7 +54,7 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
 
                 <TextView
-                    android:id="@+id/text_view_top_list_appbar_title"
+                    android:id="@+id/text_view_appbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/padding_text_view_top_list_appbar_title"

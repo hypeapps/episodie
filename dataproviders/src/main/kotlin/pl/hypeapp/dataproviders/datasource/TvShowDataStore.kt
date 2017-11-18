@@ -3,6 +3,7 @@ package pl.hypeapp.dataproviders.datasource
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.entity.api.*
 import pl.hypeapp.domain.model.PageableRequest
+import java.util.*
 
 interface TvShowDataStore {
 
@@ -17,5 +18,7 @@ interface TvShowDataStore {
     fun getAllSeasons(tvShowId: String, update: Boolean): Single<AllSeasonsEntity>
 
     fun basicSearch(query: String): Single<List<BasicSearchResultEntity>>
+
+    fun getPremiereDates(pageableRequest: PageableRequest, fromDate: Date, update: Boolean): Single<PageablePremiereDates>
 
 }

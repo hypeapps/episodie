@@ -2,10 +2,7 @@ package pl.hypeapp.dataproviders.cache
 
 import io.reactivex.Single
 import io.rx_cache2.*
-import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
-import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
-import pl.hypeapp.dataproviders.entity.api.TopListEntity
-import pl.hypeapp.dataproviders.entity.api.TvShowEntity
+import pl.hypeapp.dataproviders.entity.api.*
 import java.util.concurrent.TimeUnit
 
 interface CacheProviders {
@@ -24,5 +21,8 @@ interface CacheProviders {
 
     @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
     fun getAllSeasons(allSeasonsEntity: Single<AllSeasonsEntity>, query: DynamicKey, evictDynamicKey: EvictDynamicKey): Single<AllSeasonsEntity>
+
+    @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
+    fun getPremiereDates(allSeasonsEntity: Single<PageablePremiereDates>, query: DynamicKeyGroup, evictDynamicKeyGroup: EvictDynamicKeyGroup): Single<PageablePremiereDates>
 
 }

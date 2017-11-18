@@ -61,15 +61,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name="com.evernote.android.job.gcm.PlatformGcmService"
-            tools:node="remove"/>
-
-        <!--<service-->
-        <!--android:name=""-->
-        <!--android:exported="true"-->
-        <!--android:permission="android.permission.BIND_JOB_SERVICE"/>-->
-
     </application>
 
 </manifest>

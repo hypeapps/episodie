@@ -2,6 +2,7 @@ package pl.hypeapp.episodie.ui.features.mainfeed
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.ViewGroup
 import butterknife.OnClick
@@ -25,7 +26,7 @@ import pl.hypeapp.presentation.mainfeed.MainFeedPresenter
 import pl.hypeapp.presentation.mainfeed.MainFeedView
 import javax.inject.Inject
 
-class MainFeedActivity : BaseActivity(), MainFeedView {
+class MainFeedActivity : BaseActivity(), MainFeedView, ViewPager.OnPageChangeListener {
 
     override fun getLayoutRes(): Int = R.layout.activity_main_feed
 
@@ -53,6 +54,14 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         initPagerAdapter()
         navigationDrawer = NavigationDrawer(this, toolbar_feed)
         lifecycle.addObserver(navigationDrawer)
+        navigation_bottom_view.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_most_popular -> view_pager.currentItem = MainFeedPagerAdapter.PAGE_MOST_POPULAR
+                R.id.action_top_list -> view_pager.currentItem = MainFeedPagerAdapter.PAGE_TOP_LIST
+                R.id.action_premieres -> view_pager.currentItem = MainFeedPagerAdapter.PAGE_PREMIERES
+            }
+            false
+        }
     }
 
     override fun onAttachedToWindow() {
@@ -75,8 +84,18 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         presenter.onDetachView()
     }
 
-    override fun navigateToPage(page: Int) {
-        view_pager.currentItem = page
+    override fun onPageScrollStateChanged(state: Int) {}
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+    private var prevItem: Int? = null
+
+    override fun onPageSelected(position: Int) {
+        prevItem?.let {
+            navigation_bottom_view.menu.getItem(it).isChecked = false
+        }
+        navigation_bottom_view.menu.getItem(position).isChecked = true
+        prevItem = position
     }
 
     override fun navigateToSearch() {
@@ -122,6 +141,7 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
     private fun initPagerAdapter() {
         view_pager.adapter = MainFeedPagerAdapter(supportFragmentManager)
         view_pager.offscreenPageLimit = 1
+        view_pager.addOnPageChangeListener(this)
     }
 
 }

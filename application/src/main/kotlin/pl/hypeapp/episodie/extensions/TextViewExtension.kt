@@ -5,6 +5,8 @@ import android.os.Build
 import android.text.Html
 import android.widget.TextView
 import pl.hypeapp.episodie.R
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 fun TextView.setRuntime(runtime: Long?) {
@@ -80,6 +82,11 @@ fun TextView.setSPrefix(number: Int) {
     } else {
         this.text = number.toString()
     }
+}
+
+fun TextView.setDateFormat(date: Date) {
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    this.text = simpleDateFormat.format(date)
 }
 
 private fun isAtLeastOneDay(runtime: Long) = runtime >= TimeUnit.MINUTES.convert(24 * 60, TimeUnit.MINUTES)

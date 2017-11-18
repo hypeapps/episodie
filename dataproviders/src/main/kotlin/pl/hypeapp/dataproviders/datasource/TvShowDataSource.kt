@@ -10,6 +10,8 @@ import pl.hypeapp.dataproviders.cache.EvictCache
 import pl.hypeapp.dataproviders.entity.api.*
 import pl.hypeapp.dataproviders.service.api.ApiService
 import pl.hypeapp.domain.model.PageableRequest
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -45,11 +47,22 @@ class TvShowDataSource @Inject constructor(private val apiService: ApiService,
                 DynamicKey(tvShowId), EvictDynamicKey(update))
     }
 
+    override fun getPremiereDates(pageableRequest: PageableRequest, fromDate: Date, update: Boolean): Single<PageablePremiereDates> {
+        if (update) {
+            evictCache.evictAllMatchingDynamicKey(DynamicKey(PREMIERE_DATES_KEY))
+        }
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val dateFormatted = dateFormat.format(fromDate).toString()
+        return cacheProviders.getPremiereDates(apiService.getPremiereDates(pageableRequest.page, pageableRequest.size, dateFormatted),
+                DynamicKeyGroup(PREMIERE_DATES_KEY, pageableRequest.page), EvictDynamicKeyGroup(update))
+    }
+
     override fun basicSearch(query: String): Single<List<BasicSearchResultEntity>> = apiService.basicSearch(query)
 
     private companion object {
         val MOST_POPULAR_KEY = "MP"
         val TOP_LIST_KEY = "TL"
+        val PREMIERE_DATES_KEY = "PR"
     }
 
 }

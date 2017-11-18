@@ -1,7 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/navigation_background_color">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_premieres"
+        style="@style/EpisodieTheme.TopListAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="230dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/image_view_premieres_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/fragment_top_list_backdrop_description"
+                android:scaleType="fitXY"/>
+
+            <pl.hypeapp.episodie.ui.widget.DrawerHamburgerArrow
+                android:id="@+id/image_view_premieres_ic_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_big"
+                android:padding="@dimen/padding_big"
+                app:arrow_color="@android:color/white"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_top_list_gradient"
+                android:background="@drawable/all_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_view_appbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/padding_text_view_top_list_appbar_title"
+                android:paddingStart="32dp"
+                android:text="@string/fragment_premieres_title_app_bar"
+                android:textSize="@dimen/text_size_top_list_appbar_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.9"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout_premieres"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="pl.hypeapp.episodie.ui.features.top.TitleScrollingBehaviour">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_premieres"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="52dp"
+            android:paddingEnd="@dimen/padding_big"
+            android:paddingStart="@dimen/padding_big"
+            android:paddingTop="36dp"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

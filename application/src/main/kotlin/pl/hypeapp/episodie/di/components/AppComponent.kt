@@ -46,6 +46,8 @@ interface AppComponent {
 
     fun seasonTrackerRepository(): SeasonTrackerRepository
 
+    fun premiereDatesRepository(): PremiereDatesRepository
+
     fun episodeReminderRepository(): EpisodeReminderRepository
 
     fun episodeReminderEngine(): EpisodeReminderEngine
