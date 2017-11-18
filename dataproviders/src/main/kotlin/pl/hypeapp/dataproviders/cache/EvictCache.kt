@@ -16,7 +16,11 @@ class EvictCache @Inject constructor(private val disk: Disk) {
     fun evictAllMatchingDynamicKey(dynamicKey: DynamicKey) {
         val key: String = dynamicKey.dynamicKey.toString()
         disk.allKeys().forEach({
-            if (isMatchingKey(it, key)) {
+            try {
+                if (isMatchingKey(it, key)) {
+                    disk.evict(it)
+                }
+            } catch (ex: StringIndexOutOfBoundsException) {
                 disk.evict(it)
             }
         })

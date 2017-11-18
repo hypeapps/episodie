@@ -23,4 +23,6 @@ class DataFactory @Inject constructor(private val apiService: ApiService,
 
     fun createEpisodeReminderDataSource(): EpisodeReminderDataStore = EpisodeReminderDataSource(roomService)
 
+    fun createPremiereReminderDataSource(): PremiereReminderDataStore = PremiereReminderDataSource(roomService)
+
 }

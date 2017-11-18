@@ -31,4 +31,8 @@ class ApiService @Inject constructor(private val episodieApi: EpisodieApi) : Epi
     override fun getAllSeasons(tvShowId: String, afterPremiereDate: Boolean): Single<AllSeasonsEntity> {
         return episodieApi.getAllSeasons(tvShowId, afterPremiereDate)
     }
+
+    override fun getPremiereDates(page: Int, size: Int, fromDate: String): Single<PageablePremiereDates> {
+        return episodieApi.getPremiereDates(page, size, fromDate)
+    }
 }
