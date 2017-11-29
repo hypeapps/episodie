@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:id="@+id/constraint_layout_search"
+    android:background="@color/primary">
 
-    <pl.hypeapp.episodie.ui.widget.RuntimeAlerterView
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_search"
         android:layout_width="match_parent"
-        android:id="@+id/alerter"
-        android:layout_marginTop="-40dp"
-        android:layout_height="wrap_content" />
-
-    <!--<com.hanks.htextview.evaporate.EvaporateTextView-->
-    <!--android:id="@+id/htext"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="HELLO" />-->
-
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp" />
+        android:theme="@style/EpisodieTheme.Toolbar"
+        app:contentInsetStartWithNavigation="@dimen/inset_start_with_navigation_toolbar">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/toolbar_title_search"
+            android:textSize="@dimen/text_size_toolbar_title_search"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/search_suggestions_recycler_view"
+        android:paddingStart="@dimen/padding_default"
+        android:paddingEnd="@dimen/padding_default"
+        android:paddingTop="@dimen/padding_default"
+        android:clipToPadding="false"
+        android:paddingBottom="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_search"/>
+
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_activity_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/all_search_view_hint"
+        android:textColor="@color/primary"/>
+
+</android.support.constraint.ConstraintLayout>

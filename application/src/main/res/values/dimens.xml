@@ -107,4 +107,5 @@
     <dimen name="card_elevation_season_tracker">12dp</dimen>
     <dimen name="size_season_tracker_ic_full_runtime">20dp</dimen>
     <dimen name="text_size_season_tracker_full_runtime">16sp</dimen>
+    <dimen name="text_size_toolbar_title_search">17sp</dimen>
 </resources>
