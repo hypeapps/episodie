@@ -106,4 +106,6 @@
     <string name="fragment_premieres_title_app_bar">Premiere dates</string>
     <string name="format_date_us">yyyy-MM-dd</string>
     <string name="format_new_premiere">New premiere: %1$s</string>
+    <string name="menu_title_search">Search</string>
+    <string name="toolbar_title_search">Search</string>
 </resources>
