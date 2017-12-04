@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
-
 import butterknife.ButterKnife
 import io.reactivex.disposables.Disposable
 import pl.hypeapp.episodie.ui.animation.SmallBangAnimator

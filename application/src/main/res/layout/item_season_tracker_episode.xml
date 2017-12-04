@@ -23,8 +23,8 @@
             android:id="@+id/view_episode_season_tracker_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="gone"
             android:background="@color/episode_item_watched"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +108,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginEnd="@dimen/margin_default"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_item_episode_summary_header"/>
@@ -124,7 +124,6 @@
             android:src="@drawable/all_ic_diamond_unchecked"
             app:layout_constraintBottom_toBottomOf="@id/image_view_item_episode_screen"
             app:layout_constraintEnd_toEndOf="parent"/>
-
 
     </pl.hypeapp.materialtimelineview.MaterialTimelineView>
 

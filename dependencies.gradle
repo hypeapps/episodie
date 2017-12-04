@@ -55,7 +55,6 @@ ext {
     def lottieVersion = '2.0.0'
     def groupieVersion = '2.0.0-alpha2'
     def noiseViewVersion = '1.0'
-    def smallBangVersion = '0.1.2'
     def hTextViewVersion = '0.1.1'
     def yearClassVersion = '2.0.0'
     def materialSearchVersion = '1.4.0'
@@ -121,7 +120,6 @@ ext {
             lottie                      : [group: 'com.airbnb.android', name: 'lottie', version: lottieVersion],
             groupie                     : [group: 'com.xwray', name: 'groupie', version: groupieVersion],
             noiseView                   : [group: 'pl.hypeapp', name: 'noiseview', version: noiseViewVersion],
-            smallBang                   : [group: 'hanks.xyz', name: 'smallbang-library', version: smallBangVersion],
             hTextView                   : [group: 'com.hanks', name: 'htextview-evaporate', version: hTextViewVersion],
             materialSearch              : [group: 'com.miguelcatalan', name: 'materialsearchview', version: materialSearchVersion],
             materialTimelineView        : [group: 'pl.hypeapp', name: 'materialtimelineview', version: materialTimelineViewVersion],
@@ -177,7 +175,6 @@ ext {
             [configuration: "implementation", dependency: libs.lottie],
             [configuration: "implementation", dependency: libs.groupie],
             [configuration: "implementation", dependency: libs.noiseView],
-            [configuration: "implementation", dependency: libs.smallBang],
             [configuration: "implementation", dependency: libs.hTextView],
             [configuration: "implementation", dependency: libs.easingLibrary],
             [configuration: "implementation", dependency: libs.materialSearch],
