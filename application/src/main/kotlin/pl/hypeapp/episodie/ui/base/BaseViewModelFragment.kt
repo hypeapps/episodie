@@ -13,7 +13,7 @@ abstract class BaseViewModelFragment<T : ViewModel> : BaseFragment() {
 
     protected lateinit var viewModel: T
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(this).get(viewModelClass)
         return super.onCreateView(inflater, container, savedInstanceState)
     }

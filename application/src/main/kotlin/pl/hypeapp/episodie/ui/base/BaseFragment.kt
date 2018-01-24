@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.ui.base
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
@@ -20,7 +21,7 @@ abstract class BaseFragment : Fragment() {
 
     protected lateinit var smallBangAnimator: SmallBangAnimator
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = container?.inflate(getLayoutRes())
         unbinder = ButterKnife.bind(this, view!!)
         return view
@@ -28,7 +29,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        smallBangAnimator = SmallBangAnimator(activity)
+        smallBangAnimator = SmallBangAnimator(activity as Activity)
     }
 
     override fun onDestroyView() {

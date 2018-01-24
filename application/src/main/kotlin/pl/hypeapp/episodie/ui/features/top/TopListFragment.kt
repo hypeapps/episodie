@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.ui.features.top
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -9,8 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
-import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
+import kotlinx.android.synthetic.main.activity_main_feed.*
 import kotlinx.android.synthetic.main.fragment_top_list.*
 import pl.hypeapp.domain.model.TopListModel
 import pl.hypeapp.domain.model.TvShowModel
@@ -49,18 +49,18 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
-                .appComponent((activity.application as App).component)
+                .appComponent((activity?.application as App).component)
                 .build()
 
     private lateinit var topListRecyclerAdapter: TvShowRecyclerAdapter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = super.onCreateView(inflater, container, savedInstanceState)
         component.inject(this)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onAttachView(this)
     }
@@ -111,9 +111,9 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
     override fun onItemSelected(item: TvShowModel?, vararg views: View) {
         item?.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Navigator.startTvShowDetailsWithSharedElement(activity, it, views)
+                Navigator.startTvShowDetailsWithSharedElement(activity as Activity, it, views)
             } else {
-                Navigator.startTvShowDetails(activity, it)
+                Navigator.startTvShowDetails(activity as Activity, it)
             }
         }
     }

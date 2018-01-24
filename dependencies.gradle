@@ -1,7 +1,7 @@
 ext {
     android = [
             compileSdkVersion: 26,
-            buildToolsVersion: "26.0.2",
+            buildToolsVersion: "27.0.3",
             minSdkVersion    : 17,
             targetSdkVersion : 25,
             versionCode      : 1,
@@ -10,8 +10,8 @@ ext {
 
     /* build plugins versions */
     build = [
-            gradle: "3.0.0",
-            kotlin: "1.1.51",
+            gradle: "3.0.1",
+            kotlin: "1.2.21",
     ]
 
     buildPlugins = [
@@ -19,14 +19,15 @@ ext {
             kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin",
     ]
 
-    /* dependency version */
-    def androidSupportLibs = '26.1.0'
+    /* dependencies versions */
+    def androidSupportLibs = '27.0.2'
     def constraintLayoutVersion = '1.0.2'
     def jUnitVersion = '4.12'
     def mockitoVersion = '2.10.0'
     def mockitoKotlinVersion = '1.5.0'
     def kluentVersion = '1.29'
     def espressoVersion = '2.2.2'
+    def pagingLibraryVersion = '1.0.0-alpha5'
     def rxJavaVersion = '2.1.0'
     def rxAndroidVersion = '2.0.1'
     def rxBindingVersion = '2.0.0'
@@ -45,12 +46,13 @@ ext {
     def rippleVersion = '1.3.1'
     def calligraphyVersion = '2.3.0'
     def multiSectionVersion = 'v0.1'
-    def slidingRootNavVersion = '1.0.2'
+    def slidingRootNavVersion = '1.1.0'
     def rxCacheVersion = '1.8.0-2.x'
     def jolyglotGsonVersion = '0.0.3'
     def androidAnimationsVersion = '2.2@aar'
     def easingLibraryVersion = '2.1@aar'
-    def architectureComponentsVersion = '1.0.0-beta1'
+    def architectureComponentsVersion = '1.1.0'
+    def roomVersion = '1.0.0'
     def particlesDrawableVersion = '1.0.7'
     def lottieVersion = '2.0.0'
     def groupieVersion = '2.0.0-alpha2'
@@ -75,12 +77,13 @@ ext {
             supportV7                   : [group: 'com.android.support', name: 'support-v7', version: androidSupportLibs],
             constrainLayout             : [group: 'com.android.support.constraint', name: 'constraint-layout', version: constraintLayoutVersion],
             kotlin_stdlib               : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
-            archLifecycleRuntime        : [group: 'android.arch.lifecycle', name: 'runtime', version: '1.0.0'],
+            //archLifecycleRuntime        : [group: 'android.arch.lifecycle', name: 'runtime', version: '1.0.0'],
             archLifecycleExtensions     : [group: 'android.arch.lifecycle', name: 'extensions', version: architectureComponentsVersion],
             archLifecycleCompiler       : [group: 'android.arch.lifecycle', name: 'compiler', version: architectureComponentsVersion],
-            archPersistenceRoom         : [group: 'android.arch.persistence.room', name: 'runtime', version: architectureComponentsVersion],
-            archPersistenceRoomCompiler : [group: 'android.arch.persistence.room', name: 'compiler', version: architectureComponentsVersion],
-            archPersistenceRoomRxSupport: [group: 'android.arch.persistence.room', name: 'rxjava2', version: architectureComponentsVersion],
+            archPersistenceRoom         : [group: 'android.arch.persistence.room', name: 'runtime', version: roomVersion],
+            archPersistenceRoomCompiler : [group: 'android.arch.persistence.room', name: 'compiler', version: roomVersion],
+            archPersistenceRoomRxSupport: [group: 'android.arch.persistence.room', name: 'rxjava2', version: roomVersion],
+            archPagingLibrary           : [group: 'android.arch.paging', name: 'runtime', version: pagingLibraryVersion],
             yearClass                   : [group: 'com.facebook.device.yearclass', name: 'yearclass', version: yearClassVersion],
             gcm                         : [group: 'com.google.android.gms', name: 'play-services-gcm', version: gcmVersion],
             androidJob                  : [group: 'com.evernote', name: 'android-job', version: androidJobVersion],
@@ -253,6 +256,7 @@ ext {
             [configuration: "api", dependency: libs.archPersistenceRoom],
             [configuration: "implementation", dependency: libs.archPersistenceRoomRxSupport],
             [configuration: "kapt", dependency: libs.archPersistenceRoomCompiler],
+            [configuration: "implementation", dependency: libs.archPagingLibrary],
             // test
             [configuration: "testImplementation", dependency: testLibs.junit],
             [configuration: "testImplementation", dependency: testLibs.mockito],

@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.ui.features.premieres
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -53,20 +54,20 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
-                .appComponent((activity.application as App).component)
+                .appComponent((activity?.application as App).component)
                 .build()
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = super.onCreateView(inflater, container, savedInstanceState)
         component.inject(this)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onAttachView(this)
-        if (activity.isLandscapeOrientation() and !activity.isNavigationBarLandscape()) {
+        if (activity!!.isLandscapeOrientation() and !activity!!.isNavigationBarLandscape()) {
             setLandscapeNavBarPaddingEnd(recycler_view_premieres)
         }
     }
@@ -134,9 +135,9 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
 
     override fun navigateToTvShowDetails(tvShowModel: TvShowModel) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Navigator.startTvShowDetailsWithSharedElement(activity, tvShowModel, transitionView)
+            Navigator.startTvShowDetailsWithSharedElement(activity as Activity, tvShowModel, transitionView)
         } else {
-            Navigator.startTvShowDetails(activity, tvShowModel)
+            Navigator.startTvShowDetails(activity as Activity, tvShowModel)
         }
     }
 
@@ -177,7 +178,7 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
 
     private fun setLandscapeNavBarPaddingEnd(vararg views: View) = views.forEach {
         with(it) {
-            setPadding(paddingStart, paddingTop, (paddingEnd + activity.getNavigationBarSize().x), paddingBottom)
+            setPadding(paddingStart, paddingTop, (paddingEnd + activity!!.getNavigationBarSize().x), paddingBottom)
         }
     }
 }

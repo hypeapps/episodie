@@ -292,7 +292,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
         }
         if (prefs.isEpisodeReminderNotificationsStarted) {
             fab_button_disable_notifications.apply {
-                setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_off))
+                setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_off)!!)
                 title = getString(R.string.fab_button_notifications_off)
             }
         }
@@ -304,7 +304,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
         prefs.isEpisodeReminderNotificationsStarted = false
         prefs.isNotificationsCanceled = true
         fab_button_disable_notifications.apply {
-            setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_on))
+            setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_on)!!)
             title = getString(R.string.fab_button_notifications_on)
         }
     }

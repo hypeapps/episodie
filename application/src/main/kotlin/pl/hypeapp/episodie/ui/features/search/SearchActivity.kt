@@ -122,7 +122,7 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
             val linearLayoutManager = LinearLayoutManager(context)
             layoutManager = linearLayoutManager
             val itemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
-            itemDecoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.item_recycler_view_decoration))
+            itemDecoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.item_recycler_view_decoration)!!)
             addItemDecoration(itemDecoration)
             adapter = searchSuggestionsRecyclerAdapter
         }

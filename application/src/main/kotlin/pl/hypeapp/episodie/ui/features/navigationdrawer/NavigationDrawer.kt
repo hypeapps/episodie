@@ -6,8 +6,9 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.Toolbar
-import android.util.Log
+import butterknife.BindViews
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.doctoror.particlesdrawable.ParticlesDrawable
 import com.yarolegovich.slidingrootnav.SlidingRootNav
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
@@ -16,13 +17,18 @@ import com.yarolegovich.slidingrootnav.callback.DragStateListener
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import pl.hypeapp.episodie.R
+import pl.hypeapp.episodie.navigation.Navigator
+import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
+import pl.hypeapp.episodie.ui.features.search.SearchActivity
+import pl.hypeapp.episodie.ui.features.seasontracker.SeasonTrackerActivity
+import pl.hypeapp.episodie.ui.features.timecalculator.TimeCalculatorActivity
+import pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
+import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerPresenter
 import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerView
+import javax.inject.Inject
 
 class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObserver, NavigationDrawerView,
         DragStateListener, DragListener {
-
-//    @BindView(R.id.drawer_menu_item_feed)
-//    lateinit var feedItem: DrawerMenuItemView
 
     private val publishDragSubject: PublishSubject<Float> = PublishSubject.create()
 
@@ -35,15 +41,20 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
 
     private val particlesDrawable: ParticlesDrawable = ParticlesDrawable()
 
+    @Inject
+    lateinit var presenter: NavigationDrawerPresenter
+
+    @BindViews(R.id.drawer_menu_item_feed, R.id.drawer_menu_item_search, R.id.drawer_menu_item_time_calculator,
+            R.id.drawer_menu_item_watched, R.id.drawer_menu_item_stats)
+    lateinit var drawerItems: List<DrawerMenuItemView>
+
     init {
         particlesDrawable.lineDistance = 270f
         slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
-//        slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).visibility = View.GONE
-        Log.e("line tempScroll", " " + particlesDrawable.lineDistance)
     }
 
     fun toggleDrawer() {
-        if (slidingRootNavigator.isMenuHidden) {
+        if (slidingRootNavigator.isMenuClosed) {
             slidingRootNavigator.openMenu(true)
         } else {
             slidingRootNavigator.closeMenu(true)
@@ -61,34 +72,20 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
             particlesDrawable.start()
     }
 
-    override fun onDrag(progress: Float) {
-        publishDragSubject.onNext(progress)
-    }
+    override fun onDrag(progress: Float) = publishDragSubject.onNext(progress)
 
     // Need to exhibit on drag progress for fragments controlling drawer/hamburger arrow animation.
     fun onDrag(): Observable<Float>? = publishDragSubject
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        Log.e("EVENT", "ON START")
-    }
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        Log.e("EVENT", "ON CREATE")
         ButterKnife.bind(this, activity)
-//        feedItem.setActive()
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
-        Log.e("EVENT", "ON STOP")
+        setProperActiveItem(activity)
+//        presenter.onAttachView(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
-        Log.e("EVENT", "ON DESTROY")
-    }
+    fun onDestroy() = presenter.onDetachView()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
@@ -98,10 +95,41 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun onResume() {
-        if (!slidingRootNavigator.isMenuHidden) {
+    fun onResume() {
+        if (slidingRootNavigator.isMenuOpened) {
             particlesDrawable.start()
         }
     }
 
+    @OnClick(R.id.drawer_menu_item_feed)
+    fun navigateToFeed() {
+        toggleDrawer()
+        setProperActiveItem(MainFeedActivity())
+        Navigator.startFeedActivity(activity)
+        activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_feed).setActive()
+    }
+
+    @OnClick(R.id.drawer_menu_item_search)
+    fun navigateToSearch() = Navigator.startSearchActivity(activity)
+
+    @OnClick(R.id.drawer_menu_item_time_calculator)
+    fun navigateToTimeCalculator() = Navigator.startTimeCalculatorAcitvity(activity)
+
+    @OnClick(R.id.drawer_menu_item_stats)
+    fun navigateToSeasonTracker() = Navigator.startSeasonTrackerActivity(activity)
+
+    fun setProperActiveItem(activity: Activity) {
+        setInactiveAllItems()
+        when (activity) {
+            is MainFeedActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_feed).setActive()
+            is SearchActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_search).setActive()
+//            is YourLibraryActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_watched).setActive()
+            is TimeCalculatorActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_time_calculator).setActive()
+            is SeasonTrackerActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_stats).setActive()
+        }
+    }
+
+    private fun setInactiveAllItems() = drawerItems.forEach { it.setInactive() }
+
 }
+

@@ -2,6 +2,16 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/background_dark"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_your_library"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/EpisodieTheme.Toolbar.Transparent"
+        app:contentInsetStartWithNavigation="@dimen/inset_start_with_navigation_toolbar"/>
+
 
 </android.support.constraint.ConstraintLayout>
