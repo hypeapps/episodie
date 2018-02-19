@@ -65,13 +65,13 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.onDetachView()
+        super.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
         outState?.putBoolean(WATCH_STATE_CHANGED, isWatchStateChanged)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
