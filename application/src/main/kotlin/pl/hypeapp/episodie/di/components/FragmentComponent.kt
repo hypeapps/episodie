@@ -9,7 +9,7 @@ import pl.hypeapp.episodie.ui.features.top.TopListFragment
 import pl.hypeapp.episodie.ui.features.tvshowsummary.TvShowSummaryFragment
 
 @PerFragment
-@Component(dependencies = arrayOf(AppComponent::class))
+@Component(dependencies = [(AppComponent::class)])
 interface FragmentComponent {
 
     fun inject(mostPopularFragment: MostPopularFragment)

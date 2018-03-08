@@ -64,14 +64,14 @@ class AppModule(private val app: App) {
 
     @Provides
     @Singleton
-    fun provideAddToWatchedRepository(watchedDataRepository: WatchedDataRepository): WatchedRepository {
-        return watchedDataRepository
+    fun provideWatchedShowRepository(watchedShowDataRepository: WatchedShowDataRepository): WatchedShowRepository {
+        return watchedShowDataRepository
     }
 
     @Provides
     @Singleton
-    fun provideRuntimeRepository(runtimeDataRepository: RuntimeDataRepository): RuntimeRepository {
-        return runtimeDataRepository
+    fun provideRuntimeRepository(userStatsDataRepository: UserStatsDataRepository): UserStatsRepository {
+        return userStatsDataRepository
     }
 
     @Provides

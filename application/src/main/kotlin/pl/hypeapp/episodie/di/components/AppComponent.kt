@@ -36,9 +36,9 @@ interface AppComponent {
 
     fun allSeasonsRepository(): AllSeasonsRepository
 
-    fun addToWatchedRepository(): WatchedRepository
+    fun watchedShowRepository(): WatchedShowRepository
 
-    fun runtimeRepository(): RuntimeRepository
+    fun runtimeRepository(): UserStatsRepository
 
     fun searchRepository(): SearchRepository
 
