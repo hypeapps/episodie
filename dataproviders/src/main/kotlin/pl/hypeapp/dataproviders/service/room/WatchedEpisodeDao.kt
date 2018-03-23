@@ -1,5 +1,6 @@
 package pl.hypeapp.dataproviders.service.room
 
+import android.arch.paging.TiledDataSource
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
@@ -29,6 +30,9 @@ interface WatchedEpisodeDao {
     @Query("SELECT episode_id FROM watched_episodes WHERE season_id = :arg0")
     fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String>
 
+    @Query("SELECT * FROM watched_episodes WHERE tv_show_id = :arg0")
+    fun getWatchedEpisodesByTvShowId(tvShowId: String): List<WatchedEpisodeEntity>
+
     @Query("DELETE FROM watched_episodes WHERE tv_show_id = :arg0")
     fun deleteWatchedTvShow(tvShowId: String)
 
@@ -37,5 +41,11 @@ interface WatchedEpisodeDao {
 
     @Query("DELETE FROM watched_episodes WHERE episode_id = :arg0")
     fun deleteWatchedEpisode(episodeId: String)
+
+    @Query("SELECT COUNT(DISTINCT tv_show_id) from watched_episodes")
+    fun getWatchedTvShowsSize(): Int
+
+    @Query("SELECT * from watched_episodes")
+    fun getWatchedTvShows(): TiledDataSource<WatchedEpisodeEntity>
 
 }
