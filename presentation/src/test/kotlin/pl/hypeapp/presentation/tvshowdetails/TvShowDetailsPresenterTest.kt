@@ -5,10 +5,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when`
-import pl.hypeapp.domain.model.TvShowModel
-import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateIntegrityUseCase
-import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
-import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
+import pl.hypeapp.domain.model.tvshow.TvShowModel
+import pl.hypeapp.domain.usecase.userstats.UserRuntimeUseCase
+import pl.hypeapp.domain.usecase.watchstate.UpdateTvShowWatchStateByIdUseCase
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowsWatchStateUseCase
 
 class TvShowDetailsPresenterTest {
 
@@ -16,16 +16,16 @@ class TvShowDetailsPresenterTest {
 
     private val view: TvShowDetailsView = mock()
 
-    private val manageTvShowWatchStateUseCase: ManageTvShowWatchStateUseCase = mock()
+    private val updateTvShowWatchStateByIdUseCase: UpdateTvShowWatchStateByIdUseCase = mock()
 
-    private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase = mock()
+    private val mapTvShowsWatchStateUseCase: MapTvShowsWatchStateUseCase = mock()
 
     private val userRuntimeUseCase: UserRuntimeUseCase = mock()
 
     @Before
     fun setUp() {
-        presenter = TvShowDetailsPresenter(manageTvShowWatchStateUseCase,
-                tvShowWatchStateIntegrityUseCase,
+        presenter = TvShowDetailsPresenter(updateTvShowWatchStateByIdUseCase,
+                mapTvShowsWatchStateUseCase,
                 userRuntimeUseCase)
     }
 
@@ -106,7 +106,7 @@ class TvShowDetailsPresenterTest {
         presenter.onAttachView(view)
         presenter.updateWatchState()
 
-        verify(tvShowWatchStateIntegrityUseCase, times(2)).execute(any(), any())
+        verify(mapTvShowsWatchStateUseCase, times(2)).execute(any(), any())
     }
 
 

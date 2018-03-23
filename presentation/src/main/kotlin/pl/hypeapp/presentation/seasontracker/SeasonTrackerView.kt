@@ -1,8 +1,8 @@
 package pl.hypeapp.presentation.seasontracker
 
-import pl.hypeapp.domain.model.SeasonModel
-import pl.hypeapp.domain.model.SeasonTrackerModel
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.collections.SeasonTrackerModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.presentation.base.View
 
 interface SeasonTrackerView : View {

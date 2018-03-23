@@ -1,6 +1,6 @@
 package pl.hypeapp.presentation.mainfeed
 
-import pl.hypeapp.domain.model.MostPopularModel
+import pl.hypeapp.domain.model.collections.MostPopularModel
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject

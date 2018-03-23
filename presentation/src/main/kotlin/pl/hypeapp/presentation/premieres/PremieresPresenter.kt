@@ -1,9 +1,9 @@
 package pl.hypeapp.presentation.premieres
 
-import pl.hypeapp.domain.model.PremiereDateModel
-import pl.hypeapp.domain.model.PremiereDatesModel
-import pl.hypeapp.domain.model.PremiereReminderModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.premiere.PremiereDateModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
+import pl.hypeapp.domain.model.reminder.PremiereReminderModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.gettvshow.GetTvShowUseCase

@@ -5,8 +5,8 @@ import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when`
-import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.domain.model.PageableRequest
+import pl.hypeapp.domain.model.collections.MostPopularModel
 import pl.hypeapp.domain.usecase.mostpopular.MostPopularUseCase
 
 class MostPopularPresenterTest {

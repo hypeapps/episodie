@@ -1,6 +1,6 @@
 package pl.hypeapp.presentation.mostpopular
 
-import pl.hypeapp.domain.model.MostPopularModel
+import pl.hypeapp.domain.model.collections.MostPopularModel
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.mostpopular.MostPopularUseCase
 import pl.hypeapp.presentation.base.Presenter

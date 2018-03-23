@@ -1,6 +1,6 @@
 package pl.hypeapp.presentation.seasons
 
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.presentation.base.View
 
 interface SeasonsView : View {

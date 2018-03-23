@@ -1,9 +1,9 @@
 package pl.hypeapp.presentation.seasontracker
 
-import pl.hypeapp.domain.model.BasicSearchResultModel
-import pl.hypeapp.domain.model.SeasonModel
-import pl.hypeapp.domain.model.SeasonTrackerModel
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.collections.SeasonTrackerModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver

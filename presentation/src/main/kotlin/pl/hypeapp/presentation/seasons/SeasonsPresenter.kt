@@ -1,26 +1,25 @@
 package pl.hypeapp.presentation.seasons
 
-import pl.hypeapp.domain.model.EpisodeModel
-import pl.hypeapp.domain.model.SeasonModel
-import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.model.tvshow.EpisodeModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
-import pl.hypeapp.domain.usecase.mapwatched.SeasonWatchStateIntegrityUseCase
-import pl.hypeapp.domain.usecase.watchstate.ManageEpisodeWatchStateUseCase
-import pl.hypeapp.domain.usecase.watchstate.ManageSeasonsWatchStateUseCase
+import pl.hypeapp.domain.usecase.watchstate.UpdateEpisodeWatchStateUseCase
+import pl.hypeapp.domain.usecase.watchstate.UpdateSeasonWatchStateUseCase
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEpisodesUseCase,
-                                           private val manageEpisodeWatchStateUseCase: ManageEpisodeWatchStateUseCase,
-                                           private val manageSeasonWatchStateUseCase: ManageSeasonsWatchStateUseCase,
-                                           private val seasonWatchStateIntegrityUseCase: SeasonWatchStateIntegrityUseCase)
+                                           private val updateEpisodeWatchStateUseCase: UpdateEpisodeWatchStateUseCase,
+                                           private val updateSeasonWatchStateUseCase: UpdateSeasonWatchStateUseCase,
+                                           private val mapWatchStateUseCase: MapTvShowWatchStateUseCase)
     : Presenter<SeasonsView>() {
 
-    var isViewShown = false
+    private var isViewShown = false
 
     override fun onAttachView(view: SeasonsView) {
         super.onAttachView(view)
@@ -30,11 +29,12 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
     override fun onDetachView() {
         super.onDetachView()
         allEpisodesUseCase.dispose()
-        manageEpisodeWatchStateUseCase.dispose()
-        manageSeasonWatchStateUseCase.dispose()
+        updateEpisodeWatchStateUseCase.dispose()
+        updateSeasonWatchStateUseCase.dispose()
+        mapWatchStateUseCase.dispose()
     }
 
-    // For performance reason load list when a fragment is visible for first time.
+    // For performance reason load a list when a fragment is visible for first time.
     fun onViewShown() {
         if (!isViewShown) {
             isViewShown = true
@@ -51,24 +51,21 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
         allEpisodesUseCase.execute(SeasonsObserver(), AllEpisodesUseCase.Params.createQuery(tvShowId, update))
     }
 
-    fun changeEpisodeWatchState(episodeModel: EpisodeModel) = with(episodeModel) {
+    fun toggleEpisodeWatchState(episodeModel: EpisodeModel) = with(episodeModel) {
         val addToWatched: Boolean = watchState != WatchState.WATCHED
-        watchState = WatchState.manageWatchState(watchState)
-        manageEpisodeWatchStateUseCase.execute(ManageWatchStateObserver(),
-                ManageEpisodeWatchStateUseCase.Params.createParams(this, addToWatched))
+        watchState = WatchState.toggleWatchState(watchState)
+        updateEpisodeWatchStateUseCase.execute(UpdateWatchStateObserver(), UpdateEpisodeWatchStateUseCase.Params.createParams(this, addToWatched))
     }
 
-    fun changeSeasonWatchState(seasonModel: SeasonModel) = with(seasonModel) {
+    fun toggleSeasonWatchState(seasonModel: SeasonModel) = with(seasonModel) {
         val addToWatched: Boolean = watchState != WatchState.WATCHED
-        watchState = WatchState.manageWatchState(watchState)
-        manageSeasonWatchStateUseCase.execute(ManageWatchStateObserver(),
-                ManageSeasonsWatchStateUseCase.Params.createParams(this, addToWatched))
+        watchState = WatchState.toggleWatchState(watchState)
+        updateSeasonWatchStateUseCase.execute(UpdateWatchStateObserver(), UpdateSeasonWatchStateUseCase.Params.createParams(this, addToWatched))
     }
 
     fun checkWatchStateIntegrity(tvShowExtendedModel: TvShowExtendedModel?) {
         if (isViewShown) {
-            seasonWatchStateIntegrityUseCase.execute(UpdateSeasonsObserver(),
-                    SeasonWatchStateIntegrityUseCase.Params.createParams(tvShowExtendedModel!!))
+            mapWatchStateUseCase.execute(UpdateSeasonsObserver(), MapTvShowWatchStateUseCase.Params.createParams(tvShowExtendedModel!!))
         }
     }
 
@@ -82,13 +79,11 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
         }
 
         override fun onError(error: Throwable) {
-            val log: Logger = Logger.getAnonymousLogger()
-            log.info(error.message + " " + error.printStackTrace())
             this@SeasonsPresenter.view?.showError()
         }
     }
 
-    inner class ManageWatchStateObserver : DefaultCompletableObserver() {
+    inner class UpdateWatchStateObserver : DefaultCompletableObserver() {
         override fun onComplete() {
             this@SeasonsPresenter.view?.onChangedWatchState()
         }

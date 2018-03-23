@@ -1,4 +1,9 @@
 package pl.hypeapp.presentation.navigationdrawer
 
-//class NavigationDrawerPresenter : Presenter<NavigationDrawerView>() {
-//}
+import pl.hypeapp.presentation.base.Presenter
+import javax.inject.Inject
+
+class NavigationDrawerPresenter @Inject constructor() : Presenter<NavigationDrawerView>() {
+
+
+}

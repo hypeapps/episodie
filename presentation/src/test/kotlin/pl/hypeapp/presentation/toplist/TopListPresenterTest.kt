@@ -5,12 +5,12 @@ import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mockito
-import pl.hypeapp.domain.model.TopListModel
-import pl.hypeapp.domain.model.TvShowModel
-import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateIntegrityUseCase
-import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
+import pl.hypeapp.domain.model.collections.TopListModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.usecase.top.TopListUseCase
-import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
+import pl.hypeapp.domain.usecase.userstats.UserRuntimeUseCase
+import pl.hypeapp.domain.usecase.watchstate.UpdateTvShowWatchStateByIdUseCase
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowsWatchStateUseCase
 
 class TopListPresenterTest {
 
@@ -20,9 +20,9 @@ class TopListPresenterTest {
 
     private val topListUseCase: TopListUseCase = mock()
 
-    private val manageTvShowWatchStateUseCase: ManageTvShowWatchStateUseCase = mock()
+    private val updateTvShowWatchStateByIdUseCase: UpdateTvShowWatchStateByIdUseCase = mock()
 
-    private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase = mock()
+    private val mapTvShowsWatchStateUseCase: MapTvShowsWatchStateUseCase = mock()
 
     private val userRuntimeUseCase: UserRuntimeUseCase = mock()
 
@@ -33,8 +33,8 @@ class TopListPresenterTest {
 
     @Before
     fun setUp() {
-        topListPresenter = TopListPresenter(topListUseCase, manageTvShowWatchStateUseCase,
-                tvShowWatchStateIntegrityUseCase, userRuntimeUseCase)
+        topListPresenter = TopListPresenter(topListUseCase, updateTvShowWatchStateByIdUseCase,
+                mapTvShowsWatchStateUseCase, userRuntimeUseCase)
     }
 
     @Test
@@ -65,16 +65,16 @@ class TopListPresenterTest {
     fun `should execute watch state integrity use case`() {
         val model: List<TvShowModel> = mock()
 
-        topListPresenter.updateModel(model)
+        topListPresenter.checkWatchStateIntegrity(model)
 
-        verify(tvShowWatchStateIntegrityUseCase).execute(any(), any())
+        verify(mapTvShowsWatchStateUseCase).execute(any(), any())
     }
 
     @Test
     @Ignore
     fun `should execute change watch state use case`() {
-        topListPresenter.changeWatchedState(fakeModel)
-        verify(manageTvShowWatchStateUseCase).execute(any(), any())
+        topListPresenter.toggleWatchState(fakeModel)
+        verify(updateTvShowWatchStateByIdUseCase).execute(any(), any())
     }
 
     @Test

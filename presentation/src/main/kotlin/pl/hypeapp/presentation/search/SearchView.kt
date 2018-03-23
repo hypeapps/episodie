@@ -1,7 +1,7 @@
 package pl.hypeapp.presentation.search
 
-import pl.hypeapp.domain.model.BasicSearchResultModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.View
 
 interface SearchView : View {

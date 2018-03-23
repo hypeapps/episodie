@@ -1,7 +1,7 @@
 package pl.hypeapp.presentation.search
 
-import pl.hypeapp.domain.model.BasicSearchResultModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.gettvshow.GetTvShowUseCase
 import pl.hypeapp.domain.usecase.search.BasicSearchUseCase

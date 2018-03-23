@@ -1,20 +1,20 @@
 package pl.hypeapp.presentation.toplist
 
-import pl.hypeapp.domain.model.TopListModel
-import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.model.collections.TopListModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
-import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateIntegrityUseCase
-import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
 import pl.hypeapp.domain.usecase.top.TopListUseCase
-import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
+import pl.hypeapp.domain.usecase.userstats.UserRuntimeUseCase
+import pl.hypeapp.domain.usecase.watchstate.UpdateTvShowWatchStateByIdUseCase
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowsWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject
 
 class TopListPresenter @Inject constructor(private val topListUseCase: TopListUseCase,
-                                           private val manageTvShowWatchStateUseCase: ManageTvShowWatchStateUseCase,
-                                           private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase,
+                                           private val updateTvShowWatchStateByIdUseCase: UpdateTvShowWatchStateByIdUseCase,
+                                           private val mapTvShowsWatchStateUseCase: MapTvShowsWatchStateUseCase,
                                            private val userRuntimeUseCase: UserRuntimeUseCase)
     : Presenter<TopListView>() {
 
@@ -39,8 +39,8 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
     override fun onDetachView() {
         super.onDetachView()
         topListUseCase.dispose()
-        tvShowWatchStateIntegrityUseCase.dispose()
-        manageTvShowWatchStateUseCase.dispose()
+        mapTvShowsWatchStateUseCase.dispose()
+        updateTvShowWatchStateByIdUseCase.dispose()
         userRuntimeUseCase.dispose()
     }
 
@@ -51,21 +51,18 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
             topListUseCase.execute(TopListObserver(), TopListUseCase.Params.createQuery(page, SIZE, update))
     }
 
-    fun updateModel(tvShows: List<TvShowModel>) {
-        tvShowWatchStateIntegrityUseCase.execute(UpdateTopListObserver(),
-                TvShowWatchStateIntegrityUseCase.Params.createParams(tvShows))
+    fun checkWatchStateIntegrity(tvShows: List<TvShowModel>) {
+        mapTvShowsWatchStateUseCase.execute(UpdateTopListObserver(), MapTvShowsWatchStateUseCase.Params.createParams(tvShows))
     }
 
-    fun changeWatchedState(tvShow: TvShowModel) = with(tvShow) {
-        val addToWatched: Boolean = watchState != WatchState.WATCHED
-        watchState = WatchState.manageWatchState(watchState)
-        manageTvShowWatchStateUseCase.execute(ManageTvShowWatchStateObserver(),
-                ManageTvShowWatchStateUseCase.Params.createParams(id!!, addToWatched))
+    fun toggleWatchState(tvShow: TvShowModel) = with(tvShow) {
+        val isAddToWatchedOperation: Boolean = watchState != WatchState.WATCHED
+        watchState = WatchState.toggleWatchState(watchState)
+        updateTvShowWatchStateByIdUseCase.execute(UpdateWatchStateObserver(),
+                UpdateTvShowWatchStateByIdUseCase.Params.createParams(id!!, isAddToWatchedOperation))
     }
 
-    fun updateUserRuntime() {
-        userRuntimeUseCase.execute(UserRuntimeObserver(), null)
-    }
+    fun updateUserRuntime() = userRuntimeUseCase.execute(UserRuntimeObserver(), null)
 
     inner class TopListObserver : DefaultSingleObserver<TopListModel>() {
         override fun onSuccess(model: TopListModel) {
@@ -83,9 +80,9 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
         }
     }
 
-    inner class ManageTvShowWatchStateObserver : DefaultCompletableObserver() {
+    inner class UpdateWatchStateObserver : DefaultCompletableObserver() {
         override fun onComplete() {
-            // Get updated runtime and execute UserRuntimeAfterChangeObserver
+            // Get updated fullRuntime and execute UserRuntimeAfterChangeObserver
             this@TopListPresenter.userRuntimeUseCase.execute(UserRuntimeAfterChangeObserver(), null)
         }
 
