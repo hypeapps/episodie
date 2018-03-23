@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.model
+package pl.hypeapp.domain.model.premiere
 
 import java.text.SimpleDateFormat
 import java.util.*

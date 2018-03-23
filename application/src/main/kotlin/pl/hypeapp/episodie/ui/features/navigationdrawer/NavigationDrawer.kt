@@ -22,12 +22,15 @@ import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
 import pl.hypeapp.episodie.ui.features.search.SearchActivity
 import pl.hypeapp.episodie.ui.features.seasontracker.SeasonTrackerActivity
 import pl.hypeapp.episodie.ui.features.timecalculator.TimeCalculatorActivity
+import pl.hypeapp.episodie.ui.features.yourlibrary.YourLibraryActivity
 import pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
 import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerPresenter
 import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerView
 import javax.inject.Inject
 
-class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObserver, NavigationDrawerView,
+class NavigationDrawer @Inject constructor(val activity: Activity,
+                                           toolbar: Toolbar,
+                                           val presenter: NavigationDrawerPresenter) : LifecycleObserver, NavigationDrawerView,
         DragStateListener, DragListener {
 
     private val publishDragSubject: PublishSubject<Float> = PublishSubject.create()
@@ -41,11 +44,11 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
 
     private val particlesDrawable: ParticlesDrawable = ParticlesDrawable()
 
-    @Inject
-    lateinit var presenter: NavigationDrawerPresenter
+//    @Inject
+//    lateinit var presenter: NavigationDrawerPresenter
 
     @BindViews(R.id.drawer_menu_item_feed, R.id.drawer_menu_item_search, R.id.drawer_menu_item_time_calculator,
-            R.id.drawer_menu_item_watched, R.id.drawer_menu_item_stats)
+            R.id.drawer_menu_item_watched, R.id.drawer_menu_item_season_tracker)
     lateinit var drawerItems: List<DrawerMenuItemView>
 
     init {
@@ -81,7 +84,7 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
     fun onCreate() {
         ButterKnife.bind(this, activity)
         setProperActiveItem(activity)
-//        presenter.onAttachView(this)
+        presenter.onAttachView(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -103,33 +106,33 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
 
     @OnClick(R.id.drawer_menu_item_feed)
     fun navigateToFeed() {
-        toggleDrawer()
-        setProperActiveItem(MainFeedActivity())
         Navigator.startFeedActivity(activity)
-        activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_feed).setActive()
+
     }
 
     @OnClick(R.id.drawer_menu_item_search)
     fun navigateToSearch() = Navigator.startSearchActivity(activity)
 
     @OnClick(R.id.drawer_menu_item_time_calculator)
-    fun navigateToTimeCalculator() = Navigator.startTimeCalculatorAcitvity(activity)
+    fun navigateToTimeCalculator() = Navigator.startTimeCalculatorActivity(activity)
 
-    @OnClick(R.id.drawer_menu_item_stats)
+    @OnClick(R.id.drawer_menu_item_season_tracker)
     fun navigateToSeasonTracker() = Navigator.startSeasonTrackerActivity(activity)
 
-    fun setProperActiveItem(activity: Activity) {
+    @OnClick(R.id.drawer_menu_item_watched)
+    fun navigateToToYourLibrary() = Navigator.startYourLibraryActivity(activity)
+
+    private fun setProperActiveItem(activity: Activity) {
         setInactiveAllItems()
         when (activity) {
             is MainFeedActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_feed).setActive()
             is SearchActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_search).setActive()
-//            is YourLibraryActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_watched).setActive()
+            is YourLibraryActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_watched).setActive()
             is TimeCalculatorActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_time_calculator).setActive()
-            is SeasonTrackerActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_stats).setActive()
+            is SeasonTrackerActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_season_tracker).setActive()
         }
     }
 
     private fun setInactiveAllItems() = drawerItems.forEach { it.setInactive() }
 
 }
-

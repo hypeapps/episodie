@@ -1,8 +1,8 @@
 package pl.hypeapp.episodie.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
-import pl.hypeapp.domain.model.TopListModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.collections.TopListModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 
 class TopListViewModel : ViewModel() {
 

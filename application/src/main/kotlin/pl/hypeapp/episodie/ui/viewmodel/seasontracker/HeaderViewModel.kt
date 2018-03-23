@@ -1,6 +1,6 @@
 package pl.hypeapp.episodie.ui.viewmodel.seasontracker
 
-import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.episodie.ui.base.adapter.ViewType
 
 data class HeaderViewModel(val seasonModel: SeasonModel,

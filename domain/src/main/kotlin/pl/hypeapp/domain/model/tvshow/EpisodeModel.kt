@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.model
+package pl.hypeapp.domain.model.tvshow
 
 import java.util.*
 
@@ -12,4 +12,4 @@ data class EpisodeModel constructor(val episodeId: String?,
                                     val runtime: Long?,
                                     val imageMedium: String?,
                                     val summary: String?,
-                                    var watchState: Int = 0)
+                                    var watchState: String = "")

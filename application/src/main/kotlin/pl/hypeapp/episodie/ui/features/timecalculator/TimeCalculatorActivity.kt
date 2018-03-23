@@ -23,12 +23,13 @@ import com.daimajia.androidanimations.library.YoYo
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_time_calculator.*
-import pl.hypeapp.domain.model.BasicSearchResultModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
+import pl.hypeapp.episodie.di.module.ActivityModule
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
 import pl.hypeapp.episodie.extensions.viewVisible
 import pl.hypeapp.episodie.glide.GlideApp
@@ -51,11 +52,12 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
 
     @Inject lateinit var presenter: TimeCalculatorPresenter
 
+    @Inject
+    lateinit var navigationDrawer: NavigationDrawer
+
     private lateinit var timeCalculatorRecyclerAdapter: TimeCalculatorRecyclerAdapter
 
     private var suggestionDialog: AlertDialog? = null
-
-    private lateinit var navigationDrawer: NavigationDrawer
 
     private var episodeOrderSum = 0
 
@@ -68,6 +70,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
+                .activityModule(ActivityModule(this))
                 .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,14 +131,13 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     }
 
     override fun initNavigationDrawer() {
-        toolbar_time_calculator.apply {
+        toolbar_activity_all.apply {
             setSupportActionBar(this)
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
         }
-        navigationDrawer = NavigationDrawer(this, toolbar_time_calculator)
         lifecycle.addObserver(navigationDrawer)
     }
 

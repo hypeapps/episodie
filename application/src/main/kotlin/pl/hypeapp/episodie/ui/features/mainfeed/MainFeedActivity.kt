@@ -2,39 +2,40 @@ package pl.hypeapp.episodie.ui.features.mainfeed
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.ViewGroup
 import butterknife.OnClick
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
-import kotlinx.android.synthetic.main.activity_main_feed.view_pager
+import kotlinx.android.synthetic.main.activity_main_feed.view_swapper
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 import kotlinx.android.synthetic.main.toolbar_feed.*
-import kotlinx.android.synthetic.main.toolbar_feed.toolbar_feed
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
+import pl.hypeapp.episodie.di.module.ActivityModule
 import pl.hypeapp.episodie.extensions.getNavigationBarSize
 import pl.hypeapp.episodie.extensions.getRealScreenSize
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
 import pl.hypeapp.episodie.extensions.isLandscapeOrientation
+import pl.hypeapp.episodie.navigation.Navigator
 import pl.hypeapp.episodie.ui.base.BaseActivity
 import pl.hypeapp.episodie.ui.features.navigationdrawer.NavigationDrawer
 import pl.hypeapp.presentation.mainfeed.MainFeedPresenter
 import pl.hypeapp.presentation.mainfeed.MainFeedView
 import javax.inject.Inject
 
-class MainFeedActivity : BaseActivity(), MainFeedView, ViewPager.OnPageChangeListener {
+class MainFeedActivity : BaseActivity(), MainFeedView {
 
     override fun getLayoutRes(): Int = R.layout.activity_main_feed
-
-    lateinit var navigationDrawer: NavigationDrawer
 
     private lateinit var toolbarTitleAnimation: ToolbarTitleAnimation
 
     val onActivityReenterSubject: PublishSubject<Int> = PublishSubject.create()
+
+    @Inject
+    lateinit var navigationDrawer: NavigationDrawer
 
     @Inject
     lateinit var presenter: MainFeedPresenter
@@ -42,6 +43,7 @@ class MainFeedActivity : BaseActivity(), MainFeedView, ViewPager.OnPageChangeLis
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
+                .activityModule(ActivityModule(this))
                 .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,16 +54,7 @@ class MainFeedActivity : BaseActivity(), MainFeedView, ViewPager.OnPageChangeLis
         setNavigationBarBackgroundHeight()
         initToolbar()
         initPagerAdapter()
-        navigationDrawer = NavigationDrawer(this, toolbar_feed)
         lifecycle.addObserver(navigationDrawer)
-        navigation_bottom_view.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.action_most_popular -> view_pager.currentItem = MainFeedPagerAdapter.PAGE_MOST_POPULAR
-                R.id.action_top_list -> view_pager.currentItem = MainFeedPagerAdapter.PAGE_TOP_LIST
-                R.id.action_premieres -> view_pager.currentItem = MainFeedPagerAdapter.PAGE_PREMIERES
-            }
-            false
-        }
     }
 
     override fun onAttachedToWindow() {
@@ -84,23 +77,7 @@ class MainFeedActivity : BaseActivity(), MainFeedView, ViewPager.OnPageChangeLis
         presenter.onDetachView()
     }
 
-    override fun onPageScrollStateChanged(state: Int) {}
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
-    private var prevItem: Int? = null
-
-    override fun onPageSelected(position: Int) {
-        prevItem?.let {
-            navigation_bottom_view.menu.getItem(it).isChecked = false
-        }
-        navigation_bottom_view.menu.getItem(position).isChecked = true
-        prevItem = position
-    }
-
-    override fun navigateToSearch() {
-        TODO("not implemented")
-    }
+    override fun navigateToSearch() = Navigator.startSearchActivity(this)
 
     override fun addFabButtonLandscapePadding() = with(fab_button_main_feed_search) {
         val screenWidth = getRealScreenSize().x
@@ -112,11 +89,9 @@ class MainFeedActivity : BaseActivity(), MainFeedView, ViewPager.OnPageChangeLis
     }
 
     @OnClick(R.id.toolbar_feed_home_button)
-    fun onToolbarHomeButtonClick() {
-        navigationDrawer.toggleDrawer()
-    }
+    fun onToolbarHomeButtonClick(): Unit = navigationDrawer.toggleDrawer()
 
-    private fun initToolbar() = with(toolbar_feed) {
+    private fun initToolbar() = with(toolbar_activity_all) {
         setSupportActionBar(this)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -139,9 +114,8 @@ class MainFeedActivity : BaseActivity(), MainFeedView, ViewPager.OnPageChangeLis
     }
 
     private fun initPagerAdapter() {
-        view_pager.adapter = MainFeedPagerAdapter(supportFragmentManager)
-        view_pager.offscreenPageLimit = 1
-        view_pager.addOnPageChangeListener(this)
+        view_swapper.adapter = MainFeedPagerAdapter(supportFragmentManager)
+        navigation_bottom_view.setupWithViewSwapper(view_swapper)
     }
 
 }

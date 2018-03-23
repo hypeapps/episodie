@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_seasons.*
-import pl.hypeapp.domain.model.EpisodeModel
-import pl.hypeapp.domain.model.SeasonModel
-import pl.hypeapp.domain.model.TvShowExtendedModel
 import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.model.tvshow.EpisodeModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
@@ -121,14 +121,14 @@ class SeasonsFragment : BaseViewModelFragment<AllSeasonsViewModel>(), SeasonsVie
 
     override fun onChangeSeasonWatchState(seasonModel: SeasonModel, view: ImageView) {
         smallBangAnimator.bang(view)
-        view.manageWatchStateIcon(WatchState.manageWatchState(seasonModel.watchState))
-        presenter.changeSeasonWatchState(seasonModel)
+        view.manageWatchStateIcon(WatchState.toggleWatchState(seasonModel.watchState))
+        presenter.toggleSeasonWatchState(seasonModel)
     }
 
     override fun onChangeEpisodeWatchState(episodeModel: EpisodeModel, view: ImageView) {
         smallBangAnimator.bang(view)
-        view.manageWatchStateIcon(WatchState.manageWatchState(episodeModel.watchState))
-        presenter.changeEpisodeWatchState(episodeModel)
+        view.manageWatchStateIcon(WatchState.toggleWatchState(episodeModel.watchState))
+        presenter.toggleEpisodeWatchState(episodeModel)
     }
 
     override fun onChangeWatchStateError() {

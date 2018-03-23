@@ -1,6 +1,7 @@
 package pl.hypeapp.episodie.extensions
 
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.RecyclerView
@@ -46,18 +47,19 @@ fun ImageView.loadDrawableResource(drawableResource: Int): Target<Drawable> =
                 .centerCrop()
                 .into(this)
 
-// We need to play games with padding to proper displayed recycler view
-fun RecyclerView.setRecyclerViewPadding(insetPaddingTop: Boolean) {
+fun ImageView.intoBitmap(bitmap: Bitmap): Target<Drawable> =
+        GlideApp.with(this)
+                .load(bitmap)
+                .into(this)
+
+fun RecyclerView.setActionStatusBarPadding(insetPaddingTop: Boolean) {
     val top = if (insetPaddingTop) (resources.getStatusBarHeight() + context.getActionBarSize()) else 0
     var right = paddingRight
     var bottom = paddingBottom
-    // If orientation is landscape addItems navigation bar size to padding end
     if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
         right = context.getNavigationBarSize().x
     }
     val screenWidth = context.getRealScreenSize().x
-    // If orientation is landscape and nav bar size is equals to width screen addItems navigation bar y size
-    // to padding bottom
     if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE &&
             context.getNavigationBarSize().x == screenWidth) {
         right = paddingRight
@@ -74,7 +76,11 @@ fun View.viewVisible() {
     this.visibility = View.VISIBLE
 }
 
-fun ImageView.manageWatchStateIcon(watchState: Int) {
+fun View.viewInvisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun ImageView.manageWatchStateIcon(watchState: String) {
     val diamondDrawable: Int = when (watchState) {
         WatchState.WATCHED -> R.drawable.all_ic_diamond_checked
         WatchState.PARTIALLY_WATCHED -> R.drawable.all_ic_diamond_partially_checked
@@ -83,7 +89,7 @@ fun ImageView.manageWatchStateIcon(watchState: Int) {
     this.setImageResource(diamondDrawable)
 }
 
-fun FloatingActionButton.manageWatchStateIcon(watchState: Int) {
+fun FloatingActionButton.manageWatchStateIcon(watchState: String) {
     val diamondDrawable: Int = when (watchState) {
         WatchState.WATCHED -> R.drawable.all_ic_diamond_checked
         WatchState.PARTIALLY_WATCHED -> R.drawable.all_ic_diamond_partially_checked

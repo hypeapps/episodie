@@ -12,16 +12,16 @@ import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main_feed.*
 import kotlinx.android.synthetic.main.fragment_top_list.*
-import pl.hypeapp.domain.model.TopListModel
-import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.model.collections.TopListModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
 import pl.hypeapp.episodie.extensions.loadDrawableResource
 import pl.hypeapp.episodie.extensions.manageWatchStateIcon
-import pl.hypeapp.episodie.extensions.setRecyclerViewPadding
+import pl.hypeapp.episodie.extensions.setActionStatusBarPadding
 import pl.hypeapp.episodie.navigation.Navigator
 import pl.hypeapp.episodie.navigation.STATE_CHANGED
 import pl.hypeapp.episodie.ui.base.BaseViewModelFragment
@@ -41,7 +41,8 @@ import javax.inject.Inject
 class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, TopListOnViewSelectedListener,
         ViewTypeDelegateAdapter.OnRetryListener, SwipeRefreshLayout.OnRefreshListener {
 
-    @Inject lateinit var presenter: TopListPresenter
+    @Inject
+    lateinit var presenter: TopListPresenter
 
     override val viewModelClass: Class<TopListViewModel> = TopListViewModel::class.java
 
@@ -111,7 +112,7 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
     override fun onItemSelected(item: TvShowModel?, vararg views: View) {
         item?.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Navigator.startTvShowDetailsWithSharedElement(activity as Activity, it, views)
+                Navigator.startTvShowDetailsWithSharedElements(activity as Activity, it, views)
             } else {
                 Navigator.startTvShowDetails(activity as Activity, it)
             }
@@ -120,20 +121,20 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
 
     override fun onWatchStateChange(tvShow: TvShowModel, diamondIcon: ImageView) {
         smallBangAnimator.bang(diamondIcon)
-        diamondIcon.manageWatchStateIcon(WatchState.manageWatchState(tvShow.watchState))
-        presenter.changeWatchedState(tvShow)
+        diamondIcon.manageWatchStateIcon(WatchState.toggleWatchState(tvShow.watchState))
+        presenter.toggleWatchState(tvShow)
     }
 
     override fun onChangeWatchStateError() {
         Toast.makeText(context, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
-        presenter.updateModel(viewModel.tvShowList.map { it.tvShow!! })
+        presenter.checkWatchStateIntegrity(viewModel.tvShowList.map { it.tvShow!! })
     }
 
     // On activity reenter and on changed watch tv show state needs to update view model
     override fun observeActivityReenter() {
         (activity as MainFeedActivity).onActivityReenterSubject.subscribe({
             if (it == STATE_CHANGED)
-                viewModel.tvShowList.let { presenter.updateModel(viewModel.tvShowList.map { it.tvShow!! }) }
+                viewModel.tvShowList.let { presenter.checkWatchStateIntegrity(viewModel.tvShowList.map { it.tvShow!! }) }
             presenter.updateUserRuntime()
         })
     }
@@ -163,7 +164,7 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
             // When scroll to end of list presenter load next page of most popular
             addOnScrollListener(InfiniteScrollListener({ presenter.requestTopList(++viewModel.page, false) },
                     linearLayout))
-            setRecyclerViewPadding(insetPaddingTop = false)
+            setActionStatusBarPadding(insetPaddingTop = false)
             adapter = topListRecyclerAdapter
         }
     }

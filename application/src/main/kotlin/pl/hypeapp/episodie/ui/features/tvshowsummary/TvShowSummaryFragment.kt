@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.fragment_tv_show_summary.*
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent

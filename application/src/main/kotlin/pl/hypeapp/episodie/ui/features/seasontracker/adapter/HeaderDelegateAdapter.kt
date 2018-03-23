@@ -57,7 +57,7 @@ class HeaderDelegateAdapter : ViewTypeDelegateAdapter {
 
         private fun setTvShowInfo(item: HeaderViewModel) = with(itemView) {
             text_view_season_tracker_full_runtime.text = String.format(context.getString(R.string.divider_format),
-                    getRuntimeFormatted(resources, item.watchedRuntime), getFullRuntimeFormatted(resources, item.seasonModel.runtime))
+                    getRuntimeFormatted(resources, item.watchedRuntime), getFullRuntimeFormatted(resources, item.seasonModel.fullRuntime))
             text_view_season_tracker_episodes_watched.text = String.format(context.getString(R.string.divider_format),
                     2, item.seasonModel.episodeOrder)
             text_view_season_tracker_title.text = item.title

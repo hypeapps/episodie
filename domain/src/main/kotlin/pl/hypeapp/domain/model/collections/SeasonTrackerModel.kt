@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.model
+package pl.hypeapp.domain.model.collections
 
 data class SeasonTrackerModel(val tvShowId: String,
                               val seasonId: String,

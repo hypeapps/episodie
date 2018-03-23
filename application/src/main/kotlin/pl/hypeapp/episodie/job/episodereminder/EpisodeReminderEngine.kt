@@ -1,7 +1,7 @@
 package pl.hypeapp.episodie.job.episodereminder
 
 import com.evernote.android.job.JobManager
-import pl.hypeapp.domain.model.EpisodeReminderModel
+import pl.hypeapp.domain.model.reminder.EpisodeReminderModel
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.episodereminder.GetEpisodeRemindersUseCase

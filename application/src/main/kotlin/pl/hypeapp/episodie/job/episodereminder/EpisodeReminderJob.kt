@@ -8,7 +8,7 @@ import android.support.v4.app.NotificationManagerCompat
 import com.evernote.android.job.Job
 import com.evernote.android.job.JobRequest
 import com.evernote.android.job.util.support.PersistableBundleCompat
-import pl.hypeapp.domain.model.EpisodeReminderModel
+import pl.hypeapp.domain.model.reminder.EpisodeReminderModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.ui.features.seasontracker.SeasonTrackerActivity
 import java.util.*

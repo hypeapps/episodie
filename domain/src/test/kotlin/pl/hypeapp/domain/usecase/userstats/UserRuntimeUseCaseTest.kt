@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.usecase.runtime
+package pl.hypeapp.domain.usecase.userstats
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -8,13 +8,13 @@ import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.repository.RuntimeRepository
+import pl.hypeapp.domain.repository.UserStatsRepository
 
 class UserRuntimeUseCaseTest {
 
     private lateinit var userRuntimeUseCase: UserRuntimeUseCase
 
-    private val repository: RuntimeRepository = mock()
+    private val repository: UserStatsRepository = mock()
 
     private val threadExecutor: ThreadExecutor = mock()
 

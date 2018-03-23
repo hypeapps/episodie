@@ -13,12 +13,13 @@ import android.widget.Toast
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_search.*
-import pl.hypeapp.domain.model.BasicSearchResultModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
+import pl.hypeapp.episodie.di.module.ActivityModule
 import pl.hypeapp.episodie.extensions.getNavigationBarSize
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
 import pl.hypeapp.episodie.extensions.isLandscapeOrientation
@@ -44,7 +45,8 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
 
     @Inject lateinit var presenter: SearchPresenter
 
-    private lateinit var navigationDrawer: NavigationDrawer
+    @Inject
+    lateinit var navigationDrawer: NavigationDrawer
 
     private lateinit var searchSuggestionsRecyclerAdapter: SearchSuggestionsRecyclerAdapter
 
@@ -53,6 +55,7 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
+                .activityModule(ActivityModule(this))
                 .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,14 +107,13 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
     }
 
     override fun initNavigationDrawer() {
-        toolbar_search.apply {
+        toolbar_activity_all.apply {
             setSupportActionBar(this)
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
         }
-        navigationDrawer = NavigationDrawer(this, toolbar_search)
         lifecycle.addObserver(navigationDrawer)
     }
 

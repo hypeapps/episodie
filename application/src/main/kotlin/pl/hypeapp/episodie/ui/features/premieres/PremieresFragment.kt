@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main_feed.*
 import kotlinx.android.synthetic.main.fragment_premieres.*
-import pl.hypeapp.domain.model.PremiereDateModel
-import pl.hypeapp.domain.model.PremiereDatesModel
-import pl.hypeapp.domain.model.PremiereReminderModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.premiere.PremiereDateModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
+import pl.hypeapp.domain.model.reminder.PremiereReminderModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent

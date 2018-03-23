@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.model
+package pl.hypeapp.domain.model.reminder
 
 
 data class EpisodeReminderModel(val episodeId: String,

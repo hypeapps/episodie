@@ -1,7 +1,7 @@
 package pl.hypeapp.episodie.ui.viewmodel.premiere
 
 import android.arch.lifecycle.ViewModel
-import pl.hypeapp.domain.model.PremiereDatesModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
 
 
 class PremieresViewModel : ViewModel() {

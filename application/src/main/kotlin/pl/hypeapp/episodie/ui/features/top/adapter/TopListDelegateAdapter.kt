@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.item_top_list.view.*
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.ui.base.adapter.ViewType

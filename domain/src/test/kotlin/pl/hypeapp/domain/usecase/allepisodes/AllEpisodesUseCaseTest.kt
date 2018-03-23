@@ -9,9 +9,9 @@ import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.domain.repository.AllSeasonsRepository
-import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateMapper
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.WatchStateMapper
 
 class AllEpisodesUseCaseTest {
 
@@ -23,7 +23,7 @@ class AllEpisodesUseCaseTest {
 
     private val postExecutionThread: PostExecutionThread = mock()
 
-    private val watchStateMapper: TvShowWatchStateMapper = mock()
+    private val watchStateMapper: WatchStateMapper = mock()
 
     companion object {
         val ID = "12231"

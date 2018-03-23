@@ -5,7 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_premiere.view.*
-import pl.hypeapp.domain.model.PremiereDateModel
+import pl.hypeapp.domain.model.premiere.PremiereDateModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.ui.base.adapter.ViewType

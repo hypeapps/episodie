@@ -1,8 +1,8 @@
 package pl.hypeapp.episodie.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
-import pl.hypeapp.domain.model.SeasonModel
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 
 class AllSeasonsViewModel : ViewModel() {
 

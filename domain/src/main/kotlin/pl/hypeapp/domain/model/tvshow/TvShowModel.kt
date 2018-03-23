@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.model
+package pl.hypeapp.domain.model.tvshow
 
 data class TvShowModel(val id: String?,
                        val imdbId: String?,
@@ -13,5 +13,5 @@ data class TvShowModel(val id: String?,
                        val premiered: String?,
                        val imageMedium: String?,
                        val imageOriginal: String?,
-                       var watchState: Int = 0,
-                       val episodeOrder: Int? = 0)
+                       val episodeOrder: Int? = 0,
+                       var watchState: String = "")

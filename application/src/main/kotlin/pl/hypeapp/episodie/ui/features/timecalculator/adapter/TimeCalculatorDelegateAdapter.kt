@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.item_time_calculator.view.*
-import pl.hypeapp.domain.model.BasicSearchResultModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.inflate
 import pl.hypeapp.episodie.extensions.setRuntime

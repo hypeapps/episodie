@@ -1,7 +1,7 @@
 package pl.hypeapp.episodie.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
-import pl.hypeapp.domain.model.BasicSearchResultModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
 
 class SearchViewModel : ViewModel() {
 

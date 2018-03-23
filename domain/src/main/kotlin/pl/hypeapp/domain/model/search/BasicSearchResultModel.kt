@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.model
+package pl.hypeapp.domain.model.search
 
 
 data class BasicSearchResultModel(val id: String?,

@@ -3,7 +3,7 @@ package pl.hypeapp.episodie.ui.features.seasons.adapter
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
 
 class SeasonRecyclerAdapter(private val onChangeWatchStateListener: OnChangeWatchStateListener)
     : GroupAdapter<ViewHolder>(), OnToggleGroupListener {
