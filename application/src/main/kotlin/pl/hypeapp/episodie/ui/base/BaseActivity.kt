@@ -9,7 +9,6 @@ import io.reactivex.disposables.Disposable
 import pl.hypeapp.episodie.ui.animation.SmallBangAnimator
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-@Suppress("LeakingThis")
 abstract class BaseActivity : AppCompatActivity() {
 
     @LayoutRes
@@ -30,12 +29,8 @@ abstract class BaseActivity : AppCompatActivity() {
         smallBangAnimator = SmallBangAnimator(this)
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-    }
+    override fun attachBaseContext(newBase: Context?) = super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
 
-    protected fun disposeSubscription() = disposable?.let {
-        if (!it.isDisposed) it.dispose()
-    }
+    protected fun disposeSubscription() = disposable?.let { if (!it.isDisposed) it.dispose() }
 
 }

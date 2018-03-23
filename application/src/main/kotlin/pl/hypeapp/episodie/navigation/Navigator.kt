@@ -6,13 +6,14 @@ import android.content.Intent
 import android.os.Build
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
 import pl.hypeapp.episodie.ui.features.search.SearchActivity
 import pl.hypeapp.episodie.ui.features.seasontracker.SeasonTrackerActivity
 import pl.hypeapp.episodie.ui.features.timecalculator.TimeCalculatorActivity
 import pl.hypeapp.episodie.ui.features.tvshowdetails.TvShowDetailsActivity
+import pl.hypeapp.episodie.ui.features.yourlibrary.YourLibraryActivity
 import pl.hypeapp.episodie.ui.viewmodel.TvShowModelParcelable
 
 object Navigator {
@@ -24,7 +25,7 @@ object Navigator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    fun startTvShowDetailsWithSharedElement(activity: Activity, tvShowModel: TvShowModel, transitionViews: Array<out View>) {
+    fun startTvShowDetailsWithSharedElements(activity: Activity, tvShowModel: TvShowModel, transitionViews: Array<out View>) {
         val intent = Intent(activity, TvShowDetailsActivity::class.java)
         intent.putExtra(EXTRA_INTENT_TV_SHOW_MODEL, TvShowModelParcelable(tvShowModel))
         val p1 = android.support.v4.util.Pair.create(transitionViews[0], activity.getString(R.string.cover_transition))
@@ -43,24 +44,32 @@ object Navigator {
         activity.startActivity(intent, activityOptions.toBundle())
     }
 
-    fun startFeedActivity(activity: Activity) {
-        val intent = Intent(activity, MainFeedActivity::class.java)
-        activity.startActivity(intent)
+    fun startFeedActivity(callingActivity: Activity) {
+        val intent = Intent(callingActivity, MainFeedActivity::class.java)
+        callingActivity.startActivity(intent)
     }
 
-    fun startSearchActivity(activity: Activity) {
-        val intent = Intent(activity, SearchActivity::class.java)
-        activity.startActivity(intent)
+    fun startSearchActivity(callingActivity: Activity) {
+        val intent = Intent(callingActivity, SearchActivity::class.java)
+        callingActivity.startActivity(intent)
     }
 
-    fun startTimeCalculatorAcitvity(activity: Activity) {
-        val intent = Intent(activity, TimeCalculatorActivity::class.java)
-        activity.startActivity(intent)
+    fun startTimeCalculatorActivity(callingActivity: Activity) {
+        val intent = Intent(callingActivity, TimeCalculatorActivity::class.java)
+        callingActivity.startActivity(intent)
     }
 
-    fun startSeasonTrackerActivity(activity: Activity) {
-        val intent = Intent(activity, SeasonTrackerActivity::class.java)
-        activity.startActivity(intent)
+    fun startSeasonTrackerActivity(callingActivity: Activity) {
+        val intent = Intent(callingActivity, SeasonTrackerActivity::class.java)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        callingActivity.startActivity(intent)
+    }
+
+    fun startYourLibraryActivity(callingActivity: Activity) {
+        val intent = Intent(callingActivity, YourLibraryActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        callingActivity.startActivity(intent)
     }
 
 }
