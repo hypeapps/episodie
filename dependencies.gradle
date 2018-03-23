@@ -11,7 +11,7 @@ ext {
     /* build plugins versions */
     build = [
             gradle: "3.0.1",
-            kotlin: "1.2.21",
+            kotlin: "1.2.30",
     ]
 
     buildPlugins = [
@@ -65,6 +65,10 @@ ext {
     def fabButtonVersion = '1.10.1'
     def androidJobVersion = '1.2.0'
     def gcmVersion = '11.6.0'
+    def kenBurnsViewVersion = "1.0.7"
+    def discreteScrollVersion = "1.4.4"
+    def adaptableBottomVersion = "2951e832b7"
+    def roboElectricVersion = '3.5.1'
 
     def libs = [
             /* support */
@@ -77,7 +81,6 @@ ext {
             supportV7                   : [group: 'com.android.support', name: 'support-v7', version: androidSupportLibs],
             constrainLayout             : [group: 'com.android.support.constraint', name: 'constraint-layout', version: constraintLayoutVersion],
             kotlin_stdlib               : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: build.kotlin],
-            //archLifecycleRuntime        : [group: 'android.arch.lifecycle', name: 'runtime', version: '1.0.0'],
             archLifecycleExtensions     : [group: 'android.arch.lifecycle', name: 'extensions', version: architectureComponentsVersion],
             archLifecycleCompiler       : [group: 'android.arch.lifecycle', name: 'compiler', version: architectureComponentsVersion],
             archPersistenceRoom         : [group: 'android.arch.persistence.room', name: 'runtime', version: roomVersion],
@@ -128,6 +131,9 @@ ext {
             materialTimelineView        : [group: 'pl.hypeapp', name: 'materialtimelineview', version: materialTimelineViewVersion],
             diagonalLayout              : [group: 'com.github.florent37', name: 'diagonallayout', version: diagonalLayoutVersion],
             fabButton                   : [group: 'com.getbase', name: 'floatingactionbutton', version: fabButtonVersion],
+            kenBurnsView                : [group: 'com.flaviofaria', name: 'kenburnsview', version: kenBurnsViewVersion],
+            discreteScroll              : [group: 'com.yarolegovich', name: 'discrete-scrollview', version: discreteScrollVersion],
+            adaptableBottomNavigation   : [group: 'com.github.bufferapp', name: 'AdaptableBottomNavigation', version: adaptableBottomVersion],
             // For some reason gradle cannot resolve version of this dependency and must be hardcoded in that way.
             androidAnimations           : "com.daimajia.androidanimations:library:$androidAnimationsVersion",
             easingLibrary               : "com.daimajia.easing:library:$easingLibraryVersion"
@@ -139,6 +145,7 @@ ext {
             mockito      : [group: 'org.mockito', name: 'mockito-inline', version: mockitoVersion],
             mockitoKotlin: [group: 'com.nhaarman', name: 'mockito-kotlin-kt1.1', version: mockitoKotlinVersion],
             kluent       : [group: 'org.amshove.kluent', name: 'kluent', version: kluentVersion],
+            roboElectrcic: [group: 'org.robolectric', name: 'robolectric', version: roboElectricVersion]
     ]
 
     def modules = [
@@ -184,6 +191,9 @@ ext {
             [configuration: "implementation", dependency: libs.materialTimelineView],
             [configuration: "implementation", dependency: libs.diagonalLayout],
             [configuration: "implementation", dependency: libs.fabButton],
+            [configuration: "implementation", dependency: libs.discreteScroll],
+            [configuration: "implementation", dependency: libs.adaptableBottomNavigation],
+            [configuration: "implementation", dependency: libs.kenBurnsView],
             // dependency injection
             [configuration: "implementation", dependency: libs.butterKnife],
             [configuration: "kapt", dependency: libs.butterKnifeCompiler],
@@ -202,8 +212,9 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
             [configuration: "testImplementation", dependency: testLibs.kluent],
-            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
-             options      : supportAnnotationsExclude],
+            [configuration: "testImplementation", dependency: testLibs.roboElectrcic],
+//            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
+//             options      : supportAnnotationsExclude],
             // modules
             [configuration: "implementation", dependency: project(modules.presentation)],
             [configuration: "implementation", dependency: project(modules.dataproviders)],
@@ -262,6 +273,8 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
             [configuration: "testImplementation", dependency: testLibs.kluent],
+            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
+             options      : supportAnnotationsExclude],
             // modules
             [configuration: "api", dependency: project(modules.domain)]
     ]
@@ -271,10 +284,11 @@ ext {
             android_application: 'com.android.application',
             kotlin_android     : 'kotlin-android',
             kotlin             : 'kotlin',
+            kotlin_kapt        : 'kotlin-kapt'
     ]
 
-    applicationModulePlugins = [plugins.android_application, plugins.kotlin_android]
-    presentationModulePlugins = [plugins.kotlin]
-    domainModulePlugins = [plugins.kotlin]
-    dataprovidersModulePlugins = [plugins.android_library, plugins.kotlin_android]
+    applicationModulePlugins = [plugins.android_application, plugins.kotlin_android, plugins.kotlin_kapt]
+    presentationModulePlugins = [plugins.kotlin, plugins.kotlin_kapt]
+    domainModulePlugins = [plugins.kotlin, plugins.kotlin_kapt]
+    dataprovidersModulePlugins = [plugins.android_library, plugins.kotlin_android, plugins.kotlin_kapt]
 }
