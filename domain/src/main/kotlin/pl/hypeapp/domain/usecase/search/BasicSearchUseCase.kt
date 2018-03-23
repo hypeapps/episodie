@@ -3,7 +3,7 @@ package pl.hypeapp.domain.usecase.search
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.BasicSearchResultModel
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
 import pl.hypeapp.domain.repository.SearchRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import javax.inject.Inject

@@ -3,7 +3,7 @@ package pl.hypeapp.domain.usecase.gettvshow
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.repository.TvShowRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import javax.inject.Inject

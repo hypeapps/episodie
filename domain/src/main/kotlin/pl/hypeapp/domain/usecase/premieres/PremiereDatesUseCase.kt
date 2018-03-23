@@ -4,7 +4,7 @@ import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.PremiereDatesModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
 import pl.hypeapp.domain.repository.PremiereDatesRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import java.util.*

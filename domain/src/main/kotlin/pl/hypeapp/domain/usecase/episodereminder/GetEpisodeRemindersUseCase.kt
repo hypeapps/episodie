@@ -3,7 +3,7 @@ package pl.hypeapp.domain.usecase.episodereminder
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.EpisodeReminderModel
+import pl.hypeapp.domain.model.reminder.EpisodeReminderModel
 import pl.hypeapp.domain.repository.EpisodeReminderRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import javax.inject.Inject

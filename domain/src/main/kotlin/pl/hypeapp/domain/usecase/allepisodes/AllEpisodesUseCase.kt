@@ -3,15 +3,15 @@ package pl.hypeapp.domain.usecase.allepisodes
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.domain.repository.AllSeasonsRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
-import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateMapper
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.WatchStateMapper
 import javax.inject.Inject
 
 class AllEpisodesUseCase @Inject constructor(threadExecutor: ThreadExecutor,
                                              postExecutionThread: PostExecutionThread,
-                                             private val watchStateMapper: TvShowWatchStateMapper,
+                                             private val watchStateMapper: WatchStateMapper,
                                              private val repository: AllSeasonsRepository)
     : AbsRxSingleUseCase<TvShowExtendedModel, AllEpisodesUseCase.Params>(threadExecutor, postExecutionThread) {
 
