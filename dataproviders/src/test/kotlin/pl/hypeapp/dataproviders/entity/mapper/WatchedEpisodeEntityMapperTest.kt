@@ -1,9 +1,9 @@
 package pl.hypeapp.dataproviders.entity.mapper
 
-import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
-import pl.hypeapp.domain.model.EpisodeModel
+import pl.hypeapp.dataproviders.entity.mapper.watched.WatchedEpisodeEntityMapper
+import pl.hypeapp.domain.model.tvshow.EpisodeModel
 import java.util.*
 
 class WatchedEpisodeEntityMapperTest {

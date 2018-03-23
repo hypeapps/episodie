@@ -5,6 +5,8 @@ import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.entity.api.SeasonEntity
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.EpisodeEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.SeasonEntityMapper
 
 class SeasonEntityMapperTest {
 
@@ -28,7 +30,7 @@ class SeasonEntityMapperTest {
         model?.episodeOrder `should equal` entity.episodes.size
         model?.imageMedium `should equal` entity.imageMedium
         model?.premiereDate `should equal` entity.premiereDate
-        model?.runtime `should equal` entity.runtime
+        model?.fullRuntime `should equal` entity.runtime
         model?.seasonId `should equal` entity.seasonId
     }
 

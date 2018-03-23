@@ -7,33 +7,33 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.datasource.RuntimeDataSource
-import pl.hypeapp.dataproviders.entity.room.RuntimeEntity
+import pl.hypeapp.dataproviders.datasource.UserStatsDataSource
+import pl.hypeapp.dataproviders.entity.room.UserStatsEntity
 
 class RuntimeDataRepositoryTest {
 
-    private lateinit var runtimeDataRepository: RuntimeDataRepository
+    private lateinit var userStatsDataRepository: UserStatsDataRepository
 
     private val dataFactory: DataFactory = mock()
 
-    private val runtimeDataSource: RuntimeDataSource = mock()
+    private val userStatsDataSource: UserStatsDataSource = mock()
 
     @Before
     fun setUp() {
-        runtimeDataRepository = RuntimeDataRepository(dataFactory)
-        given(dataFactory.createRuntimeDataSource()).willReturn(runtimeDataSource)
+        userStatsDataRepository = UserStatsDataRepository(dataFactory)
+        given(dataFactory.createUserStatsDataSource()).willReturn(userStatsDataSource)
     }
 
     @Test
     fun `should get user full runtime`() {
-        val runtimeEntity = RuntimeEntity(23123L)
+        val runtimeEntity = UserStatsEntity(23123L)
         val userRuntime = Single.just(runtimeEntity)
-        given(runtimeDataSource.getUserFullRuntime()).willReturn(userRuntime)
+        given(userStatsDataSource.getUserFullRuntime()).willReturn(userRuntime)
 
-        runtimeDataRepository.getUserFullRuntime()
+        userStatsDataRepository.getUserFullRuntime()
 
-        verify(dataFactory).createRuntimeDataSource()
-        verify(runtimeDataSource).getUserFullRuntime()
+        verify(dataFactory).createUserStatsDataSource()
+        verify(userStatsDataSource).getUserFullRuntime()
     }
 
 }

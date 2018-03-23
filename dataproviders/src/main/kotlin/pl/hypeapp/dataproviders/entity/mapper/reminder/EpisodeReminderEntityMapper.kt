@@ -1,12 +1,13 @@
-package pl.hypeapp.dataproviders.entity.mapper
+package pl.hypeapp.dataproviders.entity.mapper.reminder
 
+import pl.hypeapp.dataproviders.entity.mapper.Mapper
 import pl.hypeapp.dataproviders.entity.room.EpisodeReminderEntity
-import pl.hypeapp.domain.model.EpisodeReminderModel
+import pl.hypeapp.domain.model.reminder.EpisodeReminderModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class EpisodeReminderEntityMapper @Inject constructor() : EntityMapper<EpisodeReminderEntity, EpisodeReminderModel>() {
+class EpisodeReminderEntityMapper @Inject constructor() : Mapper<EpisodeReminderEntity, EpisodeReminderModel>() {
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun transform(model: EpisodeReminderModel?): EpisodeReminderEntity? {

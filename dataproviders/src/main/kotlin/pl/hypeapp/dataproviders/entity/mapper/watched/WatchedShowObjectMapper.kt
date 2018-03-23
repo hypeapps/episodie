@@ -4,7 +4,13 @@ import pl.hypeapp.dataproviders.entity.mapper.Mapper
 import pl.hypeapp.dataproviders.entity.room.WatchedEpisodeEntity
 import pl.hypeapp.dataproviders.entity.room.WatchedSeasonEntity
 import pl.hypeapp.dataproviders.entity.room.WatchedTvShowEntity
-import pl.hypeapp.domain.model.*
+import pl.hypeapp.domain.model.Pageable
+import pl.hypeapp.domain.model.tvshow.EpisodeModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
+import pl.hypeapp.domain.model.watched.WatchedEpisodeModel
+import pl.hypeapp.domain.model.watched.WatchedSeasonModel
+import pl.hypeapp.domain.model.watched.WatchedTvShowModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,8 +21,10 @@ class WatchedTvShowModelMapper @Inject constructor(private val watchedSeasonMode
         return WatchedTvShowEntity(
                 tvShowId = item?.tvShowId!!,
                 title = item.name ?: "",
-                runtime = item.runtime,
+                runtime = item.watchingRuntime,
                 watchState = item.watchState,
+                watchedEpisodesCount = item.watchedEpisodes,
+                watchedSeasonsCount = item.watchedSeasons,
                 seasons = watchedSeasonModelMapper.transform(item.seasons ?: emptyList())
         )
     }
@@ -30,6 +38,8 @@ class WatchedSeasonModelMapper @Inject constructor(private val watchedEpisodeMod
                 seasonId = item?.seasonId!!,
                 tvShowId = item.tvShowId!!,
                 watchState = item.watchState,
+                runtime = item.watchingRuntime,
+                watchedEpisodesCount = item.watchedEpisodes,
                 episodes = watchedEpisodeModelMapper.transform(item.episodes ?: emptyList())
         )
     }
@@ -56,12 +66,24 @@ class WatchedTvShowEntityMapper @Inject constructor(private val watchedSeasonEnt
                     tvShowId = it.tvShowId,
                     runtime = it.runtime,
                     watchState = it.watchState,
+                    watchedSeasonsCount = it.watchedSeasonsCount,
+                    watchedEpisodesCount = it.watchedEpisodesCount,
                     watchedSeasons = watchedSeasonEntityMapper.transform(item.seasons)
             )
         }
     }
-}
 
+    fun transform(item: Pageable<WatchedTvShowEntity>): Pageable<WatchedTvShowModel> {
+        return Pageable(transform(item.content),
+                item.last,
+                item.totalPages,
+                item.totalElements,
+                item.size,
+                item.page,
+                item.first,
+                item.numberOfElements)
+    }
+}
 
 @Singleton
 class WatchedSeasonEntityMapper @Inject constructor(private val watchedEpisodeEntityMapper: WatchedEpisodeEntityMapper)

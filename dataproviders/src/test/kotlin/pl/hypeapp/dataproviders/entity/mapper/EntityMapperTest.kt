@@ -7,17 +7,17 @@ import org.junit.Test
 
 class EntityMapperTest {
 
-    private lateinit var entityMapper: EntityMapper<TestModel, TestEntity>
+    private lateinit var mapper: Mapper<TestModel, TestEntity>
 
     @Before
     fun setUp() {
-        entityMapper = EntityMapperTestClass()
+        mapper = EntityMapperTestClass()
     }
 
     @Test
     fun `should transform single entity to model`() {
         val testEntity: TestEntity = TestEntity("name", 1)
-        val testModel: TestModel? = entityMapper.transform(testEntity)
+        val testModel: TestModel? = mapper.transform(testEntity)
         testEntity.name `should equal to` testModel!!.name!!
         testEntity.id `should equal to` testModel.id!!
     }
@@ -25,7 +25,7 @@ class EntityMapperTest {
     @Test
     fun `should transform list of entites to list models`() {
         val testEntites: List<TestEntity> = listOf(TestEntity("name1", 1), TestEntity("name2", 2))
-        val testModels: List<TestModel> = entityMapper.transform(testEntites)
+        val testModels: List<TestModel> = mapper.transform(testEntites)
         testModels.size `should equal to` 2
         for (i in 0..1) {
             testEntites[i].name `should equal` testModels[i].name
@@ -33,9 +33,8 @@ class EntityMapperTest {
         }
     }
 
-    private class EntityMapperTestClass : EntityMapper<TestModel, TestEntity>() {
-        override fun transform(entity: TestEntity?): TestModel?
-                = TestModel(entity?.name, entity?.id)
+    private class EntityMapperTestClass : Mapper<TestModel, TestEntity>() {
+        override fun transform(item: TestEntity?): TestModel? = TestModel(item?.name, item?.id)
 
     }
 

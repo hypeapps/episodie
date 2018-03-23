@@ -36,16 +36,16 @@ class DataFactoryTest {
 
     @Test
     fun `should create watched data store`() {
-        val watchedDataStore: WatchedDataStore = dataFactory.createWatchedDataSource()
+        val watchedDataStore: WatchedShowDataStore = dataFactory.createWatchedShowDataSource()
         watchedDataStore `should not be` null
-        watchedDataStore `should be instance of` WatchedDataStore::class.java
+        watchedDataStore `should be instance of` WatchedShowDataStore::class.java
     }
 
     @Test
     fun `should create runtime data store`() {
-        val runtimeDataStore: RuntimeDataStore = dataFactory.createRuntimeDataSource()
-        runtimeDataStore `should not be` null
-        runtimeDataStore `should be instance of` RuntimeDataStore::class.java
+        val userStatsDataStore: UserStatsDataStore = dataFactory.createUserStatsDataSource()
+        userStatsDataStore `should not be` null
+        userStatsDataStore `should be instance of` UserStatsDataStore::class.java
     }
 
 }

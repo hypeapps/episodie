@@ -3,8 +3,9 @@ package pl.hypeapp.dataproviders.entity.mapper
 import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
+import pl.hypeapp.dataproviders.entity.mapper.watched.WatchedEpisodesCountModelMapper
 import pl.hypeapp.dataproviders.entity.room.WatchedEpisodesCountEntity
-import pl.hypeapp.domain.model.WatchedEpisodesCountModel
+import pl.hypeapp.domain.model.watched.WatchedEpisodesCountModel
 
 class WatchedEpisodesCountModelMapperTest {
 

@@ -1,17 +1,18 @@
-package pl.hypeapp.dataproviders.entity.mapper
+package pl.hypeapp.dataproviders.entity.mapper.tvshow
 
 import pl.hypeapp.dataproviders.entity.api.PageablePremiereDates
+import pl.hypeapp.dataproviders.entity.mapper.Mapper
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.PremiereDateModel
-import pl.hypeapp.domain.model.PremiereDatesModel
+import pl.hypeapp.domain.model.premiere.PremiereDateModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PremiereDatesEntityMapper @Inject constructor() : EntityMapper<PremiereDatesModel, PageablePremiereDates>() {
+class PremiereDatesEntityMapper @Inject constructor() : Mapper<PremiereDatesModel, PageablePremiereDates>() {
 
-    override fun transform(entity: PageablePremiereDates?): PremiereDatesModel {
-        return PremiereDatesModel(entity?.premiereDates?.map {
+    override fun transform(item: PageablePremiereDates?): PremiereDatesModel {
+        return PremiereDatesModel(item?.premiereDates?.map {
             PremiereDateModel(
                     id = it.id,
                     name = it.name,
@@ -26,12 +27,12 @@ class PremiereDatesEntityMapper @Inject constructor() : EntityMapper<PremiereDat
                     genre = it.genre,
                     summary = it.summary)
         }, PageableRequest(
-                last = entity?.last!!,
-                first = entity.first,
-                numberOfElements = entity.numberOfElements,
-                page = entity.page,
-                size = entity.size,
-                totalElements = entity.totalElements,
-                totalPages = entity.totalPages))
+                last = item?.last!!,
+                first = item.first,
+                numberOfElements = item.numberOfElements,
+                page = item.page,
+                size = item.size,
+                totalElements = item.totalElements,
+                totalPages = item.totalPages))
     }
 }
