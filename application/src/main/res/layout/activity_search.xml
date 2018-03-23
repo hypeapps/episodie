@@ -8,7 +8,7 @@
     android:background="@color/primary">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_search"
+        android:id="@+id/toolbar_activity_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/EpisodieTheme.Toolbar"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_search"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar_activity_all"/>
 
     <com.miguelcatalan.materialsearchview.MaterialSearchView
         android:id="@+id/search_activity_search_view"

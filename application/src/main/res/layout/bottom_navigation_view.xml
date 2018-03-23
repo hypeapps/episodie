@@ -6,7 +6,7 @@
     android:layout_gravity="bottom"
     android:orientation="vertical">
 
-    <android.support.design.widget.BottomNavigationView
+    <org.buffer.adaptablebottomnavigation.view.AdaptableBottomNavigationView
         android:id="@+id/navigation_bottom_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_navigation_bottom_view"

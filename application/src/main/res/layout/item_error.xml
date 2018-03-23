@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:id="@+id/parent_item_error"
     android:orientation="vertical"
     android:paddingBottom="@dimen/padding_bottom_item_all"
     android:paddingTop="@dimen/padding_top_item_all">

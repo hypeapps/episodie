@@ -61,13 +61,13 @@
             app:text="@string/drawer_time_calculator" />
 
         <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
-            android:id="@+id/drawer_menu_item_stats"
+            android:id="@+id/drawer_menu_item_season_tracker"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_big"
             app:iconSrc="@drawable/drawer_ic_stats"
             app:layout_constraintTop_toBottomOf="@id/drawer_menu_item_time_calculator"
-            app:text="@string/drawer_statistics" />
+            app:text="@string/drawer_season_tracker"/>
 
         <TextView
             android:id="@+id/text_view_drawer_watching_time"

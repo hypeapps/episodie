@@ -17,9 +17,9 @@
 
     <string name="drawer_feed">Feed</string>
     <string name="drawer_search">Search</string>
-    <string name="drawer_watched">Watched</string>
+    <string name="drawer_watched">Your Library</string>
     <string name="drawer_time_calculator">Time calculator</string>
-    <string name="drawer_statistics">Statistics</string>
+    <string name="drawer_season_tracker">Season tracker</string>
     <string name="drawer_logo_description">Logo of the application</string>
     <string name="drawer_menu_item_icon_description">Icon of menu item</string>
     <string name="drawer_ic_watching_time">Icon of watching time</string>
@@ -78,7 +78,7 @@
 
     <string name="all_font_path">fonts/coolvetica.ttf</string>
     <string name="cover_transition">transition_cover</string>
-    <string name="title_transition">titile_transition</string>
+    <string name="title_transition">transition_title</string>
     <string name="zero_prefix_format">0%1$s</string>
     <string name="divider_format">%1$s / %2$s</string>
     <string name="season_number_format">Season #%1$s</string>
@@ -108,4 +108,8 @@
     <string name="format_new_premiere">New premiere: %1$s</string>
     <string name="menu_title_search">Search</string>
     <string name="toolbar_title_search">Search</string>
+    <string name="your_library_title">Your library</string>
+    <string name="layout_empty_message">Your library is empty.\nThere are simply ways to add tv shows</string>
+    <string name="layout_icon_empty_message_description">Header icon</string>
+    <string name="image_view_your_library_background_description">Image as background</string>
 </resources>
