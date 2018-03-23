@@ -2,9 +2,9 @@ package pl.hypeapp.dataproviders.repository
 
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.MostPopularEntityMapper
-import pl.hypeapp.domain.model.MostPopularModel
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.MostPopularEntityMapper
 import pl.hypeapp.domain.model.PageableRequest
+import pl.hypeapp.domain.model.collections.MostPopularModel
 import pl.hypeapp.domain.repository.MostPopularRepository
 import javax.inject.Inject
 

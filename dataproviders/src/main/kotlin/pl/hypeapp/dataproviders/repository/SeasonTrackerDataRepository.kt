@@ -3,9 +3,9 @@ package pl.hypeapp.dataproviders.repository
 import io.reactivex.Completable
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.SeasonTrackerEntityMapper
-import pl.hypeapp.dataproviders.entity.mapper.SeasonTrackerModelMapper
-import pl.hypeapp.domain.model.SeasonTrackerModel
+import pl.hypeapp.dataproviders.entity.mapper.seasontracker.SeasonTrackerEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.seasontracker.SeasonTrackerModelMapper
+import pl.hypeapp.domain.model.collections.SeasonTrackerModel
 import pl.hypeapp.domain.repository.SeasonTrackerRepository
 import javax.inject.Inject
 

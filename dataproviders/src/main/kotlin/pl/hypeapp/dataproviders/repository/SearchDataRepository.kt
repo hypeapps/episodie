@@ -2,8 +2,8 @@ package pl.hypeapp.dataproviders.repository
 
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.BasicSearchEntityMapper
-import pl.hypeapp.domain.model.BasicSearchResultModel
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.BasicSearchEntityMapper
+import pl.hypeapp.domain.model.search.BasicSearchResultModel
 import pl.hypeapp.domain.repository.SearchRepository
 import javax.inject.Inject
 
