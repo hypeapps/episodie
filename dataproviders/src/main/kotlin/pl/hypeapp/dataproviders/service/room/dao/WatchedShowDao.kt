@@ -31,22 +31,22 @@ interface WatchedShowDao {
     @Delete
     fun deleteEpisode(vararg episode: WatchedEpisodeEntity)
 
-    @Query("SELECT * FROM watched_tv_shows WHERE tv_show_id = :arg0")
+    @Query("SELECT * FROM watched_tv_shows WHERE tv_show_id = :tvShowId")
     fun getTvShowById(tvShowId: String): WatchedTvShowEntity?
 
-    @Query("SELECT * FROM watched_seasons WHERE season_id = :arg0")
+    @Query("SELECT * FROM watched_seasons WHERE season_id = :seasonId")
     fun getSeasonById(seasonId: String): WatchedSeasonEntity
 
-    @Query("SELECT * FROM watched_episodes WHERE episode_id = :arg0")
+    @Query("SELECT * FROM watched_episodes WHERE episode_id = :episodeId")
     fun getEpisodeById(episodeId: String): WatchedEpisodeEntity
 
-    @Query("SELECT * FROM watched_seasons WHERE tv_show_id = :arg0")
+    @Query("SELECT * FROM watched_seasons WHERE tv_show_id = :tvShowId")
     fun getSeasonsByTvShowId(tvShowId: String): List<WatchedSeasonEntity>
 
-    @Query("SELECT * FROM watched_episodes WHERE tv_show_id = :arg0")
+    @Query("SELECT * FROM watched_episodes WHERE tv_show_id = :tvShowId")
     fun getEpisodesByTvShowId(tvShowId: String): List<WatchedEpisodeEntity>
 
-    @Query("SELECT * FROM watched_episodes WHERE season_id = :arg0")
+    @Query("SELECT * FROM watched_episodes WHERE season_id = :seasonId")
     fun getEpisodesBySeasonId(seasonId: String): List<WatchedEpisodeEntity>
 
     @Query("SELECT * from watched_tv_shows")

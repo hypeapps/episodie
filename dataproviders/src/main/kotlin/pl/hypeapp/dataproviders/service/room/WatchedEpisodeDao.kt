@@ -18,7 +18,7 @@ interface WatchedEpisodeDao {
     @Insert(onConflict = REPLACE)
     fun insertWatchedEpisodes(watchedEpisodeEntities: List<WatchedEpisodeEntity>)
 
-    @Query("SELECT tv_show_id, COUNT(*) as count FROM watched_episodes WHERE tv_show_id = :arg0")
+    @Query("SELECT tv_show_id, COUNT(*) as count FROM watched_episodes WHERE tv_show_id = :tvShowId")
     fun getWatchedEpisodesCountByTvShowId(tvShowId: String): WatchedEpisodesCountEntity
 
     @Query("SELECT tv_show_id, COUNT(*) AS count FROM watched_episodes WHERE tv_show_id IN(:arg0) GROUP BY tv_show_id")

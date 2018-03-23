@@ -1,7 +1,9 @@
 package pl.hypeapp.dataproviders.datasource
 
 import android.annotation.SuppressLint
-import pl.hypeapp.dataproviders.entity.room.*
+import pl.hypeapp.dataproviders.entity.room.WatchedEpisodeEntity
+import pl.hypeapp.dataproviders.entity.room.WatchedSeasonEntity
+import pl.hypeapp.dataproviders.entity.room.WatchedTvShowEntity
 import pl.hypeapp.dataproviders.service.room.RoomService
 import pl.hypeapp.domain.model.Pageable
 import javax.inject.Inject
@@ -59,28 +61,8 @@ class WatchedShowDataSource @Inject constructor(private val roomService: RoomSer
         return roomService.watchedShowDao.getEpisodeById(id)
     }
 
-    override fun getWatchedEpisodesCountByTvShowId(tvShowId: String): WatchedEpisodesCountEntity {
-        return roomService.watchedEpisodeDao.getWatchedEpisodesCountByTvShowId(tvShowId)
-    }
-
-    override fun getWatchedEpisodesCountByTvShowIds(tvShowIds: List<String>): List<WatchedEpisodesCountEntity> {
-        return roomService.watchedEpisodeDao.getWatchedEpisodesCountByTvShowIds(tvShowIds)
-    }
-
-    override fun getWatchedEpisodesCountBySeasonIds(seasonsIds: List<String>): List<WatchedSeasonCountEntity> {
-        return roomService.watchedEpisodeDao.getWatchedEpisodesCountBySeasonIds(seasonsIds)
-    }
-
-    override fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String> {
-        return roomService.watchedEpisodeDao.getWatchedEpisodesIdsBySeasonId(seasonId)
-    }
-
     override fun getWatchedTvShowsSize(): Int {
-        return roomService.watchedEpisodeDao.getWatchedTvShowsSize()
-    }
-
-    override fun getWatchedEpisodesByTvShowId(tvShowId: String): List<WatchedEpisodeEntity> {
-        return roomService.watchedEpisodeDao.getWatchedEpisodesByTvShowId(tvShowId)
+        return roomService.watchedShowDao.getWatchedTvShowsSize()
     }
 
     @SuppressLint("RestrictedApi")

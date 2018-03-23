@@ -11,8 +11,6 @@ import pl.hypeapp.domain.model.Pageable
 import pl.hypeapp.domain.model.tvshow.EpisodeModel
 import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
-import pl.hypeapp.domain.model.watched.WatchedEpisodeModel
-import pl.hypeapp.domain.model.watched.WatchedEpisodesCountModel
 import pl.hypeapp.domain.model.watched.WatchedTvShowModel
 import pl.hypeapp.domain.repository.WatchedShowRepository
 import javax.inject.Inject
@@ -62,26 +60,6 @@ class WatchedShowDataRepository @Inject constructor(private val dataFactory: Dat
     override fun getWatchedTvShows(page: Int, size: Int): Single<Pageable<WatchedTvShowModel>> {
         return Single.fromCallable { dataFactory.createWatchedShowDataSource().getWatchedTvShows(page, size) }
                 .map { watchedTvShowEntityMapper.transform(it) }
-    }
-
-    override fun getEpisodesByTvShowId(tvShowId: String): List<WatchedEpisodeModel> {
-        TODO("not implemented")
-    }
-
-    override fun getWatchedEpisodesCountById(tvShowId: String): WatchedEpisodesCountModel {
-        TODO("not implemented")
-    }
-
-    override fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String> {
-        TODO("not implemented")
-    }
-
-    override fun getWatchedEpisodesCountByTvShowIds(tvShowsIds: List<String>): List<WatchedEpisodesCountModel> {
-        TODO("not implemented")
-    }
-
-    override fun getWatchedSeasonsCountByIds(seasonsIds: List<String>): List<WatchedEpisodesCountModel> {
-        TODO("not implemented")
     }
 
 }

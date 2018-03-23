@@ -13,13 +13,13 @@ interface PremiereReminderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertReminder(reminder: PremiereReminderEntity)
 
-    @Query("SELECT * FROM premiere_reminders WHERE tv_show_id = :arg0")
+    @Query("SELECT * FROM premiere_reminders WHERE tv_show_id = :tvShowId")
     fun getReminderById(tvShowId: String): PremiereReminderEntity
 
-    @Query("SELECT * FROM premiere_reminders WHERE tv_show_id = :arg0")
+    @Query("SELECT * FROM premiere_reminders WHERE tv_show_id = :tvShowId")
     fun getReminderSingleById(tvShowId: String): Single<PremiereReminderEntity>
 
-    @Query("DELETE FROM premiere_reminders WHERE tv_show_id LIKE :arg0")
+    @Query("DELETE FROM premiere_reminders WHERE tv_show_id LIKE :tvShowId")
     fun deleteReminder(tvShowId: String)
 
 }

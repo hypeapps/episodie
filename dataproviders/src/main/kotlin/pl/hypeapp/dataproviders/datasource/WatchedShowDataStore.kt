@@ -1,6 +1,8 @@
 package pl.hypeapp.dataproviders.datasource
 
-import pl.hypeapp.dataproviders.entity.room.*
+import pl.hypeapp.dataproviders.entity.room.WatchedEpisodeEntity
+import pl.hypeapp.dataproviders.entity.room.WatchedSeasonEntity
+import pl.hypeapp.dataproviders.entity.room.WatchedTvShowEntity
 import pl.hypeapp.domain.model.Pageable
 
 interface WatchedShowDataStore {
@@ -23,17 +25,7 @@ interface WatchedShowDataStore {
 
     fun getEpisodeById(id: String): WatchedEpisodeEntity
 
-    fun getWatchedEpisodesCountByTvShowId(tvShowId: String): WatchedEpisodesCountEntity
-
-    fun getWatchedEpisodesCountByTvShowIds(tvShowIds: List<String>): List<WatchedEpisodesCountEntity>
-
-    fun getWatchedEpisodesCountBySeasonIds(seasonsIds: List<String>): List<WatchedSeasonCountEntity>
-
-    fun getWatchedEpisodesIdsBySeasonId(seasonId: String): List<String>
-
     fun getWatchedTvShows(page: Int, size: Int): Pageable<WatchedTvShowEntity>
-
-    fun getWatchedEpisodesByTvShowId(tvShowId: String): List<WatchedEpisodeEntity>
 
     fun getWatchedTvShowsSize(): Int
 

@@ -19,8 +19,6 @@ import pl.hypeapp.dataproviders.service.room.dao.*
 @TypeConverters(Converters::class)
 abstract class RoomService : RoomDatabase() {
 
-    abstract val watchedEpisodeDao: WatchedEpisodeDao
-
     abstract val userStatsDao: UserStatsDao
 
     abstract val seasonTrackerDao: SeasonTrackerDao
