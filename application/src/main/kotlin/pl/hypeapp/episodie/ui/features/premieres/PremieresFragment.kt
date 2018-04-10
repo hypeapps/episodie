@@ -102,11 +102,13 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
                 jobId = PremiereReminderJob.scheduleJob(exactTime, model.name!!),
                 timestamp = exactTime)
         presenter.onNotificationSchedule(reminder)
+        Toast.makeText(context, getString(R.string.toast_premiere_reminder_scheduled), Toast.LENGTH_LONG).show()
     }
 
     override fun onNotificationDismiss(model: PremiereDateModel) {
         model.notificationScheduled = false
         presenter.onNotificationDismiss(model.id!!)
+        Toast.makeText(context, getString(R.string.toast_premiere_reminder_dismiss), Toast.LENGTH_LONG).show()
     }
 
     override fun cancelNotification(jobId: Int) = PremiereReminderJob.cancelJob(jobId)

@@ -14,12 +14,14 @@ import pl.hypeapp.episodie.ui.viewmodel.premiere.PremiereViewModel
 import pl.hypeapp.materialtimelineview.MaterialTimelineView
 import java.util.*
 
+
 class PremieresDelegateAdapter(val onPremiereViewSelectedListener: OnPremiereViewSelectedListener) : ViewTypeDelegateAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder = PremiereViewHolder(parent)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType) {
         (holder as PremiereViewHolder).bind(item as PremiereViewModel)
+        holder.setIsRecyclable(false)
     }
 
     inner class PremiereViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_premiere)) {
@@ -36,6 +38,7 @@ class PremieresDelegateAdapter(val onPremiereViewSelectedListener: OnPremiereVie
                 }
             }
             styleTimelineView(model)
+            setDaysToGo(model.premiereDateModel.premiereDateFormatted())
             setNotificationClickListener(model.premiereDateModel)
             setOnClickListener {
                 onPremiereViewSelectedListener.onPremiereItemClick(model.premiereDateModel, image_view_item_premiere_cover)
@@ -76,8 +79,17 @@ class PremieresDelegateAdapter(val onPremiereViewSelectedListener: OnPremiereVie
             }
         }
 
-        private fun isAfterPremiereDate(date: Date): Boolean = date.let {
-            return Calendar.getInstance().time.after(it)
+        private fun setDaysToGo(premiereDate: Date) = with(itemView) {
+            if (isAfterPremiereDate(premiereDate)) {
+                text_view_days_to_go.viewInvisible()
+            } else {
+                text_view_days_to_go.viewVisible()
+                val diffDays: Long = daysBetween(Calendar.getInstance().time, premiereDate)
+                text_view_days_to_go.text = resources.getQuantityString(
+                        R.plurals.days_to_go,
+                        diffDays.toInt(),
+                        diffDays.toInt())
+            }
         }
     }
 }
