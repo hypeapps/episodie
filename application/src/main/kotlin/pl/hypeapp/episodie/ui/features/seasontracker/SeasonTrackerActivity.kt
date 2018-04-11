@@ -123,6 +123,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
+            navigationDrawer.initWithToolbar(this)
         }
         lifecycle.addObserver(navigationDrawer)
     }

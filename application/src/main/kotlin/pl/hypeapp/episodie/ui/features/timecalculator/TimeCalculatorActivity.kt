@@ -40,6 +40,7 @@ import pl.hypeapp.episodie.ui.features.navigationdrawer.NavigationDrawer
 import pl.hypeapp.episodie.ui.features.timecalculator.adapter.TimeCalculatorDelegateAdapter
 import pl.hypeapp.episodie.ui.features.timecalculator.adapter.TimeCalculatorRecyclerAdapter
 import pl.hypeapp.episodie.ui.viewmodel.BasicSearchResultViewModel
+import pl.hypeapp.episodie.ui.viewmodel.TvShowViewModel
 import pl.hypeapp.presentation.timecalculator.TimeCalculatorPresenter
 import pl.hypeapp.presentation.timecalculator.TimeCalculatorView
 import java.util.concurrent.TimeUnit
@@ -137,16 +138,17 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
+            navigationDrawer.initWithToolbar(this)
         }
         lifecycle.addObserver(navigationDrawer)
     }
 
-    override fun setRecyclerItem(item: BasicSearchResultModel) {
-        timeCalculatorRecyclerAdapter.addItem(BasicSearchResultViewModel(item))
+    override fun setRecyclerItem(item: TvShowModel) {
+        timeCalculatorRecyclerAdapter.addItem(TvShowViewModel(item))
         recycler_view_time_calculator.scrollToLastChild()
     }
 
-    override fun setRecyclerItemWithDelay(item: BasicSearchResultModel, delay: Long) {
+    override fun setRecyclerItemWithDelay(item: TvShowModel, delay: Long) {
         recycler_view_time_calculator.postDelayed({
             setRecyclerItem(item)
         }, delay)
@@ -212,7 +214,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         return false
     }
 
-    override fun oItemSelected(basicSearchResultModel: BasicSearchResultModel, transitionView: View) {
+    override fun oItemSelected(basicSearchResultModel: TvShowModel, transitionView: View) {
         presenter.onItemSelected(basicSearchResultModel.id)
         this.transitionView = transitionView
     }

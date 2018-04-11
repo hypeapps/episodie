@@ -104,8 +104,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         setNavigationBarColor(ContextCompat.getColor(this, R.color.tv_show_details_navigation_bar))
         if (isLandscapeOrientation() and !isNavigationBarLandscape()) {
-            setLandscapeNavBarPaddingEnd(image_view_tv_show_details_ic_share, fab_button_tv_show_details_add_to_watched,
-                    coordinator_layout_tv_show_details)
+            setLandscapeNavBarPaddingEnd(fab_button_tv_show_details_add_to_watched, coordinator_layout_tv_show_details)
         }
     }
 
@@ -163,11 +162,6 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
             else -> setResult(STATE_NOT_CHANGED)
         }
         super.onBackPressed()
-    }
-
-    @OnClick(R.id.dummy_view_tv_show_details_share)
-    override fun onSharePressed() {
-        // TODO
     }
 
     override fun updateWatchState(watchState: String): Unit = with(fab_button_tv_show_details_add_to_watched) {

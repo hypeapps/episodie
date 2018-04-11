@@ -14,7 +14,7 @@ class ActivityModule(private val activity: Activity) {
     @Provides
     @PerActivity
     fun provideNavigationDrawer(presenter: NavigationDrawerPresenter): NavigationDrawer {
-        return NavigationDrawer(activity, activity.findViewById(R.id.toolbar_activity_all), presenter)
+        return NavigationDrawer(activity, presenter)
     }
 
 }

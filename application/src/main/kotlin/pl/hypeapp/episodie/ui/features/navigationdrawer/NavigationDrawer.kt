@@ -29,18 +29,18 @@ import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerView
 import javax.inject.Inject
 
 class NavigationDrawer @Inject constructor(val activity: Activity,
-                                           toolbar: Toolbar,
-                                           val presenter: NavigationDrawerPresenter) : LifecycleObserver, NavigationDrawerView,
-        DragStateListener, DragListener {
+                                           val presenter: NavigationDrawerPresenter)
+    : LifecycleObserver, NavigationDrawerView, DragStateListener, DragListener {
 
     private val publishDragSubject: PublishSubject<Float> = PublishSubject.create()
 
-    private val slidingRootNavigator: SlidingRootNav = SlidingRootNavBuilder(activity)
-            .withToolbarMenuToggle(toolbar)
+    private val slidingRootNavigatorBuilder: SlidingRootNavBuilder = SlidingRootNavBuilder(activity)
             .withMenuLayout(R.layout.drawer_navigation)
             .addDragStateListener(this)
             .addDragListener(this)
-            .inject()
+
+    private lateinit var slidingRootNavigator: SlidingRootNav
+
 
     private val particlesDrawable: ParticlesDrawable = ParticlesDrawable()
 
@@ -53,6 +53,15 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
 
     init {
         particlesDrawable.lineDistance = 270f
+    }
+
+    fun initWithToolbar(toolbar: Toolbar?) {
+        slidingRootNavigator = slidingRootNavigatorBuilder.withToolbarMenuToggle(toolbar).inject()
+        slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
+    }
+
+    fun init() {
+        slidingRootNavigator = slidingRootNavigatorBuilder.inject()
         slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
     }
 
@@ -105,10 +114,7 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
     }
 
     @OnClick(R.id.drawer_menu_item_feed)
-    fun navigateToFeed() {
-        Navigator.startFeedActivity(activity)
-
-    }
+    fun navigateToFeed() = Navigator.startFeedActivity(activity)
 
     @OnClick(R.id.drawer_menu_item_search)
     fun navigateToSearch() = Navigator.startSearchActivity(activity)

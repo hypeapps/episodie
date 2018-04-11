@@ -54,7 +54,6 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         setNavigationBarBackgroundHeight()
         initToolbar()
         initPagerAdapter()
-        lifecycle.addObserver(navigationDrawer)
     }
 
     override fun onAttachedToWindow() {
@@ -98,6 +97,8 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
         toolbarTitleAnimation = ToolbarTitleAnimation(animation_view_toolbar_feed_title)
+        navigationDrawer.initWithToolbar(this)
+        lifecycle.addObserver(navigationDrawer)
     }
 
     private fun setNavigationBarBackgroundHeight() = with(navigation_bottom_view) {
