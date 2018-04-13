@@ -3,7 +3,6 @@ package pl.hypeapp.episodie.ui.viewmodel.premiere
 import android.arch.lifecycle.ViewModel
 import pl.hypeapp.domain.model.premiere.PremiereDatesModel
 
-
 class PremieresViewModel : ViewModel() {
 
     var page: Int = 0
@@ -16,7 +15,10 @@ class PremieresViewModel : ViewModel() {
 
     fun retainModel(model: PremiereDatesModel) {
         retainedModel = model
-        premiereList.addAll(model.premiereDates!!.map { PremiereViewModel(it) })
+        premiereList
+                .addAll(model.premiereDates!!
+                .map { PremiereViewModel(it) })
+        premiereList = ArrayList(premiereList.distinctBy { it.premiereDateModel.id })
         page = model.pageableRequest.page
         isLast = model.pageableRequest.last
     }
@@ -31,12 +33,6 @@ class PremieresViewModel : ViewModel() {
     fun clearAndRetainModel(model: PremiereDatesModel) {
         clearModel()
         retainModel(model)
-    }
-
-    fun updateModel(model: PremiereDatesModel) {
-        retainedModel = model
-        premiereList.clear()
-        premiereList.addAll(model.premiereDates!!.map { PremiereViewModel(it) })
     }
 
     inline fun loadModel(requestPremiereDates: () -> Unit, populateRecyclerList: () -> Unit) {
