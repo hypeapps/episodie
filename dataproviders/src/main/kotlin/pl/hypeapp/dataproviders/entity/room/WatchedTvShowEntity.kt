@@ -15,6 +15,7 @@ data class WatchedTvShowEntity(@PrimaryKey
                                var watchedEpisodesCount: Int = 0,
                                @ColumnInfo(name = "watched_seasons_count")
                                var watchedSeasonsCount: Int = 0,
+                               @ColumnInfo(name = "watching_runtime")
                                var runtime: Long = 0,
                                @ColumnInfo(name = "watch_state")
                                var watchState: String = WatchState.NOT_WATCHED,
