@@ -1,19 +1,19 @@
 package pl.hypeapp.episodie.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
-import pl.hypeapp.domain.model.search.BasicSearchResultModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 
 class SearchViewModel : ViewModel() {
 
-    var searchSuggestions: List<BasicSearchResultViewModel> = ArrayList()
+    var searchSuggestions: List<TvShowViewModel> = ArrayList()
 
-    fun retainModel(suggestions: List<BasicSearchResultModel>) {
+    fun retainModel(suggestions: List<TvShowModel>) {
         this.searchSuggestions = suggestions.map {
-            BasicSearchResultViewModel(it)
+            TvShowViewModel(it)
         }
     }
 
-    fun clearAndRetainModel(suggestions: List<BasicSearchResultModel>) {
+    fun clearAndRetainModel(suggestions: List<TvShowModel>) {
         this.searchSuggestions = ArrayList()
         retainModel(suggestions)
     }

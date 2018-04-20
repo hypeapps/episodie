@@ -1,10 +1,13 @@
 package pl.hypeapp.episodie.ui.features.search.adapter
 
 import android.view.View
-import pl.hypeapp.episodie.ui.viewmodel.BasicSearchResultViewModel
+import android.widget.ImageView
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 
 interface OnSearchSuggestionClickListener {
 
-    fun onItemClick(basicSearchResultViewModel: BasicSearchResultViewModel, view: View)
+    fun onItemClick(tvShowModel: TvShowModel, view: View)
+
+    fun onChangeWatchState(tvShowModel: TvShowModel, icon: ImageView)
 
 }

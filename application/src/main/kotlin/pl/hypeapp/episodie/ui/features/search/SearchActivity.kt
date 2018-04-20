@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.ui.features.search
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -9,27 +10,25 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_search.*
-import pl.hypeapp.domain.model.search.BasicSearchResultModel
+import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
 import pl.hypeapp.episodie.di.module.ActivityModule
-import pl.hypeapp.episodie.extensions.getNavigationBarSize
-import pl.hypeapp.episodie.extensions.getStatusBarHeight
-import pl.hypeapp.episodie.extensions.isLandscapeOrientation
-import pl.hypeapp.episodie.extensions.isNavigationBarLandscape
+import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.navigation.Navigator
+import pl.hypeapp.episodie.navigation.STATE_CHANGED
 import pl.hypeapp.episodie.ui.base.BaseViewModelActivity
 import pl.hypeapp.episodie.ui.features.navigationdrawer.NavigationDrawer
 import pl.hypeapp.episodie.ui.features.search.adapter.OnSearchSuggestionClickListener
 import pl.hypeapp.episodie.ui.features.search.adapter.SearchSuggestionsRecyclerAdapter
-import pl.hypeapp.episodie.ui.viewmodel.BasicSearchResultViewModel
 import pl.hypeapp.episodie.ui.viewmodel.SearchViewModel
 import pl.hypeapp.presentation.search.SearchPresenter
 import pl.hypeapp.presentation.search.SearchView
@@ -43,7 +42,8 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
 
     override fun getLayoutRes(): Int = R.layout.activity_search
 
-    @Inject lateinit var presenter: SearchPresenter
+    @Inject
+    lateinit var presenter: SearchPresenter
 
     @Inject
     lateinit var navigationDrawer: NavigationDrawer
@@ -82,6 +82,20 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onActivityReenter(resultCode: Int, data: Intent?) {
+        super.onActivityReenter(resultCode, data)
+        if (resultCode == STATE_CHANGED) {
+            presenter.checkWatchStateIntegrity(viewModel.searchSuggestions.map { it.tvShow!! })
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == STATE_CHANGED) {
+            presenter.checkWatchStateIntegrity(viewModel.searchSuggestions.map { it.tvShow!! })
+        }
+    }
+
     override fun onBackPressed() {
         dismissSearchView()
         super.onBackPressed()
@@ -113,6 +127,7 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
+            navigationDrawer.initWithToolbar(this)
         }
         lifecycle.addObserver(navigationDrawer)
     }
@@ -120,7 +135,7 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
     override fun initRecyclerAdapter() {
         searchSuggestionsRecyclerAdapter = SearchSuggestionsRecyclerAdapter(this)
         search_suggestions_recycler_view.apply {
-            setHasFixedSize(false)
+            setHasFixedSize(true)
             val linearLayoutManager = LinearLayoutManager(context)
             layoutManager = linearLayoutManager
             val itemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
@@ -130,20 +145,42 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
         }
     }
 
-    override fun populateRecyclerWithSuggestions(suggestions: List<BasicSearchResultModel>) {
+    override fun populateRecyclerWithSuggestions(suggestions: List<TvShowModel>) {
         viewModel.retainModel(suggestions)
         searchSuggestionsRecyclerAdapter.addSuggestions(viewModel.searchSuggestions)
     }
 
-    override fun onItemClick(basicSearchResultViewModel: BasicSearchResultViewModel, view: View) {
+    override fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long) {
+        alerter_search_activity.show(oldUserRuntime, newRuntime)
+    }
+
+    override fun onItemClick(tvShowModel: TvShowModel, view: View) {
         transitionView = view
-        presenter.onItemClick(basicSearchResultViewModel.basicSearchResultModel.id!!)
+        presenter.onItemClick(tvShowModel.id!!)
+    }
+
+    override fun onChangeWatchState(tvShowModel: TvShowModel, icon: ImageView) {
+        smallBangAnimator.bang(icon)
+        icon.manageWatchStateIcon(WatchState.toggleWatchState(tvShowModel.watchState))
+        presenter.onChangeWatchState(tvShowModel)
+    }
+
+    override fun onChangeWatchStateError() {
+        Toast.makeText(this, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
+        presenter.checkWatchStateIntegrity(viewModel.searchSuggestions.map { it.tvShow!! })
     }
 
     override fun setNavigationBarOptions() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         if (isLandscapeOrientation() and !isNavigationBarLandscape()) {
-            setLandscapeNavBarPaddingEnd(constraint_layout_search)
+            with(constraint_layout_search) {
+                setPadding(paddingStart, paddingTop, (paddingEnd + getNavigationBarSize().x), paddingBottom)
+            }
+        }
+        if (!isLandscapeOrientation()) {
+            with(search_suggestions_recycler_view) {
+                setPadding(paddingLeft, paddingTop, paddingRight, getNavigationBarSize().y)
+            }
         }
     }
 
@@ -176,19 +213,12 @@ class SearchActivity : BaseViewModelActivity<SearchViewModel>(), SearchView, Mat
         }
     }
 
-    override fun showErrorToast() = Toast
-            .makeText(this, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
+    override fun showErrorToast() = Toast.makeText(this, getString(R.string.all_toast_error_message), Toast.LENGTH_LONG).show()
 
     private fun showSearchView() = search_activity_search_view.showSearch()
 
-    private fun setLandscapeNavBarPaddingEnd(vararg views: View) = views.forEach {
-        with(it) {
-            setPadding(paddingStart, paddingTop, (paddingEnd + getNavigationBarSize().x), paddingBottom)
-        }
-    }
-
     private companion object {
-        val TIMEOUT_DEBOUNCE = 200L
+        const val TIMEOUT_DEBOUNCE = 100L
     }
 
 }
