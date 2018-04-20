@@ -21,8 +21,8 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
     private var userRuntime: Long = 0
 
     private companion object {
-        val SIZE = 10
-        val PAGE_LIMIT = 9
+        const val SIZE = 10
+        const val PAGE_LIMIT = 9
     }
 
     override fun onAttachView(view: TopListView) {
@@ -95,6 +95,12 @@ class TopListPresenter @Inject constructor(private val topListUseCase: TopListUs
         override fun onSuccess(model: Long) {
             this@TopListPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = model)
             this@TopListPresenter.userRuntime = model
+        }
+
+        override fun onError(error: Throwable) {
+            super.onError(error)
+            this@TopListPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = 0)
+            this@TopListPresenter.userRuntime = 0
         }
     }
 

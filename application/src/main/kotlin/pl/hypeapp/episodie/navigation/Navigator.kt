@@ -21,7 +21,7 @@ object Navigator {
     fun startTvShowDetails(activity: Activity, tvShowModel: TvShowModel) {
         val intent = Intent(activity, TvShowDetailsActivity::class.java)
         intent.putExtra(EXTRA_INTENT_TV_SHOW_MODEL, TvShowModelParcelable(tvShowModel))
-        activity.startActivity(intent)
+        activity.startActivityForResult(intent, 1)
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

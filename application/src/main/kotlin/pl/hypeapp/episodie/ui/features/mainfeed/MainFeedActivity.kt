@@ -52,8 +52,6 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         presenter.onAttachView(this)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         setNavigationBarBackgroundHeight()
-        initToolbar()
-        initPagerAdapter()
     }
 
     override fun onAttachedToWindow() {
@@ -61,6 +59,13 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         toolbarTitleAnimation.start()
     }
 
+    // This will inform about change state in child activity.
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        onActivityReenterSubject.onNext(resultCode)
+    }
+
+    // This will inform about change state in child activity when shared element used.
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
         onActivityReenterSubject.onNext(resultCode)
@@ -76,6 +81,7 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         presenter.onDetachView()
     }
 
+    @OnClick(R.id.fab_button_main_feed_search)
     override fun navigateToSearch() = Navigator.startSearchActivity(this)
 
     override fun addFabButtonLandscapePadding() = with(fab_button_main_feed_search) {
@@ -87,10 +93,7 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         }
     }
 
-    @OnClick(R.id.toolbar_feed_home_button)
-    fun onToolbarHomeButtonClick(): Unit = navigationDrawer.toggleDrawer()
-
-    private fun initToolbar() = with(toolbar_activity_all) {
+    override fun initToolbar() = with(toolbar_activity_all) {
         setSupportActionBar(this)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -100,6 +103,14 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         navigationDrawer.initWithToolbar(this)
         lifecycle.addObserver(navigationDrawer)
     }
+
+    override fun initPagerAdapter() {
+        view_swapper.adapter = MainFeedPagerAdapter(supportFragmentManager)
+        navigation_bottom_view.setupWithViewSwapper(view_swapper)
+    }
+
+    @OnClick(R.id.toolbar_feed_home_button)
+    fun onToolbarHomeButtonClick(): Unit = navigationDrawer.toggleDrawer()
 
     private fun setNavigationBarBackgroundHeight() = with(navigation_bottom_view) {
         if (!this@MainFeedActivity.isLandscapeOrientation()) {
@@ -112,11 +123,6 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
             setPadding(paddingLeft, paddingTop, 0, paddingBottom)
             navigation_bar_background.layoutParams.height = getNavigationBarSize().y
         }
-    }
-
-    private fun initPagerAdapter() {
-        view_swapper.adapter = MainFeedPagerAdapter(supportFragmentManager)
-        navigation_bottom_view.setupWithViewSwapper(view_swapper)
     }
 
 }
