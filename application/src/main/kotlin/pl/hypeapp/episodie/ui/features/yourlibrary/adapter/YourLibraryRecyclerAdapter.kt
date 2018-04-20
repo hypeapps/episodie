@@ -8,6 +8,7 @@ import pl.hypeapp.episodie.ui.base.adapter.LoadingDelegateAdapter
 import pl.hypeapp.episodie.ui.base.adapter.ViewType
 import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.ui.viewmodel.TvShowViewModel
+import pl.hypeapp.episodie.ui.viewmodel.WatchedTvShowViewModel
 
 class YourLibraryRecyclerAdapter(viewItemDelegateAdapter: ViewTypeDelegateAdapter,
                                  onRetryListener: ViewTypeDelegateAdapter.OnRetryListener)
@@ -44,7 +45,20 @@ class YourLibraryRecyclerAdapter(viewItemDelegateAdapter: ViewTypeDelegateAdapte
         this.items.clear()
         this.items.addAll(items)
         notifyItemInserted(itemCount)
-//        notifyDataSetChanged()
     }
 
+    fun updateItems(items: List<TvShowViewModel>) {
+        val itemRange = itemCount
+        this.items.clear()
+        notifyItemRangeRemoved(0, itemRange)
+        this.items.addAll(items)
+        notifyItemInserted(itemCount)
+    }
+
+    fun deleteItem(adapterPosition: Int) {
+        this.items.removeAt(adapterPosition)
+        notifyDataSetChanged()
+    }
+
+    fun getItemAt(position: Int): WatchedTvShowViewModel = this.items[position] as WatchedTvShowViewModel
 }

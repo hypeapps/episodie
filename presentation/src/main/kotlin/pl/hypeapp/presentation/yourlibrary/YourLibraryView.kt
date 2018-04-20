@@ -28,5 +28,11 @@ interface YourLibraryView : View {
 
     fun hideError()
 
+    fun recreateLibrary()
+
+    fun deleteRecyclerItemAt(adapterPosition: Int)
+
+    fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long)
+
     var isLastPage: Boolean
 }

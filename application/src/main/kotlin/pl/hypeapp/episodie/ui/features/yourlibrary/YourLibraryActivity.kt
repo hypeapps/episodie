@@ -1,13 +1,17 @@
 package pl.hypeapp.episodie.ui.features.yourlibrary
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.LinearInterpolator
@@ -22,9 +26,11 @@ import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.Pivot
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import kotlinx.android.synthetic.main.activity_your_library.*
-import kotlinx.android.synthetic.main.item_error.*
-import kotlinx.android.synthetic.main.layout_your_library_empty.*
-import kotlinx.android.synthetic.main.view_watched_show.*
+import kotlinx.android.synthetic.main.item_error.button_item_error_retry
+import kotlinx.android.synthetic.main.item_error.parent_item_error
+import kotlinx.android.synthetic.main.layout_your_library_empty.button_layout_empty_message_feed
+import kotlinx.android.synthetic.main.layout_your_library_empty.button_layout_empty_message_search
+import kotlinx.android.synthetic.main.layout_your_library_empty.parent_view_empty_message
 import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.model.watched.UserStatsModel
 import pl.hypeapp.domain.model.watched.WatchedTvShowModel
@@ -83,6 +89,8 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
 
     private var isFirstCall = true
 
+    private var tipDialog: AlertDialog? = null
+
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
@@ -91,23 +99,38 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setNavigationBarOptions()
         component.inject(this)
+        setNavigationBarOptions()
         presenter.onAttachView(this)
         if (viewModel.isError) showError()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_your_library, menu)
+        menu?.getItem(0)?.isVisible = !viewModel.watchedShows.isEmpty()
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_your_library_tip) {
+            tipDialog = createTipDialog()
+            tipDialog?.show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
         presenter.onDetachView()
         watched_show_your_library_scroll_view.removeItemChangedListener(this)
         watched_show_your_library_scroll_view.adapter = null
+        dismissDialog(tipDialog)
         super.onDestroy()
     }
 
-    override fun onActivityReenter(resultCode: Int, data: Intent?) {
-        super.onActivityReenter(resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == STATE_CHANGED) {
-            recreate()
+            presenter.onStateChanged()
         }
     }
 
@@ -124,6 +147,7 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
     }
 
     override fun initRecyclerAdapter() {
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
         watched_show_your_library_scroll_view.apply {
             adapter = yourLibraryRecyclerAdapter
             setItemTransformer(ScaleTransformer.Builder()
@@ -135,6 +159,7 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
             isNestedScrollingEnabled = true
             setSlideOnFling(true)
             addOnItemChangedListener(this@YourLibraryActivity)
+            itemTouchHelper.attachToRecyclerView(this)
         }
     }
 
@@ -173,6 +198,23 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
             initKenBurnsView(viewModel.watchedShows[watched_show_your_library_scroll_view.currentItem].tvShow?.imageMedium)
             isFirstCall = false
         }
+        invalidateOptionsMenu()
+    }
+
+    // We need fresh state so we won't call recreate()
+    override fun recreateLibrary() {
+        val intent = intent
+        finish()
+        startActivity(intent)
+    }
+
+    override fun deleteRecyclerItemAt(adapterPosition: Int) {
+        viewModel.deleteItem(yourLibraryRecyclerAdapter.getItemAt(adapterPosition))
+        if (viewModel.watchedShows.isEmpty()) {
+            showEmptyLibraryMessage()
+        }
+        presenter.onItemRemoved(yourLibraryRecyclerAdapter.getItemAt(adapterPosition).tvShow)
+        yourLibraryRecyclerAdapter.deleteItem(adapterPosition)
     }
 
     override fun setUserStats(model: UserStatsModel) = with(model) {
@@ -187,6 +229,10 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
         text_view_your_library_watched_seasons.viewInvisible()
         text_view_your_library_watched_shows.viewInvisible()
         text_view_your_library_watching_time.viewInvisible()
+    }
+
+    override fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long) {
+        alerter_your_library.show(oldUserRuntime, newRuntime)
     }
 
     override fun showError() {
@@ -218,16 +264,17 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
         if (parent_view_empty_message == null) stub_your_library_empty_message.viewVisible()
         button_layout_empty_message_feed.setOnClickListener { Navigator.startFeedActivity(this) }
         button_layout_empty_message_search.setOnClickListener { Navigator.startSearchActivity(this) }
+        kenburns_view_show_frame.apply {
+            viewInvisible()
+            setImageBitmap(null)
+        }
+        view_watched_show_your_library.viewGone()
+        loadImageBackground()
+        invalidateOptionsMenu()
     }
 
     override fun onItemSelected(item: TvShowModel?, vararg views: View) {
-        item?.let {
-            if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) and !isLandscapeOrientation()) {
-                Navigator.startTvShowDetailsWithSharedElement(this, it, card_view_tv_show_cover)
-            } else {
-                Navigator.startTvShowDetails(this, it)
-            }
-        }
+        item?.let { Navigator.startTvShowDetails(this, it) }
     }
 
     override fun onCurrentItemChanged(viewHolder: RecyclerView.ViewHolder?, adapterPosition: Int) {
@@ -239,9 +286,23 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
                         .into(applyWatchedShowDetails(viewModel.watchedShows[adapterPosition]))
                 initKenBurnsView(viewModel.watchedShows[adapterPosition].tvShow?.imageMedium)
             }
-            if ((adapterPosition + 1 >= viewModel.watchedShows.size - 2) and !viewModel.isError) {
+            if ((adapterPosition + 1 == viewModel.watchedShows.size) and !viewModel.isError) {
                 presenter.requestModel(++viewModel.page, false)
             }
+        }
+    }
+
+    private val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.UP or ItemTouchHelper.DOWN) {
+        override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
+            return true
+        }
+
+        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder?): Float {
+            return SWIPE_THRESHOLD
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+            presenter.onSwiped(viewHolder?.adapterPosition)
         }
     }
 
@@ -285,6 +346,25 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
                 setPadding(paddingStart, paddingTop, paddingEnd, (paddingBottom + getNavigationBarSize().y))
             }
         }
+    }
+
+    private fun createTipDialog(): AlertDialog = AlertDialog.Builder(this)
+            .setIcon(R.drawable.all_ic_info)
+            .setTitle(R.string.alert_dialog_tip_title)
+            .setMessage(R.string.alert_dialog_your_library_tip_message)
+            .setPositiveButton(R.string.alert_dialog_button_text) { p0, _ -> p0?.dismiss() }
+            .create()
+
+    private fun dismissDialog(dialog: Dialog?) = with(dialog) {
+        this?.let {
+            if (isShowing) {
+                dismiss()
+            }
+        }
+    }
+
+    private companion object {
+        val SWIPE_THRESHOLD = 0.1f
     }
 
 }
