@@ -49,7 +49,7 @@ interface WatchedShowDao {
     @Query("SELECT * FROM watched_episodes WHERE season_id = :seasonId")
     fun getEpisodesBySeasonId(seasonId: String): List<WatchedEpisodeEntity>
 
-    @Query("SELECT * from watched_tv_shows")
+    @Query("SELECT * from watched_tv_shows WHERE watch_state LIKE 'WATCHED' OR watch_state LIKE 'PARTIALLY WATCHED'")
     fun getWatchedTvShows(): TiledDataSource<WatchedTvShowEntity>
 
     @Query("SELECT COUNT(*) from watched_tv_shows")

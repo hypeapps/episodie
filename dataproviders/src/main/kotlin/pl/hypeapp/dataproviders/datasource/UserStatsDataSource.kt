@@ -1,5 +1,6 @@
 package pl.hypeapp.dataproviders.datasource
 
+import io.reactivex.Flowable
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.entity.room.UserStatsEntity
 import pl.hypeapp.dataproviders.service.room.RoomService
@@ -17,4 +18,7 @@ class UserStatsDataSource @Inject constructor(private val roomService: RoomServi
         return roomService.userStatsDao.getUserStats()
     }
 
+    override fun getUserFullRuntimeFlowable(): Flowable<Long> {
+        return roomService.userStatsDao.getUserFullRuntimeFlowable()
+    }
 }

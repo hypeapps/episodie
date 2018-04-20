@@ -31,8 +31,6 @@ interface TvShowDetailsView : View {
 
     fun startFabButtonAnimation()
 
-    fun onSharePressed()
-
     fun onBackArrowPressed()
 
     fun onWatchStateChangeError()

@@ -6,6 +6,8 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.Toolbar
+import android.widget.TextView
+import butterknife.BindView
 import butterknife.BindViews
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -17,6 +19,7 @@ import com.yarolegovich.slidingrootnav.callback.DragStateListener
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import pl.hypeapp.episodie.R
+import pl.hypeapp.episodie.extensions.getFullRuntimeFormatted
 import pl.hypeapp.episodie.navigation.Navigator
 import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
 import pl.hypeapp.episodie.ui.features.search.SearchActivity
@@ -41,15 +44,14 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
 
     private lateinit var slidingRootNavigator: SlidingRootNav
 
-
     private val particlesDrawable: ParticlesDrawable = ParticlesDrawable()
-
-//    @Inject
-//    lateinit var presenter: NavigationDrawerPresenter
 
     @BindViews(R.id.drawer_menu_item_feed, R.id.drawer_menu_item_search, R.id.drawer_menu_item_time_calculator,
             R.id.drawer_menu_item_watched, R.id.drawer_menu_item_season_tracker)
     lateinit var drawerItems: List<DrawerMenuItemView>
+
+    @BindView(R.id.text_view_drawer_watching_time)
+    lateinit var watchingTimeTextView: TextView
 
     init {
         particlesDrawable.lineDistance = 270f
@@ -97,7 +99,9 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() = presenter.onDetachView()
+    fun onDestroy() {
+        presenter.onDetachView()
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
@@ -111,6 +115,11 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
         if (slidingRootNavigator.isMenuOpened) {
             particlesDrawable.start()
         }
+    }
+
+    override fun setWatchingTime(watchingTime: Long) {
+        watchingTimeTextView.text = String.format(activity.getString(R.string.watching_time_format),
+                getFullRuntimeFormatted(activity.resources, watchingTime))
     }
 
     @OnClick(R.id.drawer_menu_item_feed)
