@@ -2,6 +2,7 @@ package pl.hypeapp.episodie.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import pl.hypeapp.domain.model.watched.WatchedTvShowModel
+import pl.hypeapp.episodie.extensions.e
 
 class YourLibraryViewModel : ViewModel() {
 
@@ -24,7 +25,16 @@ class YourLibraryViewModel : ViewModel() {
 
     fun clearAndRetainModel(model: List<WatchedTvShowModel>) {
         this.watchedShows = ArrayList()
+        isLastPage = false
+        page = 0
         retainModel(model)
+    }
+
+    fun deleteItem(model: WatchedTvShowViewModel) {
+        this.watchedShows.remove(model)
+        this.watchedShows.forEach {
+            e(it.tvShow?.name!!)
+        }
     }
 
     inline fun loadModel(populateRecyclerList: () -> Unit, requestModel: () -> Unit) {

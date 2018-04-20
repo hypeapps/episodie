@@ -22,7 +22,7 @@ class PremieresPresenter @Inject constructor(private val premiereDatesUseCase: P
     : Presenter<PremieresView>() {
 
     companion object {
-        val SIZE_PAGE = 10
+        const val SIZE_PAGE = 10
     }
 
     override fun onAttachView(view: PremieresView) {

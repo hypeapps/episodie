@@ -8,7 +8,6 @@ import pl.hypeapp.domain.usecase.userstats.UserRuntimeUseCase
 import pl.hypeapp.domain.usecase.watchstate.UpdateTvShowWatchStateByIdUseCase
 import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowsWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class TvShowDetailsPresenter @Inject constructor(private val updateTvShowWatchStateByIdUseCase: UpdateTvShowWatchStateByIdUseCase,
@@ -45,7 +44,6 @@ class TvShowDetailsPresenter @Inject constructor(private val updateTvShowWatchSt
     fun onChangeWatchedTvShowState() = with(this.view?.model!!) {
         val idAddToWatchedOperation: Boolean = watchState != WatchState.WATCHED
         watchState = WatchState.toggleWatchState(watchState)
-        Logger.getAnonymousLogger().info("XD + " + idAddToWatchedOperation)
         updateTvShowWatchStateByIdUseCase.execute(ManageTvShowWatchStateObserver(),
                 UpdateTvShowWatchStateByIdUseCase.Params.createParams(id!!, idAddToWatchedOperation))
     }
@@ -99,6 +97,11 @@ class TvShowDetailsPresenter @Inject constructor(private val updateTvShowWatchSt
         override fun onSuccess(model: Long) {
             this@TvShowDetailsPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = model)
             this@TvShowDetailsPresenter.userRuntime = model
+        }
+
+        override fun onError(error: Throwable) {
+            this@TvShowDetailsPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = 0)
+            this@TvShowDetailsPresenter.userRuntime = 0
         }
     }
 
