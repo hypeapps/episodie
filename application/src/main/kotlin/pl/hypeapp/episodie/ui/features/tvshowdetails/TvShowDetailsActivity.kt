@@ -17,12 +17,13 @@ import com.daimajia.androidanimations.library.YoYo
 import com.facebook.device.yearclass.YearClass
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_tv_show_details.*
-import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
+import pl.hypeapp.episodie.di.module.ActivityModule
 import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.glide.GlideApp
 import pl.hypeapp.episodie.glide.transformation.BlurTransformation
@@ -46,6 +47,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
+                .activityModule(ActivityModule(this))
                 .build()
 
     private var isWatchStateChanged: Boolean = false
@@ -65,13 +67,13 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.onDetachView()
+        super.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
         outState?.putBoolean(WATCH_STATE_CHANGED, isWatchStateChanged)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -102,8 +104,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         setNavigationBarColor(ContextCompat.getColor(this, R.color.tv_show_details_navigation_bar))
         if (isLandscapeOrientation() and !isNavigationBarLandscape()) {
-            setLandscapeNavBarPaddingEnd(image_view_tv_show_details_ic_share, fab_button_tv_show_details_add_to_watched,
-                    coordinator_layout_tv_show_details)
+            setLandscapeNavBarPaddingEnd(fab_button_tv_show_details_add_to_watched, coordinator_layout_tv_show_details)
         }
     }
 
@@ -163,12 +164,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         super.onBackPressed()
     }
 
-    @OnClick(R.id.dummy_view_tv_show_details_share)
-    override fun onSharePressed() {
-        // TODO
-    }
-
-    override fun updateWatchState(watchState: Int): Unit = with(fab_button_tv_show_details_add_to_watched) {
+    override fun updateWatchState(watchState: String): Unit = with(fab_button_tv_show_details_add_to_watched) {
         postDelayed({
             manageWatchStateIcon(watchState)
         }, 200)
@@ -182,7 +178,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         show()
         smallBangAnimator.bang(this)
         val watchState = model.watchState
-        postDelayed({ manageWatchStateIcon(WatchState.manageWatchState(watchState)) }, 200)
+        postDelayed({ manageWatchStateIcon(WatchState.toggleWatchState(watchState)) }, 200)
         presenter.onChangeWatchedTvShowState()
     }
 

@@ -1,17 +1,17 @@
 package pl.hypeapp.presentation.tvshowdetails
 
-import pl.hypeapp.domain.model.TvShowModel
 import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
-import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateIntegrityUseCase
-import pl.hypeapp.domain.usecase.runtime.UserRuntimeUseCase
-import pl.hypeapp.domain.usecase.watchstate.ManageTvShowWatchStateUseCase
+import pl.hypeapp.domain.usecase.userstats.UserRuntimeUseCase
+import pl.hypeapp.domain.usecase.watchstate.UpdateTvShowWatchStateByIdUseCase
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowsWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject
 
-class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchStateUseCase: ManageTvShowWatchStateUseCase,
-                                                 private val tvShowWatchStateIntegrityUseCase: TvShowWatchStateIntegrityUseCase,
+class TvShowDetailsPresenter @Inject constructor(private val updateTvShowWatchStateByIdUseCase: UpdateTvShowWatchStateByIdUseCase,
+                                                 private val mapTvShowsWatchStateUseCase: MapTvShowsWatchStateUseCase,
                                                  private val userRuntimeUseCase: UserRuntimeUseCase)
     : Presenter<TvShowDetailsView>() {
 
@@ -28,9 +28,8 @@ class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchSt
     }
 
     override fun onDetachView() {
-        super.onDetachView()
-        manageTvShowWatchStateUseCase.dispose()
-        tvShowWatchStateIntegrityUseCase.dispose()
+        updateTvShowWatchStateByIdUseCase.dispose()
+        mapTvShowsWatchStateUseCase.dispose()
         userRuntimeUseCase.dispose()
     }
 
@@ -43,19 +42,19 @@ class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchSt
     fun onPagerAdapterInit() = view?.startFabButtonAnimation()
 
     fun onChangeWatchedTvShowState() = with(this.view?.model!!) {
-        val addToWatched: Boolean = watchState != WatchState.WATCHED
-        watchState = WatchState.manageWatchState(watchState)
-        manageTvShowWatchStateUseCase.execute(ManageTvShowWatchStateObserver(),
-                ManageTvShowWatchStateUseCase.Params.createParams(id!!, addToWatched))
+        val idAddToWatchedOperation: Boolean = watchState != WatchState.WATCHED
+        watchState = WatchState.toggleWatchState(watchState)
+        updateTvShowWatchStateByIdUseCase.execute(ManageTvShowWatchStateObserver(),
+                UpdateTvShowWatchStateByIdUseCase.Params.createParams(id!!, idAddToWatchedOperation))
     }
 
     fun updateWatchState() = with(this.view?.model!!) {
-        tvShowWatchStateIntegrityUseCase.execute(TvShowWatchStateIntegrityObserver(),
-                TvShowWatchStateIntegrityUseCase.Params.createParams(listOf(this)))
+        mapTvShowsWatchStateUseCase.execute(TvShowWatchStateIntegrityObserver(),
+                MapTvShowsWatchStateUseCase.Params.createParams(listOf(this)))
     }
 
     fun showRuntimeNotification() {
-        // Get updated runtime and execute UserRuntimeAfterChangeObserver
+        // Get updated fullRuntime and execute UserRuntimeAfterChangeObserver
         userRuntimeUseCase.execute(UserRuntimeAfterChangeObserver(), null)
     }
 
@@ -98,6 +97,11 @@ class TvShowDetailsPresenter @Inject constructor(private val manageTvShowWatchSt
         override fun onSuccess(model: Long) {
             this@TvShowDetailsPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = model)
             this@TvShowDetailsPresenter.userRuntime = model
+        }
+
+        override fun onError(error: Throwable) {
+            this@TvShowDetailsPresenter.view?.showRuntimeNotification(oldUserRuntime = userRuntime, newRuntime = 0)
+            this@TvShowDetailsPresenter.userRuntime = 0
         }
     }
 

@@ -3,6 +3,7 @@ package pl.hypeapp.dataproviders.entity.mapper
 import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
+import pl.hypeapp.dataproviders.entity.mapper.watched.WatchedSeasonCountModelMapper
 import pl.hypeapp.dataproviders.entity.room.WatchedSeasonCountEntity
 
 class WatchedSeasonCountModelMapperTest {

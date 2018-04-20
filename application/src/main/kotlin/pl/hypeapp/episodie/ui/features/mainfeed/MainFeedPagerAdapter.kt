@@ -2,12 +2,12 @@ package pl.hypeapp.episodie.ui.features.mainfeed
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import org.buffer.adaptablebottomnavigation.adapter.FragmentStateAdapter
 import pl.hypeapp.episodie.ui.features.mostpopular.MostPopularFragment
 import pl.hypeapp.episodie.ui.features.premieres.PremieresFragment
 import pl.hypeapp.episodie.ui.features.top.TopListFragment
 
-class MainFeedPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
+class MainFeedPagerAdapter(fm: FragmentManager?) : FragmentStateAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
@@ -23,10 +23,10 @@ class MainFeedPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm)
     }
 
     companion object {
-        val PAGE_MOST_POPULAR = 0
-        val PAGE_TOP_LIST = 1
-        val PAGE_PREMIERES = 2
-        val NUM_PAGES = 3
+        const val PAGE_MOST_POPULAR = 0
+        const val PAGE_TOP_LIST = 1
+        const val PAGE_PREMIERES = 2
+        const val NUM_PAGES = 3
     }
 
 }

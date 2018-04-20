@@ -1,6 +1,6 @@
 package pl.hypeapp.presentation.tvshowdetails
 
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.View
 
 interface TvShowDetailsView : View {
@@ -25,13 +25,11 @@ interface TvShowDetailsView : View {
 
     fun setFullRuntime(fullRuntime: Long?)
 
-    fun updateWatchState(watchState: Int)
+    fun updateWatchState(watchState: String)
 
     fun expandAppBar()
 
     fun startFabButtonAnimation()
-
-    fun onSharePressed()
 
     fun onBackArrowPressed()
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_view_empty_message"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_view_library_empty_message_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/layout_icon_empty_message_description"
+        android:src="@drawable/drawer_ic_watched"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_time_calculator_info_header"
+        android:layout_marginStart="@dimen/padding_time_calculator_info_header"
+        android:layout_marginTop="@dimen/margin_big"
+        android:gravity="center"
+        android:text="@string/layout_empty_message"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_layout_empty_message_feed"
+            style="@style/Base.Widget.AppCompat.ButtonBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_big"
+            android:background="@color/all_backdrop_color"
+            android:drawableStart="@drawable/drawer_ic_feed"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:paddingEnd="@dimen/padding_default"
+            android:paddingStart="@dimen/padding_default"
+            android:text="@string/drawer_feed"
+            android:textColor="@android:color/white"
+            android:tint="@color/primary"/>
+
+        <Button
+            android:id="@+id/button_layout_empty_message_search"
+            style="@style/Base.Widget.AppCompat.ButtonBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/all_backdrop_color"
+            android:drawableStart="@drawable/all_ic_search"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:paddingEnd="@dimen/padding_default"
+            android:paddingStart="@dimen/padding_default"
+            android:text="@string/drawer_search"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+</LinearLayout>

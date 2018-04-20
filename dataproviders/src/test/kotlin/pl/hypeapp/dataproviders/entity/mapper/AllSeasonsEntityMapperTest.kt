@@ -5,7 +5,9 @@ import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.entity.api.AllSeasonsEntity
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.AllSeasonsEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.SeasonEntityMapper
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 
 class AllSeasonsEntityMapperTest {
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/margin_small"
-    android:layout_height="wrap_content"
-    android:background="@color/primary_dark">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:layout_marginTop="@dimen/margin_small"
+                                             android:background="@color/primary_dark">
 
     <com.andexert.library.RippleView
         android:id="@+id/ripple_view_item_episode"
@@ -14,37 +14,37 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:contentDescription="@string/item_episode_screen_description"
         android:id="@+id/image_view_item_episode_screen"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:scaleType="fitXY" />
+        android:contentDescription="@string/item_episode_screen_description"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/text_view_item_episode_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/gradient"
-        android:paddingStart="@dimen/padding_small"
         android:paddingEnd="@dimen/padding_small"
-        app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen" />
+        android:paddingStart="@dimen/padding_small"
+        app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen"/>
 
     <TextView
         android:id="@+id/text_view_item_episode_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:ellipsize="end"
         android:gravity="bottom"
         android:maxLines="2"
-        android:ellipsize="end"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default"
-        app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen"
-        app:layout_constraintEnd_toStartOf="@id/image_view_item_episode_runtime"
         app:layout_constraintBottom_toTopOf="@id/text_view_item_episode_premiered"
-        app:layout_constraintStart_toEndOf="@id/image_view_item_episode_screen" />
+        app:layout_constraintEnd_toStartOf="@id/image_view_item_episode_runtime"
+        app:layout_constraintStart_toEndOf="@id/image_view_item_episode_screen"
+        app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen"/>
 
     <TextView
         android:id="@+id/text_view_item_episode_premiered"
@@ -55,17 +55,17 @@
         android:textColor="@color/primary_light"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/image_view_item_episode_screen"
-        app:layout_constraintStart_toEndOf="@id/image_view_item_episode_screen" />
+        app:layout_constraintStart_toEndOf="@id/image_view_item_episode_screen"/>
 
     <ImageView
         android:id="@+id/image_view_item_episode_runtime"
         android:layout_width="wrap_content"
-        android:contentDescription="@string/item_all_ic_runtime_description"
         android:layout_height="0dp"
+        android:contentDescription="@string/item_all_ic_runtime_description"
         android:src="@drawable/all_ic_watching_time"
         app:layout_constraintBottom_toBottomOf="@id/text_view_item_episode_runtime"
         app:layout_constraintEnd_toStartOf="@id/text_view_item_episode_runtime"
-        app:layout_constraintTop_toTopOf="@id/text_view_item_episode_runtime" />
+        app:layout_constraintTop_toTopOf="@id/text_view_item_episode_runtime"/>
 
     <TextView
         android:id="@+id/text_view_item_episode_runtime"
@@ -75,7 +75,7 @@
         android:layout_marginTop="@dimen/margin_default"
         android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/text_view_item_episode_summary_header"
@@ -86,7 +86,7 @@
         android:text="@string/item_episode_summary_header"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view_item_episode_screen" />
+        app:layout_constraintTop_toBottomOf="@id/image_view_item_episode_screen"/>
 
     <TextView
         android:id="@+id/text_view_item_episode_summary"
@@ -96,16 +96,16 @@
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_default"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_item_episode_summary_header" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_item_episode_summary_header"/>
 
     <ImageView
         android:id="@+id/image_view_item_episode_add_to_watched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_default"
         android:contentDescription="@string/item_all_ic_diamond_description"
+        android:padding="@dimen/padding_default"
         android:src="@drawable/all_ic_diamond_unchecked"
         app:layout_constraintBottom_toBottomOf="@id/image_view_item_episode_screen"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

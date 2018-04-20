@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_time_calculator_tip"
+        android:icon="@drawable/all_ic_info"
+        android:orderInCategory="100"
+        android:title="@string/alert_dialog_tip_title"
+        app:showAsAction="always" />
+</menu>

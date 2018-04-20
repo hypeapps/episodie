@@ -5,6 +5,7 @@ import org.amshove.kluent.`should equal`
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.entity.api.EpisodeEntity
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.EpisodeEntityMapper
 
 class EpisodeEntityMapperTest {
 

@@ -6,9 +6,9 @@ import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.TopListModel
+import pl.hypeapp.domain.model.collections.TopListModel
 import pl.hypeapp.domain.repository.TopListRepository
-import pl.hypeapp.domain.usecase.mapwatched.TvShowWatchStateMapper
+import pl.hypeapp.domain.usecase.watchstate.mapwatched.WatchStateMapper
 
 class TopListUseCaseTest {
 
@@ -16,7 +16,7 @@ class TopListUseCaseTest {
 
     private val repository: TopListRepository = mock()
 
-    private val watchStateMapper: TvShowWatchStateMapper = mock()
+    private val watchStateMapper: WatchStateMapper = mock()
 
     private val threadExecutor: ThreadExecutor = mock()
 

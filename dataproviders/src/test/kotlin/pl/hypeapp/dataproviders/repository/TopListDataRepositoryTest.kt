@@ -9,7 +9,7 @@ import org.junit.Test
 import pl.hypeapp.dataproviders.datasource.DataFactory
 import pl.hypeapp.dataproviders.datasource.TvShowDataStore
 import pl.hypeapp.dataproviders.entity.api.TopListEntity
-import pl.hypeapp.dataproviders.entity.mapper.TopListEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.TopListEntityMapper
 import pl.hypeapp.domain.model.PageableRequest
 
 class TopListDataRepositoryTest {

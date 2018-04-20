@@ -2,7 +2,7 @@ package pl.hypeapp.episodie.ui.viewmodel
 
 import android.os.Parcel
 import android.os.Parcelable
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 
 class TvShowModelParcelable constructor(val id: String?,
                                         val imdbId: String?,
@@ -18,7 +18,9 @@ class TvShowModelParcelable constructor(val id: String?,
                                         val imageMedium: String?,
                                         val imageOriginal: String?,
                                         val episodeOrder: Int?,
-                                        val watchState: Int) : Parcelable {
+                                        val watchedEpisodes: Int,
+                                        val watchingTime: Long,
+                                        val watchState: String) : Parcelable {
 
     constructor(tvShowModel: TvShowModel) : this(
             id = tvShowModel.id,
@@ -35,6 +37,8 @@ class TvShowModelParcelable constructor(val id: String?,
             imageMedium = tvShowModel.imageMedium,
             imageOriginal = tvShowModel.imageOriginal,
             episodeOrder = tvShowModel.episodeOrder,
+            watchedEpisodes = tvShowModel.watchedEpisodes,
+            watchingTime = tvShowModel.watchingTime,
             watchState = tvShowModel.watchState)
 
     constructor(parcel: Parcel) : this(
@@ -52,7 +56,9 @@ class TvShowModelParcelable constructor(val id: String?,
             parcel.readString(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.readInt())
+            parcel.readInt(),
+            parcel.readLong(),
+            parcel.readString())
 
     fun mapToTvShowModel(): TvShowModel {
         return TvShowModel(
@@ -69,8 +75,10 @@ class TvShowModelParcelable constructor(val id: String?,
                 this.premiered,
                 this.imageMedium,
                 this.imageOriginal,
-                this.watchState,
-                this.episodeOrder)
+                this.episodeOrder,
+                this.watchedEpisodes,
+                this.watchingTime,
+                this.watchState)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -88,7 +96,9 @@ class TvShowModelParcelable constructor(val id: String?,
         parcel.writeString(imageMedium)
         parcel.writeString(imageOriginal)
         parcel.writeInt(episodeOrder!!)
-        parcel.writeInt(watchState)
+        parcel.writeInt(watchedEpisodes)
+        parcel.writeLong(watchingTime)
+        parcel.writeString(watchState)
     }
 
     override fun describeContents(): Int {

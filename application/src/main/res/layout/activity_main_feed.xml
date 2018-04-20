@@ -6,24 +6,21 @@
     android:background="@color/primary">
 
     <include
-        android:id="@id/toolbar_feed"
+        android:id="@+id/toolbar_activity_all"
         layout="@layout/toolbar_feed"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <org.buffer.adaptablebottomnavigation.view.ViewSwapper
+        android:id="@+id/view_swapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <!--
-        Due to view pager is above toolbar we need to provide transparent view
-        which be imitate home button for clicks.
-    -->
+    <!-- Due to view pager is above toolbar we need to provide transparent view
+        which be imitate home button for clicks. -->
     <View
         android:id="@+id/toolbar_feed_home_button"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/toolbar_feed"
-        android:layout_alignTop="@id/toolbar_feed"/>
+        android:layout_alignBottom="@id/toolbar_activity_all"
+        android:layout_alignTop="@id/toolbar_activity_all"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_button_main_feed_search"

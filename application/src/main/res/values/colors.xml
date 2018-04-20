@@ -28,4 +28,5 @@
     <color name="all_backdrop_color">#80121212</color>
     <color name="episode_item_inactive">#757575</color>
     <color name="episode_item_watched">#0079ea</color>
+    <color name="item_premiere_card_view">#222222</color>
 </resources>

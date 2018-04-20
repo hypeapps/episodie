@@ -3,7 +3,7 @@ package pl.hypeapp.domain.usecase.premieres
 import io.reactivex.Completable
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.PremiereReminderModel
+import pl.hypeapp.domain.model.reminder.PremiereReminderModel
 import pl.hypeapp.domain.repository.PremiereDatesRepository
 import pl.hypeapp.domain.usecase.base.AbsRxCompletableUseCase
 import javax.inject.Inject

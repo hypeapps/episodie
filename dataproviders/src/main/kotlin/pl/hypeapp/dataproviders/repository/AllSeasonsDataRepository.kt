@@ -2,8 +2,8 @@ package pl.hypeapp.dataproviders.repository
 
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.AllSeasonsEntityMapper
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.AllSeasonsEntityMapper
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.domain.repository.AllSeasonsRepository
 import javax.inject.Inject
 

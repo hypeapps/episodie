@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.ui.features.timecalculator
 
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.os.Build
@@ -11,6 +12,8 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -23,12 +26,12 @@ import com.daimajia.androidanimations.library.YoYo
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_time_calculator.*
-import pl.hypeapp.domain.model.BasicSearchResultModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
+import pl.hypeapp.episodie.di.module.ActivityModule
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
 import pl.hypeapp.episodie.extensions.viewVisible
 import pl.hypeapp.episodie.glide.GlideApp
@@ -38,7 +41,7 @@ import pl.hypeapp.episodie.ui.base.BaseActivity
 import pl.hypeapp.episodie.ui.features.navigationdrawer.NavigationDrawer
 import pl.hypeapp.episodie.ui.features.timecalculator.adapter.TimeCalculatorDelegateAdapter
 import pl.hypeapp.episodie.ui.features.timecalculator.adapter.TimeCalculatorRecyclerAdapter
-import pl.hypeapp.episodie.ui.viewmodel.BasicSearchResultViewModel
+import pl.hypeapp.episodie.ui.viewmodel.TvShowViewModel
 import pl.hypeapp.presentation.timecalculator.TimeCalculatorPresenter
 import pl.hypeapp.presentation.timecalculator.TimeCalculatorView
 import java.util.concurrent.TimeUnit
@@ -49,13 +52,15 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
 
     override fun getLayoutRes(): Int = R.layout.activity_time_calculator
 
-    @Inject lateinit var presenter: TimeCalculatorPresenter
+    @Inject
+    lateinit var presenter: TimeCalculatorPresenter
+
+    @Inject
+    lateinit var navigationDrawer: NavigationDrawer
 
     private lateinit var timeCalculatorRecyclerAdapter: TimeCalculatorRecyclerAdapter
 
     private var suggestionDialog: AlertDialog? = null
-
-    private lateinit var navigationDrawer: NavigationDrawer
 
     private var episodeOrderSum = 0
 
@@ -65,9 +70,12 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
 
     private var transitionView: View? = null
 
+    private var tipDialog: AlertDialog? = null
+
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
+                .activityModule(ActivityModule(this))
                 .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,11 +93,21 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         super.onDestroy()
         presenter.onDetachView()
         disposeSubscription()
-        suggestionDialog?.let {
-            if (it.isShowing) {
-                it.dismiss()
-            }
+        dismissDialog(suggestionDialog)
+        dismissDialog(tipDialog)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_time_calculator, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_time_calculator_tip) {
+            tipDialog = createTipDialog()
+            tipDialog?.show()
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun startEnterAnimation() {
@@ -128,23 +146,23 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     }
 
     override fun initNavigationDrawer() {
-        toolbar_time_calculator.apply {
+        toolbar_activity_all.apply {
             setSupportActionBar(this)
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
+            navigationDrawer.initWithToolbar(this)
         }
-        navigationDrawer = NavigationDrawer(this, toolbar_time_calculator)
         lifecycle.addObserver(navigationDrawer)
     }
 
-    override fun setRecyclerItem(item: BasicSearchResultModel) {
-        timeCalculatorRecyclerAdapter.addItem(BasicSearchResultViewModel(item))
+    override fun setRecyclerItem(item: TvShowModel) {
+        timeCalculatorRecyclerAdapter.addItem(TvShowViewModel(item))
         recycler_view_time_calculator.scrollToLastChild()
     }
 
-    override fun setRecyclerItemWithDelay(item: BasicSearchResultModel, delay: Long) {
+    override fun setRecyclerItemWithDelay(item: TvShowModel, delay: Long) {
         recycler_view_time_calculator.postDelayed({
             setRecyclerItem(item)
         }, delay)
@@ -152,7 +170,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     }
 
     override fun deleteRecyclerItemAt(adapterPosition: Int) {
-        presenter.onItemRemove(timeCalculatorRecyclerAdapter.getItemAt(adapterPosition).basicSearchResultModel)
+        presenter.onItemRemove(timeCalculatorRecyclerAdapter.getItemAt(adapterPosition).tvShow)
         timeCalculatorRecyclerAdapter.deleteItem(adapterPosition)
         recycler_view_time_calculator.scrollToCenterView()
     }
@@ -210,7 +228,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         return false
     }
 
-    override fun oItemSelected(basicSearchResultModel: BasicSearchResultModel, transitionView: View) {
+    override fun oItemSelected(basicSearchResultModel: TvShowModel, transitionView: View) {
         presenter.onItemSelected(basicSearchResultModel.id)
         this.transitionView = transitionView
     }
@@ -286,10 +304,25 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
             .onStart { view.viewVisible() }
             .playOn(view)
 
+    private fun dismissDialog(dialog: Dialog?) = with(dialog) {
+        this?.let {
+            if (isShowing) {
+                dismiss()
+            }
+        }
+    }
+
+    private fun createTipDialog(): AlertDialog = AlertDialog.Builder(this)
+            .setIcon(R.drawable.all_ic_info)
+            .setTitle(R.string.alert_dialog_tip_title)
+            .setMessage(R.string.alert_dialog_season_tracker_tip_message)
+            .setPositiveButton(R.string.alert_dialog_button_text) { p0, _ -> p0?.dismiss() }
+            .create()
+
     private companion object {
-        val SWIPE_THRESHOLD = 0.1f
-        val TIMEOUT_DEBOUNCE = 200L
-        val DELAY_START_ANIMATION = 900L
+        const val SWIPE_THRESHOLD = 0.1f
+        const val TIMEOUT_DEBOUNCE = 200L
+        const val DELAY_START_ANIMATION = 900L
     }
 
 }

@@ -2,7 +2,7 @@ package pl.hypeapp.domain.repository
 
 import io.reactivex.Single
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.TopListModel
+import pl.hypeapp.domain.model.collections.TopListModel
 
 interface TopListRepository {
 

@@ -3,12 +3,12 @@ package pl.hypeapp.dataproviders.repository
 import io.reactivex.Completable
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.PremiereDatesEntityMapper
-import pl.hypeapp.dataproviders.entity.mapper.PremiereReminderEntityMapper
-import pl.hypeapp.dataproviders.entity.mapper.PremiereReminderModelMapper
+import pl.hypeapp.dataproviders.entity.mapper.reminder.PremiereReminderEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.reminder.PremiereReminderModelMapper
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.PremiereDatesEntityMapper
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.PremiereDatesModel
-import pl.hypeapp.domain.model.PremiereReminderModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
+import pl.hypeapp.domain.model.reminder.PremiereReminderModel
 import pl.hypeapp.domain.repository.PremiereDatesRepository
 import java.util.*
 import javax.inject.Inject

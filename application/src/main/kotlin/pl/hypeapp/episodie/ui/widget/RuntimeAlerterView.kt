@@ -29,7 +29,6 @@ class RuntimeAlerterView(context: Context, attributeSet: AttributeSet) : FrameLa
 
     init {
         inflate(context, R.layout.view_runtime_alerter, this)
-        isHapticFeedbackEnabled = true
         text = findViewById(R.id.view_alerter_text)
         icon = findViewById(R.id.view_alerter_icon)
         runtimeDiffText = findViewById(R.id.view_alerter_runtime_diff)

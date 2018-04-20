@@ -5,6 +5,7 @@ import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.entity.api.TvShowEntity
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.TvShowEntityMapper
 
 class TvShowEntityMapperTest {
 

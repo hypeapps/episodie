@@ -54,7 +54,7 @@
         android:layout="@layout/layout_season_tracker_search"/>
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_season_tracker"
+        android:id="@+id/toolbar_activity_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/EpisodieTheme.Toolbar.Transparent"
@@ -74,8 +74,8 @@
         android:id="@+id/view_hamburger_season_tracker"
         android:layout_height="0dp"
         android:layout_width="64dp"
-        app:layout_constraintTop_toTopOf="@id/toolbar_season_tracker"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar_season_tracker"/>
+        app:layout_constraintTop_toTopOf="@id/toolbar_activity_all"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_activity_all"/>
 
     <include
         android:id="@+id/view_loading"

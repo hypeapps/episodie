@@ -66,7 +66,7 @@
     <dimen name="height_item_season_screen">90dp</dimen>
     <!--seasons fragment-->
     <dimen name="margin_bottom_fragment_season_recycler_view">90dp</dimen>
-    <!--view runtime alerter-->
+    <!--vfullRuntimetime alerter-->
     <dimen name="height_view_runtime_alerter">140dp</dimen>
     <dimen name="padding_top_view_runtime_alerter">40dp</dimen>
     <dimen name="size_icon_view_runtime_alerter">32dp</dimen>
@@ -108,4 +108,8 @@
     <dimen name="size_season_tracker_ic_full_runtime">20dp</dimen>
     <dimen name="text_size_season_tracker_full_runtime">16sp</dimen>
     <dimen name="text_size_toolbar_title_search">17sp</dimen>
+    <dimen name="height_all_icons">24dp</dimen>
+    <dimen name="padding_bottom_your_library_diamond_icon">10dp</dimen>
+    <dimen name="margin_bottom_your_library_diamond_icon_land">13dp</dimen>
+    <dimen name="margin_bottom_your_library_diamond_icon">4dp</dimen>
 </resources>

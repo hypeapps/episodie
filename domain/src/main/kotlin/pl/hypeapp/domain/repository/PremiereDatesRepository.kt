@@ -3,8 +3,8 @@ package pl.hypeapp.domain.repository
 import io.reactivex.Completable
 import io.reactivex.Single
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.PremiereDatesModel
-import pl.hypeapp.domain.model.PremiereReminderModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
+import pl.hypeapp.domain.model.reminder.PremiereReminderModel
 import java.util.*
 
 interface PremiereDatesRepository {

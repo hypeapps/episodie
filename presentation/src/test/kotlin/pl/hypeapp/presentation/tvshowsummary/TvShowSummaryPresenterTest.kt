@@ -6,7 +6,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when`
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 
 class TvShowSummaryPresenterTest {
 

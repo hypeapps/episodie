@@ -3,9 +3,9 @@ package pl.hypeapp.dataproviders.repository
 import io.reactivex.Completable
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.EpisodeReminderEntityMapper
-import pl.hypeapp.dataproviders.entity.mapper.EpisodeReminderModelMapper
-import pl.hypeapp.domain.model.EpisodeReminderModel
+import pl.hypeapp.dataproviders.entity.mapper.reminder.EpisodeReminderEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.reminder.EpisodeReminderModelMapper
+import pl.hypeapp.domain.model.reminder.EpisodeReminderModel
 import pl.hypeapp.domain.repository.EpisodeReminderRepository
 import javax.inject.Inject
 

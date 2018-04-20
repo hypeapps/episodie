@@ -8,9 +8,9 @@ import org.amshove.kluent.`should equal`
 import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
-import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.collections.MostPopularModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 
 class MostPopularViewModelTest {
 

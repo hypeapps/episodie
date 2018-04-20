@@ -9,7 +9,7 @@ import org.junit.Test
 import pl.hypeapp.dataproviders.datasource.DataFactory
 import pl.hypeapp.dataproviders.datasource.TvShowDataStore
 import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
-import pl.hypeapp.dataproviders.entity.mapper.MostPopularEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.MostPopularEntityMapper
 import pl.hypeapp.domain.model.PageableRequest
 
 class MostPopularDataRepositoryTest {

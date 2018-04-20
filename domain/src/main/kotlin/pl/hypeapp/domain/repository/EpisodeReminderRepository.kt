@@ -2,7 +2,7 @@ package pl.hypeapp.domain.repository
 
 import io.reactivex.Completable
 import io.reactivex.Single
-import pl.hypeapp.domain.model.EpisodeReminderModel
+import pl.hypeapp.domain.model.reminder.EpisodeReminderModel
 
 interface EpisodeReminderRepository {
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_gradient_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view_dummy_reveal_animation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layerType="software"/>
+
+    <pl.hypeapp.noiseview.NoiseView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:noiseIntensity="0.07"/>
+
+    <TextView
+        android:id="@+id/text_view_watched_show_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_big"
+        android:gravity="center_horizontal"
+        android:textSize="24sp"
+        android:layout_marginTop="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_view_watched_show_runtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:drawablePadding="@dimen/padding_default"
+        app:layout_constraintStart_toStartOf="parent"
+        android:drawableStart="@drawable/all_ic_watching_time"
+        android:gravity="center_vertical"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@id/text_view_watched_show_episodes"
+        app:layout_constraintTop_toBottomOf="@id/text_view_watched_show_title"/>
+
+    <TextView
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/text_view_watched_show_episodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/padding_default"
+        android:layout_marginStart="@dimen/margin_medium"
+        app:layout_constraintStart_toEndOf="@id/text_view_watched_show_runtime"
+        android:drawableStart="@drawable/all_ic_watched_episodes"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="@id/text_view_watched_show_runtime"/>
+
+</android.support.constraint.ConstraintLayout>

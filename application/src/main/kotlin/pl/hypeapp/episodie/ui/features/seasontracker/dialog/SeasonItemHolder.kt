@@ -4,7 +4,7 @@ import android.support.v4.content.ContextCompat
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.item_season.view.*
-import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.loadImage
 import pl.hypeapp.episodie.extensions.setFullRuntime
@@ -33,7 +33,7 @@ internal class SeasonItemHolder(private val seasonModel: SeasonModel,
             }
         }
         text_view_item_season_season_number.setSPrefix(seasonModel.seasonNumber!!)
-        text_view_item_season_runtime.setFullRuntime(seasonModel.runtime)
+        text_view_item_season_runtime.setFullRuntime(seasonModel.fullRuntime)
         text_view_item_season_episode_order.text = String.format(resources.getString(R.string.item_season_order_format),
                 seasonModel.episodeOrder)
     }

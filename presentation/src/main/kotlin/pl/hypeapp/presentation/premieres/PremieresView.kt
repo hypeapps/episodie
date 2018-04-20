@@ -1,7 +1,7 @@
 package pl.hypeapp.presentation.premieres
 
-import pl.hypeapp.domain.model.PremiereDatesModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.View
 
 interface PremieresView : View {

@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.ui.features.mostpopular
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -7,17 +8,15 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
-import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
-import kotlinx.android.synthetic.main.fragment_most_popular.recycler_view_most_popular
-import kotlinx.android.synthetic.main.fragment_most_popular.swipe_refresh_layout_most_popular
-import pl.hypeapp.domain.model.MostPopularModel
-import pl.hypeapp.domain.model.TvShowModel
+import kotlinx.android.synthetic.main.activity_main_feed.*
+import kotlinx.android.synthetic.main.fragment_most_popular.*
+import pl.hypeapp.domain.model.collections.MostPopularModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
 import pl.hypeapp.episodie.di.components.FragmentComponent
-import pl.hypeapp.episodie.extensions.setRecyclerViewPadding
+import pl.hypeapp.episodie.extensions.setActionStatusBarPadding
 import pl.hypeapp.episodie.navigation.Navigator
 import pl.hypeapp.episodie.ui.base.BaseViewModelFragment
 import pl.hypeapp.episodie.ui.base.adapter.InfiniteScrollListener
@@ -47,16 +46,16 @@ class MostPopularFragment : BaseViewModelFragment<MostPopularViewModel>(), MostP
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
-                .appComponent((activity.application as App).component)
+                .appComponent((activity?.application as App).component)
                 .build()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = super.onCreateView(inflater, container, savedInstanceState)
         component.inject(this)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onAttachView(this)
     }
@@ -98,9 +97,9 @@ class MostPopularFragment : BaseViewModelFragment<MostPopularViewModel>(), MostP
     override fun onItemSelected(item: TvShowModel?, vararg views: View) {
         item?.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Navigator.startTvShowDetailsWithSharedElement(activity, it, views)
+                Navigator.startTvShowDetailsWithSharedElements(activity as Activity, it, views)
             } else {
-                Navigator.startTvShowDetails(activity, it)
+                Navigator.startTvShowDetails(activity as Activity, it)
             }
         }
     }
@@ -122,7 +121,7 @@ class MostPopularFragment : BaseViewModelFragment<MostPopularViewModel>(), MostP
             // When list scroll to end presenter loadOrRetainModel next page of most popular
             addOnScrollListener(InfiniteScrollListener({ presenter.requestMostPopular(++viewModel.page, false) },
                     gridLayout))
-            setRecyclerViewPadding(insetPaddingTop = true)
+            setActionStatusBarPadding(insetPaddingTop = true)
             adapter = mostPopularRecyclerAdapter
         }
     }

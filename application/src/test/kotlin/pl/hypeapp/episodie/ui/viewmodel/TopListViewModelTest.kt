@@ -9,8 +9,8 @@ import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.TopListModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.collections.TopListModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 
 class TopListViewModelTest {
 

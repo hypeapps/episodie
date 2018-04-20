@@ -3,9 +3,9 @@ package pl.hypeapp.domain.usecase.episodereminder
 import io.reactivex.Completable
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.EpisodeModel
-import pl.hypeapp.domain.model.EpisodeReminderModel
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.reminder.EpisodeReminderModel
+import pl.hypeapp.domain.model.tvshow.EpisodeModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.domain.repository.AllSeasonsRepository
 import pl.hypeapp.domain.repository.EpisodeReminderRepository
 import pl.hypeapp.domain.usecase.base.AbsRxCompletableUseCase

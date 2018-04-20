@@ -1,6 +1,6 @@
 package pl.hypeapp.presentation.tvshowsummary
 
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject
 

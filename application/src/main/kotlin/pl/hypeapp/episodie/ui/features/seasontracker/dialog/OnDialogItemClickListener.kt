@@ -1,6 +1,6 @@
 package pl.hypeapp.episodie.ui.features.seasontracker.dialog
 
-import pl.hypeapp.domain.model.SeasonModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
 
 interface OnDialogItemClickListener {
 

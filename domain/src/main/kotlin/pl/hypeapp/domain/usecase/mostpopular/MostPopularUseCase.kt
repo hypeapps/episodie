@@ -3,8 +3,8 @@ package pl.hypeapp.domain.usecase.mostpopular
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.MostPopularModel
 import pl.hypeapp.domain.model.PageableRequest
+import pl.hypeapp.domain.model.collections.MostPopularModel
 import pl.hypeapp.domain.repository.MostPopularRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import javax.inject.Inject

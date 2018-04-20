@@ -3,8 +3,6 @@ package pl.hypeapp.episodie.ui.animation
 import android.app.Activity
 import android.graphics.Color
 import android.view.View
-import xyz.hanks.library.SmallBang
-import xyz.hanks.library.SmallBangListener
 
 class SmallBangAnimator(activity: Activity) {
 

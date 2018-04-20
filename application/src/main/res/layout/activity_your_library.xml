@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent_layout_your_library"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view_your_library_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_dark"
+            android:contentDescription="@string/image_view_your_library_background_description" />
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/kenburns_view_show_frame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.07"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/baseline" />
+
+        <pl.hypeapp.episodie.ui.widget.WatchedShowView
+            android:id="@+id/view_watched_show_your_library"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="60dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/text_view_your_library_watched_seasons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Space
+            android:id="@+id/baseline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/view_watched_show_your_library" />
+
+        <TextView
+            android:id="@+id/text_view_your_library_watched_shows"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_all_icons"
+            android:layout_marginBottom="@dimen/margin_bottom_your_library_diamond_icon"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:drawablePadding="@dimen/padding_default"
+            android:drawableStart="@drawable/all_ic_diamond_checked"
+            android:gravity="center"
+            android:paddingBottom="@dimen/padding_bottom_your_library_diamond_icon"
+            app:layout_constraintBottom_toTopOf="@id/text_view_your_library_watching_time"
+            app:layout_constraintEnd_toStartOf="@id/text_view_your_library_watched_seasons" />
+
+        <TextView
+            android:id="@+id/text_view_your_library_watched_seasons"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_all_icons"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:drawablePadding="@dimen/padding_default"
+            android:drawableStart="@drawable/all_ic_watched_seasons"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/text_view_your_library_watching_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_your_library_watched_episodes"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_all_icons"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:drawablePadding="@dimen/padding_default"
+            android:drawableStart="@drawable/all_ic_watched_episodes"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/text_view_your_library_watching_time"
+            app:layout_constraintStart_toEndOf="@id/text_view_your_library_watched_seasons" />
+
+        <TextView
+            android:id="@+id/text_view_your_library_watching_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:drawablePadding="@dimen/padding_default"
+            android:drawableStart="@drawable/all_ic_watching_time"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/watched_show_your_library_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/baseline"
+            app:layout_constraintTop_toTopOf="@id/baseline" />
+
+        <ViewStub
+            android:id="@+id/stub_your_library_error_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:layout="@layout/item_error"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_activity_all" />
+
+        <ViewStub
+            android:id="@+id/stub_your_library_empty_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:layout="@layout/layout_your_library_empty"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_activity_all" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_activity_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EpisodieTheme.Toolbar.Transparent"
+            app:contentInsetStartWithNavigation="@dimen/inset_start_with_navigation_toolbar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/your_library_title"
+                android:textSize="@dimen/text_size_time_calculator_toolbar_title" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <pl.hypeapp.episodie.ui.widget.RuntimeAlerterView
+        android:id="@+id/alerter_your_library"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-40dp" />
+
+</FrameLayout>

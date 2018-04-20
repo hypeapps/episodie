@@ -1,7 +1,6 @@
 package pl.hypeapp.presentation.search
 
-import pl.hypeapp.domain.model.BasicSearchResultModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.View
 
 interface SearchView : View {
@@ -10,7 +9,7 @@ interface SearchView : View {
 
     fun initSearchView()
 
-    fun populateRecyclerWithSuggestions(suggestions: List<BasicSearchResultModel>)
+    fun populateRecyclerWithSuggestions(suggestions: List<TvShowModel>)
 
     fun initNavigationDrawer()
 
@@ -19,7 +18,14 @@ interface SearchView : View {
     fun loadViewModel()
 
     fun initRecyclerAdapter()
+
+    fun showRuntimeNotification(oldUserRuntime: Long, newRuntime: Long)
+
     fun setSearchViewSuggestions(suggestions: Array<String>)
+
     fun setNavigationBarOptions()
+
     fun showErrorToast()
+
+    fun onChangeWatchStateError()
 }

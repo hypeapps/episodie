@@ -34,9 +34,7 @@
             style="@style/EpisodieTheme.ImageViewCover"
             android:layout_width="@dimen/width_tv_show_details_cover"
             android:layout_height="@dimen/height_tv_show_details_cover"
-            android:contentDescription="@string/tv_show_details_cover_description"
-            android:scaleType="fitXY"
-            android:src="@drawable/am"/>
+            android:contentDescription="@string/tv_show_details_cover_description"/>
 
     </android.support.v7.widget.CardView>
 

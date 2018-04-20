@@ -2,9 +2,9 @@ package pl.hypeapp.dataproviders.repository
 
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
-import pl.hypeapp.dataproviders.entity.mapper.TopListEntityMapper
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.TopListEntityMapper
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.TopListModel
+import pl.hypeapp.domain.model.collections.TopListModel
 import pl.hypeapp.domain.repository.TopListRepository
 import javax.inject.Inject
 

@@ -1,5 +1,6 @@
 package pl.hypeapp.episodie.ui.features.premieres
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -10,10 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main_feed.*
 import kotlinx.android.synthetic.main.fragment_premieres.*
-import pl.hypeapp.domain.model.PremiereDateModel
-import pl.hypeapp.domain.model.PremiereDatesModel
-import pl.hypeapp.domain.model.PremiereReminderModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.premiere.PremiereDateModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
+import pl.hypeapp.domain.model.reminder.PremiereReminderModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
@@ -53,20 +54,20 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
-                .appComponent((activity.application as App).component)
+                .appComponent((activity?.application as App).component)
                 .build()
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View? = super.onCreateView(inflater, container, savedInstanceState)
         component.inject(this)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onAttachView(this)
-        if (activity.isLandscapeOrientation() and !activity.isNavigationBarLandscape()) {
+        if (activity!!.isLandscapeOrientation() and !activity!!.isNavigationBarLandscape()) {
             setLandscapeNavBarPaddingEnd(recycler_view_premieres)
         }
     }
@@ -101,11 +102,13 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
                 jobId = PremiereReminderJob.scheduleJob(exactTime, model.name!!),
                 timestamp = exactTime)
         presenter.onNotificationSchedule(reminder)
+        Toast.makeText(context, getString(R.string.toast_premiere_reminder_scheduled), Toast.LENGTH_LONG).show()
     }
 
     override fun onNotificationDismiss(model: PremiereDateModel) {
         model.notificationScheduled = false
         presenter.onNotificationDismiss(model.id!!)
+        Toast.makeText(context, getString(R.string.toast_premiere_reminder_dismiss), Toast.LENGTH_LONG).show()
     }
 
     override fun cancelNotification(jobId: Int) = PremiereReminderJob.cancelJob(jobId)
@@ -134,9 +137,9 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
 
     override fun navigateToTvShowDetails(tvShowModel: TvShowModel) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Navigator.startTvShowDetailsWithSharedElement(activity, tvShowModel, transitionView)
+            Navigator.startTvShowDetailsWithSharedElement(activity as Activity, tvShowModel, transitionView)
         } else {
-            Navigator.startTvShowDetails(activity, tvShowModel)
+            Navigator.startTvShowDetails(activity as Activity, tvShowModel)
         }
     }
 
@@ -177,7 +180,7 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
 
     private fun setLandscapeNavBarPaddingEnd(vararg views: View) = views.forEach {
         with(it) {
-            setPadding(paddingStart, paddingTop, (paddingEnd + activity.getNavigationBarSize().x), paddingBottom)
+            setPadding(paddingStart, paddingTop, (paddingEnd + activity!!.getNavigationBarSize().x), paddingBottom)
         }
     }
 }

@@ -3,7 +3,7 @@ package pl.hypeapp.domain.usecase.seasontracker
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
-import pl.hypeapp.domain.model.SeasonTrackerModel
+import pl.hypeapp.domain.model.collections.SeasonTrackerModel
 import pl.hypeapp.domain.repository.SeasonTrackerRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import javax.inject.Inject

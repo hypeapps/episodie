@@ -4,7 +4,7 @@ import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
 import pl.hypeapp.domain.executor.ThreadExecutor
 import pl.hypeapp.domain.model.PageableRequest
-import pl.hypeapp.domain.model.PremiereDatesModel
+import pl.hypeapp.domain.model.premiere.PremiereDatesModel
 import pl.hypeapp.domain.repository.PremiereDatesRepository
 import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import java.util.*
@@ -18,7 +18,8 @@ class PremiereDatesUseCase @Inject constructor(threadExecutor: ThreadExecutor,
     override fun createSingle(params: Params): Single<PremiereDatesModel> {
         return repository.getPremiereDates(params.pageableRequest, params.fromDate, params.update)
                 .map {
-                    it.premiereDates?.filter { it.id?.equals(repository.getPremiereReminderById(it.id).tvShowId)!! }
+                    it.premiereDates
+                            ?.filter { it.id?.equals(repository.getPremiereReminderById(it.id).tvShowId)!! }
                             ?.map { it.notificationScheduled = true }
                     it
                 }

@@ -25,14 +25,15 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_season_tracker.*
 import kotlinx.android.synthetic.main.layout_season_tracker_search.*
-import pl.hypeapp.domain.model.SeasonModel
-import pl.hypeapp.domain.model.SeasonTrackerModel
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.collections.SeasonTrackerModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.Prefs
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
+import pl.hypeapp.episodie.di.module.ActivityModule
 import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.glide.GlideApp
 import pl.hypeapp.episodie.glide.transformation.BlurTransformation
@@ -64,7 +65,8 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
 
     private lateinit var seasonTrackerRecyclerAdapter: SeasonTrackerRecyclerAdapter
 
-    private lateinit var navigationDrawer: NavigationDrawer
+    @Inject
+    lateinit var navigationDrawer: NavigationDrawer
 
     private var suggestionDialog: AlertDialog? = null
 
@@ -73,6 +75,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
                 .appComponent((application as App).component)
+                .activityModule(ActivityModule(this))
                 .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,14 +117,14 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
     }
 
     override fun initNavigationDrawer() {
-        toolbar_season_tracker.apply {
+        toolbar_activity_all.apply {
             setSupportActionBar(this)
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             setPadding(paddingLeft, resources.getStatusBarHeight(), paddingRight, paddingBottom)
+            navigationDrawer.initWithToolbar(this)
         }
-        navigationDrawer = NavigationDrawer(this, toolbar_season_tracker)
         lifecycle.addObserver(navigationDrawer)
     }
 
@@ -292,7 +295,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
         }
         if (prefs.isEpisodeReminderNotificationsStarted) {
             fab_button_disable_notifications.apply {
-                setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_off))
+                setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_off)!!)
                 title = getString(R.string.fab_button_notifications_off)
             }
         }
@@ -304,7 +307,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
         prefs.isEpisodeReminderNotificationsStarted = false
         prefs.isNotificationsCanceled = true
         fab_button_disable_notifications.apply {
-            setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_on))
+            setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_on)!!)
             title = getString(R.string.fab_button_notifications_on)
         }
     }

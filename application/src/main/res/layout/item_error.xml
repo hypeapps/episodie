@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
+    android:gravity="center"
+    android:id="@+id/parent_item_error"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/padding_bottom_item_all"
     android:paddingTop="@dimen/padding_top_item_all">
 
@@ -13,30 +14,20 @@
         android:layout_width="@dimen/width_item_error_icon"
         android:layout_height="@dimen/height_tem_error_icon"
         android:contentDescription="@string/item_error_content_description"
-        android:src="@drawable/all_item_ic_error"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:src="@drawable/all_item_ic_error"/>
 
     <TextView
         android:id="@+id/text_view_item_error_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_default"
-        android:text="@string/item_error_message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_view_item_error_icon"/>
+        android:text="@string/item_error_message"/>
 
     <Button
         android:id="@+id/button_item_error_retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_default"
-        android:text="@string/item_error_retry"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_item_error_message"/>
+        android:text="@string/item_error_retry"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

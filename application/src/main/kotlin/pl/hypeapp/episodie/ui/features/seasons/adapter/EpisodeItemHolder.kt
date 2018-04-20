@@ -5,9 +5,12 @@ import android.widget.ImageView
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.item_episode.view.*
-import pl.hypeapp.domain.model.EpisodeModel
+import pl.hypeapp.domain.model.tvshow.EpisodeModel
 import pl.hypeapp.episodie.R
-import pl.hypeapp.episodie.extensions.*
+import pl.hypeapp.episodie.extensions.loadImage
+import pl.hypeapp.episodie.extensions.manageWatchStateIcon
+import pl.hypeapp.episodie.extensions.setFullRuntime
+import pl.hypeapp.episodie.extensions.setHashTagPrefix
 
 class EpisodeItemHolder(val model: EpisodeModel,
                         private val onToggleGroupListener: OnToggleGroupListener,

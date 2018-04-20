@@ -7,6 +7,7 @@ import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.dataproviders.entity.api.MostPopularEntity
+import pl.hypeapp.dataproviders.entity.mapper.tvshow.MostPopularEntityMapper
 
 class MostPopularEntityMapperTest {
 

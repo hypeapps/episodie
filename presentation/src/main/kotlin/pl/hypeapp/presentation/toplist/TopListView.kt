@@ -1,7 +1,7 @@
 package pl.hypeapp.presentation.toplist
 
-import pl.hypeapp.domain.model.TopListModel
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.collections.TopListModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.View
 
 interface TopListView : View {

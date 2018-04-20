@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.fragment_tv_show_summary.*
-import pl.hypeapp.domain.model.TvShowModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.DaggerFragmentComponent
@@ -28,15 +28,15 @@ class TvShowSummaryFragment : BaseFragment(), TvShowSummaryView {
 
     private val component: FragmentComponent
         get() = DaggerFragmentComponent.builder()
-                .appComponent((activity.application as App).component)
+                .appComponent((activity?.application as App).component)
                 .build()
 
     override fun getModel(): TvShowModel {
-        val tvShowModelParcelable: TvShowModelParcelable = arguments.getParcelable(ARGUMENT_INFO_ABOUT_TV_SHOW)
+        val tvShowModelParcelable: TvShowModelParcelable = arguments!!.getParcelable(ARGUMENT_INFO_ABOUT_TV_SHOW)
         return tvShowModelParcelable.mapToTvShowModel()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         component.inject(this)
         return view
@@ -75,7 +75,7 @@ class TvShowSummaryFragment : BaseFragment(), TvShowSummaryView {
 
     override fun openBrowserIntent(url: String?) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        activity.startActivity(browserIntent)
+        activity?.startActivity(browserIntent)
     }
 
     @OnClick(R.id.text_view_tv_show_summary_official_website,

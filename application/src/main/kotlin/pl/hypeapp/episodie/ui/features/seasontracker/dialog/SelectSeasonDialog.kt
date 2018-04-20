@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import pl.hypeapp.domain.model.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.loadImage
 

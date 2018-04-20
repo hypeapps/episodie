@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import pl.hypeapp.episodie.ui.base.adapter.ViewType
 import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
-import pl.hypeapp.episodie.ui.viewmodel.BasicSearchResultViewModel
+import pl.hypeapp.episodie.ui.viewmodel.TvShowViewModel
 
 class TimeCalculatorRecyclerAdapter(viewItemDelegateAdapter: ViewTypeDelegateAdapter)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -31,7 +31,7 @@ class TimeCalculatorRecyclerAdapter(viewItemDelegateAdapter: ViewTypeDelegateAda
 
     override fun getItemViewType(position: Int) = items[position].getViewType()
 
-    fun addItem(item: BasicSearchResultViewModel) {
+    fun addItem(item: TvShowViewModel) {
         items.add(item)
         notifyItemInserted(itemCount)
         notifyDataSetChanged()
@@ -42,6 +42,6 @@ class TimeCalculatorRecyclerAdapter(viewItemDelegateAdapter: ViewTypeDelegateAda
         notifyDataSetChanged()
     }
 
-    fun getItemAt(position: Int): BasicSearchResultViewModel = this.items[position] as BasicSearchResultViewModel
+    fun getItemAt(position: Int): TvShowViewModel = this.items[position] as TvShowViewModel
 
 }

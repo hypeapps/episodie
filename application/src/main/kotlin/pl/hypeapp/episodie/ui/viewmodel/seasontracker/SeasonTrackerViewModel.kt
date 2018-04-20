@@ -1,7 +1,11 @@
 package pl.hypeapp.episodie.ui.viewmodel.seasontracker
 
 import android.arch.lifecycle.ViewModel
-import pl.hypeapp.domain.model.*
+import pl.hypeapp.domain.model.WatchState
+import pl.hypeapp.domain.model.collections.SeasonTrackerModel
+import pl.hypeapp.domain.model.tvshow.EpisodeModel
+import pl.hypeapp.domain.model.tvshow.SeasonModel
+import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 
 class SeasonTrackerViewModel : ViewModel() {
 
@@ -67,7 +71,7 @@ class SeasonTrackerViewModel : ViewModel() {
     }
 
     private fun mapWatchedEpisodes(it: EpisodeModel) {
-        val isWatched: Int = if (seasonTrackerModel?.watchedEpisodes?.contains(it.episodeId)!!)
+        val isWatched: String = if (seasonTrackerModel?.watchedEpisodes?.contains(it.episodeId)!!)
             WatchState.WATCHED else WatchState.NOT_WATCHED
         it.watchState = isWatched
         val episodeViewModel = EpisodeViewModel(it)

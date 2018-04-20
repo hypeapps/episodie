@@ -53,10 +53,10 @@ class App : Application() {
     }
 
     companion object {
-        val URL_API_ENDPOINT = "https://episodie.ct8.pl/api/"
-        val USERNAME = BuildConfig.USERNAME_EPISODIE_API
+        const val URL_API_ENDPOINT = "https://episodie.ct8.pl/api/"
+        const val USERNAME = BuildConfig.USERNAME_EPISODIE_API
         val PASSWORD = String(Base64.decode(BuildConfig.PASSWORD_EPISODIE_API, Base64.DEFAULT), Charset.defaultCharset())
-        val DATABASE_NAME = "episodie_db"
+        const val DATABASE_NAME = "episodie_db"
     }
 
 }
@@ -66,7 +66,6 @@ class AppBlockCanaryContext : BlockCanaryContext() {
     override fun onBlock(context: Context?, blockInfo: BlockInfo?) {
         super.onBlock(context, blockInfo)
         blockInfo?.threadStackEntries?.forEach { Log.e("BLOCK CANARY ", it) }
-
     }
 
     override fun providePath(): String {

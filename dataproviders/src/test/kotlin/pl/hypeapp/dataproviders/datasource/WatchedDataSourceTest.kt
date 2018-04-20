@@ -12,13 +12,13 @@ import pl.hypeapp.dataproviders.service.room.RoomService
 
 class WatchedDataSourceTest {
 
-    private lateinit var watchedDataSource: WatchedDataSource
+    private lateinit var watchedDataSource: WatchedShowDataSource
 
     private val roomService: RoomService = mock()
 
     @Before
     fun setUp() {
-        watchedDataSource = WatchedDataSource(roomService)
+        watchedDataSource = WatchedShowDataSource(roomService)
         given(roomService.watchedEpisodeDao).willReturn(mock())
     }
 
@@ -26,7 +26,7 @@ class WatchedDataSourceTest {
     fun `should add tv show to watched`() {
         val watchedEpisodesEntites: List<WatchedEpisodeEntity> = mock()
 
-        watchedDataSource.addTvShowToWatched(watchedEpisodesEntites)
+        watchedDataSource.addTvShow(watchedEpisodesEntites)
 
         verify(roomService.watchedEpisodeDao).insertWatchedEpisodes(watchedEpisodesEntites)
     }
@@ -35,7 +35,7 @@ class WatchedDataSourceTest {
     fun `should add episode to watched`() {
         val watchedEpisode: WatchedEpisodeEntity = mock()
 
-        watchedDataSource.addEpisodeToWatched(watchedEpisode)
+        watchedDataSource.addEpisode(watchedEpisode)
 
         verify(roomService.watchedEpisodeDao).insertWatchedEpisode(watchedEpisode)
     }
@@ -44,7 +44,7 @@ class WatchedDataSourceTest {
     fun `should delete tv show from watched`() {
         val tvShowId = "tt112"
 
-        watchedDataSource.deleteTvShowFromWatched(tvShowId)
+        watchedDataSource.deleteTvShow(tvShowId)
 
         verify(roomService.watchedEpisodeDao).deleteWatchedTvShow(tvShowId)
     }

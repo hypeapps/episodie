@@ -6,8 +6,11 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.Toolbar
-import android.util.Log
+import android.widget.TextView
+import butterknife.BindView
+import butterknife.BindViews
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.doctoror.particlesdrawable.ParticlesDrawable
 import com.yarolegovich.slidingrootnav.SlidingRootNav
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
@@ -16,34 +19,56 @@ import com.yarolegovich.slidingrootnav.callback.DragStateListener
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import pl.hypeapp.episodie.R
+import pl.hypeapp.episodie.extensions.getFullRuntimeFormatted
+import pl.hypeapp.episodie.navigation.Navigator
+import pl.hypeapp.episodie.ui.features.mainfeed.MainFeedActivity
+import pl.hypeapp.episodie.ui.features.search.SearchActivity
+import pl.hypeapp.episodie.ui.features.seasontracker.SeasonTrackerActivity
+import pl.hypeapp.episodie.ui.features.timecalculator.TimeCalculatorActivity
+import pl.hypeapp.episodie.ui.features.yourlibrary.YourLibraryActivity
+import pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
+import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerPresenter
 import pl.hypeapp.presentation.navigationdrawer.NavigationDrawerView
+import javax.inject.Inject
 
-class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObserver, NavigationDrawerView,
-        DragStateListener, DragListener {
-
-//    @BindView(R.id.drawer_menu_item_feed)
-//    lateinit var feedItem: DrawerMenuItemView
+class NavigationDrawer @Inject constructor(val activity: Activity,
+                                           val presenter: NavigationDrawerPresenter)
+    : LifecycleObserver, NavigationDrawerView, DragStateListener, DragListener {
 
     private val publishDragSubject: PublishSubject<Float> = PublishSubject.create()
 
-    private val slidingRootNavigator: SlidingRootNav = SlidingRootNavBuilder(activity)
-            .withToolbarMenuToggle(toolbar)
+    private val slidingRootNavigatorBuilder: SlidingRootNavBuilder = SlidingRootNavBuilder(activity)
             .withMenuLayout(R.layout.drawer_navigation)
             .addDragStateListener(this)
             .addDragListener(this)
-            .inject()
+
+    private lateinit var slidingRootNavigator: SlidingRootNav
 
     private val particlesDrawable: ParticlesDrawable = ParticlesDrawable()
 
+    @BindViews(R.id.drawer_menu_item_feed, R.id.drawer_menu_item_search, R.id.drawer_menu_item_time_calculator,
+            R.id.drawer_menu_item_watched, R.id.drawer_menu_item_season_tracker)
+    lateinit var drawerItems: List<DrawerMenuItemView>
+
+    @BindView(R.id.text_view_drawer_watching_time)
+    lateinit var watchingTimeTextView: TextView
+
     init {
         particlesDrawable.lineDistance = 270f
+    }
+
+    fun initWithToolbar(toolbar: Toolbar?) {
+        slidingRootNavigator = slidingRootNavigatorBuilder.withToolbarMenuToggle(toolbar).inject()
         slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
-//        slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).visibility = View.GONE
-        Log.e("line tempScroll", " " + particlesDrawable.lineDistance)
+    }
+
+    fun init() {
+        slidingRootNavigator = slidingRootNavigatorBuilder.inject()
+        slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
     }
 
     fun toggleDrawer() {
-        if (slidingRootNavigator.isMenuHidden) {
+        if (slidingRootNavigator.isMenuClosed) {
             slidingRootNavigator.openMenu(true)
         } else {
             slidingRootNavigator.closeMenu(true)
@@ -61,33 +86,21 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
             particlesDrawable.start()
     }
 
-    override fun onDrag(progress: Float) {
-        publishDragSubject.onNext(progress)
-    }
+    override fun onDrag(progress: Float) = publishDragSubject.onNext(progress)
 
     // Need to exhibit on drag progress for fragments controlling drawer/hamburger arrow animation.
     fun onDrag(): Observable<Float>? = publishDragSubject
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        Log.e("EVENT", "ON START")
-    }
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        Log.e("EVENT", "ON CREATE")
         ButterKnife.bind(this, activity)
-//        feedItem.setActive()
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
-        Log.e("EVENT", "ON STOP")
+        setProperActiveItem(activity)
+        presenter.onAttachView(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        Log.e("EVENT", "ON DESTROY")
+        presenter.onDetachView()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -98,10 +111,43 @@ class NavigationDrawer(val activity: Activity, toolbar: Toolbar) : LifecycleObse
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun onResume() {
-        if (!slidingRootNavigator.isMenuHidden) {
+    fun onResume() {
+        if (slidingRootNavigator.isMenuOpened) {
             particlesDrawable.start()
         }
     }
+
+    override fun setWatchingTime(watchingTime: Long) {
+        watchingTimeTextView.text = String.format(activity.getString(R.string.watching_time_format),
+                getFullRuntimeFormatted(activity.resources, watchingTime))
+    }
+
+    @OnClick(R.id.drawer_menu_item_feed)
+    fun navigateToFeed() = Navigator.startFeedActivity(activity)
+
+    @OnClick(R.id.drawer_menu_item_search)
+    fun navigateToSearch() = Navigator.startSearchActivity(activity)
+
+    @OnClick(R.id.drawer_menu_item_time_calculator)
+    fun navigateToTimeCalculator() = Navigator.startTimeCalculatorActivity(activity)
+
+    @OnClick(R.id.drawer_menu_item_season_tracker)
+    fun navigateToSeasonTracker() = Navigator.startSeasonTrackerActivity(activity)
+
+    @OnClick(R.id.drawer_menu_item_watched)
+    fun navigateToToYourLibrary() = Navigator.startYourLibraryActivity(activity)
+
+    private fun setProperActiveItem(activity: Activity) {
+        setInactiveAllItems()
+        when (activity) {
+            is MainFeedActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_feed).setActive()
+            is SearchActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_search).setActive()
+            is YourLibraryActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_watched).setActive()
+            is TimeCalculatorActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_time_calculator).setActive()
+            is SeasonTrackerActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_season_tracker).setActive()
+        }
+    }
+
+    private fun setInactiveAllItems() = drawerItems.forEach { it.setInactive() }
 
 }
