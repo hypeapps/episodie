@@ -18,7 +18,8 @@ class PremiereDatesUseCase @Inject constructor(threadExecutor: ThreadExecutor,
     override fun createSingle(params: Params): Single<PremiereDatesModel> {
         return repository.getPremiereDates(params.pageableRequest, params.fromDate, params.update)
                 .map {
-                    it.premiereDates?.filter { it.id?.equals(repository.getPremiereReminderById(it.id).tvShowId)!! }
+                    it.premiereDates
+                            ?.filter { it.id?.equals(repository.getPremiereReminderById(it.id).tvShowId)!! }
                             ?.map { it.notificationScheduled = true }
                     it
                 }

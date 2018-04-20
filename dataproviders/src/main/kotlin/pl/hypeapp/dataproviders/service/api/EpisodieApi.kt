@@ -17,7 +17,7 @@ interface EpisodieApi {
     @GET("tvshow/toplist")
     fun getTopList(@Query("page") page: Int, @Query("size") size: Int): Single<TopListEntity>
 
-    @GET("tvshow/premieredates")
+    @GET("tvshow/premieres/series")
     fun getPremiereDates(@Query("page") page: Int, @Query("size") size: Int,
                          @Query("fromDate") fromDate: String): Single<PageablePremiereDates>
 

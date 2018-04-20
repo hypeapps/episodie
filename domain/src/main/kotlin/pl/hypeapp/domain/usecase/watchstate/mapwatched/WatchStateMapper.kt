@@ -36,6 +36,8 @@ class WatchStateMapper @Inject constructor(private val watchedShowRepository: Wa
         with(watchedShowRepository.getWatchedTvShowById(tvShowModel.id
                 ?: throw Throwable("id cannot be null")) ?: return) {
             tvShowModel.watchState = watchState
+            runtime?.let { tvShowModel.watchingTime = it }
+            tvShowModel.watchedEpisodes = watchedEpisodesCount
         }
     }
 

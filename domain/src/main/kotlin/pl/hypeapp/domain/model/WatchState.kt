@@ -2,11 +2,11 @@ package pl.hypeapp.domain.model
 
 object WatchState {
 
-    val PARTIALLY_WATCHED = "PARTIALLY WATCHED"
+    const val PARTIALLY_WATCHED = "PARTIALLY WATCHED"
 
-    val WATCHED = "WATCHED"
+    const val WATCHED = "WATCHED"
 
-    val NOT_WATCHED = "NOT_WATCHED"
+    const val NOT_WATCHED = "NOT_WATCHED"
 
     fun toggleWatchState(watchState: String): String = when (watchState) {
         WatchState.NOT_WATCHED -> WatchState.WATCHED

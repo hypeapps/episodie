@@ -1,5 +1,6 @@
 package pl.hypeapp.dataproviders.repository
 
+import io.reactivex.Flowable
 import io.reactivex.Single
 import pl.hypeapp.dataproviders.datasource.DataFactory
 import pl.hypeapp.dataproviders.entity.mapper.watched.UserStatsEntityMapper
@@ -15,6 +16,12 @@ class UserStatsDataRepository @Inject constructor(private val dataFactory: DataF
         return dataFactory
                 .createUserStatsDataSource()
                 .getUserFullRuntime()
+    }
+
+    override fun getUserFullRuntimeFlowable(): Flowable<Long> {
+        return dataFactory
+                .createUserStatsDataSource()
+                .getUserFullRuntimeFlowable()
     }
 
     override fun getUserStats(): Single<UserStatsModel> {

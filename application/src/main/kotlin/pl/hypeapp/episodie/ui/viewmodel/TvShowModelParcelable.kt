@@ -18,6 +18,8 @@ class TvShowModelParcelable constructor(val id: String?,
                                         val imageMedium: String?,
                                         val imageOriginal: String?,
                                         val episodeOrder: Int?,
+                                        val watchedEpisodes: Int,
+                                        val watchingTime: Long,
                                         val watchState: String) : Parcelable {
 
     constructor(tvShowModel: TvShowModel) : this(
@@ -35,6 +37,8 @@ class TvShowModelParcelable constructor(val id: String?,
             imageMedium = tvShowModel.imageMedium,
             imageOriginal = tvShowModel.imageOriginal,
             episodeOrder = tvShowModel.episodeOrder,
+            watchedEpisodes = tvShowModel.watchedEpisodes,
+            watchingTime = tvShowModel.watchingTime,
             watchState = tvShowModel.watchState)
 
     constructor(parcel: Parcel) : this(
@@ -52,6 +56,8 @@ class TvShowModelParcelable constructor(val id: String?,
             parcel.readString(),
             parcel.readString(),
             parcel.readInt(),
+            parcel.readInt(),
+            parcel.readLong(),
             parcel.readString())
 
     fun mapToTvShowModel(): TvShowModel {
@@ -70,6 +76,8 @@ class TvShowModelParcelable constructor(val id: String?,
                 this.imageMedium,
                 this.imageOriginal,
                 this.episodeOrder,
+                this.watchedEpisodes,
+                this.watchingTime,
                 this.watchState)
     }
 
@@ -88,6 +96,8 @@ class TvShowModelParcelable constructor(val id: String?,
         parcel.writeString(imageMedium)
         parcel.writeString(imageOriginal)
         parcel.writeInt(episodeOrder!!)
+        parcel.writeInt(watchedEpisodes)
+        parcel.writeLong(watchingTime)
         parcel.writeString(watchState)
     }
 

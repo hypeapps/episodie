@@ -14,4 +14,6 @@ data class TvShowModel(val id: String?,
                        val imageMedium: String?,
                        val imageOriginal: String?,
                        val episodeOrder: Int? = 0,
+                       var watchedEpisodes: Int = 0,
+                       var watchingTime: Long = 0,
                        var watchState: String = "")

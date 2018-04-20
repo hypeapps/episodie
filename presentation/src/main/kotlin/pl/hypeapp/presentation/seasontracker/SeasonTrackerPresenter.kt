@@ -1,9 +1,9 @@
 package pl.hypeapp.presentation.seasontracker
 
 import pl.hypeapp.domain.model.collections.SeasonTrackerModel
-import pl.hypeapp.domain.model.search.BasicSearchResultModel
 import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
@@ -22,7 +22,7 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
                                                  private val deleteSeasonTrackerUseCase: DeleteSeasonTrackerUseCase)
     : Presenter<SeasonTrackerView>() {
 
-    var model: List<BasicSearchResultModel> = emptyList()
+    var model: List<TvShowModel> = emptyList()
 
     var isSeasonTrackerStarted = false
 
@@ -59,7 +59,7 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
             this.view?.showErrorToast()
             return
         }
-        val filteredModel: BasicSearchResultModel? = model.firstOrNull { it.name.equals(query) }
+        val filteredModel: TvShowModel? = model.firstOrNull { it.name.equals(query) }
         if (filteredModel != null) {
             getAllSeasons(filteredModel.id)
         } else {
@@ -116,8 +116,8 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
         this.view?.hideSearch()
     }
 
-    inner class SearchObserver : DefaultSingleObserver<List<BasicSearchResultModel>>() {
-        override fun onSuccess(model: List<BasicSearchResultModel>) {
+    inner class SearchObserver : DefaultSingleObserver<List<TvShowModel>>() {
+        override fun onSuccess(model: List<TvShowModel>) {
             if (!model.isEmpty())
                 this@SeasonTrackerPresenter.view?.setSearchSuggestions(model
                         .map { it.name!! }

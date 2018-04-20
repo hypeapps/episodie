@@ -8,7 +8,7 @@ buildscript {
         apply from: 'dependencies.gradle'
         classpath buildPlugins.gradle
         classpath buildPlugins.kotlin
-        classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.5'
+        classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
     }
 }
 
@@ -26,7 +26,7 @@ allprojects {
 }
 
 subprojects {
-    //    Detek
+    // Detek
     def detekVersion = "1.0.0.M10.2"
     repositories {
         mavenCentral()
