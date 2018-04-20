@@ -1,6 +1,5 @@
 package pl.hypeapp.presentation.timecalculator
 
-import pl.hypeapp.domain.model.search.BasicSearchResultModel
 import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
 import pl.hypeapp.domain.usecase.gettvshow.GetTvShowUseCase
@@ -16,7 +15,7 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
 
     val addedTvShows: ArrayList<String> = arrayListOf()
 
-    var model: List<BasicSearchResultModel> = emptyList()
+    var model: List<TvShowModel> = emptyList()
 
     override fun onAttachView(view: TimeCalculatorView) {
         super.onAttachView(view)
@@ -41,7 +40,7 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
             this.view?.showErrorToast()
             return
         }
-        val filteredModel: BasicSearchResultModel? = model.firstOrNull { it.name.equals(query) }
+        val filteredModel: TvShowModel? = model.firstOrNull { it.name.equals(query) }
         if (filteredModel != null) {
             if (isTvShowAlreadyAdded(filteredModel)) {
                 this.view?.showTvShowAlreadyAddedToast()
@@ -57,10 +56,10 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
         adapterPosition?.let { this.view?.deleteRecyclerItemAt(adapterPosition) }
     }
 
-    fun onItemRemove(model: BasicSearchResultModel) {
+    fun onItemRemove(model: TvShowModel?) = model?.let{
         this.view?.decrementSelected()
         this.view?.subtractEpisodeOrder(model.episodeOrder!!)
-        this.view?.subtractRuntimeWithAnimation(model.runtime!!)
+        this.view?.subtractRuntimeWithAnimation(model.fullRuntime!!)
         addedTvShows.remove(model.name)
     }
 
@@ -68,10 +67,10 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
         getTvShowUseCase.execute(TvShowObserver(), GetTvShowUseCase.Params.createParams(it, true))
     }
 
-    private fun isTvShowAlreadyAdded(filteredModel: BasicSearchResultModel) =
+    private fun isTvShowAlreadyAdded(filteredModel: TvShowModel) =
             addedTvShows.contains(filteredModel.name)
 
-    private fun addTvShow(model: BasicSearchResultModel?) = model?.let {
+    private fun addTvShow(model: TvShowModel?) = model?.let {
         if (isFirstRun) {
             isFirstRun = false
             this.view?.startEnterAnimation()
@@ -81,7 +80,7 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
         }
         addedTvShows.add(model.name!!)
         it.episodeOrder?.let { this.view?.addEpisodeOrder(it) }
-        it.runtime?.let { this.view?.addRuntimeWithAnimation(it) }
+        it.fullRuntime?.let { this.view?.addRuntimeWithAnimation(it) }
         this.view?.incrementSelected()
     }
 
@@ -89,8 +88,8 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
         this.view?.showSuggestionsDialog(suggestions)
     }
 
-    inner class SearchObserver : DefaultSingleObserver<List<BasicSearchResultModel>>() {
-        override fun onSuccess(model: List<BasicSearchResultModel>) {
+    inner class SearchObserver : DefaultSingleObserver<List<TvShowModel>>() {
+        override fun onSuccess(model: List<TvShowModel>) {
             if (!model.isEmpty())
                 this@TimeCalculatorPresenter.view?.setSearchSuggestions(model
                         .map { it.name!! }

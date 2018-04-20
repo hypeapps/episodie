@@ -1,6 +1,5 @@
 package pl.hypeapp.presentation.timecalculator
 
-import pl.hypeapp.domain.model.search.BasicSearchResultModel
 import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.View
 
@@ -16,9 +15,9 @@ interface TimeCalculatorView : View {
 
     fun showSuggestionsDialog(suggestions: Array<String?>)
 
-    fun setRecyclerItem(item: BasicSearchResultModel)
+    fun setRecyclerItem(item: TvShowModel)
 
-    fun setRecyclerItemWithDelay(item: BasicSearchResultModel, delay: Long)
+    fun setRecyclerItemWithDelay(item: TvShowModel, delay: Long)
 
     fun deleteRecyclerItemAt(adapterPosition: Int)
 

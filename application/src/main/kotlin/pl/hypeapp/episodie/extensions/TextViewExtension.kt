@@ -89,6 +89,32 @@ fun TextView.setDateFormat(date: Date) {
     this.text = simpleDateFormat.format(date)
 }
 
+fun daysBetween(startDate: Date, endDate: Date): Long {
+    val sDate = getDatePart(startDate)
+    val eDate = getDatePart(endDate)
+
+    var daysBetween: Long = 0
+    while (sDate.before(eDate)) {
+        sDate.add(Calendar.DAY_OF_MONTH, 1)
+        daysBetween++
+    }
+    return daysBetween
+}
+
+fun getDatePart(date: Date): Calendar {
+    val cal = Calendar.getInstance()       // get calendar instance
+    cal.time = date
+    cal.set(Calendar.HOUR_OF_DAY, 0)            // set hour to midnight
+    cal.set(Calendar.MINUTE, 0)                 // set minute in hour
+    cal.set(Calendar.SECOND, 0)                 // set second in minute
+    cal.set(Calendar.MILLISECOND, 0)            // set millisecond in second
+    return cal                                  // return the date part
+}
+
+fun isAfterPremiereDate(date: Date): Boolean = date.let {
+    return Calendar.getInstance().time.after(it)
+}
+
 private fun isAtLeastOneDay(runtime: Long) = runtime >= TimeUnit.MINUTES.convert(24 * 60, TimeUnit.MINUTES)
 
 private fun isLessThanOneDay(it: Long) = it <= TimeUnit.MINUTES.convert(24 * 60, TimeUnit.MINUTES)
@@ -96,3 +122,5 @@ private fun isLessThanOneDay(it: Long) = it <= TimeUnit.MINUTES.convert(24 * 60,
 private fun isUpToOneHour(runtime: Long) = runtime <= TimeUnit.MINUTES.convert(60, TimeUnit.MINUTES)
 
 private fun isMinutesZerosOnly(minutesFormatted: String) = minutesFormatted == "00"
+
+
