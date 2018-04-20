@@ -25,7 +25,7 @@
         android:id="@+id/card_view_item_premiere_cover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="29dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginStart="@dimen/margin_big"
         app:cardBackgroundColor="@color/primary"
         app:cardCornerRadius="@dimen/corner_radius_tv_show_details_cover"
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_big"
-        app:cardBackgroundColor="@color/d2m_font_warning_1_and_2"
+        app:cardBackgroundColor="@color/item_premiere_card_view"
         app:cardCornerRadius="@dimen/corner_radius_tv_show_details"
         app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="@id/card_view_item_premiere_cover"
@@ -77,20 +77,22 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
-        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_big"
         android:ellipsize="end"
         android:maxLines="2"
         android:textSize="@dimen/text_size_tv_show_details_title"
         app:layout_constraintBottom_toBottomOf="@id/card_view_item_premiere_cover"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_view_item_premiere_cover"
-        app:layout_constraintTop_toBottomOf="@id/card_view_item_premiere_premiere_date"/>
+        app:layout_constraintTop_toTopOf="@id/card_view_item_premiere_cover" />
 
     <TextView
         android:id="@+id/text_view_item_premiere_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_big"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:textColor="@android:color/darker_gray"
         android:layout_marginTop="@dimen/margin_default"
         app:layout_constraintStart_toEndOf="@id/card_view_item_premiere_cover"
         app:layout_constraintTop_toBottomOf="@id/text_view_item_premiere_title"/>
@@ -99,11 +101,23 @@
         android:id="@+id/text_view_item_premiere_genre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_big"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:textColor="@android:color/darker_gray"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_view_item_premiere_cover"
         app:layout_constraintTop_toBottomOf="@id/text_view_item_premiere_status"/>
+
+    <TextView
+        android:id="@+id/text_view_days_to_go"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="@id/card_view_item_premiere_cover"
+        app:layout_constraintEnd_toEndOf="@id/card_view_item_premiere_cover"
+        app:layout_constraintBottom_toBottomOf="@id/card_view_item_premiere_cover"
+        android:padding="@dimen/padding_small"
+        android:background="@color/gradient"
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/image_view_item_premiere_notification_icon"

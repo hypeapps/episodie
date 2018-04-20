@@ -23,7 +23,8 @@
     <string name="drawer_logo_description">Logo of the application</string>
     <string name="drawer_menu_item_icon_description">Icon of menu item</string>
     <string name="drawer_ic_watching_time">Icon of watching time</string>
-    <string name="watching_time_2d_12h_30m">Watching time: 2d : 12h : 30m</string>
+    <string name="watching_time_0d_0h_0m">Watching time: 0d : 0h : 0m</string>
+    <string name="watching_time_format">Watching time: %1$s</string>
 
     <string name="top_list_app_bar_title">Top 100</string>
 
@@ -112,4 +113,10 @@
     <string name="layout_empty_message">Your library is empty.\nThere are simply ways to add tv shows</string>
     <string name="layout_icon_empty_message_description">Header icon</string>
     <string name="image_view_your_library_background_description">Image as background</string>
+    <string name="toast_premiere_reminder_dismiss">Premiere reminder dismiss</string>
+    <string name="toast_premiere_reminder_scheduled">Premiere reminder scheduled!</string>
+    <string name="alert_dialog_tip_title">Tip</string>
+    <string name="alert_dialog_your_library_tip_message">Tip: You can swipe a cover down or up to delete the TV show from your library.</string>
+    <string name="alert_dialog_button_text">OK</string>
+    <string name="alert_dialog_season_tracker_tip_message">Tip: You can swipe down or up to delete a TV show.</string>
 </resources>

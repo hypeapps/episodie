@@ -13,10 +13,8 @@
         android:id="@+id/view_swapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <!--
-        Due to view pager is above toolbar we need to provide transparent view
-        which be imitate home button for clicks.
-    -->
+    <!-- Due to view pager is above toolbar we need to provide transparent view
+        which be imitate home button for clicks. -->
     <View
         android:id="@+id/toolbar_feed_home_button"
         android:layout_width="50dp"

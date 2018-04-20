@@ -26,26 +26,16 @@
                     android:contentDescription="@string/fragment_top_list_backdrop_description"
                     android:scaleType="centerCrop" />
 
-                <ImageView
-                    android:id="@+id/image_view_top_list_share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/all_ic_share_description"
-                    android:padding="@dimen/padding_big"
-                    android:src="@drawable/all_ic_share"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.11" />
-
                 <pl.hypeapp.episodie.ui.widget.DrawerHamburgerArrow
                     android:id="@+id/image_view_top_list_ic_back_arrow"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/padding_big"
                     app:arrow_color="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="@id/image_view_top_list_share"
-                    app:layout_constraintTop_toTopOf="@id/image_view_top_list_share" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.11" />
 
                 <View
                     android:layout_width="match_parent"
