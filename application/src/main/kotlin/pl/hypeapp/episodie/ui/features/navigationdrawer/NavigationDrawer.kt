@@ -112,6 +112,10 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+        // Workaround for freezing when orientation change
+        if (slidingRootNavigator.isMenuClosed) {
+            slidingRootNavigator.closeMenu()
+        }
         if (slidingRootNavigator.isMenuOpened) {
             particlesDrawable.start()
         }
