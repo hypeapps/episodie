@@ -137,7 +137,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
 
     override fun setBackdrop(backdropUrl: String?, placeholderUrl: String?) {
         if (YearClass.CLASS_2013 < YearClass.get(applicationContext)) {
-            stub_tv_show_details_background.layoutResource = R.layout.noise_view_background_tv_show_details
+            stub_tv_show_details_background.layoutResource = R.layout.noise_view_background
         } else {
             stub_tv_show_details_background.layoutResource = R.layout.image_view_background_tv_show_details
         }
@@ -148,7 +148,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
                 .thumbnail(GlideApp.with(this).load(placeholderUrl).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(findViewById(R.id.background_tv_show_details))
+                .into(findViewById(R.id.noise_view_background))
     }
 
     override fun hideFabButton() = fab_button_tv_show_details_add_to_watched.viewGone()

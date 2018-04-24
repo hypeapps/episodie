@@ -15,6 +15,8 @@ import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.facebook.device.yearclass.YearClass
+import kotlinx.android.synthetic.main.noise_view_background.view.noise_view
 import kotlinx.android.synthetic.main.view_watched_show.view.*
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.getFullRuntimeFormatted
@@ -25,9 +27,16 @@ class WatchedShowView(context: Context, attributeSet: AttributeSet) : Constraint
 
     private lateinit var layoutBackground: Drawable
 
+    private var isNoiseViewInflated: Boolean = false
+
     init {
         inflate(context, R.layout.view_watched_show, this)
         setWillNotDraw(false)
+        if (YearClass.CLASS_2013 < YearClass.get(context.applicationContext)) {
+            stub_noise_view.inflate()
+            noise_view.noiseIntensity = 0.07f
+            isNoiseViewInflated = true
+        }
     }
 
     fun setTvShowDetails(watchedTvShowViewModel: WatchedTvShowViewModel?) = watchedTvShowViewModel?.let {

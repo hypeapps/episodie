@@ -12,10 +12,11 @@
         android:layout_height="match_parent"
         android:layerType="software"/>
 
-    <pl.hypeapp.noiseview.NoiseView
+    <ViewStub
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:noiseIntensity="0.07"/>
+        android:id="@+id/stub_noise_view"
+        android:layout="@layout/noise_view_background"
+        android:layout_height="match_parent" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view_tv_show_cover"
