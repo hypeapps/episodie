@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.facebook.device.yearclass.YearClass
+import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_tv_show_details.*
 import pl.hypeapp.domain.model.WatchState
@@ -36,6 +37,7 @@ import pl.hypeapp.episodie.ui.features.tvshowdetails.adapter.TvShowDetailsPagerA
 import pl.hypeapp.episodie.ui.viewmodel.TvShowModelParcelable
 import pl.hypeapp.presentation.tvshowdetails.TvShowDetailsPresenter
 import pl.hypeapp.presentation.tvshowdetails.TvShowDetailsView
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPagerAdapter.OnChangePageListener {
@@ -170,16 +172,19 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         }, 200)
     }
 
-    @OnClick(R.id.fab_button_tv_show_details_add_to_watched)
-    override fun onChangeWatchTvShowState() = with(fab_button_tv_show_details_add_to_watched) {
-        isWatchStateChanged = true
-        // Workaround for better animation flow.
-        hide()
-        show()
-        smallBangAnimator.bang(this)
-        val watchState = model.watchState
-        postDelayed({ manageWatchStateIcon(WatchState.toggleWatchState(watchState)) }, 200)
-        presenter.onChangeWatchedTvShowState()
+    override fun subscribeChangeWatchStateButton(): Unit = with(fab_button_tv_show_details_add_to_watched) {
+        RxView.clicks(fab_button_tv_show_details_add_to_watched)
+                .throttleFirst(1000, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    isWatchStateChanged = true
+                    // Workaround for better animation flow.
+                    hide()
+                    show()
+                    smallBangAnimator.bang(this)
+                    val watchState = model.watchState
+                    postDelayed({ manageWatchStateIcon(WatchState.toggleWatchState(watchState)) }, 200)
+                    presenter.onChangeTvShowWatchState()
+                }
     }
 
     override fun onWatchStateChangeError() {

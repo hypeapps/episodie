@@ -38,21 +38,26 @@ class RuntimeAlerterView(context: Context, attributeSet: AttributeSet) : FrameLa
 
     fun show(oldRuntime: Long, newRuntime: Long) {
         text.animateText(getFullRuntimeFormatted(resources, oldRuntime))
+        this.clearAnimation()
         postDelayed({
-            YoYo.with(Techniques.SlideInDown)
-                    .duration(700)
-                    .interpolate(AnimationUtils.loadInterpolator(context, R.anim.interpolator_overshoot))
-                    .onStart {
-                        this@RuntimeAlerterView.viewVisible()
-                        icon.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_pulse))
-                    }
-                    .onEnd {
-                        text.animateText(getFullRuntimeFormatted(resources, newRuntime))
-                        startSlideInUpAnimation()
-                        startTakingOffDiffAnimation(newRuntime - oldRuntime)
-                    }
-                    .playOn(this)
+            startSlideInDownAnimation(newRuntime, oldRuntime)
         }, 400)
+    }
+
+    private fun startSlideInDownAnimation(newRuntime: Long, oldRuntime: Long) {
+        YoYo.with(Techniques.SlideInDown)
+                .duration(700)
+                .interpolate(AnimationUtils.loadInterpolator(context, R.anim.interpolator_overshoot))
+                .onStart {
+                    this@RuntimeAlerterView.viewVisible()
+                    icon.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_pulse))
+                }
+                .onEnd {
+                    text.animateText(getFullRuntimeFormatted(resources, newRuntime))
+                    startSlideInUpAnimation()
+                    startTakingOffDiffAnimation(newRuntime - oldRuntime)
+                }
+                .playOn(this)
     }
 
     @SuppressLint("SetTextI18n")
