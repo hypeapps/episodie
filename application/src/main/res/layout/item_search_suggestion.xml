@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/parent_layout_item_search_suggestion"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/primary">
 
     <com.andexert.library.RippleView
         android:id="@+id/ripple_view_item_search_suggestion"
-        style="@style/EpisodieTheme.RippleView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_alpha="30"
+        app:rv_color="@android:color/black"
+        app:rv_rippleDuration="200" />
 
     <ImageView
         android:id="@+id/image_view_item_search_suggestion_cover"
         style="@style/EpisodieTheme.ImageViewCover"
         android:layout_width="@dimen/width_item_top_list_cover"
+        android:layout_height="@dimen/height_item_top_list_cover"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:layout_height="@dimen/height_item_top_list_cover"
         android:contentDescription="@string/item_all_cover_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,12 +35,12 @@
         android:id="@+id/text_view_item_search_suggestion_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_default"
         android:ellipsize="end"
         android:maxLines="2"
         android:textSize="19sp"
-        android:layout_marginBottom="@dimen/margin_default"
-        app:layout_constraintEnd_toEndOf="@id/view_item_search_suggestion_divider"
         app:layout_constraintBottom_toTopOf="@id/view_item_search_suggestion_divider"
+        app:layout_constraintEnd_toEndOf="@id/view_item_search_suggestion_divider"
         app:layout_constraintStart_toStartOf="@id/view_item_search_suggestion_divider" />
 
     <View
@@ -57,12 +59,12 @@
         android:id="@+id/text_view_item_search_suggestion_ep_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:drawableStart="@drawable/all_ic_watched_episodes"
         android:layout_marginTop="@dimen/margin_default"
         android:drawablePadding="@dimen/padding_default"
-        app:layout_constraintTop_toBottomOf="@id/view_item_search_suggestion_divider"
-        app:layout_constraintStart_toStartOf="@id/view_item_search_suggestion_divider" />
+        android:drawableStart="@drawable/all_ic_watched_episodes"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/view_item_search_suggestion_divider"
+        app:layout_constraintTop_toBottomOf="@id/view_item_search_suggestion_divider" />
 
     <TextView
         android:id="@+id/text_view_item_search_suggestion_runtime"
@@ -79,12 +81,12 @@
     <ImageView
         android:id="@+id/image_view_item_search_suggestion_diamond"
         android:layout_width="wrap_content"
-        android:src="@drawable/all_ic_diamond_unchecked"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default"
         android:contentDescription="@string/item_all_ic_diamond_description"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/all_ic_diamond_unchecked"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
