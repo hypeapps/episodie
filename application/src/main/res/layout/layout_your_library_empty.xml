@@ -31,13 +31,12 @@
 
         <Button
             android:id="@+id/button_layout_empty_message_feed"
-            style="@style/Base.Widget.AppCompat.ButtonBar"
+            style="@style/EpisodieTheme.YourLibraryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_big"
             android:drawableStart="@drawable/drawer_ic_feed"
             android:foregroundGravity="center"
-            android:background="@drawable/background_your_library_button"
             android:gravity="center"
             android:paddingEnd="@dimen/padding_default"
             android:paddingStart="@dimen/padding_default"
@@ -47,9 +46,8 @@
 
         <Button
             android:id="@+id/button_layout_empty_message_search"
-            style="@style/Base.Widget.AppCompat.ButtonBar"
+            style="@style/EpisodieTheme.YourLibraryButton"
             android:layout_width="wrap_content"
-            android:background="@drawable/background_your_library_button"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/all_ic_search"
             android:foregroundGravity="center"

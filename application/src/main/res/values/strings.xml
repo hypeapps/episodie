@@ -119,4 +119,5 @@
     <string name="alert_dialog_your_library_tip_message">Tip: You can swipe a cover down or up to delete the TV show from your library.</string>
     <string name="alert_dialog_button_text">OK</string>
     <string name="alert_dialog_season_tracker_tip_message">Tip: You can swipe down or up to delete a TV show.</string>
+    <string name="fab_button_action_reset">Reset</string>
 </resources>

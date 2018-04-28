@@ -40,4 +40,10 @@
         <item name="android:transitionName">@string/title_transition</item>
     </style>
 
+    <style name="EpisodieTheme.YourLibraryButton" parent="EpisodieTheme.V21.YourLibraryButton" />
+
+    <style name="EpisodieTheme.V21.YourLibraryButton" parent="EpisodieTheme.V0.YourLibraryButton">
+        <item name=" android:background">@drawable/background_your_library_button</item>
+    </style>
+
 </resources>

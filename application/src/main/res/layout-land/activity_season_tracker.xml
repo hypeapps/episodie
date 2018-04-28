@@ -122,7 +122,7 @@
             app:fab_colorPressed="@android:color/white"
             app:fab_size="mini"
             app:fab_icon="@drawable/season_tracker_ic_start_new"
-            app:fab_title="Start new"/>
+            app:fab_title="@string/fab_button_action_reset" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_button_disable_notifications"
@@ -131,6 +131,7 @@
             app:fab_colorNormal="@android:color/white"
             app:fab_colorPressed="@android:color/white"
             app:fab_size="mini"
+            app:fab_title="@string/fab_button_notifications_on"
             app:fab_icon="@drawable/all_ic_notifications_on"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
