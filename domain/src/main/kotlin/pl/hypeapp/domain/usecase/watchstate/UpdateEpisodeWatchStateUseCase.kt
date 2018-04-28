@@ -6,20 +6,20 @@ import pl.hypeapp.domain.executor.ThreadExecutor
 import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.model.tvshow.EpisodeModel
 import pl.hypeapp.domain.repository.WatchedShowRepository
-import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.AbsRxCompletableUseCase
+import pl.hypeapp.domain.usecase.gettvshow.GetTvShowExtendedUseCase
 import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowWatchStateUseCase
 import javax.inject.Inject
 
 class UpdateEpisodeWatchStateUseCase @Inject constructor(threadExecutor: ThreadExecutor,
                                                          postExecutionThread: PostExecutionThread,
-                                                         private val allEpisodesUseCase: AllEpisodesUseCase,
+                                                         private val getTvShowExtendedUseCase: GetTvShowExtendedUseCase,
                                                          private val mapTvShowWatchStateUseCase: MapTvShowWatchStateUseCase,
                                                          private val showRepository: WatchedShowRepository)
     : AbsRxCompletableUseCase<UpdateEpisodeWatchStateUseCase.Params>(threadExecutor, postExecutionThread) {
 
     override fun createCompletable(params: Params): Completable {
-        return allEpisodesUseCase.execute(AllEpisodesUseCase.Params.createQuery(params.episodeModel.tvShowId!!, false))
+        return getTvShowExtendedUseCase.execute(GetTvShowExtendedUseCase.Params.createQuery(params.episodeModel.tvShowId!!, false))
                 .flatMap { mapTvShowWatchStateUseCase.execute(MapTvShowWatchStateUseCase.Params.createParams(it)) }
                 .flatMapCompletable {
                     with(params) {
