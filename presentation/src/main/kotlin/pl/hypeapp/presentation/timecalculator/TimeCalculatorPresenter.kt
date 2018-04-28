@@ -19,6 +19,7 @@ class TimeCalculatorPresenter @Inject constructor(private val searchUseCase: Bas
 
     override fun onAttachView(view: TimeCalculatorView) {
         super.onAttachView(view)
+        this.view?.loadHeader()
         this.view?.initAdapter()
         this.view?.initSearchView()
         this.view?.initNavigationDrawer()

@@ -4,19 +4,20 @@ import pl.hypeapp.domain.model.collections.SeasonTrackerModel
 import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
 import pl.hypeapp.domain.model.tvshow.TvShowModel
-import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
+import pl.hypeapp.domain.usecase.gettvshow.GetTvShowExtendedUseCase
+import pl.hypeapp.domain.usecase.gettvshow.GetTvShowUseCase
 import pl.hypeapp.domain.usecase.search.BasicSearchUseCase
 import pl.hypeapp.domain.usecase.seasontracker.DeleteSeasonTrackerUseCase
 import pl.hypeapp.domain.usecase.seasontracker.SeasonTrackerUseCase
 import pl.hypeapp.domain.usecase.seasontracker.UpdateSeasonTrackerUseCase
 import pl.hypeapp.presentation.base.Presenter
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: BasicSearchUseCase,
-                                                 private val getAllEpisodesUseCase: AllEpisodesUseCase,
+                                                 private val getGetTvShowExtendedUseCase: GetTvShowExtendedUseCase,
+                                                 private val getTvShowUseCase: GetTvShowUseCase,
                                                  private val updateSeasonTrackerUseCase: UpdateSeasonTrackerUseCase,
                                                  private val seasonTrackerUseCase: SeasonTrackerUseCase,
                                                  private val deleteSeasonTrackerUseCase: DeleteSeasonTrackerUseCase)
@@ -43,7 +44,7 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
     override fun onDetachView() {
         super.onDetachView()
         searchUseCase.dispose()
-        getAllEpisodesUseCase.dispose()
+        getGetTvShowExtendedUseCase.dispose()
         updateSeasonTrackerUseCase.dispose()
         seasonTrackerUseCase.dispose()
         deleteSeasonTrackerUseCase.dispose()
@@ -56,7 +57,7 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
     fun onSearchQuerySubmit(query: String?) {
         view?.dismissSearchView()
         if (model.isEmpty()) {
-            this.view?.showErrorToast()
+            this.view?.showNothingFoundToast()
             return
         }
         val filteredModel: TvShowModel? = model.firstOrNull { it.name.equals(query) }
@@ -93,9 +94,13 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
         this.view?.hideErrorView()
     }
 
+    fun onHeaderSelected(tvShowId: String) {
+        getTvShowUseCase.execute(GetTvShowObserver(), GetTvShowUseCase.Params.createParams(tvShowId, false))
+    }
+
     private fun getAllSeasons(tvShowId: String?) = tvShowId?.let {
-        getAllEpisodesUseCase.execute(AllSeasonsObserver(),
-                AllEpisodesUseCase.Params.createQuery(it, true, false))
+        getGetTvShowExtendedUseCase.execute(GetTvShowExtendedObserver(),
+                GetTvShowExtendedUseCase.Params.createQuery(it, true, false))
     }
 
     private fun showSearchComponent() {
@@ -131,7 +136,7 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
         }
     }
 
-    inner class AllSeasonsObserver : DefaultSingleObserver<TvShowExtendedModel>() {
+    inner class GetTvShowExtendedObserver : DefaultSingleObserver<TvShowExtendedModel>() {
         override fun onSuccess(model: TvShowExtendedModel) {
             if (isSeasonTrackerStarted) {
                 startBingeWatchingTracker(model)
@@ -149,26 +154,29 @@ class SeasonTrackerPresenter @Inject constructor(private val searchUseCase: Basi
         }
     }
 
-    val log = Logger.getAnonymousLogger()
+    inner class GetTvShowObserver : DefaultSingleObserver<TvShowModel>() {
+        override fun onSuccess(model: TvShowModel) {
+            this@SeasonTrackerPresenter.view?.startTvShowDetailsActivity(model)
+        }
+
+        override fun onError(error: Throwable) {
+            this@SeasonTrackerPresenter.view?.showErrorToast()
+        }
+    }
 
     inner class SeasonTrackerObserver : DefaultSingleObserver<SeasonTrackerModel>() {
         override fun onSuccess(model: SeasonTrackerModel) {
             isSeasonTrackerStarted = true
             view?.retainViewModel(model)
-            getAllEpisodesUseCase.execute(AllSeasonsObserver(),
-                    AllEpisodesUseCase.Params.createQuery(model.tvShowId, true, false))
+            getGetTvShowExtendedUseCase.execute(GetTvShowExtendedObserver(),
+                    GetTvShowExtendedUseCase.Params.createQuery(model.tvShowId, true, false))
         }
 
         override fun onError(error: Throwable) {
-            log.info(error.message)
             showSearchComponent()
         }
     }
 
     private inner class UpdateBingeWatchingObserver : DefaultCompletableObserver()
-
-    fun onDisableNotifications() {
-
-    }
 
 }

@@ -3,6 +3,7 @@ package pl.hypeapp.presentation.seasontracker
 import pl.hypeapp.domain.model.collections.SeasonTrackerModel
 import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.presentation.base.View
 
 interface SeasonTrackerView : View {
@@ -23,7 +24,7 @@ interface SeasonTrackerView : View {
 
     fun showSearchComponent()
 
-    fun showErrorToast()
+    fun showNothingFoundToast()
 
     fun setSearchSuggestions(suggestions: Array<String>)
 
@@ -52,4 +53,6 @@ interface SeasonTrackerView : View {
     fun hideErrorView()
 
     fun onRetry()
+    fun startTvShowDetailsActivity(tvShowModel: TvShowModel)
+    fun showErrorToast()
 }

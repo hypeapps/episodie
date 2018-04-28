@@ -21,6 +21,7 @@ class TvShowDetailsPresenter @Inject constructor(private val updateTvShowWatchSt
         super.onAttachView(view)
         val model = this.view?.model
         this.view?.setNavigationBarOptions()
+        this.view?.subscribeChangeWatchStateButton()
         updateWatchState()
         filTvShowDetailsInfo(model)
         this.view?.initPagerAdapter(model)
@@ -41,7 +42,7 @@ class TvShowDetailsPresenter @Inject constructor(private val updateTvShowWatchSt
 
     fun onPagerAdapterInit() = view?.startFabButtonAnimation()
 
-    fun onChangeWatchedTvShowState() = with(this.view?.model!!) {
+    fun onChangeTvShowWatchState() = with(this.view?.model!!) {
         val idAddToWatchedOperation: Boolean = watchState != WatchState.WATCHED
         watchState = WatchState.toggleWatchState(watchState)
         updateTvShowWatchStateByIdUseCase.execute(ManageTvShowWatchStateObserver(),

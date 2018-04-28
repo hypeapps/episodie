@@ -42,4 +42,5 @@ interface TimeCalculatorView : View {
     fun subtractEpisodeOrder(episodeOrder: Int)
 
     fun openTvShowDetailsActivity(model: TvShowModel)
+    fun loadHeader()
 }
