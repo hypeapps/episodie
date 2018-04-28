@@ -47,29 +47,32 @@ object Navigator {
     fun startFeedActivity(callingActivity: Activity) {
         val intent = Intent(callingActivity, MainFeedActivity::class.java)
         callingActivity.startActivity(intent)
+        if (callingActivity !is MainFeedActivity) callingActivity.finish()
     }
 
     fun startSearchActivity(callingActivity: Activity) {
         val intent = Intent(callingActivity, SearchActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK)
         callingActivity.startActivity(intent)
+        if (callingActivity !is MainFeedActivity) callingActivity.finish()
     }
 
     fun startTimeCalculatorActivity(callingActivity: Activity) {
         val intent = Intent(callingActivity, TimeCalculatorActivity::class.java)
         callingActivity.startActivity(intent)
-    }
-
-    fun startSeasonTrackerActivity(callingActivity: Activity) {
-        val intent = Intent(callingActivity, SeasonTrackerActivity::class.java)
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        callingActivity.startActivity(intent)
+        if (callingActivity !is MainFeedActivity) callingActivity.finish()
     }
 
     fun startYourLibraryActivity(callingActivity: Activity) {
         val intent = Intent(callingActivity, YourLibraryActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
         callingActivity.startActivity(intent)
+        if (callingActivity !is MainFeedActivity) callingActivity.finish()
+    }
+
+    fun startSeasonTrackerActivity(callingActivity: Activity) {
+        val intent = Intent(callingActivity, SeasonTrackerActivity::class.java)
+        callingActivity.startActivity(intent)
+        if (callingActivity !is MainFeedActivity) callingActivity.finish()
     }
 
 }

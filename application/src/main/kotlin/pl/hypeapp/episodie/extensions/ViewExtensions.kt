@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.episodie.R
@@ -44,6 +47,7 @@ fun ImageView.loadImage(url: String?,
 fun ImageView.loadDrawableResource(drawableResource: Int): Target<Drawable> =
         GlideApp.with(this)
                 .load(drawableResource)
+                .format(DecodeFormat.PREFER_RGB_565)
                 .centerCrop()
                 .into(this)
 
@@ -51,6 +55,28 @@ fun ImageView.intoBitmap(bitmap: Bitmap): Target<Drawable> =
         GlideApp.with(this)
                 .load(bitmap)
                 .into(this)
+
+fun ImageView.loadSharedElement(url: String, loadOnlyFromCache: Boolean = false, onLoadingFinished: () -> Unit = {}) {
+    val listener = object : RequestListener<Drawable> {
+        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+            onLoadingFinished()
+            return false
+        }
+
+        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            onLoadingFinished()
+            return false
+        }
+    }
+    val requestOptions = RequestOptions
+            .overrideOf(Target.SIZE_ORIGINAL)
+            .onlyRetrieveFromCache(loadOnlyFromCache)
+    Glide.with(this)
+            .load(url)
+            .apply(requestOptions)
+            .listener(listener)
+            .into(this)
+}
 
 fun RecyclerView.setActionStatusBarPadding(insetPaddingTop: Boolean) {
     val top = if (insetPaddingTop) (resources.getStatusBarHeight() + context.getActionBarSize()) else 0
