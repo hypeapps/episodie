@@ -31,6 +31,9 @@ class YourLibraryViewModel : ViewModel() {
 
     fun deleteItem(model: WatchedTvShowViewModel) {
         this.watchedShows.remove(model)
+        if (this.watchedShows.isEmpty()) {
+            isLastPage = false
+        }
     }
 
     inline fun loadModel(populateRecyclerList: () -> Unit, requestModel: () -> Unit) {
