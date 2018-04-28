@@ -19,7 +19,11 @@ import pl.hypeapp.episodie.ui.base.adapter.ViewType
 import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.ui.viewmodel.seasontracker.HeaderViewModel
 
-class HeaderDelegateAdapter : ViewTypeDelegateAdapter {
+class HeaderDelegateAdapter(val onSelectedListener: OnSelectedListener) : ViewTypeDelegateAdapter {
+
+    interface OnSelectedListener {
+        fun onHeaderSelected(tvShowId: String)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder = HeaderViewHolder(parent)
 
@@ -41,6 +45,9 @@ class HeaderDelegateAdapter : ViewTypeDelegateAdapter {
                     timeline_view_item_header.bottomRadioColor = ContextCompat.getColor(context, android.R.color.white)
                 }
             }
+            ripple_view_item_header.setOnRippleCompleteListener {
+                item.seasonModel.tvShowId?.let { onSelectedListener.onHeaderSelected(it) }
+            }
         }
 
         private fun setCover(item: HeaderViewModel) = with(itemView) {
@@ -52,7 +59,6 @@ class HeaderDelegateAdapter : ViewTypeDelegateAdapter {
                     if (!it.isEmpty()) image_view_episode_cover.loadImage(it[0].imageMedium)
                 }
             }
-
         }
 
         private fun setTvShowInfo(item: HeaderViewModel) = with(itemView) {

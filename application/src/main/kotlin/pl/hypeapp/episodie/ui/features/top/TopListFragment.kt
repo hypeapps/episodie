@@ -10,7 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main_feed.*
+import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
+import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
 import kotlinx.android.synthetic.main.fragment_top_list.*
 import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.model.collections.TopListModel
@@ -72,7 +73,7 @@ class TopListFragment : BaseViewModelFragment<TopListViewModel>(), TopListView, 
     }
 
     override fun loadBackdrop() {
-        image_view_top_list_backdrop.loadDrawableResource(R.drawable.mrrobot_background)
+        image_view_top_list_backdrop.loadDrawableResource(R.drawable.top_list_header)
     }
 
     // While view model is null call request otherwise attach retained model

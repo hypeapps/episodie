@@ -44,7 +44,8 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
 
     override fun getLayoutRes(): Int = R.layout.activity_tv_show_details
 
-    @Inject lateinit var presenter: TvShowDetailsPresenter
+    @Inject
+    lateinit var presenter: TvShowDetailsPresenter
 
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
@@ -66,6 +67,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         tvShowModelParcelable = intent.getParcelableExtra(EXTRA_INTENT_TV_SHOW_MODEL)
         model = tvShowModelParcelable.mapToTvShowModel()
         presenter.onAttachView(this)
+        supportPostponeEnterTransition()
     }
 
     override fun onDestroy() {
@@ -104,7 +106,9 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
 
     override fun setNavigationBarOptions() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        setNavigationBarColor(ContextCompat.getColor(this, R.color.tv_show_details_navigation_bar))
+        doFromSdk(Build.VERSION_CODES.LOLLIPOP, {
+            setNavigationBarColor(ContextCompat.getColor(this, R.color.tv_show_details_navigation_bar))
+        })
         if (isLandscapeOrientation() and !isNavigationBarLandscape()) {
             setLandscapeNavBarPaddingEnd(fab_button_tv_show_details_add_to_watched, coordinator_layout_tv_show_details)
         }
@@ -132,7 +136,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     override fun onPageSelected(position: Int) = presenter.onPageSelected(position)
 
     override fun setCover(url: String?) {
-        image_view_tv_show_details_cover.loadImage(url)
+        image_view_tv_show_details_cover.loadSharedElement(url!!, true, { supportStartPostponedEnterTransition() })
     }
 
     override fun setBackdrop(backdropUrl: String?, placeholderUrl: String?) {
@@ -148,7 +152,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
                 .thumbnail(GlideApp.with(this).load(placeholderUrl).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(findViewById(R.id.noise_view_background))
+                .into(findViewById(R.id.noise_view))
     }
 
     override fun hideFabButton() = fab_button_tv_show_details_add_to_watched.viewGone()

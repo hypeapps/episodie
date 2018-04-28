@@ -8,8 +8,10 @@ import butterknife.OnClick
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
 import kotlinx.android.synthetic.main.activity_main_feed.view_swapper
-import kotlinx.android.synthetic.main.bottom_navigation_view.*
-import kotlinx.android.synthetic.main.toolbar_feed.*
+import kotlinx.android.synthetic.main.bottom_navigation_view.navigation_bar_background
+import kotlinx.android.synthetic.main.bottom_navigation_view.navigation_bottom_view
+import kotlinx.android.synthetic.main.toolbar_feed.animation_view_toolbar_feed_title
+import kotlinx.android.synthetic.main.toolbar_feed.toolbar_activity_all
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
@@ -20,6 +22,7 @@ import pl.hypeapp.episodie.extensions.getRealScreenSize
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
 import pl.hypeapp.episodie.extensions.isLandscapeOrientation
 import pl.hypeapp.episodie.navigation.Navigator
+import pl.hypeapp.episodie.navigation.STATE_CHANGED
 import pl.hypeapp.episodie.ui.base.BaseActivity
 import pl.hypeapp.episodie.ui.features.navigationdrawer.NavigationDrawer
 import pl.hypeapp.presentation.mainfeed.MainFeedPresenter
@@ -59,15 +62,21 @@ class MainFeedActivity : BaseActivity(), MainFeedView {
         toolbarTitleAnimation.start()
     }
 
-    // This will inform about change state in child activity.
+    override fun onNewIntent(intent: Intent?) {
+        onActivityReenterSubject.onNext(STATE_CHANGED)
+        navigationDrawer.closeDrawer()
+        super.onNewIntent(intent)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        // This will inform about change state in child activity.
         onActivityReenterSubject.onNext(resultCode)
     }
 
-    // This will inform about change state in child activity when shared element used.
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
+        // This will inform about change state in child activity when shared element used.
         onActivityReenterSubject.onNext(resultCode)
     }
 

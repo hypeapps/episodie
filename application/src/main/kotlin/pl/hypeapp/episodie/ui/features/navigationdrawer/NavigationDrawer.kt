@@ -81,6 +81,14 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
         }
     }
 
+    fun closeDrawer() {
+        if (slidingRootNavigator.isMenuOpened) slidingRootNavigator.closeMenu(true)
+    }
+
+    fun openDrawer() {
+        if (slidingRootNavigator.isMenuClosed) slidingRootNavigator.openMenu(true)
+    }
+
     override fun onDragEnd(isMenuOpened: Boolean) {
         if (!isMenuOpened) {
             particlesDrawable.stop()
@@ -118,6 +126,7 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+        setProperActiveItem(activity)
         // Workaround for freezing when orientation change
         if (slidingRootNavigator.isMenuClosed) {
             slidingRootNavigator.closeMenu()

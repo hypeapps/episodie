@@ -15,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import butterknife.OnClick
 import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.daimajia.androidanimations.library.Techniques
@@ -24,10 +23,14 @@ import com.facebook.device.yearclass.YearClass
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_season_tracker.*
-import kotlinx.android.synthetic.main.layout_season_tracker_search.*
+import kotlinx.android.synthetic.main.layout_season_tracker_search.binge_watching_search_view
+import kotlinx.android.synthetic.main.layout_season_tracker_search.image_view_binge_watching_background
+import kotlinx.android.synthetic.main.layout_season_tracker_search.season_tracker_search_component
+import kotlinx.android.synthetic.main.layout_season_tracker_search.text_view_binge_watching_backdrop
 import pl.hypeapp.domain.model.collections.SeasonTrackerModel
 import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
+import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.App
 import pl.hypeapp.episodie.Prefs
 import pl.hypeapp.episodie.R
@@ -38,8 +41,10 @@ import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.glide.GlideApp
 import pl.hypeapp.episodie.glide.transformation.BlurTransformation
 import pl.hypeapp.episodie.job.episodereminder.EpisodeReminderEngine
+import pl.hypeapp.episodie.navigation.Navigator
 import pl.hypeapp.episodie.ui.base.BaseViewModelActivity
 import pl.hypeapp.episodie.ui.features.navigationdrawer.NavigationDrawer
+import pl.hypeapp.episodie.ui.features.seasontracker.adapter.HeaderDelegateAdapter
 import pl.hypeapp.episodie.ui.features.seasontracker.adapter.OnEpisodeWatchedListener
 import pl.hypeapp.episodie.ui.features.seasontracker.adapter.SeasonTrackerRecyclerAdapter
 import pl.hypeapp.episodie.ui.features.seasontracker.dialog.OnDialogItemClickListener
@@ -50,18 +55,22 @@ import pl.hypeapp.presentation.seasontracker.SeasonTrackerView
 import javax.inject.Inject
 
 class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), SeasonTrackerView,
-        MaterialSearchView.OnQueryTextListener, OnDialogItemClickListener, OnEpisodeWatchedListener {
+        MaterialSearchView.OnQueryTextListener, OnDialogItemClickListener, OnEpisodeWatchedListener,
+        HeaderDelegateAdapter.OnSelectedListener {
 
     override fun getLayoutRes(): Int = R.layout.activity_season_tracker
 
     override val viewModelClass: Class<SeasonTrackerViewModel>
         get() = SeasonTrackerViewModel::class.java
 
-    @Inject lateinit var presenter: SeasonTrackerPresenter
+    @Inject
+    lateinit var presenter: SeasonTrackerPresenter
 
-    @Inject lateinit var prefs: Prefs
+    @Inject
+    lateinit var prefs: Prefs
 
-    @Inject lateinit var episodeReminderEngine: EpisodeReminderEngine
+    @Inject
+    lateinit var episodeReminderEngine: EpisodeReminderEngine
 
     private lateinit var seasonTrackerRecyclerAdapter: SeasonTrackerRecyclerAdapter
 
@@ -131,24 +140,28 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
     override fun loadTvShowHeader() {
         stub_binge_watching_header?.let {
             if (YearClass.CLASS_2013 < YearClass.get(applicationContext)) {
-                stub_binge_watching_header.layoutResource = R.layout.noise_view_background_tv_show_details
+                stub_binge_watching_header.layoutResource = R.layout.noise_view_background
             } else {
                 stub_binge_watching_header.layoutResource = R.layout.image_view_background_tv_show_details
             }
         }
         stub_binge_watching_header?.viewVisible()
-        findViewById<View>(R.id.background_tv_show_details)?.viewVisible()
+        findViewById<View>(R.id.noise_view)?.viewVisible()
         GlideApp.with(this)
                 .load(viewModel.imageOriginal)
                 .override(340, 560)
                 .thumbnail(GlideApp.with(this).load(viewModel.imageMedium).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(findViewById(R.id.background_tv_show_details))
+                .into(findViewById(R.id.noise_view))
     }
 
+    override fun onHeaderSelected(tvShowId: String) = presenter.onHeaderSelected(tvShowId)
+
+    override fun startTvShowDetailsActivity(tvShowModel: TvShowModel) = Navigator.startTvShowDetails(this, tvShowModel)
+
     override fun initSeasonTracker() {
-        seasonTrackerRecyclerAdapter = SeasonTrackerRecyclerAdapter(this)
+        seasonTrackerRecyclerAdapter = SeasonTrackerRecyclerAdapter(this, this)
         recycler_view_season_tracker.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(false)
@@ -158,6 +171,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
         seasonTrackerRecyclerAdapter.addHeader(viewModel.headerViewModel!!)
         seasonTrackerRecyclerAdapter.addEpisodes(viewModel.episodes!!)
         fab_button_menu_season_tracker.viewVisible()
+        setFabButtonIcon()
     }
 
     override fun updateRecyclerView() = seasonTrackerRecyclerAdapter.updateItems(viewModel.headerViewModel!!, viewModel.episodes!!)
@@ -169,12 +183,11 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
         fab_button_menu_season_tracker.collapseImmediately()
         fab_button_menu_season_tracker.viewGone()
         recycler_view_season_tracker.viewGone()
-        findViewById<View>(R.id.background_tv_show_details)?.viewGone()
+        findViewById<View>(R.id.noise_view)?.viewGone()
         enableSearchView()
         GlideApp.with(this)
-                .load(R.drawable.stranger2_background)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 2), CenterCrop()))
+                .load(R.drawable.season_tracker_background)
+                .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 1), CenterCrop()))
                 .into(image_view_binge_watching_background)
     }
 
@@ -216,8 +229,12 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
         suggestionDialog?.show()
     }
 
-    override fun showErrorToast() = Toast
+    override fun showNothingFoundToast() = Toast
             .makeText(this, getString(R.string.time_calculator_search_result_not_found), Toast.LENGTH_SHORT)
+            .show()
+
+    override fun showErrorToast() = Toast
+            .makeText(this, getString(R.string.all_toast_error_message), Toast.LENGTH_SHORT)
             .show()
 
     override fun showErrorView() = view_error_season_tracker.viewVisible()
@@ -279,11 +296,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
 
     override fun scheduleNotifications() {
         if (!prefs.isNotificationsSeasonTrackedDisplayed) {
-            Snackbar.make(constraint_layout_season_tracker, getString(R.string.snackbar_message_about_notifications),
-                    Snackbar.LENGTH_LONG)
-                    .setAction(getString(R.string.snackbar_button_disable), { cancelNotifications() })
-                    .setActionTextColor(ContextCompat.getColor(this, android.R.color.white))
-                    .show()
+            showSnackbarAboutNotification()
             prefs.isNotificationsSeasonTrackedDisplayed = true
         }
         if (!prefs.isEpisodeReminderNotificationsStarted and !prefs.isNotificationsCanceled) {
@@ -293,12 +306,30 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
             episodeReminderEngine.syncReminder(prefs.reminderTvShowId, prefs.reminderTvShowId)
             prefs.isEpisodeReminderNotificationsStarted = true
         }
+        setFabButtonIcon()
+    }
+
+    private fun setFabButtonIcon() {
         if (prefs.isEpisodeReminderNotificationsStarted) {
             fab_button_disable_notifications.apply {
                 setIconDrawable(ContextCompat.getDrawable(this@SeasonTrackerActivity, R.drawable.all_ic_notifications_off)!!)
                 title = getString(R.string.fab_button_notifications_off)
             }
         }
+    }
+
+    private fun showSnackbarAboutNotification() {
+        val notificationSnackBar = Snackbar.make(constraint_layout_season_tracker, getString(R.string.snackbar_message_about_notifications),
+                Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.snackbar_button_disable), { cancelNotifications() })
+                .setActionTextColor(ContextCompat.getColor(this, R.color.primary_dark))
+        notificationSnackBar.view
+                .apply {
+                    setBackgroundColor(ContextCompat.getColor(this@SeasonTrackerActivity, android.R.color.white))
+                    findViewById<TextView>(android.support.design.R.id.snackbar_text)
+                            .setTextColor(ContextCompat.getColor(this@SeasonTrackerActivity, R.color.primary_dark))
+                }
+        notificationSnackBar.show()
     }
 
     override fun cancelNotifications() {
@@ -358,7 +389,7 @@ class SeasonTrackerActivity : BaseViewModelActivity<SeasonTrackerViewModel>(), S
     }
 
     private companion object {
-        val TIMEOUT_DEBOUNCE = 200L
+        const val TIMEOUT_DEBOUNCE = 200L
     }
 
 }

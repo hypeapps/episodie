@@ -9,8 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main_feed.*
-import kotlinx.android.synthetic.main.fragment_premieres.*
+import kotlinx.android.synthetic.main.activity_main_feed.fab_button_main_feed_search
+import kotlinx.android.synthetic.main.activity_main_feed.navigation_bottom_layout
+import kotlinx.android.synthetic.main.fragment_premieres.image_view_premieres_backdrop
+import kotlinx.android.synthetic.main.fragment_premieres.image_view_premieres_ic_back_arrow
+import kotlinx.android.synthetic.main.fragment_premieres.recycler_view_premieres
+import kotlinx.android.synthetic.main.fragment_premieres.swipe_refresh_layout_premieres
 import pl.hypeapp.domain.model.premiere.PremiereDateModel
 import pl.hypeapp.domain.model.premiere.PremiereDatesModel
 import pl.hypeapp.domain.model.reminder.PremiereReminderModel
@@ -78,7 +82,7 @@ class PremieresFragment : BaseViewModelFragment<PremieresViewModel>(), Premieres
     }
 
     override fun loadBackdrop() {
-        image_view_premieres_backdrop.loadDrawableResource(R.drawable.bb)
+        image_view_premieres_backdrop.loadDrawableResource(R.drawable.premiere_date_header)
     }
 
     // While view model is null call request otherwise attach retained model

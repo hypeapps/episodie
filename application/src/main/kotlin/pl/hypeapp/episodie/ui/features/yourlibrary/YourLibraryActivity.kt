@@ -17,7 +17,6 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.LinearInterpolator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
@@ -164,11 +163,7 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
     }
 
     override fun loadImageBackground() {
-        GlideApp.with(this)
-                .load(R.drawable.your_library_image_background)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .centerCrop()
-                .into(image_view_your_library_background)
+        image_view_your_library_background.loadDrawableResource(R.drawable.your_library_image_background)
     }
 
     override fun setPrimaryColorBackground() {
