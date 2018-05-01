@@ -318,7 +318,7 @@ class YourLibraryActivity : BaseViewModelActivity<YourLibraryViewModel>(), YourL
             override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
                 resource?.let {
                     view_watched_show_your_library.setTvShowDetails(watchedTvShowViewModel)
-                    view_watched_show_your_library.startBitmapFillingAnimation(bitmap = resource)
+                    view_watched_show_your_library.startBitmapFillingAnimation(bitmap = it)
                 }
             }
         }

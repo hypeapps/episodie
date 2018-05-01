@@ -1,6 +1,5 @@
 package pl.hypeapp.episodie.di.module
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -30,7 +29,7 @@ class ApiModule(private val endpoint: String,
                 .addInterceptor(basicAuthInterceptor)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
-                .addNetworkInterceptor(StethoInterceptor()).build()
+                .build()
     }
 
     @Provides
