@@ -3,9 +3,11 @@ package pl.hypeapp.dataproviders.datasource
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import pl.hypeapp.dataproviders.service.room.RoomService
 
+@Ignore
 class RuntimeDataSourceTest {
 
     private lateinit var userStatsDataSource: UserStatsDataSource
