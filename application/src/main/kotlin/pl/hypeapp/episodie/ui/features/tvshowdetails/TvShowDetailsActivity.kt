@@ -136,7 +136,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     override fun onPageSelected(position: Int) = presenter.onPageSelected(position)
 
     override fun setCover(url: String?) {
-        image_view_tv_show_details_cover.loadSharedElement(url!!, true, { supportStartPostponedEnterTransition() })
+        image_view_tv_show_details_cover.loadSharedElement(url, true, { supportStartPostponedEnterTransition() })
     }
 
     override fun setBackdrop(backdropUrl: String?, placeholderUrl: String?) {

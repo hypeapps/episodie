@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.GlideException
@@ -56,7 +55,7 @@ fun ImageView.intoBitmap(bitmap: Bitmap): Target<Drawable> =
                 .load(bitmap)
                 .into(this)
 
-fun ImageView.loadSharedElement(url: String, loadOnlyFromCache: Boolean = false, onLoadingFinished: () -> Unit = {}) {
+fun ImageView.loadSharedElement(url: String?, loadOnlyFromCache: Boolean = false, onLoadingFinished: () -> Unit = {}) {
     val listener = object : RequestListener<Drawable> {
         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
             onLoadingFinished()
@@ -71,8 +70,10 @@ fun ImageView.loadSharedElement(url: String, loadOnlyFromCache: Boolean = false,
     val requestOptions = RequestOptions
             .overrideOf(Target.SIZE_ORIGINAL)
             .onlyRetrieveFromCache(loadOnlyFromCache)
-    Glide.with(this)
+    GlideApp.with(this)
             .load(url)
+            .dontTransform()
+            .error(R.drawable.episodie_logo_small)
             .apply(requestOptions)
             .listener(listener)
             .into(this)
