@@ -30,6 +30,17 @@
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_search"
             app:text="@string/drawer_feed" />
 
+        <com.andexert.library.RippleView
+            android:id="@+id/ripple_view_drawer_menu_item_feed"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/padding_default"
+            app:layout_constraintBottom_toBottomOf="@id/drawer_menu_item_feed"
+            app:layout_constraintEnd_toEndOf="@id/drawer_menu_item_feed"
+            app:layout_constraintStart_toStartOf="@id/drawer_menu_item_feed"
+            app:layout_constraintTop_toTopOf="@id/drawer_menu_item_feed"
+            app:rv_rippleDuration="200" />
+
         <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_search"
             android:layout_width="wrap_content"
@@ -38,6 +49,17 @@
             app:iconSrc="@drawable/all_ic_search"
             app:layout_constraintBottom_toTopOf="@id/drawer_menu_item_watched"
             app:text="@string/drawer_search" />
+
+        <com.andexert.library.RippleView
+            android:id="@+id/ripple_view_drawer_menu_item_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/padding_default"
+            app:layout_constraintBottom_toBottomOf="@id/drawer_menu_item_search"
+            app:layout_constraintEnd_toEndOf="@id/drawer_menu_item_search"
+            app:layout_constraintStart_toStartOf="@id/drawer_menu_item_search"
+            app:layout_constraintTop_toTopOf="@id/drawer_menu_item_search"
+            app:rv_rippleDuration="200" />
 
         <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_watched"
@@ -51,6 +73,17 @@
             app:layout_constraintVertical_bias="0.47"
             app:text="@string/drawer_watched" />
 
+        <com.andexert.library.RippleView
+            android:id="@+id/ripple_view_drawer_menu_item_watched"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/padding_default"
+            app:layout_constraintBottom_toBottomOf="@id/drawer_menu_item_watched"
+            app:layout_constraintEnd_toEndOf="@id/drawer_menu_item_watched"
+            app:layout_constraintStart_toStartOf="@id/drawer_menu_item_watched"
+            app:layout_constraintTop_toTopOf="@id/drawer_menu_item_watched"
+            app:rv_rippleDuration="200" />
+
         <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_time_calculator"
             android:layout_width="wrap_content"
@@ -60,6 +93,17 @@
             app:layout_constraintTop_toBottomOf="@id/drawer_menu_item_watched"
             app:text="@string/drawer_time_calculator" />
 
+        <com.andexert.library.RippleView
+            android:id="@+id/ripple_view_drawer_menu_item_time_calculator"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/padding_default"
+            app:layout_constraintBottom_toBottomOf="@id/drawer_menu_item_time_calculator"
+            app:layout_constraintEnd_toEndOf="@id/drawer_menu_item_time_calculator"
+            app:layout_constraintStart_toStartOf="@id/drawer_menu_item_time_calculator"
+            app:layout_constraintTop_toTopOf="@id/drawer_menu_item_time_calculator"
+            app:rv_rippleDuration="200" />
+
         <pl.hypeapp.episodie.ui.widget.DrawerMenuItemView
             android:id="@+id/drawer_menu_item_season_tracker"
             android:layout_width="wrap_content"
@@ -67,7 +111,18 @@
             android:layout_marginTop="@dimen/margin_big"
             app:iconSrc="@drawable/drawer_ic_stats"
             app:layout_constraintTop_toBottomOf="@id/drawer_menu_item_time_calculator"
-            app:text="@string/drawer_season_tracker"/>
+            app:text="@string/drawer_season_tracker" />
+
+        <com.andexert.library.RippleView
+            android:id="@+id/ripple_view_drawer_menu_item_season_tracker"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/padding_default"
+            app:layout_constraintBottom_toBottomOf="@id/drawer_menu_item_season_tracker"
+            app:layout_constraintEnd_toEndOf="@id/drawer_menu_item_season_tracker"
+            app:layout_constraintStart_toStartOf="@id/drawer_menu_item_season_tracker"
+            app:layout_constraintTop_toTopOf="@id/drawer_menu_item_season_tracker"
+            app:rv_rippleDuration="200" />
 
         <TextView
             android:id="@+id/text_view_drawer_watching_time"

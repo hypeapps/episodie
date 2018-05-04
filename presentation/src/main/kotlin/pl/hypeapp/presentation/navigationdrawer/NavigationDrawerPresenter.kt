@@ -10,6 +10,7 @@ class NavigationDrawerPresenter @Inject constructor(private val userRuntimeUseCa
 
     override fun onAttachView(view: NavigationDrawerView) {
         super.onAttachView(view)
+        this.view?.setOnClickListeners()
         updateWatchingTime()
     }
 

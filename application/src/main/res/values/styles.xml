@@ -98,4 +98,10 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="EpisodieTheme.YourLibraryButton" parent="EpisodieTheme.V0.YourLibraryButton" />
+
+    <style name="EpisodieTheme.V0.YourLibraryButton" parent="Base.Widget.AppCompat.ButtonBar">
+        <item name="background">@color/all_backdrop_color</item>
+    </style>
+
 </resources>

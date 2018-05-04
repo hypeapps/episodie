@@ -18,6 +18,16 @@ class DrawerMenuItemView(context: Context, attributeSet: AttributeSet) : Constra
 
     private val icon: ImageView
 
+    var isActive: Boolean = false
+        set(value) {
+            field = value
+            if (value) {
+                setActive()
+            } else {
+                setInactive()
+            }
+        }
+
     init {
         val typedArray: TypedArray = context.obtainStyledAttributes(attributeSet, R.styleable.DrawerMenuItemView)
         val iconSrc: Drawable? = typedArray.getDrawable(R.styleable.DrawerMenuItemView_iconSrc)
@@ -35,12 +45,12 @@ class DrawerMenuItemView(context: Context, attributeSet: AttributeSet) : Constra
         setInactive()
     }
 
-    fun setActive() {
+    private fun setActive() {
         icon.setColorFilter(ContextCompat.getColor(context, android.R.color.white), PorterDuff.Mode.SRC_IN)
         title.setTextColor(ContextCompat.getColor(context, android.R.color.white))
     }
 
-    fun setInactive() {
+    private fun setInactive() {
         icon.setColorFilter(ContextCompat.getColor(context, R.color.drawer_item_inactive), PorterDuff.Mode.SRC_IN)
         title.setTextColor(ContextCompat.getColor(context, R.color.drawer_item_inactive))
     }

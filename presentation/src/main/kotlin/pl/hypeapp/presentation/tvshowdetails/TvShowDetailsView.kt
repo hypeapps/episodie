@@ -7,7 +7,7 @@ interface TvShowDetailsView : View {
 
     fun setNavigationBarOptions()
 
-    fun onChangeWatchTvShowState()
+    fun subscribeChangeWatchStateButton()
 
     var model: TvShowModel
 

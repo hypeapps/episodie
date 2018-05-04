@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.facebook.device.yearclass.YearClass
+import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_tv_show_details.*
 import pl.hypeapp.domain.model.WatchState
@@ -36,13 +37,15 @@ import pl.hypeapp.episodie.ui.features.tvshowdetails.adapter.TvShowDetailsPagerA
 import pl.hypeapp.episodie.ui.viewmodel.TvShowModelParcelable
 import pl.hypeapp.presentation.tvshowdetails.TvShowDetailsPresenter
 import pl.hypeapp.presentation.tvshowdetails.TvShowDetailsView
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPagerAdapter.OnChangePageListener {
 
     override fun getLayoutRes(): Int = R.layout.activity_tv_show_details
 
-    @Inject lateinit var presenter: TvShowDetailsPresenter
+    @Inject
+    lateinit var presenter: TvShowDetailsPresenter
 
     private val component: ActivityComponent
         get() = DaggerActivityComponent.builder()
@@ -64,6 +67,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         tvShowModelParcelable = intent.getParcelableExtra(EXTRA_INTENT_TV_SHOW_MODEL)
         model = tvShowModelParcelable.mapToTvShowModel()
         presenter.onAttachView(this)
+        supportPostponeEnterTransition()
     }
 
     override fun onDestroy() {
@@ -102,7 +106,9 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
 
     override fun setNavigationBarOptions() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        setNavigationBarColor(ContextCompat.getColor(this, R.color.tv_show_details_navigation_bar))
+        doFromSdk(Build.VERSION_CODES.LOLLIPOP, {
+            setNavigationBarColor(ContextCompat.getColor(this, R.color.tv_show_details_navigation_bar))
+        })
         if (isLandscapeOrientation() and !isNavigationBarLandscape()) {
             setLandscapeNavBarPaddingEnd(fab_button_tv_show_details_add_to_watched, coordinator_layout_tv_show_details)
         }
@@ -130,12 +136,12 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
     override fun onPageSelected(position: Int) = presenter.onPageSelected(position)
 
     override fun setCover(url: String?) {
-        image_view_tv_show_details_cover.loadImage(url)
+        image_view_tv_show_details_cover.loadSharedElement(url, true, { supportStartPostponedEnterTransition() })
     }
 
     override fun setBackdrop(backdropUrl: String?, placeholderUrl: String?) {
         if (YearClass.CLASS_2013 < YearClass.get(applicationContext)) {
-            stub_tv_show_details_background.layoutResource = R.layout.noise_view_background_tv_show_details
+            stub_tv_show_details_background.layoutResource = R.layout.noise_view_background
         } else {
             stub_tv_show_details_background.layoutResource = R.layout.image_view_background_tv_show_details
         }
@@ -146,7 +152,7 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
                 .thumbnail(GlideApp.with(this).load(placeholderUrl).transform(BlurTransformation(this, 20)))
                 .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 20), CenterCrop()))
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(findViewById(R.id.background_tv_show_details))
+                .into(findViewById(R.id.noise_view))
     }
 
     override fun hideFabButton() = fab_button_tv_show_details_add_to_watched.viewGone()
@@ -170,16 +176,19 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
         }, 200)
     }
 
-    @OnClick(R.id.fab_button_tv_show_details_add_to_watched)
-    override fun onChangeWatchTvShowState() = with(fab_button_tv_show_details_add_to_watched) {
-        isWatchStateChanged = true
-        // Workaround for better animation flow.
-        hide()
-        show()
-        smallBangAnimator.bang(this)
-        val watchState = model.watchState
-        postDelayed({ manageWatchStateIcon(WatchState.toggleWatchState(watchState)) }, 200)
-        presenter.onChangeWatchedTvShowState()
+    override fun subscribeChangeWatchStateButton(): Unit = with(fab_button_tv_show_details_add_to_watched) {
+        RxView.clicks(fab_button_tv_show_details_add_to_watched)
+                .throttleFirst(1000, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    isWatchStateChanged = true
+                    // Workaround for better animation flow.
+                    hide()
+                    show()
+                    smallBangAnimator.bang(this)
+                    val watchState = model.watchState
+                    postDelayed({ manageWatchStateIcon(WatchState.toggleWatchState(watchState)) }, 200)
+                    presenter.onChangeTvShowWatchState()
+                }
     }
 
     override fun onWatchStateChangeError() {

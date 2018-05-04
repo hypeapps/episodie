@@ -4,16 +4,16 @@ import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.model.tvshow.EpisodeModel
 import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.domain.model.tvshow.TvShowExtendedModel
-import pl.hypeapp.domain.usecase.allepisodes.AllEpisodesUseCase
 import pl.hypeapp.domain.usecase.base.DefaultCompletableObserver
 import pl.hypeapp.domain.usecase.base.DefaultSingleObserver
+import pl.hypeapp.domain.usecase.gettvshow.GetTvShowExtendedUseCase
 import pl.hypeapp.domain.usecase.watchstate.UpdateEpisodeWatchStateUseCase
 import pl.hypeapp.domain.usecase.watchstate.UpdateSeasonWatchStateUseCase
 import pl.hypeapp.domain.usecase.watchstate.mapwatched.MapTvShowWatchStateUseCase
 import pl.hypeapp.presentation.base.Presenter
 import javax.inject.Inject
 
-class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEpisodesUseCase,
+class SeasonsPresenter @Inject constructor(private val getTvShowExtendedUseCase: GetTvShowExtendedUseCase,
                                            private val updateEpisodeWatchStateUseCase: UpdateEpisodeWatchStateUseCase,
                                            private val updateSeasonWatchStateUseCase: UpdateSeasonWatchStateUseCase,
                                            private val mapWatchStateUseCase: MapTvShowWatchStateUseCase)
@@ -28,7 +28,7 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
 
     override fun onDetachView() {
         super.onDetachView()
-        allEpisodesUseCase.dispose()
+        getTvShowExtendedUseCase.dispose()
         updateEpisodeWatchStateUseCase.dispose()
         updateSeasonWatchStateUseCase.dispose()
         mapWatchStateUseCase.dispose()
@@ -48,7 +48,7 @@ class SeasonsPresenter @Inject constructor(private val allEpisodesUseCase: AllEp
     fun requestAllSeasons(tvShowId: String, update: Boolean) {
         this.view?.showLoading()
         this.view?.startLoadingAnimation()
-        allEpisodesUseCase.execute(SeasonsObserver(), AllEpisodesUseCase.Params.createQuery(tvShowId, update))
+        getTvShowExtendedUseCase.execute(SeasonsObserver(), GetTvShowExtendedUseCase.Params.createQuery(tvShowId, update))
     }
 
     fun toggleEpisodeWatchState(episodeModel: EpisodeModel) = with(episodeModel) {

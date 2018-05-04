@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pl.hypeapp.materialtimelineview.MaterialTimelineView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<pl.hypeapp.materialtimelineview.MaterialTimelineView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/timeline_view_item_header"
     android:layout_width="match_parent"
@@ -20,7 +19,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_view_item_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_top_season_tracker_top_corner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_alpha="30"
+        app:rv_color="@android:color/white"
+        app:rv_rippleDuration="150" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view_season_tracker_full_runtime"
@@ -43,7 +55,7 @@
             android:drawablePadding="@dimen/padding_small"
             android:drawableStart="@drawable/all_ic_watching_time"
             android:gravity="center_horizontal|center_vertical"
-            android:textSize="@dimen/text_size_season_tracker_full_runtime"/>
+            android:textSize="@dimen/text_size_season_tracker_full_runtime" />
 
     </android.support.v7.widget.CardView>
 
@@ -52,6 +64,7 @@
         style="@style/EpisodieTheme.TextViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginStart="@dimen/margin_default"
         android:ellipsize="end"
         android:includeFontPadding="false"
@@ -59,10 +72,9 @@
         android:textSize="@dimen/text_size_season_tracker_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="@dimen/margin_default"
         app:layout_constraintStart_toEndOf="@id/card_view_season_tracker_cover"
         app:layout_constraintTop_toBottomOf="@id/card_view_season_tracker_full_runtime"
-        app:layout_constraintVertical_bias="0.2"/>
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/text_view_season_tracker_season"
@@ -74,7 +86,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card_view_season_tracker_cover"
-        app:layout_constraintTop_toBottomOf="@id/text_view_season_tracker_title"/>
+        app:layout_constraintTop_toBottomOf="@id/text_view_season_tracker_title" />
 
     <TextView
         android:id="@+id/text_view_season_tracker_episodes_watched"
@@ -87,7 +99,7 @@
         android:paddingTop="4dp"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@id/progress_bar_season_tracker_header"
-        app:layout_constraintEnd_toEndOf="@id/progress_bar_season_tracker_header"/>
+        app:layout_constraintEnd_toEndOf="@id/progress_bar_season_tracker_header" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view_season_tracker_cover"
@@ -108,22 +120,22 @@
             android:layout_width="@dimen/width_season_tracker_cover"
             android:layout_height="@dimen/height_season_tracker_cover"
             android:contentDescription="@string/season_tracker_cover_description"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
     </android.support.v7.widget.CardView>
 
     <ProgressBar
         android:id="@+id/progress_bar_season_tracker_header"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_big"
         android:progress="24"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_view_season_tracker_cover"/>
+        app:layout_constraintTop_toBottomOf="@id/card_view_season_tracker_cover" />
 
 </pl.hypeapp.materialtimelineview.MaterialTimelineView>
 

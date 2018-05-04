@@ -19,7 +19,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.OnClick
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
@@ -83,10 +85,6 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         component.inject(this)
         presenter.onAttachView(this)
-        GlideApp.with(this)
-                .load(R.drawable.breaking_bad_backgorund)
-                .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 17), CenterCrop()))
-                .into(image_view_time_calculator_background)
     }
 
     override fun onDestroy() {
@@ -108,6 +106,15 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
             tipDialog?.show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun loadHeader() {
+        GlideApp.with(this)
+                .load(R.drawable.time_calculator_background)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .format(DecodeFormat.PREFER_RGB_565)
+                .transform(MultiTransformation<Bitmap>(BlurTransformation(this, 3), CenterCrop()))
+                .into(image_view_time_calculator_background)
     }
 
     override fun startEnterAnimation() {

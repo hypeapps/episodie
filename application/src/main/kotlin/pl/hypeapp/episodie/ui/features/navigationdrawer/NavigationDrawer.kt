@@ -10,8 +10,9 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.BindViews
 import butterknife.ButterKnife
-import butterknife.OnClick
+import com.andexert.library.RippleView
 import com.doctoror.particlesdrawable.ParticlesDrawable
+import com.facebook.device.yearclass.YearClass
 import com.yarolegovich.slidingrootnav.SlidingRootNav
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
 import com.yarolegovich.slidingrootnav.callback.DragListener
@@ -46,8 +47,11 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
 
     private val particlesDrawable: ParticlesDrawable = ParticlesDrawable()
 
-    @BindViews(R.id.drawer_menu_item_feed, R.id.drawer_menu_item_search, R.id.drawer_menu_item_time_calculator,
-            R.id.drawer_menu_item_watched, R.id.drawer_menu_item_season_tracker)
+    @BindViews(R.id.drawer_menu_item_feed,
+            R.id.drawer_menu_item_search,
+            R.id.drawer_menu_item_watched,
+            R.id.drawer_menu_item_time_calculator,
+            R.id.drawer_menu_item_season_tracker)
     lateinit var drawerItems: List<DrawerMenuItemView>
 
     @BindView(R.id.text_view_drawer_watching_time)
@@ -59,7 +63,9 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
 
     fun initWithToolbar(toolbar: Toolbar?) {
         slidingRootNavigator = slidingRootNavigatorBuilder.withToolbarMenuToggle(toolbar).inject()
-        slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
+        if (YearClass.get(activity.applicationContext) >= YearClass.CLASS_2013) {
+            slidingRootNavigator.layout.findViewById<ConstraintLayout>(R.id.constraint_layout_drawer).background = particlesDrawable
+        }
     }
 
     fun init() {
@@ -73,6 +79,14 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
         } else {
             slidingRootNavigator.closeMenu(true)
         }
+    }
+
+    fun closeDrawer() {
+        if (slidingRootNavigator.isMenuOpened) slidingRootNavigator.closeMenu(true)
+    }
+
+    fun openDrawer() {
+        if (slidingRootNavigator.isMenuClosed) slidingRootNavigator.openMenu(true)
     }
 
     override fun onDragEnd(isMenuOpened: Boolean) {
@@ -112,6 +126,11 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+        setProperActiveItem(activity)
+        // Workaround for freezing when orientation change
+        if (slidingRootNavigator.isMenuClosed) {
+            slidingRootNavigator.closeMenu()
+        }
         if (slidingRootNavigator.isMenuOpened) {
             particlesDrawable.start()
         }
@@ -122,32 +141,73 @@ class NavigationDrawer @Inject constructor(val activity: Activity,
                 getFullRuntimeFormatted(activity.resources, watchingTime))
     }
 
-    @OnClick(R.id.drawer_menu_item_feed)
-    fun navigateToFeed() = Navigator.startFeedActivity(activity)
-
-    @OnClick(R.id.drawer_menu_item_search)
-    fun navigateToSearch() = Navigator.startSearchActivity(activity)
-
-    @OnClick(R.id.drawer_menu_item_time_calculator)
-    fun navigateToTimeCalculator() = Navigator.startTimeCalculatorActivity(activity)
-
-    @OnClick(R.id.drawer_menu_item_season_tracker)
-    fun navigateToSeasonTracker() = Navigator.startSeasonTrackerActivity(activity)
-
-    @OnClick(R.id.drawer_menu_item_watched)
-    fun navigateToToYourLibrary() = Navigator.startYourLibraryActivity(activity)
+    override fun setOnClickListeners() = with(activity) {
+        findViewById<RippleView>(R.id.ripple_view_drawer_menu_item_feed).setOnRippleCompleteListener {
+            if (drawerItems[FEED_ITEM_INDEX].isActive) {
+                slidingRootNavigator.closeMenu()
+            } else {
+                setInactiveAllItems()
+                drawerItems[FEED_ITEM_INDEX].isActive = true
+                Navigator.startFeedActivity(this)
+            }
+        }
+        findViewById<RippleView>(R.id.ripple_view_drawer_menu_item_search).setOnRippleCompleteListener {
+            if (drawerItems[SEARCH_ITEM_INDEX].isActive) {
+                slidingRootNavigator.closeMenu()
+            } else {
+                setInactiveAllItems()
+                drawerItems[SEARCH_ITEM_INDEX].isActive = true
+                Navigator.startSearchActivity(this)
+            }
+        }
+        findViewById<RippleView>(R.id.ripple_view_drawer_menu_item_watched).setOnRippleCompleteListener {
+            if (drawerItems[YOUR_LIBRARY_ITEM_INDEX].isActive) {
+                slidingRootNavigator.closeMenu()
+            } else {
+                setInactiveAllItems()
+                drawerItems[YOUR_LIBRARY_ITEM_INDEX].isActive = true
+                Navigator.startYourLibraryActivity(this)
+            }
+        }
+        findViewById<RippleView>(R.id.ripple_view_drawer_menu_item_time_calculator).setOnRippleCompleteListener {
+            if (drawerItems[TIME_CALCULATOR_ITEM_INDEX].isActive) {
+                slidingRootNavigator.closeMenu()
+            } else {
+                setInactiveAllItems()
+                drawerItems[TIME_CALCULATOR_ITEM_INDEX].isActive = true
+                Navigator.startTimeCalculatorActivity(this)
+            }
+        }
+        findViewById<RippleView>(R.id.ripple_view_drawer_menu_item_season_tracker).setOnRippleCompleteListener {
+            if (drawerItems[SEASON_TRACKER_ITEM_INDEX].isActive) {
+                slidingRootNavigator.closeMenu()
+            } else {
+                setInactiveAllItems()
+                drawerItems[SEASON_TRACKER_ITEM_INDEX].isActive = true
+                Navigator.startSeasonTrackerActivity(this)
+            }
+        }
+    }
 
     private fun setProperActiveItem(activity: Activity) {
         setInactiveAllItems()
         when (activity) {
-            is MainFeedActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_feed).setActive()
-            is SearchActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_search).setActive()
-            is YourLibraryActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_watched).setActive()
-            is TimeCalculatorActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_time_calculator).setActive()
-            is SeasonTrackerActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_season_tracker).setActive()
+            is MainFeedActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_feed).isActive = true
+            is SearchActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_search).isActive = true
+            is YourLibraryActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_watched).isActive = true
+            is TimeCalculatorActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_time_calculator).isActive = true
+            is SeasonTrackerActivity -> activity.findViewById<DrawerMenuItemView>(R.id.drawer_menu_item_season_tracker).isActive = true
         }
     }
 
-    private fun setInactiveAllItems() = drawerItems.forEach { it.setInactive() }
+    private fun setInactiveAllItems() = drawerItems.forEach { it.isActive = false }
+
+    private companion object {
+        const val FEED_ITEM_INDEX = 0
+        const val SEARCH_ITEM_INDEX = 1
+        const val YOUR_LIBRARY_ITEM_INDEX = 2
+        const val TIME_CALCULATOR_ITEM_INDEX = 3
+        const val SEASON_TRACKER_ITEM_INDEX = 4
+    }
 
 }

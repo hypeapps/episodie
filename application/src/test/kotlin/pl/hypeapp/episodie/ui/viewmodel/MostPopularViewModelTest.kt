@@ -9,6 +9,7 @@ import org.amshove.kluent.mock
 import org.junit.Before
 import org.junit.Test
 import pl.hypeapp.domain.model.PageableRequest
+import pl.hypeapp.domain.model.WatchState
 import pl.hypeapp.domain.model.collections.MostPopularModel
 import pl.hypeapp.domain.model.tvshow.TvShowModel
 
@@ -78,7 +79,7 @@ class MostPopularViewModelTest {
                 name = "example show",
                 premiered = "2017-11-11",
                 genre = "Drama",
-                watchState = 0,
+                watchState = WatchState.NOT_WATCHED,
                 summary = "",
                 episodeOrder = 10,
                 officialSite = "official site",

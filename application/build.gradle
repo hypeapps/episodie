@@ -4,7 +4,6 @@ apply plugin: 'jacoco'
 rootProject.applicationModulePlugins.each {
     apply plugin: it
 }
-apply plugin: 'com.frogermcs.androiddevmetrics'
 
 android {
     def ext = rootProject.extensions.ext
@@ -24,6 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug{
+            minifyEnabled false
             testCoverageEnabled true
         }
     }
@@ -36,7 +36,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
     lintOptions {
-        abortOnError true
+        abortOnError false
         textReport true
         textOutput 'stdout'
         htmlReport true
@@ -55,9 +55,9 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
+//kapt {
+//    generateStubs = true
+//}
 
 //configurations.all {
 //    resolutionStrategy.eachDependency { DependencyResolveDetails details ->

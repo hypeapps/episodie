@@ -8,7 +8,6 @@ buildscript {
         apply from: 'dependencies.gradle'
         classpath buildPlugins.gradle
         classpath buildPlugins.kotlin
-        classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
     }
 }
 

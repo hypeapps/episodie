@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,14 +27,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_view_item_episode_screen"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:contentDescription="@string/item_episode_screen_description"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/text_view_item_episode_number"
@@ -44,7 +43,7 @@
             android:background="@color/gradient"
             android:paddingEnd="@dimen/padding_small"
             android:paddingStart="@dimen/padding_small"
-            app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen"/>
+            app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen" />
 
         <TextView
             android:id="@+id/text_view_item_episode_title"
@@ -58,7 +57,7 @@
             app:layout_constraintBottom_toTopOf="@id/text_view_item_episode_premiered"
             app:layout_constraintEnd_toStartOf="@id/image_view_item_episode_runtime"
             app:layout_constraintStart_toEndOf="@id/image_view_item_episode_screen"
-            app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen"/>
+            app:layout_constraintTop_toTopOf="@id/image_view_item_episode_screen" />
 
         <TextView
             android:id="@+id/text_view_item_episode_premiered"
@@ -70,7 +69,7 @@
             android:textColor="@color/primary_light"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/image_view_item_episode_screen"
-            app:layout_constraintStart_toEndOf="@id/image_view_item_episode_screen"/>
+            app:layout_constraintStart_toEndOf="@id/image_view_item_episode_screen" />
 
         <ImageView
             android:id="@+id/image_view_item_episode_runtime"
@@ -80,7 +79,7 @@
             android:src="@drawable/all_ic_watching_time"
             app:layout_constraintBottom_toBottomOf="@id/text_view_item_episode_runtime"
             app:layout_constraintEnd_toStartOf="@id/text_view_item_episode_runtime"
-            app:layout_constraintTop_toTopOf="@id/text_view_item_episode_runtime"/>
+            app:layout_constraintTop_toTopOf="@id/text_view_item_episode_runtime" />
 
         <TextView
             android:id="@+id/text_view_item_episode_runtime"
@@ -90,7 +89,7 @@
             android:layout_marginTop="@dimen/margin_medium"
             android:includeFontPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_view_item_episode_summary_header"
@@ -101,7 +100,7 @@
             android:text="@string/item_episode_summary_header"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_view_item_episode_screen"/>
+            app:layout_constraintTop_toBottomOf="@id/image_view_item_episode_screen" />
 
         <TextView
             android:id="@+id/text_view_item_episode_summary"
@@ -113,7 +112,7 @@
             android:layout_marginTop="@dimen/margin_default"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_item_episode_summary_header"/>
+            app:layout_constraintTop_toBottomOf="@id/text_view_item_episode_summary_header" />
 
         <ImageView
             android:id="@+id/image_view_item_episode_add_to_watched"
@@ -121,11 +120,11 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/item_all_ic_diamond_description"
             android:paddingEnd="@dimen/padding_big"
-            android:paddingTop="@dimen/padding_big"
             android:paddingStart="@dimen/padding_big"
+            android:paddingTop="@dimen/padding_big"
             android:src="@drawable/all_ic_diamond_unchecked"
             app:layout_constraintBottom_toBottomOf="@id/image_view_item_episode_screen"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </pl.hypeapp.materialtimelineview.MaterialTimelineView>
 

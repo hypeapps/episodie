@@ -9,7 +9,8 @@ import pl.hypeapp.episodie.ui.viewmodel.seasontracker.EpisodeViewModel
 import pl.hypeapp.episodie.ui.viewmodel.seasontracker.HeaderViewModel
 import pl.hypeapp.episodie.ui.viewmodel.seasontracker.RemainingTimeViewModel
 
-class SeasonTrackerRecyclerAdapter(onEpisodeWatchedListener: OnEpisodeWatchedListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SeasonTrackerRecyclerAdapter(onEpisodeWatchedListener: OnEpisodeWatchedListener,
+                                   onSelectedListener: HeaderDelegateAdapter.OnSelectedListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items: ArrayList<ViewType>
 
@@ -17,7 +18,7 @@ class SeasonTrackerRecyclerAdapter(onEpisodeWatchedListener: OnEpisodeWatchedLis
 
     init {
         delegateAdapters.put(ViewType.SeasonTrackerViewType.EPISODE_ITEM, EpisodeDelegateAdapter(onEpisodeWatchedListener))
-        delegateAdapters.put(ViewType.SeasonTrackerViewType.HEADER, HeaderDelegateAdapter())
+        delegateAdapters.put(ViewType.SeasonTrackerViewType.HEADER, HeaderDelegateAdapter(onSelectedListener))
         delegateAdapters.put(ViewType.SeasonTrackerViewType.TIME_REMAINING_ITEM, RemainingTimeDelegateAdapter())
         items = ArrayList()
     }

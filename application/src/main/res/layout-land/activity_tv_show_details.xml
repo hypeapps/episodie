@@ -32,17 +32,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
-    <!--<ImageView-->
-    <!--android:id="@+id/image_view_tv_show_details_ic_share"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:contentDescription="@string/all_ic_share_description"-->
-    <!--android:padding="@dimen/padding_big"-->
-    <!--android:src="@drawable/all_ic_share"-->
-    <!--app:layout_constraintBottom_toBottomOf="@id/image_view_tv_show_details_ic_back_arrow"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="@id/image_view_tv_show_details_ic_back_arrow" />-->
-
     <android.support.constraint.Guideline
         android:id="@+id/guideline_diagonal_top"
         android:layout_width="wrap_content"

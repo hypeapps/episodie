@@ -1,4 +1,4 @@
-package pl.hypeapp.domain.usecase.allepisodes
+package pl.hypeapp.domain.usecase.gettvshow
 
 import io.reactivex.Single
 import pl.hypeapp.domain.executor.PostExecutionThread
@@ -9,11 +9,11 @@ import pl.hypeapp.domain.usecase.base.AbsRxSingleUseCase
 import pl.hypeapp.domain.usecase.watchstate.mapwatched.WatchStateMapper
 import javax.inject.Inject
 
-class AllEpisodesUseCase @Inject constructor(threadExecutor: ThreadExecutor,
-                                             postExecutionThread: PostExecutionThread,
-                                             private val watchStateMapper: WatchStateMapper,
-                                             private val repository: AllSeasonsRepository)
-    : AbsRxSingleUseCase<TvShowExtendedModel, AllEpisodesUseCase.Params>(threadExecutor, postExecutionThread) {
+class GetTvShowExtendedUseCase @Inject constructor(threadExecutor: ThreadExecutor,
+                                                   postExecutionThread: PostExecutionThread,
+                                                   private val watchStateMapper: WatchStateMapper,
+                                                   private val repository: AllSeasonsRepository)
+    : AbsRxSingleUseCase<TvShowExtendedModel, GetTvShowExtendedUseCase.Params>(threadExecutor, postExecutionThread) {
 
     override fun createSingle(params: Params): Single<TvShowExtendedModel> {
         return if (params.afterPremiereDate) {

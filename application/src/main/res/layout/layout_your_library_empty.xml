@@ -31,11 +31,10 @@
 
         <Button
             android:id="@+id/button_layout_empty_message_feed"
-            style="@style/Base.Widget.AppCompat.ButtonBar"
+            style="@style/EpisodieTheme.YourLibraryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_big"
-            android:background="@color/all_backdrop_color"
             android:drawableStart="@drawable/drawer_ic_feed"
             android:foregroundGravity="center"
             android:gravity="center"
@@ -47,10 +46,9 @@
 
         <Button
             android:id="@+id/button_layout_empty_message_search"
-            style="@style/Base.Widget.AppCompat.ButtonBar"
+            style="@style/EpisodieTheme.YourLibraryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/all_backdrop_color"
             android:drawableStart="@drawable/all_ic_search"
             android:foregroundGravity="center"
             android:gravity="center"

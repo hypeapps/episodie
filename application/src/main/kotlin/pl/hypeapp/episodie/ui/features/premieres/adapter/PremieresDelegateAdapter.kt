@@ -40,7 +40,7 @@ class PremieresDelegateAdapter(val onPremiereViewSelectedListener: OnPremiereVie
             styleTimelineView(model)
             setDaysToGo(model.premiereDateModel.premiereDateFormatted())
             setNotificationClickListener(model.premiereDateModel)
-            setOnClickListener {
+            ripple_view_item_premiere.setOnRippleCompleteListener {
                 onPremiereViewSelectedListener.onPremiereItemClick(model.premiereDateModel, image_view_item_premiere_cover)
             }
         }
