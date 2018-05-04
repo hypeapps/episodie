@@ -11,7 +11,7 @@ ext {
     /* build plugins versions */
     build = [
             gradle: "3.1.2",
-            kotlin: "1.2.31",
+            kotlin: "1.2.41",
     ]
 
     buildPlugins = [
@@ -263,8 +263,6 @@ ext {
             [configuration: "testImplementation", dependency: testLibs.mockito],
             [configuration: "testImplementation", dependency: testLibs.mockitoKotlin],
             [configuration: "testImplementation", dependency: testLibs.kluent],
-            [configuration: "androidTestImplementation", dependency: testLibs.espressoCore,
-             options      : supportAnnotationsExclude],
             // modules
             [configuration: "api", dependency: project(modules.domain)]
     ]
