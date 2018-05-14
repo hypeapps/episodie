@@ -4,6 +4,8 @@
 ![Banner](https://raw.githubusercontent.com/hypeapps/episodie/master/img/header1024x500.png)
 <a href="https://play.google.com/store/apps/details?id=pl.hypeapp.episodie" target="_blank">
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="90"/></a>
+<a href="https://f-droid.org/packages/pl.hypeapp.episodie/">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="90"></a>
 
 ### Features
 - Discover new premieres, most popular shows and TOP 100 series based on IMDB list. 
