@@ -1,5 +1,5 @@
 # Episodie [![Build Status](https://travis-ci.org/hypeapps/episodie.svg?branch=master)](https://travis-ci.org/hypeapps/episodie) [![Platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
-*Episodie is TV show time tracker app with unusual design. Get to know how much time you spent watching tv shows. Track easily overall progress of your favorite shows and discover new ones. Stay up to date with new premieres thanks to notifications.*
+*Episodie is a TV show time tracker app with unusual design. Get to know how much time you spent watching tv shows. Track easily overall progress of your favorite shows and discover new ones. Stay up to date with new premieres thanks to notifications.*
 
 ![Banner](https://raw.githubusercontent.com/hypeapps/episodie/master/img/header1024x500.png)
 <a href="https://play.google.com/store/apps/details?id=pl.hypeapp.episodie" target="_blank">
