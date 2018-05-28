@@ -1,0 +1,128 @@
+<resources>
+    <string name="app_name">Episodie</string>
+    <string name="folder_assets_images">Images</string>
+
+    <string name="menu_action_most_popular_title">Les plus populaires</string>
+    <string name="menu_action_top_list_title">Top 100</string>
+    <string name="menu_action_premieres">Sorties</string>
+
+    <string name="animation_loading">logo_loading_anim.json</string>
+    <string name="animation_episodie_text">episodie_anim.json</string>
+
+    <string name="item_error_message">Oups, quelque chose s\'est mal passé</string>
+    <string name="item_error_content_description">Icône d\'erreur</string>
+    <string name="item_error_retry">Réessayer</string>
+
+    <string name="item_loading_message">Chargement…</string>
+
+    <string name="drawer_feed">Fil</string>
+    <string name="drawer_search">Recherche</string>
+    <string name="drawer_watched">Votre bibliothèque</string>
+    <string name="drawer_time_calculator">Calculateur de durées</string>
+    <string name="drawer_season_tracker">Suivi des saisons</string>
+    <string name="drawer_logo_description">Logo de l\'application</string>
+    <string name="drawer_menu_item_icon_description">Icône d\'un élément du menu</string>
+    <string name="drawer_ic_watching_time">Icône du temps de visionnage</string>
+    <string name="watching_time_0d_0h_0m">Durée de visionnage : 0j : 0h : 0m</string>
+    <string name="watching_time_format">Durée de visionnage : %1$s</string>
+
+    <string name="top_list_app_bar_title">Top 100</string>
+
+    <string name="lorem_ipsum">Last Week Tonight with John Oliver, John Oliver présente une vue satirique sur les nouvelles de la semaine, les événements politiques et actuels.</string>
+    <string name="lorem_ipsum2"><p>Adapté du bestseller <i>Le Trône de Fer</i> de George R. R. Martin, cette nouvelle série tentaculaire de HBO se déroule dans un monde où les étés durent des décennies et les hivers peuvent durer une vie entière. Du sud intrigant et des terres orientales sauvages, au nord gelé et au Mur ancien qui protège le royaume des mystérieuses ténèbres au-delà, les puissantes familles des sept royaumes sont piégées dans une bataille pour le trône de fer. C\'est une histoire de duperies et de trahisons, de noblesse et d\'honneur, de conquête et de triomphe. Dans le <i>Trône de Fer</i>, soit vous gagnez, soit vous mourrez.</p></string>
+
+    <string name="tv_show_info_imdb_description">IMDb : films et séries</string>
+    <string name="tv_show_summary_official_website_description">Site officiel</string>
+    <string name="tv_show_summary_tv_maze_description">TvMaze : base de données sur les séries</string>
+    <string name="tv_show_summary_learn_more_header">En apprendre plus</string>
+    <string name="tv_show_summary_ic_official_website_description">Icône du site officiel</string>
+    <string name="tv_show_summary_logo_tv_maze_description">Logo de tv maze</string>
+    <string name="tv_show_summary_logo_imdb_description">Logo d\'imdb</string>
+    <string name="tv_show_summary_ic_network_description">Icône du réseau</string>
+    <string name="tv_show_summary_header">Résummé</string>
+
+    <string name="all_ic_share_description">Icône du partage</string>
+    <string name="tv_show_details_ic_arrow_back_description">Bouton retour</string>
+    <string name="tv_show_details_cover_description">Couverture de la série</string>
+    <string name="tv_show_details_status">Statut : %1$s</string>
+    <string name="item_all_format_premiered">Sortie : %1$s</string>
+    <string name="item_all_format_premiere">Sortie : %1$s</string>
+    <string name="tv_show_details_backdrop_description">Fond</string>
+
+    <string name="item_season_s_prefix_format">S%1$s</string>
+    <string name="item_season_order_format">Épisodes : %1$s</string>
+    <string name="item_season_season_cover_description">Couverture de la saison</string>
+
+    <string name="item_episode_hashtag_prefix_format">#%1$s</string>
+    <string name="item_episode_screen_description">Image de l\'épisode</string>
+    <string name="item_episode_summary_header">Résumé</string>
+
+    <string name="item_all_ic_diamond_description">Image du bouton ajouter aux vues</string>
+    <string name="item_all_cover_description">Couverture de la série</string>
+    <string name="item_all_ic_runtime_description">Icône de durée</string>
+
+    <string name="fragment_seasons_empty_episodes_message">Les épisodes n\'ont pas encore été ajoutés</string>
+
+    <string name="time_calculator_search_result_not_found">Rien n\'a été trouvé</string>
+    <string name="time_calculator_toolbar_title">Calculateur de durées</string>
+    <string name="time_calculator_header_info">Calculez le temps total passé à regarder des séries</string>
+    <string name="time_calculator_background_description">Fond</string>
+    <string name="time_calculator_increment_selected">+1 sélectionné</string>
+    <string name="time_calculator_episode_order_icon_description">Icône de l\'ordre des épisodes</string>
+    <string name="time_calculator_incerement_selected">+ 1 sélectionné</string>
+    <string name="time_calculator_decrement_selected">- 1 sélectionné</string>
+    <string name="time_calculator_addition_episodes">+ %1$s épisodes</string>
+    <string name="time_calculator_subtraction_episodes">- %1$s épisodes</string>
+    <string name="time_calculator_tv_show_present">Série déjà ajoutée.</string>
+
+    <string name="season_tracker_cover_description">Couverture de l\'épisode</string>
+
+    <string name="all_font_path">fonts/coolvetica.ttf</string>
+    <string name="cover_transition">transition_cover</string>
+    <string name="title_transition">transition_title</string>
+    <string name="zero_prefix_format">0%1$s</string>
+    <string name="divider_format">%1$s / %2$s</string>
+    <string name="season_number_format">Saison #%1$s</string>
+
+    <string name="all_toast_error_message">Quelque chose s\'est mal passé</string>
+    <string name="fragment_top_list_backdrop_description">Fond de la barre d\'appli</string>
+    <string name="view_runtime_alerter_description">Icône d\'alerte de durée</string>
+    <string name="view_time_calculator_counter_icon__description">Icône d\'alerte de durée</string>
+    <string name="all_suggestion_dialog_title">Choisissez</string>
+    <string name="all_search_view_hint">Entrez une série</string>
+    <string name="all_backdrop_hint">Rechercher une série</string>
+
+    <string name="dialog_select_season_header">Choisissez une saison</string>
+    <string name="item_episode_premiere_eta">Sortie : estimée</string>
+    <string name="snackbar_button_disable">Désactiver</string>
+    <string name="snackbar_message_about_notifications">Vous recevrez une notification à chaque nouvel épisode</string>
+    <string name="fab_button_notifications_on">Activer les notifications</string>
+    <string name="fab_button_notifications_off">Désactiver les notifications</string>
+
+    <string name="dialog_on_season_completed_message">Félicitation !\n
+  \n
+  Vous avez regardé %1$s saison %2$s\n
+  Durée de visionnage : %3$s\n
+  Épisode vu : %4$s</string>
+    <string name="dialog_season_tracker_start_new">Suivre une nouvelle série</string>
+    <string name="notification_new_episode_title">Nouvel épisode !</string>
+    <string name="notification_premiere_scheduled">Vous recevrez une notification à la sortie de la série.</string>
+    <string name="item_premiere_genre">Genre : %1$s</string>
+    <string name="fragment_premieres_title_app_bar">Dates de sortie</string>
+    <string name="format_date_us">aaaa-mm-jj</string>
+    <string name="format_new_premiere">Nouvelles sorties : %1$s</string>
+    <string name="menu_title_search">Recherche</string>
+    <string name="toolbar_title_search">Rechercher</string>
+    <string name="your_library_title">Votre bibliothèque</string>
+    <string name="layout_empty_message">Votre bibliothèque est vide.\n
+  Il y a des moyens faciles d\'ajouter des séries</string>
+    <string name="layout_icon_empty_message_description">Icône d\'en-tête</string>
+    <string name="image_view_your_library_background_description">Image en fond</string>
+    <string name="toast_premiere_reminder_dismiss">Rappel de sortie annulé</string>
+    <string name="toast_premiere_reminder_scheduled">Rappel de sortie activé !</string>
+    <string name="alert_dialog_tip_title">Astuce</string>
+    <string name="alert_dialog_your_library_tip_message">Astuce : vous pouvez faire glisser la couverture vers le haut ou vers le bas pour supprimer la série de votre bibliothèque.</string>
+    <string name="alert_dialog_button_text">OK</string>
+    <string name="alert_dialog_season_tracker_tip_message">Astuce : vous pouvez glisser vers le haut ou vers le bas pour supprimer une série.</string>
+    <string name="fab_button_action_reset">Réinitialiser</string>
+</resources>
