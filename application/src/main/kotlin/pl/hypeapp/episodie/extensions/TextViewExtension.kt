@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.os.Build
 import android.text.Html
 import android.widget.TextView
+import com.hanks.htextview.evaporate.EvaporateTextView
 import pl.hypeapp.episodie.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -113,6 +114,10 @@ fun getDatePart(date: Date): Calendar {
 
 fun isAfterPremiereDate(date: Date): Boolean = date.let {
     return Calendar.getInstance().time.after(it)
+}
+
+fun EvaporateTextView.animateTextWithCheck(text: String) = this.layout?.getLineLeft(0)?.let {
+    animateText(text)
 }
 
 private fun isAtLeastOneDay(runtime: Long) = runtime >= TimeUnit.MINUTES.convert(24 * 60, TimeUnit.MINUTES)

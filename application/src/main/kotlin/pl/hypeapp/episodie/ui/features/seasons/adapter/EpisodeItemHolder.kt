@@ -1,9 +1,10 @@
 package pl.hypeapp.episodie.ui.features.seasons.adapter
 
 import android.text.format.DateFormat
-import android.widget.ImageView
+import com.jakewharton.rxbinding2.view.RxView
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.item_episode.view.*
 import pl.hypeapp.domain.model.tvshow.EpisodeModel
 import pl.hypeapp.episodie.R
@@ -11,6 +12,7 @@ import pl.hypeapp.episodie.extensions.loadImage
 import pl.hypeapp.episodie.extensions.manageWatchStateIcon
 import pl.hypeapp.episodie.extensions.setFullRuntime
 import pl.hypeapp.episodie.extensions.setHashTagPrefix
+import java.util.concurrent.TimeUnit
 
 class EpisodeItemHolder(val model: EpisodeModel,
                         private val onToggleGroupListener: OnToggleGroupListener,
@@ -18,13 +20,14 @@ class EpisodeItemHolder(val model: EpisodeModel,
 
     override fun getLayout(): Int = R.layout.item_episode
 
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.ripple_view_item_episode.setOnRippleCompleteListener {
+    override fun bind(viewHolder: ViewHolder, position: Int) = with(viewHolder.itemView) {
+        ripple_view_item_episode.setOnRippleCompleteListener {
             onToggleGroupListener.onToggleGroup()
         }
-        viewHolder.itemView.image_view_item_episode_add_to_watched.setOnClickListener { view ->
-            onChangeWatchStateListener.onChangeEpisodeWatchState(model, view as ImageView)
-        }
+        RxView.clicks(image_view_item_episode_add_to_watched)
+                .throttleFirst(700, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onChangeWatchStateListener.onChangeEpisodeWatchState(model, image_view_item_episode_add_to_watched) }
         bindData(viewHolder)
     }
 

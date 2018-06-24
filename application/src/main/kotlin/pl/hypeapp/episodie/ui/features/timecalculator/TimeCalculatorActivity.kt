@@ -34,6 +34,7 @@ import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.di.components.ActivityComponent
 import pl.hypeapp.episodie.di.components.DaggerActivityComponent
 import pl.hypeapp.episodie.di.module.ActivityModule
+import pl.hypeapp.episodie.extensions.animateTextWithCheck
 import pl.hypeapp.episodie.extensions.getStatusBarHeight
 import pl.hypeapp.episodie.extensions.viewVisible
 import pl.hypeapp.episodie.glide.GlideApp
@@ -278,7 +279,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     private fun startEpisodeOrderAnimation(episodeOrder: String, delay: Long) {
         text_view_time_calculator_episodes_increment.postDelayed({
             text_view_time_calculator_episodes_increment.viewVisible()
-            evaporate_text_view_time_calculator_episodes.animateText((episodeOrderSum).toString())
+            evaporate_text_view_time_calculator_episodes.animateTextWithCheck((episodeOrderSum).toString())
             text_view_time_calculator_episodes_increment.text = episodeOrder
             YoYo.with(Techniques.TakingOff).playOn(text_view_time_calculator_episodes_increment)
         }, delay)
@@ -287,7 +288,7 @@ class TimeCalculatorActivity : BaseActivity(), TimeCalculatorView, MaterialSearc
     private fun startSelectedAnimation(operation: String, delay: Long) {
         text_view_time_calculator_selected_increment.postDelayed({
             text_view_time_calculator_selected_increment.viewVisible()
-            evaporate_text_view_time_calculator_selected.animateText((selectedSum).toString())
+            evaporate_text_view_time_calculator_selected.animateTextWithCheck((selectedSum).toString())
             YoYo.with(Techniques.TakingOff).onStart {
                 text_view_time_calculator_selected_increment.text = operation
             }.playOn(text_view_time_calculator_selected_increment)

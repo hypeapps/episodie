@@ -3,7 +3,8 @@ package pl.hypeapp.episodie.ui.features.top.adapter
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import android.widget.ImageView
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.item_top_list.view.*
 import pl.hypeapp.domain.model.tvshow.TvShowModel
 import pl.hypeapp.episodie.R
@@ -11,6 +12,7 @@ import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.ui.base.adapter.ViewType
 import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.ui.viewmodel.TvShowViewModel
+import java.util.concurrent.TimeUnit
 
 class TopListDelegateAdapter(val onViewSelectedListener: TopListOnViewSelectedListener) : ViewTypeDelegateAdapter {
 
@@ -35,9 +37,10 @@ class TopListDelegateAdapter(val onViewSelectedListener: TopListOnViewSelectedLi
                 text_view_item_top_list_title.text = it.name
                 text_view_item_top_list_runtime.setRuntime(it.fullRuntime)
                 ripple_view_item_top_list.setOnRippleCompleteListener { onViewSelected(item.tvShow) }
-                image_view_item_top_list_diamond.setOnClickListener { view ->
-                    onViewSelectedListener.onWatchStateChange(it, view as ImageView)
-                }
+                RxView.clicks(image_view_item_top_list_diamond)
+                        .throttleFirst(700, TimeUnit.MILLISECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { _ -> onViewSelectedListener.onWatchStateChange(it, image_view_item_top_list_diamond) }
                 image_view_item_top_list_diamond.manageWatchStateIcon(it.watchState)
             }
         }

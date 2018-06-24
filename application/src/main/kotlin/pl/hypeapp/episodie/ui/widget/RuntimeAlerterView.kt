@@ -13,13 +13,14 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.hanks.htextview.evaporate.EvaporateTextView
 import pl.hypeapp.episodie.R
+import pl.hypeapp.episodie.extensions.animateTextWithCheck
 import pl.hypeapp.episodie.extensions.getFullRuntimeFormatted
 import pl.hypeapp.episodie.extensions.setFullRuntime
 import pl.hypeapp.episodie.extensions.viewVisible
 
 class RuntimeAlerterView(context: Context, attributeSet: AttributeSet) : FrameLayout(context, attributeSet) {
 
-    private var text: EvaporateTextView
+    private var runtimeText: EvaporateTextView
 
     private var icon: ImageView
 
@@ -29,7 +30,7 @@ class RuntimeAlerterView(context: Context, attributeSet: AttributeSet) : FrameLa
 
     init {
         inflate(context, R.layout.view_runtime_alerter, this)
-        text = findViewById(R.id.view_alerter_text)
+        runtimeText = findViewById(R.id.view_alerter_text)
         icon = findViewById(R.id.view_alerter_icon)
         runtimeDiffText = findViewById(R.id.view_alerter_runtime_diff)
         this.visibility = View.INVISIBLE
@@ -37,7 +38,7 @@ class RuntimeAlerterView(context: Context, attributeSet: AttributeSet) : FrameLa
     }
 
     fun show(oldRuntime: Long, newRuntime: Long) {
-        text.animateText(getFullRuntimeFormatted(resources, oldRuntime))
+        runtimeText.animateTextWithCheck(getFullRuntimeFormatted(resources, oldRuntime))
         this.clearAnimation()
         postDelayed({
             startSlideInDownAnimation(newRuntime, oldRuntime)
@@ -53,7 +54,7 @@ class RuntimeAlerterView(context: Context, attributeSet: AttributeSet) : FrameLa
                     icon.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_pulse))
                 }
                 .onEnd {
-                    text.animateText(getFullRuntimeFormatted(resources, newRuntime))
+                    runtimeText.animateTextWithCheck(getFullRuntimeFormatted(resources, newRuntime))
                     startSlideInUpAnimation()
                     startTakingOffDiffAnimation(newRuntime - oldRuntime)
                 }

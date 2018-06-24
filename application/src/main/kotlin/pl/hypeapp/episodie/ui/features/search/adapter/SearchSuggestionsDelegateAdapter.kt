@@ -3,13 +3,15 @@ package pl.hypeapp.episodie.ui.features.search.adapter
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.item_search_suggestion.view.*
-import kotlinx.android.synthetic.main.item_top_list.view.coordinator_layout_item_top_list
 import pl.hypeapp.episodie.R
 import pl.hypeapp.episodie.extensions.*
 import pl.hypeapp.episodie.ui.base.adapter.ViewType
 import pl.hypeapp.episodie.ui.base.adapter.ViewTypeDelegateAdapter
 import pl.hypeapp.episodie.ui.viewmodel.TvShowViewModel
+import java.util.concurrent.TimeUnit
 
 class SearchSuggestionsDelegateAdapter(val onSearchSuggestionClickListener: OnSearchSuggestionClickListener)
     : ViewTypeDelegateAdapter {
@@ -32,7 +34,7 @@ class SearchSuggestionsDelegateAdapter(val onSearchSuggestionClickListener: OnSe
                 image_view_item_search_suggestion_cover.loadImage(it.imageMedium)
                 text_view_item_search_suggestion_title.text = it.name
                 image_view_item_search_suggestion_diamond.manageWatchStateIcon(model.tvShow.watchState)
-                if(it.episodeOrder == 0){
+                if (it.episodeOrder == 0) {
                     image_view_item_search_suggestion_diamond.viewInvisible()
                 } else {
                     image_view_item_search_suggestion_diamond.viewVisible()
@@ -54,9 +56,10 @@ class SearchSuggestionsDelegateAdapter(val onSearchSuggestionClickListener: OnSe
                 ripple_view_item_search_suggestion.setOnRippleCompleteListener {
                     onSearchSuggestionClickListener.onItemClick(model.tvShow, image_view_item_search_suggestion_cover)
                 }
-                image_view_item_search_suggestion_diamond.setOnClickListener {
-                    onSearchSuggestionClickListener.onChangeWatchState(model.tvShow, image_view_item_search_suggestion_diamond)
-                }
+                RxView.clicks(image_view_item_search_suggestion_diamond)
+                        .throttleFirst(700, TimeUnit.MILLISECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { _ -> onSearchSuggestionClickListener.onChangeWatchState(it, image_view_item_search_suggestion_diamond) }
             }
         }
     }
