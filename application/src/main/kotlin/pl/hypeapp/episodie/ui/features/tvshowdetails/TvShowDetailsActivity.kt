@@ -16,6 +16,7 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.facebook.device.yearclass.YearClass
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_tv_show_details.*
 import pl.hypeapp.domain.model.WatchState
@@ -178,7 +179,8 @@ class TvShowDetailsActivity : BaseActivity(), TvShowDetailsView, TvShowDetailsPa
 
     override fun subscribeChangeWatchStateButton(): Unit = with(fab_button_tv_show_details_add_to_watched) {
         RxView.clicks(fab_button_tv_show_details_add_to_watched)
-                .throttleFirst(1000, TimeUnit.MILLISECONDS)
+                .throttleFirst(700, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     isWatchStateChanged = true
                     // Workaround for better animation flow.

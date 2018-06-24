@@ -25,7 +25,7 @@ class EpisodeItemHolder(val model: EpisodeModel,
             onToggleGroupListener.onToggleGroup()
         }
         RxView.clicks(image_view_item_episode_add_to_watched)
-                .debounce(300, TimeUnit.MILLISECONDS)
+                .throttleFirst(700, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { onChangeWatchStateListener.onChangeEpisodeWatchState(model, image_view_item_episode_add_to_watched) }
         bindData(viewHolder)
