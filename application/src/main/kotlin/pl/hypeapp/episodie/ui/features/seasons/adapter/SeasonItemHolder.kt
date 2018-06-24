@@ -1,10 +1,11 @@
 package pl.hypeapp.episodie.ui.features.seasons.adapter
 
-import android.widget.ImageView
+import com.jakewharton.rxbinding2.view.RxView
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.item_season.view.*
 import pl.hypeapp.domain.model.tvshow.SeasonModel
 import pl.hypeapp.episodie.R
@@ -12,6 +13,7 @@ import pl.hypeapp.episodie.extensions.loadImage
 import pl.hypeapp.episodie.extensions.manageWatchStateIcon
 import pl.hypeapp.episodie.extensions.setFullRuntime
 import pl.hypeapp.episodie.extensions.setSPrefix
+import java.util.concurrent.TimeUnit
 
 class SeasonItemHolder constructor(private val seasonsModel: SeasonModel,
                                    private val onToggleGroupListener: OnToggleGroupListener,
@@ -22,19 +24,20 @@ class SeasonItemHolder constructor(private val seasonsModel: SeasonModel,
 
     override fun getLayout(): Int = R.layout.item_season
 
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.ripple_view_item_season.setOnClickListener {
-            onToggleGroupListener.onToggleExpandableGroup(expandableGroup)
-        }
-        viewHolder.itemView.image_view_item_season_add_to_watched.setOnClickListener { view ->
-            onChangeWatchStateListener.onChangeSeasonWatchState(seasonsModel, view as ImageView)
-        }
-        bindData(viewHolder)
-        viewHolder.setIsRecyclable(false)
-    }
-
     override fun setExpandableGroup(onToggleListener: ExpandableGroup) {
         expandableGroup = onToggleListener
+    }
+
+    override fun bind(viewHolder: ViewHolder, position: Int) = with(viewHolder.itemView) {
+        ripple_view_item_season.setOnClickListener {
+            onToggleGroupListener.onToggleExpandableGroup(expandableGroup)
+        }
+        RxView.clicks(image_view_item_season_add_to_watched)
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onChangeWatchStateListener.onChangeSeasonWatchState(seasonsModel, image_view_item_season_add_to_watched) }
+        bindData(viewHolder)
+        viewHolder.setIsRecyclable(false)
     }
 
     private fun bindData(viewHolder: ViewHolder) = with(viewHolder.itemView) {
